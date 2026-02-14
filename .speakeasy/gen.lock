@@ -5,8 +5,9 @@ management:
   docVersion: 2.0.0
   speakeasyVersion: 1.716.2
   generationVersion: 2.823.4
-  releaseVersion: 0.1.1
-  configChecksum: f93faf70767ff9e44aaa9c154dc82fc9
+  releaseVersion: 0.1.2
+  configChecksum: 34543cbd014df3e88d98cd22722f61a1
+  published: true
 persistentEdits:
   generation_id: 6cf9fceb-a550-42db-8e2a-c2078be7b38f
   pristine_commit_hash: e3ba142ef2afeb34d0d31fd055b31fd196257767
@@ -6395,11 +6396,11 @@ trackedFiles:
     pristine_git_object: 4aac7f082ee4396f40475ecb18a68d391b316054
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:709567ac7eb5ea54b14237cbe56222673b8706c3
+    last_write_checksum: sha1:a509a8c0ff33bd59d2a76a2b396c84df69a5ebed
     pristine_git_object: 3765d52f293dd40e215660e3eec0f095107c6299
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:8db64e81606d9076a0d2f757824e5a19c982035b
+    last_write_checksum: sha1:d4156ef16093cede8dafc39efb758e0609afc6f3
     pristine_git_object: e2078100dc17afe81ba89a6439a3788096f2a176
   src/core.ts:
     id: f431fdbcd144
@@ -6699,7 +6700,7 @@ trackedFiles:
     pristine_git_object: 44be0eae8246521b230e8e711a88eff738fc015d
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:24bd5aff1494dacfcfbb87b2cb31f47846d787a6
+    last_write_checksum: sha1:037848f2dcdd0520d8eeeaf6ea931c0225d87810
     pristine_git_object: 5e129f5c009a3a571402fc9c45c1889a890edf54
   src/lib/dlv.ts:
     id: b1988214835a
