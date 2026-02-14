@@ -6,7 +6,7 @@ import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import * as types from "../../types/primitives.js";
 import * as operations from "../operations/index.js";
-import { AttioError } from "./attio-error.js";
+import { AttioBaseError } from "./attio-base-error.js";
 
 /**
  * Bad Request
@@ -21,7 +21,7 @@ export type PostV2WebhooksValidationTypeErrorData = {
 /**
  * Bad Request
  */
-export class PostV2WebhooksValidationTypeError extends AttioError {
+export class PostV2WebhooksValidationTypeError extends AttioBaseError {
   type: operations.PostV2WebhooksType;
   code: operations.PostV2WebhooksCode;
 

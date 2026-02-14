@@ -3,10 +3,10 @@
  */
 
 import * as z from "zod/v4/core";
-import { AttioError } from "./attio-error.js";
+import { AttioBaseError } from "./attio-base-error.js";
 import { formatZodError } from "./sdk-validation-error.js";
 
-export class ResponseValidationError extends AttioError {
+export class ResponseValidationError extends AttioBaseError {
   /**
    * The raw value that failed validation.
    */

@@ -6,7 +6,7 @@ import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import * as types from "../../types/primitives.js";
 import * as operations from "../operations/index.js";
-import { AttioError } from "./attio-error.js";
+import { AttioBaseError } from "./attio-base-error.js";
 
 /**
  * Not Found
@@ -21,7 +21,7 @@ export type PutV2ListsListEntriesEntryIdNotFoundErrorData = {
 /**
  * Not Found
  */
-export class PutV2ListsListEntriesEntryIdNotFoundError extends AttioError {
+export class PutV2ListsListEntriesEntryIdNotFoundError extends AttioBaseError {
   type: operations.PutV2ListsListEntriesEntryIdNotFoundType;
   code: operations.PutV2ListsListEntriesEntryIdNotFoundCode;
 
@@ -56,7 +56,7 @@ export type PutV2ListsListEntriesEntryIdImmutableValueErrorData = {
  * Bad Request
  */
 export class PutV2ListsListEntriesEntryIdImmutableValueError
-  extends AttioError
+  extends AttioBaseError
 {
   type: operations.PutV2ListsListEntriesEntryIdBadRequestType;
   code: operations.PutV2ListsListEntriesEntryIdCodeImmutableValue;

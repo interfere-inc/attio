@@ -6,7 +6,7 @@ import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import * as types from "../../types/primitives.js";
 import * as operations from "../operations/index.js";
-import { AttioError } from "./attio-error.js";
+import { AttioBaseError } from "./attio-base-error.js";
 
 /**
  * Conflict
@@ -21,7 +21,7 @@ export type PatchV2ObjectsObjectSlugConflictErrorData = {
 /**
  * Conflict
  */
-export class PatchV2ObjectsObjectSlugConflictError extends AttioError {
+export class PatchV2ObjectsObjectSlugConflictError extends AttioBaseError {
   type: operations.PatchV2ObjectsObjectConflictType;
   code: operations.PatchV2ObjectsObjectConflictCode;
 
@@ -55,7 +55,7 @@ export type PatchV2ObjectsObjectNotFoundErrorData = {
 /**
  * Not Found
  */
-export class PatchV2ObjectsObjectNotFoundError extends AttioError {
+export class PatchV2ObjectsObjectNotFoundError extends AttioBaseError {
   type: operations.PatchV2ObjectsObjectNotFoundType;
   code: operations.PatchV2ObjectsObjectNotFoundCode;
 
@@ -89,7 +89,7 @@ export type PatchV2ObjectsObjectValidationTypeErrorData = {
 /**
  * Bad Request
  */
-export class PatchV2ObjectsObjectValidationTypeError extends AttioError {
+export class PatchV2ObjectsObjectValidationTypeError extends AttioBaseError {
   type: operations.PatchV2ObjectsObjectBadRequestType;
   code: operations.PatchV2ObjectsObjectCodeValidationType;
 

@@ -77,9 +77,9 @@ run();
 
 ### Errors
 
-| Error Type               | Status Code              | Content Type             |
-| ------------------------ | ------------------------ | ------------------------ |
-| errors.AttioDefaultError | 4XX, 5XX                 | \*/\*                    |
+| Error Type        | Status Code       | Content Type      |
+| ----------------- | ----------------- | ----------------- |
+| errors.AttioError | 4XX, 5XX          | \*/\*             |
 
 ## postV2Objects
 
@@ -163,7 +163,7 @@ run();
 | Error Type                            | Status Code                           | Content Type                          |
 | ------------------------------------- | ------------------------------------- | ------------------------------------- |
 | errors.PostV2ObjectsSlugConflictError | 409                                   | application/json                      |
-| errors.AttioDefaultError              | 4XX, 5XX                              | \*/\*                                 |
+| errors.AttioError                     | 4XX, 5XX                              | \*/\*                                 |
 
 ## getV2ObjectsObject
 
@@ -239,7 +239,7 @@ run();
 | Error Type                             | Status Code                            | Content Type                           |
 | -------------------------------------- | -------------------------------------- | -------------------------------------- |
 | errors.GetV2ObjectsObjectNotFoundError | 404                                    | application/json                       |
-| errors.AttioDefaultError               | 4XX, 5XX                               | \*/\*                                  |
+| errors.AttioError                      | 4XX, 5XX                               | \*/\*                                  |
 
 ## patchV2ObjectsObject
 
@@ -331,4 +331,4 @@ run();
 | errors.PatchV2ObjectsObjectValidationTypeError | 400                                            | application/json                               |
 | errors.PatchV2ObjectsObjectNotFoundError       | 404                                            | application/json                               |
 | errors.PatchV2ObjectsObjectSlugConflictError   | 409                                            | application/json                               |
-| errors.AttioDefaultError                       | 4XX, 5XX                                       | \*/\*                                          |
+| errors.AttioError                              | 4XX, 5XX                                       | \*/\*                                          |

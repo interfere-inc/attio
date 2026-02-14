@@ -6,7 +6,7 @@ import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import * as types from "../../types/primitives.js";
 import * as operations from "../operations/index.js";
-import { AttioError } from "./attio-error.js";
+import { AttioBaseError } from "./attio-base-error.js";
 
 /**
  * Not Found
@@ -21,7 +21,7 @@ export type PutV2ListsListEntriesNotFoundErrorData = {
 /**
  * Not Found
  */
-export class PutV2ListsListEntriesNotFoundError extends AttioError {
+export class PutV2ListsListEntriesNotFoundError extends AttioBaseError {
   type: operations.PutV2ListsListEntriesNotFoundType;
   code: operations.PutV2ListsListEntriesNotFoundCode;
 
@@ -55,7 +55,7 @@ export type MultipleMatchResultsErrorData = {
 /**
  * Bad Request
  */
-export class MultipleMatchResultsError extends AttioError {
+export class MultipleMatchResultsError extends AttioBaseError {
   type: operations.PutV2ListsListEntriesBadRequestType;
   code: operations.CodeMultipleMatchResults;
 

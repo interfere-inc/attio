@@ -112,7 +112,7 @@ run();
 | Error Type                              | Status Code                             | Content Type                            |
 | --------------------------------------- | --------------------------------------- | --------------------------------------- |
 | errors.PostV2CommentsValueNotFoundError | 400                                     | application/json                        |
-| errors.AttioDefaultError                | 4XX, 5XX                                | \*/\*                                   |
+| errors.AttioError                       | 4XX, 5XX                                | \*/\*                                   |
 
 ## getV2CommentsCommentId
 
@@ -192,7 +192,7 @@ run();
 | Error Type                                 | Status Code                                | Content Type                               |
 | ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
 | errors.GetV2CommentsCommentIdNotFoundError | 404                                        | application/json                           |
-| errors.AttioDefaultError                   | 4XX, 5XX                                   | \*/\*                                      |
+| errors.AttioError                          | 4XX, 5XX                                   | \*/\*                                      |
 
 ## deleteV2CommentsCommentId
 
@@ -268,4 +268,4 @@ run();
 | Error Type                                    | Status Code                                   | Content Type                                  |
 | --------------------------------------------- | --------------------------------------------- | --------------------------------------------- |
 | errors.DeleteV2CommentsCommentIdNotFoundError | 404                                           | application/json                              |
-| errors.AttioDefaultError                      | 4XX, 5XX                                      | \*/\*                                         |
+| errors.AttioError                             | 4XX, 5XX                                      | \*/\*                                         |

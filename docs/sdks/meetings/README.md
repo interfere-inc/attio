@@ -79,9 +79,9 @@ run();
 
 ### Errors
 
-| Error Type               | Status Code              | Content Type             |
-| ------------------------ | ------------------------ | ------------------------ |
-| errors.AttioDefaultError | 4XX, 5XX                 | \*/\*                    |
+| Error Type        | Status Code       | Content Type      |
+| ----------------- | ----------------- | ----------------- |
+| errors.AttioError | 4XX, 5XX          | \*/\*             |
 
 ## postV2Meetings
 
@@ -197,7 +197,7 @@ run();
 | Error Type                               | Status Code                              | Content Type                             |
 | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
 | errors.PostV2MeetingsValidationTypeError | 400                                      | application/json                         |
-| errors.AttioDefaultError                 | 4XX, 5XX                                 | \*/\*                                    |
+| errors.AttioError                        | 4XX, 5XX                                 | \*/\*                                    |
 
 ## getV2MeetingsMeetingId
 
@@ -275,4 +275,4 @@ run();
 | Error Type                                 | Status Code                                | Content Type                               |
 | ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
 | errors.GetV2MeetingsMeetingIdNotFoundError | 404                                        | application/json                           |
-| errors.AttioDefaultError                   | 4XX, 5XX                                   | \*/\*                                      |
+| errors.AttioError                          | 4XX, 5XX                                   | \*/\*                                      |

@@ -74,6 +74,6 @@ run();
 
 ### Errors
 
-| Error Type               | Status Code              | Content Type             |
-| ------------------------ | ------------------------ | ------------------------ |
-| errors.AttioDefaultError | 4XX, 5XX                 | \*/\*                    |
+| Error Type        | Status Code       | Content Type      |
+| ----------------- | ----------------- | ----------------- |
+| errors.AttioError | 4XX, 5XX          | \*/\*             |

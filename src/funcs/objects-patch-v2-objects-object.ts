@@ -11,7 +11,7 @@ import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
-import { AttioError } from "../models/errors/attio-error.js";
+import { AttioBaseError } from "../models/errors/attio-base-error.js";
 import {
   ConnectionError,
   InvalidRequestError,
@@ -44,7 +44,7 @@ export function objectsPatchV2ObjectsObject(
     | errors.PatchV2ObjectsObjectValidationTypeError
     | errors.PatchV2ObjectsObjectNotFoundError
     | errors.PatchV2ObjectsObjectSlugConflictError
-    | AttioError
+    | AttioBaseError
     | ResponseValidationError
     | ConnectionError
     | RequestAbortedError
@@ -72,7 +72,7 @@ async function $do(
       | errors.PatchV2ObjectsObjectValidationTypeError
       | errors.PatchV2ObjectsObjectNotFoundError
       | errors.PatchV2ObjectsObjectSlugConflictError
-      | AttioError
+      | AttioBaseError
       | ResponseValidationError
       | ConnectionError
       | RequestAbortedError
@@ -164,7 +164,7 @@ async function $do(
     | errors.PatchV2ObjectsObjectValidationTypeError
     | errors.PatchV2ObjectsObjectNotFoundError
     | errors.PatchV2ObjectsObjectSlugConflictError
-    | AttioError
+    | AttioBaseError
     | ResponseValidationError
     | ConnectionError
     | RequestAbortedError

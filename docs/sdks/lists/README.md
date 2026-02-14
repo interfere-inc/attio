@@ -77,9 +77,9 @@ run();
 
 ### Errors
 
-| Error Type               | Status Code              | Content Type             |
-| ------------------------ | ------------------------ | ------------------------ |
-| errors.AttioDefaultError | 4XX, 5XX                 | \*/\*                    |
+| Error Type        | Status Code       | Content Type      |
+| ----------------- | ----------------- | ----------------- |
+| errors.AttioError | 4XX, 5XX          | \*/\*             |
 
 ## postV2Lists
 
@@ -186,7 +186,7 @@ run();
 | errors.BillingError                  | 403                                  | application/json                     |
 | errors.PostV2ListsNotFoundError      | 404                                  | application/json                     |
 | errors.PostV2ListsSlugConflictError  | 409                                  | application/json                     |
-| errors.AttioDefaultError             | 4XX, 5XX                             | \*/\*                                |
+| errors.AttioError                    | 4XX, 5XX                             | \*/\*                                |
 
 ## getV2ListsList
 
@@ -262,7 +262,7 @@ run();
 | Error Type                         | Status Code                        | Content Type                       |
 | ---------------------------------- | ---------------------------------- | ---------------------------------- |
 | errors.GetV2ListsListNotFoundError | 404                                | application/json                   |
-| errors.AttioDefaultError           | 4XX, 5XX                           | \*/\*                              |
+| errors.AttioError                  | 4XX, 5XX                           | \*/\*                              |
 
 ## patchV2ListsList
 
@@ -365,4 +365,4 @@ run();
 | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- |
 | errors.PatchV2ListsListValueNotFoundError | 400                                       | application/json                          |
 | errors.PatchV2ListsListNotFoundError      | 404                                       | application/json                          |
-| errors.AttioDefaultError                  | 4XX, 5XX                                  | \*/\*                                     |
+| errors.AttioError                         | 4XX, 5XX                                  | \*/\*                                     |

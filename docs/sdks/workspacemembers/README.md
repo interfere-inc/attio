@@ -75,9 +75,9 @@ run();
 
 ### Errors
 
-| Error Type               | Status Code              | Content Type             |
-| ------------------------ | ------------------------ | ------------------------ |
-| errors.AttioDefaultError | 4XX, 5XX                 | \*/\*                    |
+| Error Type        | Status Code       | Content Type      |
+| ----------------- | ----------------- | ----------------- |
+| errors.AttioError | 4XX, 5XX          | \*/\*             |
 
 ## getV2WorkspaceMembersWorkspaceMemberId
 
@@ -153,4 +153,4 @@ run();
 | Error Type                                                 | Status Code                                                | Content Type                                               |
 | ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- |
 | errors.GetV2WorkspaceMembersWorkspaceMemberIdNotFoundError | 404                                                        | application/json                                           |
-| errors.AttioDefaultError                                   | 4XX, 5XX                                                   | \*/\*                                                      |
+| errors.AttioError                                          | 4XX, 5XX                                                   | \*/\*                                                      |

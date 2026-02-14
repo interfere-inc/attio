@@ -6,7 +6,7 @@ import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import * as types from "../../types/primitives.js";
 import * as operations from "../operations/index.js";
-import { AttioError } from "./attio-error.js";
+import { AttioBaseError } from "./attio-base-error.js";
 
 /**
  * Not Found
@@ -21,7 +21,7 @@ export type DeleteV2TasksTaskIdNotFoundErrorData = {
 /**
  * Not Found
  */
-export class DeleteV2TasksTaskIdNotFoundError extends AttioError {
+export class DeleteV2TasksTaskIdNotFoundError extends AttioBaseError {
   type: operations.DeleteV2TasksTaskIdType;
   code: operations.DeleteV2TasksTaskIdCode;
 

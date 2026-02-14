@@ -8,7 +8,7 @@ import { compactMap } from "../lib/primitives.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
-import { AttioError } from "../models/errors/attio-error.js";
+import { AttioBaseError } from "../models/errors/attio-base-error.js";
 import {
   ConnectionError,
   InvalidRequestError,
@@ -36,7 +36,7 @@ export function listsGetV2Lists(
 ): APIPromise<
   Result<
     operations.GetV2ListsResponse,
-    | AttioError
+    | AttioBaseError
     | ResponseValidationError
     | ConnectionError
     | RequestAbortedError
@@ -59,7 +59,7 @@ async function $do(
   [
     Result<
       operations.GetV2ListsResponse,
-      | AttioError
+      | AttioBaseError
       | ResponseValidationError
       | ConnectionError
       | RequestAbortedError
@@ -123,7 +123,7 @@ async function $do(
 
   const [result] = await M.match<
     operations.GetV2ListsResponse,
-    | AttioError
+    | AttioBaseError
     | ResponseValidationError
     | ConnectionError
     | RequestAbortedError

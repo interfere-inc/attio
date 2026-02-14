@@ -6,7 +6,7 @@ import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import * as types from "../../types/primitives.js";
 import * as operations from "../operations/index.js";
-import { AttioError } from "./attio-error.js";
+import { AttioBaseError } from "./attio-base-error.js";
 
 /**
  * Conflict
@@ -21,7 +21,7 @@ export type PostV2ObjectsSlugConflictErrorData = {
 /**
  * Conflict
  */
-export class PostV2ObjectsSlugConflictError extends AttioError {
+export class PostV2ObjectsSlugConflictError extends AttioBaseError {
   type: operations.PostV2ObjectsType;
   code: operations.PostV2ObjectsCode;
 

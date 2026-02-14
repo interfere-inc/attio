@@ -91,7 +91,7 @@ run();
 | Error Type                     | Status Code                    | Content Type                   |
 | ------------------------------ | ------------------------------ | ------------------------------ |
 | errors.GetV2NotesNotFoundError | 404                            | application/json               |
-| errors.AttioDefaultError       | 4XX, 5XX                       | \*/\*                          |
+| errors.AttioError              | 4XX, 5XX                       | \*/\*                          |
 
 ## postV2Notes
 
@@ -183,7 +183,7 @@ run();
 | Error Type                      | Status Code                     | Content Type                    |
 | ------------------------------- | ------------------------------- | ------------------------------- |
 | errors.PostV2NotesNotFoundError | 404                             | application/json                |
-| errors.AttioDefaultError        | 4XX, 5XX                        | \*/\*                           |
+| errors.AttioError               | 4XX, 5XX                        | \*/\*                           |
 
 ## getV2NotesNoteId
 
@@ -259,7 +259,7 @@ run();
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
 | errors.GetV2NotesNoteIdNotFoundError | 404                                  | application/json                     |
-| errors.AttioDefaultError             | 4XX, 5XX                             | \*/\*                                |
+| errors.AttioError                    | 4XX, 5XX                             | \*/\*                                |
 
 ## deleteV2NotesNoteId
 
@@ -335,4 +335,4 @@ run();
 | Error Type                              | Status Code                             | Content Type                            |
 | --------------------------------------- | --------------------------------------- | --------------------------------------- |
 | errors.DeleteV2NotesNoteIdNotFoundError | 404                                     | application/json                        |
-| errors.AttioDefaultError                | 4XX, 5XX                                | \*/\*                                   |
+| errors.AttioError                       | 4XX, 5XX                                | \*/\*                                   |

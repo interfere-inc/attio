@@ -6,7 +6,7 @@ import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import * as types from "../../types/primitives.js";
 import * as operations from "../operations/index.js";
-import { AttioError } from "./attio-error.js";
+import { AttioBaseError } from "./attio-base-error.js";
 
 /**
  * Not Found
@@ -22,7 +22,7 @@ export type GetV2TargetIdentifierAttributesAttributeOptionsNotFoundErrorData = {
  * Not Found
  */
 export class GetV2TargetIdentifierAttributesAttributeOptionsNotFoundError
-  extends AttioError
+  extends AttioBaseError
 {
   type: operations.GetV2TargetIdentifierAttributesAttributeOptionsType;
   code: operations.GetV2TargetIdentifierAttributesAttributeOptionsCode;

@@ -11,7 +11,7 @@ import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
-import { AttioError } from "../models/errors/attio-error.js";
+import { AttioBaseError } from "../models/errors/attio-base-error.js";
 import {
   ConnectionError,
   InvalidRequestError,
@@ -43,7 +43,7 @@ export function recordsPatchV2ObjectsObjectRecordsRecordId(
     operations.PatchV2ObjectsObjectRecordsRecordIdResponse,
     | errors.PatchV2ObjectsObjectRecordsRecordIdMissingValueError
     | errors.PatchV2ObjectsObjectRecordsRecordIdNotFoundError
-    | AttioError
+    | AttioBaseError
     | ResponseValidationError
     | ConnectionError
     | RequestAbortedError
@@ -70,7 +70,7 @@ async function $do(
       operations.PatchV2ObjectsObjectRecordsRecordIdResponse,
       | errors.PatchV2ObjectsObjectRecordsRecordIdMissingValueError
       | errors.PatchV2ObjectsObjectRecordsRecordIdNotFoundError
-      | AttioError
+      | AttioBaseError
       | ResponseValidationError
       | ConnectionError
       | RequestAbortedError
@@ -170,7 +170,7 @@ async function $do(
     operations.PatchV2ObjectsObjectRecordsRecordIdResponse,
     | errors.PatchV2ObjectsObjectRecordsRecordIdMissingValueError
     | errors.PatchV2ObjectsObjectRecordsRecordIdNotFoundError
-    | AttioError
+    | AttioBaseError
     | ResponseValidationError
     | ConnectionError
     | RequestAbortedError

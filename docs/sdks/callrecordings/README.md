@@ -88,9 +88,9 @@ run();
 
 ### Errors
 
-| Error Type               | Status Code              | Content Type             |
-| ------------------------ | ------------------------ | ------------------------ |
-| errors.AttioDefaultError | 4XX, 5XX                 | \*/\*                    |
+| Error Type        | Status Code       | Content Type      |
+| ----------------- | ----------------- | ----------------- |
+| errors.AttioError | 4XX, 5XX          | \*/\*             |
 
 ## postV2MeetingsMeetingIdCallRecordings
 
@@ -180,7 +180,7 @@ run();
 | errors.PostV2MeetingsMeetingIdCallRecordingsValidationTypeError | 400                                                             | application/json                                                |
 | errors.AuthError                                                | 403                                                             | application/json                                                |
 | errors.PostV2MeetingsMeetingIdCallRecordingsNotFoundError       | 404                                                             | application/json                                                |
-| errors.AttioDefaultError                                        | 4XX, 5XX                                                        | \*/\*                                                           |
+| errors.AttioError                                               | 4XX, 5XX                                                        | \*/\*                                                           |
 
 ## getV2MeetingsMeetingIdCallRecordingsCallRecordingId
 
@@ -260,7 +260,7 @@ run();
 | Error Type                                                              | Status Code                                                             | Content Type                                                            |
 | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- |
 | errors.GetV2MeetingsMeetingIdCallRecordingsCallRecordingIdNotFoundError | 404                                                                     | application/json                                                        |
-| errors.AttioDefaultError                                                | 4XX, 5XX                                                                | \*/\*                                                                   |
+| errors.AttioError                                                       | 4XX, 5XX                                                                | \*/\*                                                                   |
 
 ## deleteV2MeetingsMeetingIdCallRecordingsCallRecordingId
 
@@ -340,4 +340,4 @@ run();
 | Error Type                                                                 | Status Code                                                                | Content Type                                                               |
 | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
 | errors.DeleteV2MeetingsMeetingIdCallRecordingsCallRecordingIdNotFoundError | 404                                                                        | application/json                                                           |
-| errors.AttioDefaultError                                                   | 4XX, 5XX                                                                   | \*/\*                                                                      |
+| errors.AttioError                                                          | 4XX, 5XX                                                                   | \*/\*                                                                      |

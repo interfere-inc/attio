@@ -117,7 +117,7 @@ run();
 | Error Type                                      | Status Code                                     | Content Type                                    |
 | ----------------------------------------------- | ----------------------------------------------- | ----------------------------------------------- |
 | errors.PostV2ListsListEntriesQueryNotFoundError | 404                                             | application/json                                |
-| errors.AttioDefaultError                        | 4XX, 5XX                                        | \*/\*                                           |
+| errors.AttioError                               | 4XX, 5XX                                        | \*/\*                                           |
 
 ## putV2ListsListEntries
 
@@ -224,7 +224,7 @@ run();
 | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- |
 | errors.MultipleMatchResultsError          | 400                                       | application/json                          |
 | errors.PutV2ListsListEntriesNotFoundError | 404                                       | application/json                          |
-| errors.AttioDefaultError                  | 4XX, 5XX                                  | \*/\*                                     |
+| errors.AttioError                         | 4XX, 5XX                                  | \*/\*                                     |
 
 ## postV2ListsListEntries
 
@@ -331,7 +331,7 @@ run();
 | ----------------------------------------------- | ----------------------------------------------- | ----------------------------------------------- |
 | errors.PostV2ListsListEntriesValueNotFoundError | 400                                             | application/json                                |
 | errors.PostV2ListsListEntriesNotFoundError      | 404                                             | application/json                                |
-| errors.AttioDefaultError                        | 4XX, 5XX                                        | \*/\*                                           |
+| errors.AttioError                               | 4XX, 5XX                                        | \*/\*                                           |
 
 ## getV2ListsListEntriesEntryId
 
@@ -409,7 +409,7 @@ run();
 | Error Type                                       | Status Code                                      | Content Type                                     |
 | ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ |
 | errors.GetV2ListsListEntriesEntryIdNotFoundError | 404                                              | application/json                                 |
-| errors.AttioDefaultError                         | 4XX, 5XX                                         | \*/\*                                            |
+| errors.AttioError                                | 4XX, 5XX                                         | \*/\*                                            |
 
 ## putV2ListsListEntriesEntryId
 
@@ -514,7 +514,7 @@ run();
 | ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ |
 | errors.PutV2ListsListEntriesEntryIdImmutableValueError | 400                                                    | application/json                                       |
 | errors.PutV2ListsListEntriesEntryIdNotFoundError       | 404                                                    | application/json                                       |
-| errors.AttioDefaultError                               | 4XX, 5XX                                               | \*/\*                                                  |
+| errors.AttioError                                      | 4XX, 5XX                                               | \*/\*                                                  |
 
 ## deleteV2ListsListEntriesEntryId
 
@@ -592,7 +592,7 @@ run();
 | Error Type                                          | Status Code                                         | Content Type                                        |
 | --------------------------------------------------- | --------------------------------------------------- | --------------------------------------------------- |
 | errors.DeleteV2ListsListEntriesEntryIdNotFoundError | 404                                                 | application/json                                    |
-| errors.AttioDefaultError                            | 4XX, 5XX                                            | \*/\*                                               |
+| errors.AttioError                                   | 4XX, 5XX                                            | \*/\*                                               |
 
 ## patchV2ListsListEntriesEntryId
 
@@ -697,7 +697,7 @@ run();
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | errors.PatchV2ListsListEntriesEntryIdImmutableValueError | 400                                                      | application/json                                         |
 | errors.PatchV2ListsListEntriesEntryIdNotFoundError       | 404                                                      | application/json                                         |
-| errors.AttioDefaultError                                 | 4XX, 5XX                                                 | \*/\*                                                    |
+| errors.AttioError                                        | 4XX, 5XX                                                 | \*/\*                                                    |
 
 ## getV2ListsListEntriesEntryIdAttributesAttributeValues
 
@@ -783,4 +783,4 @@ run();
 | Error Type                                                                | Status Code                                                               | Content Type                                                              |
 | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
 | errors.GetV2ListsListEntriesEntryIdAttributesAttributeValuesNotFoundError | 404                                                                       | application/json                                                          |
-| errors.AttioDefaultError                                                  | 4XX, 5XX                                                                  | \*/\*                                                                     |
+| errors.AttioError                                                         | 4XX, 5XX                                                                  | \*/\*                                                                     |

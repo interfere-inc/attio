@@ -6,7 +6,7 @@ import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import * as types from "../../types/primitives.js";
 import * as operations from "../operations/index.js";
-import { AttioError } from "./attio-error.js";
+import { AttioBaseError } from "./attio-base-error.js";
 
 /**
  * Not Found
@@ -25,7 +25,7 @@ export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesNotFoundEr
  * Not Found
  */
 export class GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesNotFoundError
-  extends AttioError
+  extends AttioBaseError
 {
   type:
     operations.GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesNotFoundType;
@@ -69,7 +69,7 @@ export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesValidation
  * Bad Request
  */
 export class GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesValidationTypeError
-  extends AttioError
+  extends AttioBaseError
 {
   type:
     operations.GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesBadRequestType;

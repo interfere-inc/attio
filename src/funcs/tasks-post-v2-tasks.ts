@@ -11,7 +11,7 @@ import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
-import { AttioError } from "../models/errors/attio-error.js";
+import { AttioBaseError } from "../models/errors/attio-base-error.js";
 import {
   ConnectionError,
   InvalidRequestError,
@@ -45,7 +45,7 @@ export function tasksPostV2Tasks(
     operations.PostV2TasksResponse,
     | errors.PostV2TasksValidationTypeError
     | errors.PostV2TasksNotFoundError
-    | AttioError
+    | AttioBaseError
     | ResponseValidationError
     | ConnectionError
     | RequestAbortedError
@@ -72,7 +72,7 @@ async function $do(
       operations.PostV2TasksResponse,
       | errors.PostV2TasksValidationTypeError
       | errors.PostV2TasksNotFoundError
-      | AttioError
+      | AttioBaseError
       | ResponseValidationError
       | ConnectionError
       | RequestAbortedError
@@ -155,7 +155,7 @@ async function $do(
     operations.PostV2TasksResponse,
     | errors.PostV2TasksValidationTypeError
     | errors.PostV2TasksNotFoundError
-    | AttioError
+    | AttioBaseError
     | ResponseValidationError
     | ConnectionError
     | RequestAbortedError

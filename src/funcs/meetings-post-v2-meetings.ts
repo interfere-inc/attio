@@ -11,7 +11,7 @@ import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
-import { AttioError } from "../models/errors/attio-error.js";
+import { AttioBaseError } from "../models/errors/attio-base-error.js";
 import {
   ConnectionError,
   InvalidRequestError,
@@ -44,7 +44,7 @@ export function meetingsPostV2Meetings(
   Result<
     operations.PostV2MeetingsResponse,
     | errors.PostV2MeetingsValidationTypeError
-    | AttioError
+    | AttioBaseError
     | ResponseValidationError
     | ConnectionError
     | RequestAbortedError
@@ -70,7 +70,7 @@ async function $do(
     Result<
       operations.PostV2MeetingsResponse,
       | errors.PostV2MeetingsValidationTypeError
-      | AttioError
+      | AttioBaseError
       | ResponseValidationError
       | ConnectionError
       | RequestAbortedError
@@ -152,7 +152,7 @@ async function $do(
   const [result] = await M.match<
     operations.PostV2MeetingsResponse,
     | errors.PostV2MeetingsValidationTypeError
-    | AttioError
+    | AttioBaseError
     | ResponseValidationError
     | ConnectionError
     | RequestAbortedError

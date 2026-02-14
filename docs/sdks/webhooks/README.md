@@ -85,9 +85,9 @@ run();
 
 ### Errors
 
-| Error Type               | Status Code              | Content Type             |
-| ------------------------ | ------------------------ | ------------------------ |
-| errors.AttioDefaultError | 4XX, 5XX                 | \*/\*                    |
+| Error Type        | Status Code       | Content Type      |
+| ----------------- | ----------------- | ----------------- |
+| errors.AttioError | 4XX, 5XX          | \*/\*             |
 
 ## postV2Webhooks
 
@@ -169,7 +169,7 @@ run();
 | Error Type                               | Status Code                              | Content Type                             |
 | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
 | errors.PostV2WebhooksValidationTypeError | 400                                      | application/json                         |
-| errors.AttioDefaultError                 | 4XX, 5XX                                 | \*/\*                                    |
+| errors.AttioError                        | 4XX, 5XX                                 | \*/\*                                    |
 
 ## getV2WebhooksWebhookId
 
@@ -245,7 +245,7 @@ run();
 | Error Type                                 | Status Code                                | Content Type                               |
 | ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
 | errors.GetV2WebhooksWebhookIdNotFoundError | 404                                        | application/json                           |
-| errors.AttioDefaultError                   | 4XX, 5XX                                   | \*/\*                                      |
+| errors.AttioError                          | 4XX, 5XX                                   | \*/\*                                      |
 
 ## deleteV2WebhooksWebhookId
 
@@ -321,7 +321,7 @@ run();
 | Error Type                                    | Status Code                                   | Content Type                                  |
 | --------------------------------------------- | --------------------------------------------- | --------------------------------------------- |
 | errors.DeleteV2WebhooksWebhookIdNotFoundError | 404                                           | application/json                              |
-| errors.AttioDefaultError                      | 4XX, 5XX                                      | \*/\*                                         |
+| errors.AttioError                             | 4XX, 5XX                                      | \*/\*                                         |
 
 ## patchV2WebhooksWebhookId
 
@@ -435,4 +435,4 @@ run();
 | Error Type                                   | Status Code                                  | Content Type                                 |
 | -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
 | errors.PatchV2WebhooksWebhookIdNotFoundError | 404                                          | application/json                             |
-| errors.AttioDefaultError                     | 4XX, 5XX                                     | \*/\*                                        |
+| errors.AttioError                            | 4XX, 5XX                                     | \*/\*                                        |

@@ -6,7 +6,7 @@ import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import * as types from "../../types/primitives.js";
 import * as operations from "../operations/index.js";
-import { AttioError } from "./attio-error.js";
+import { AttioBaseError } from "./attio-base-error.js";
 
 /**
  * Not Found
@@ -22,7 +22,7 @@ export type PostV2MeetingsMeetingIdCallRecordingsNotFoundErrorData = {
  * Not Found
  */
 export class PostV2MeetingsMeetingIdCallRecordingsNotFoundError
-  extends AttioError
+  extends AttioBaseError
 {
   type: operations.PostV2MeetingsMeetingIdCallRecordingsNotFoundType;
   code: operations.PostV2MeetingsMeetingIdCallRecordingsNotFoundCode;
@@ -57,7 +57,7 @@ export type AuthErrorData = {
 /**
  * Forbidden
  */
-export class AuthError extends AttioError {
+export class AuthError extends AttioBaseError {
   type: operations.PostV2MeetingsMeetingIdCallRecordingsForbiddenType;
   code: operations.Code;
 
@@ -92,7 +92,7 @@ export type PostV2MeetingsMeetingIdCallRecordingsValidationTypeErrorData = {
  * Bad Request
  */
 export class PostV2MeetingsMeetingIdCallRecordingsValidationTypeError
-  extends AttioError
+  extends AttioBaseError
 {
   type: operations.PostV2MeetingsMeetingIdCallRecordingsBadRequestType;
   code: operations.PostV2MeetingsMeetingIdCallRecordingsCodeValidationType;

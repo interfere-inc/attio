@@ -44,14 +44,14 @@ typescript:
     repository:
       directory: src/packages/private/internal-sdk
       type: git
-      url: https://github.com/interfere-inc/repo.git  
+      url: https://github.com/interfere-inc/repo.git
   additionalScripts: {}
   alwaysIncludeInboundAndOutbound: false
   author: Interfere, Inc. <support@interfere.com>
-  baseErrorName: "AttioError"
+  baseErrorName: AttioBaseError
   clientServerStatusCodesAsErrors: true
   constFieldsAlwaysOptional: false
-  defaultErrorName: "AttioError"
+  defaultErrorName: AttioError
   enableCustomCodeRegions: false
   enableMCPServer: false
   enableReactQuery: false
@@ -84,7 +84,7 @@ typescript:
   moduleFormat: dual
   multipartArrayFormat: standard
   outputModelSuffix: output
-  packageName: "@interfere/attio"
+  packageName: '@interfere/attio'
   preApplyUnionDiscriminators: true
   preserveModelFieldNames: false
   responseFormat: flat

@@ -6,7 +6,7 @@ import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import * as types from "../../types/primitives.js";
 import * as operations from "../operations/index.js";
-import { AttioError } from "./attio-error.js";
+import { AttioBaseError } from "./attio-base-error.js";
 
 /**
  * Conflict
@@ -25,7 +25,7 @@ export type PostV2TargetIdentifierAttributesAttributeOptionsSlugConflictErrorDat
  * Conflict
  */
 export class PostV2TargetIdentifierAttributesAttributeOptionsSlugConflictError
-  extends AttioError
+  extends AttioBaseError
 {
   type: operations.PostV2TargetIdentifierAttributesAttributeOptionsConflictType;
   code: operations.PostV2TargetIdentifierAttributesAttributeOptionsConflictCode;
@@ -65,7 +65,7 @@ export type PostV2TargetIdentifierAttributesAttributeOptionsNotFoundErrorData =
  * Not Found
  */
 export class PostV2TargetIdentifierAttributesAttributeOptionsNotFoundError
-  extends AttioError
+  extends AttioBaseError
 {
   type: operations.PostV2TargetIdentifierAttributesAttributeOptionsNotFoundType;
   code: operations.PostV2TargetIdentifierAttributesAttributeOptionsNotFoundCode;
@@ -104,7 +104,7 @@ export type PostV2TargetIdentifierAttributesAttributeOptionsValidationTypeErrorD
  * Bad Request
  */
 export class PostV2TargetIdentifierAttributesAttributeOptionsValidationTypeError
-  extends AttioError
+  extends AttioBaseError
 {
   type:
     operations.PostV2TargetIdentifierAttributesAttributeOptionsBadRequestType;

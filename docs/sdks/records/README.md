@@ -120,7 +120,7 @@ run();
 | --------------------------------------------------- | --------------------------------------------------- | --------------------------------------------------- |
 | errors.FilterError                                  | 400                                                 | application/json                                    |
 | errors.PostV2ObjectsObjectRecordsQueryNotFoundError | 404                                                 | application/json                                    |
-| errors.AttioDefaultError                            | 4XX, 5XX                                            | \*/\*                                               |
+| errors.AttioError                                   | 4XX, 5XX                                            | \*/\*                                               |
 
 ## putV2ObjectsObjectRecords
 
@@ -227,7 +227,7 @@ run();
 | -------------------------------------------------- | -------------------------------------------------- | -------------------------------------------------- |
 | errors.PutV2ObjectsObjectRecordsValueNotFoundError | 400                                                | application/json                                   |
 | errors.PutV2ObjectsObjectRecordsNotFoundError      | 404                                                | application/json                                   |
-| errors.AttioDefaultError                           | 4XX, 5XX                                           | \*/\*                                              |
+| errors.AttioError                                  | 4XX, 5XX                                           | \*/\*                                              |
 
 ## postV2ObjectsObjectRecords
 
@@ -330,7 +330,7 @@ run();
 | --------------------------------------------------- | --------------------------------------------------- | --------------------------------------------------- |
 | errors.PostV2ObjectsObjectRecordsValueNotFoundError | 400                                                 | application/json                                    |
 | errors.PostV2ObjectsObjectRecordsNotFoundError      | 404                                                 | application/json                                    |
-| errors.AttioDefaultError                            | 4XX, 5XX                                            | \*/\*                                               |
+| errors.AttioError                                   | 4XX, 5XX                                            | \*/\*                                               |
 
 ## getV2ObjectsObjectRecordsRecordId
 
@@ -408,7 +408,7 @@ run();
 | Error Type                                            | Status Code                                           | Content Type                                          |
 | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
 | errors.GetV2ObjectsObjectRecordsRecordIdNotFoundError | 404                                                   | application/json                                      |
-| errors.AttioDefaultError                              | 4XX, 5XX                                              | \*/\*                                                 |
+| errors.AttioError                                     | 4XX, 5XX                                              | \*/\*                                                 |
 
 ## putV2ObjectsObjectRecordsRecordId
 
@@ -513,7 +513,7 @@ run();
 | --------------------------------------------------------- | --------------------------------------------------------- | --------------------------------------------------------- |
 | errors.PutV2ObjectsObjectRecordsRecordIdMissingValueError | 400                                                       | application/json                                          |
 | errors.PutV2ObjectsObjectRecordsRecordIdNotFoundError     | 404                                                       | application/json                                          |
-| errors.AttioDefaultError                                  | 4XX, 5XX                                                  | \*/\*                                                     |
+| errors.AttioError                                         | 4XX, 5XX                                                  | \*/\*                                                     |
 
 ## deleteV2ObjectsObjectRecordsRecordId
 
@@ -591,7 +591,7 @@ run();
 | Error Type                                               | Status Code                                              | Content Type                                             |
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | errors.DeleteV2ObjectsObjectRecordsRecordIdNotFoundError | 404                                                      | application/json                                         |
-| errors.AttioDefaultError                                 | 4XX, 5XX                                                 | \*/\*                                                    |
+| errors.AttioError                                        | 4XX, 5XX                                                 | \*/\*                                                    |
 
 ## patchV2ObjectsObjectRecordsRecordId
 
@@ -696,7 +696,7 @@ run();
 | ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- |
 | errors.PatchV2ObjectsObjectRecordsRecordIdMissingValueError | 400                                                         | application/json                                            |
 | errors.PatchV2ObjectsObjectRecordsRecordIdNotFoundError     | 404                                                         | application/json                                            |
-| errors.AttioDefaultError                                    | 4XX, 5XX                                                    | \*/\*                                                       |
+| errors.AttioError                                           | 4XX, 5XX                                                    | \*/\*                                                       |
 
 ## getV2ObjectsObjectRecordsRecordIdAttributesAttributeValues
 
@@ -783,7 +783,7 @@ run();
 | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
 | errors.GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesValidationTypeError | 400                                                                                  | application/json                                                                     |
 | errors.GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesNotFoundError       | 404                                                                                  | application/json                                                                     |
-| errors.AttioDefaultError                                                             | 4XX, 5XX                                                                             | \*/\*                                                                                |
+| errors.AttioError                                                                    | 4XX, 5XX                                                                             | \*/\*                                                                                |
 
 ## getV2ObjectsObjectRecordsRecordIdEntries
 
@@ -862,9 +862,9 @@ run();
 
 ### Errors
 
-| Error Type               | Status Code              | Content Type             |
-| ------------------------ | ------------------------ | ------------------------ |
-| errors.AttioDefaultError | 4XX, 5XX                 | \*/\*                    |
+| Error Type        | Status Code       | Content Type      |
+| ----------------- | ----------------- | ----------------- |
+| errors.AttioError | 4XX, 5XX          | \*/\*             |
 
 ## postV2ObjectsRecordsSearch
 
@@ -962,4 +962,4 @@ run();
 | Error Type                                          | Status Code                                         | Content Type                                        |
 | --------------------------------------------------- | --------------------------------------------------- | --------------------------------------------------- |
 | errors.PostV2ObjectsRecordsSearchValueNotFoundError | 400                                                 | application/json                                    |
-| errors.AttioDefaultError                            | 4XX, 5XX                                            | \*/\*                                               |
+| errors.AttioError                                   | 4XX, 5XX                                            | \*/\*                                               |

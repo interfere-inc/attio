@@ -6,7 +6,7 @@ import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import * as types from "../../types/primitives.js";
 import * as operations from "../operations/index.js";
-import { AttioError } from "./attio-error.js";
+import { AttioBaseError } from "./attio-base-error.js";
 
 /**
  * Not Found
@@ -21,7 +21,7 @@ export type PatchV2TasksTaskIdNotFoundErrorData = {
 /**
  * Not Found
  */
-export class PatchV2TasksTaskIdNotFoundError extends AttioError {
+export class PatchV2TasksTaskIdNotFoundError extends AttioBaseError {
   type: operations.PatchV2TasksTaskIdNotFoundType;
   code: operations.PatchV2TasksTaskIdNotFoundCode;
 
@@ -55,7 +55,7 @@ export type PatchV2TasksTaskIdValidationTypeErrorData = {
 /**
  * Bad Request
  */
-export class PatchV2TasksTaskIdValidationTypeError extends AttioError {
+export class PatchV2TasksTaskIdValidationTypeError extends AttioBaseError {
   type: operations.PatchV2TasksTaskIdBadRequestType;
   code: operations.PatchV2TasksTaskIdCodeValidationType;
 

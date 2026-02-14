@@ -19,7 +19,7 @@ Developer-friendly & type-safe Typescript SDK specifically catered to leverage *
 <!-- Start Table of Contents [toc] -->
 ## Table of Contents
 <!-- $toc-max-depth=2 -->
-* [@interfere/attio](#attiointerfsdfd)
+* [@interfere/attio](#interfereattio)
   * [SDK Installation](#sdk-installation)
   * [Requirements](#requirements)
   * [SDK Example Usage](#sdk-example-usage)
@@ -409,7 +409,7 @@ run();
 <!-- Start Error Handling [errors] -->
 ## Error Handling
 
-[`AttioError`](./src/models/errors/attio-error.ts) is the base class for all HTTP error responses. It has the following properties:
+[`AttioBaseError`](./src/models/errors/attio-base-error.ts) is the base class for all HTTP error responses. It has the following properties:
 
 | Property            | Type       | Description                                                                             |
 | ------------------- | ---------- | --------------------------------------------------------------------------------------- |
@@ -442,7 +442,7 @@ async function run() {
     console.log(result);
   } catch (error) {
     // The base class for HTTP error responses
-    if (error instanceof errors.AttioError) {
+    if (error instanceof errors.AttioBaseError) {
       console.log(error.message);
       console.log(error.statusCode);
       console.log(error.body);
@@ -465,7 +465,7 @@ run();
 
 ### Error Classes
 **Primary error:**
-* [`AttioError`](./src/models/errors/attio-error.ts): The base class for HTTP error responses.
+* [`AttioBaseError`](./src/models/errors/attio-base-error.ts): The base class for HTTP error responses.
 
 <details><summary>Less common errors (91)</summary>
 
@@ -479,7 +479,7 @@ run();
 * [`UnexpectedClientError`](./src/models/errors/http-client-errors.ts): Unrecognised or unexpected error.
 
 
-**Inherit from [`AttioError`](./src/models/errors/attio-error.ts)**:
+**Inherit from [`AttioBaseError`](./src/models/errors/attio-base-error.ts)**:
 * [`PatchV2ObjectsObjectValidationTypeError`](./src/models/errors/patch-v2-objects-object-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 67 methods.*
 * [`PostV2TargetIdentifierAttributesValidationTypeError`](./src/models/errors/post-v2-target-identifier-attributes-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 67 methods.*
 * [`SystemEditUnauthorizedError`](./src/models/errors/system-edit-unauthorized-error.ts): Bad Request. Status code `400`. Applicable to 1 of 67 methods.*

@@ -6,7 +6,7 @@ import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import * as types from "../../types/primitives.js";
 import * as operations from "../operations/index.js";
-import { AttioError } from "./attio-error.js";
+import { AttioBaseError } from "./attio-base-error.js";
 
 /**
  * Not Found
@@ -21,7 +21,7 @@ export type GetV2NotesNotFoundErrorData = {
 /**
  * Not Found
  */
-export class GetV2NotesNotFoundError extends AttioError {
+export class GetV2NotesNotFoundError extends AttioBaseError {
   type: operations.GetV2NotesType;
   code: operations.GetV2NotesCode;
 

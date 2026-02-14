@@ -94,9 +94,9 @@ run();
 
 ### Errors
 
-| Error Type               | Status Code              | Content Type             |
-| ------------------------ | ------------------------ | ------------------------ |
-| errors.AttioDefaultError | 4XX, 5XX                 | \*/\*                    |
+| Error Type        | Status Code       | Content Type      |
+| ----------------- | ----------------- | ----------------- |
+| errors.AttioError | 4XX, 5XX          | \*/\*             |
 
 ## getV2ThreadsThreadId
 
@@ -176,4 +176,4 @@ run();
 | Error Type                               | Status Code                              | Content Type                             |
 | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
 | errors.GetV2ThreadsThreadIdNotFoundError | 404                                      | application/json                         |
-| errors.AttioDefaultError                 | 4XX, 5XX                                 | \*/\*                                    |
+| errors.AttioError                        | 4XX, 5XX                                 | \*/\*                                    |

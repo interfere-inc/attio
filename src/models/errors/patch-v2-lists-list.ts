@@ -6,7 +6,7 @@ import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import * as types from "../../types/primitives.js";
 import * as operations from "../operations/index.js";
-import { AttioError } from "./attio-error.js";
+import { AttioBaseError } from "./attio-base-error.js";
 
 /**
  * Not Found
@@ -21,7 +21,7 @@ export type PatchV2ListsListNotFoundErrorData = {
 /**
  * Not Found
  */
-export class PatchV2ListsListNotFoundError extends AttioError {
+export class PatchV2ListsListNotFoundError extends AttioBaseError {
   type: operations.PatchV2ListsListNotFoundType;
   code: operations.PatchV2ListsListNotFoundCode;
 
@@ -55,7 +55,7 @@ export type PatchV2ListsListValueNotFoundErrorData = {
 /**
  * Bad Request
  */
-export class PatchV2ListsListValueNotFoundError extends AttioError {
+export class PatchV2ListsListValueNotFoundError extends AttioBaseError {
   type: operations.PatchV2ListsListBadRequestType;
   code: operations.PatchV2ListsListCodeValueNotFound;
 

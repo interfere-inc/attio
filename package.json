@@ -1,7 +1,13 @@
 {
   "name": "@interfere/attio",
   "version": "0.0.1",
-  "author": "Speakeasy",
+  "author": "Interfere, Inc. <support@interfere.com>",
+  "private": true,
+  "repository": {
+    "directory": "src/packages/private/internal-sdk",
+    "type": "git",
+    "url": "https://github.com/interfere-inc/repo.git"
+  },
   "type": "module",
   "tshy": {
     "sourceDialects": [

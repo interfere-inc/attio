@@ -6,7 +6,7 @@ import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import * as types from "../../types/primitives.js";
 import * as operations from "../operations/index.js";
-import { AttioError } from "./attio-error.js";
+import { AttioBaseError } from "./attio-base-error.js";
 
 /**
  * Not Found
@@ -22,7 +22,7 @@ export type PatchV2TargetIdentifierAttributesAttributeNotFoundErrorData = {
  * Not Found
  */
 export class PatchV2TargetIdentifierAttributesAttributeNotFoundError
-  extends AttioError
+  extends AttioBaseError
 {
   type: operations.PatchV2TargetIdentifierAttributesAttributeNotFoundType;
   code: operations.PatchV2TargetIdentifierAttributesAttributeNotFoundCode;
@@ -57,7 +57,7 @@ export type SystemEditUnauthorizedErrorData = {
 /**
  * Bad Request
  */
-export class SystemEditUnauthorizedError extends AttioError {
+export class SystemEditUnauthorizedError extends AttioBaseError {
   type: operations.PatchV2TargetIdentifierAttributesAttributeBadRequestType;
   code: operations.CodeSystemEditUnauthorized;
 

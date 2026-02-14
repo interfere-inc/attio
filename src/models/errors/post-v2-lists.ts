@@ -6,7 +6,7 @@ import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import * as types from "../../types/primitives.js";
 import * as operations from "../operations/index.js";
-import { AttioError } from "./attio-error.js";
+import { AttioBaseError } from "./attio-base-error.js";
 
 /**
  * Conflict
@@ -21,7 +21,7 @@ export type PostV2ListsSlugConflictErrorData = {
 /**
  * Conflict
  */
-export class PostV2ListsSlugConflictError extends AttioError {
+export class PostV2ListsSlugConflictError extends AttioBaseError {
   type: operations.PostV2ListsConflictType;
   code: operations.PostV2ListsConflictCode;
 
@@ -55,7 +55,7 @@ export type PostV2ListsNotFoundErrorData = {
 /**
  * Not Found
  */
-export class PostV2ListsNotFoundError extends AttioError {
+export class PostV2ListsNotFoundError extends AttioBaseError {
   type: operations.PostV2ListsNotFoundType;
   code: operations.PostV2ListsNotFoundCode;
 
@@ -89,7 +89,7 @@ export type BillingErrorData = {
 /**
  * Forbidden
  */
-export class BillingError extends AttioError {
+export class BillingError extends AttioBaseError {
   type: operations.PostV2ListsForbiddenType;
   code: operations.PostV2ListsCodeBillingError;
 
@@ -123,7 +123,7 @@ export type PostV2ListsValueNotFoundErrorData = {
 /**
  * Bad Request
  */
-export class PostV2ListsValueNotFoundError extends AttioError {
+export class PostV2ListsValueNotFoundError extends AttioBaseError {
   type: operations.PostV2ListsBadRequestType;
   code: operations.PostV2ListsCodeValueNotFound;
 

@@ -5,7 +5,7 @@
 import * as z from "zod/v4-mini";
 import * as types from "../../types/primitives.js";
 import * as operations from "../operations/index.js";
-import { AttioError } from "./attio-error.js";
+import { AttioBaseError } from "./attio-base-error.js";
 
 /**
  * Bad Request
@@ -20,7 +20,7 @@ export type PostV2CommentsValueNotFoundErrorData = {
 /**
  * Bad Request
  */
-export class PostV2CommentsValueNotFoundError extends AttioError {
+export class PostV2CommentsValueNotFoundError extends AttioBaseError {
   type: operations.PostV2CommentsBadRequestType;
   code: operations.PostV2CommentsCode;
 

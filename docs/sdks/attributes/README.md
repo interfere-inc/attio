@@ -96,9 +96,9 @@ run();
 
 ### Errors
 
-| Error Type               | Status Code              | Content Type             |
-| ------------------------ | ------------------------ | ------------------------ |
-| errors.AttioDefaultError | 4XX, 5XX                 | \*/\*                    |
+| Error Type        | Status Code       | Content Type      |
+| ----------------- | ----------------- | ----------------- |
+| errors.AttioError | 4XX, 5XX          | \*/\*             |
 
 ## postV2TargetIdentifierAttributes
 
@@ -244,7 +244,7 @@ run();
 | errors.PostV2TargetIdentifierAttributesValidationTypeError | 400                                                        | application/json                                           |
 | errors.PostV2TargetIdentifierAttributesNotFoundError       | 404                                                        | application/json                                           |
 | errors.PostV2TargetIdentifierAttributesSlugConflictError   | 409                                                        | application/json                                           |
-| errors.AttioDefaultError                                   | 4XX, 5XX                                                   | \*/\*                                                      |
+| errors.AttioError                                          | 4XX, 5XX                                                   | \*/\*                                                      |
 
 ## getV2TargetIdentifierAttributesAttribute
 
@@ -324,7 +324,7 @@ run();
 | Error Type                                                   | Status Code                                                  | Content Type                                                 |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | errors.GetV2TargetIdentifierAttributesAttributeNotFoundError | 404                                                          | application/json                                             |
-| errors.AttioDefaultError                                     | 4XX, 5XX                                                     | \*/\*                                                        |
+| errors.AttioError                                            | 4XX, 5XX                                                     | \*/\*                                                        |
 
 ## patchV2TargetIdentifierAttributesAttribute
 
@@ -463,7 +463,7 @@ run();
 | -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- |
 | errors.SystemEditUnauthorizedError                             | 400                                                            | application/json                                               |
 | errors.PatchV2TargetIdentifierAttributesAttributeNotFoundError | 404                                                            | application/json                                               |
-| errors.AttioDefaultError                                       | 4XX, 5XX                                                       | \*/\*                                                          |
+| errors.AttioError                                              | 4XX, 5XX                                                       | \*/\*                                                          |
 
 ## getV2TargetIdentifierAttributesAttributeOptions
 
@@ -545,7 +545,7 @@ run();
 | Error Type                                                          | Status Code                                                         | Content Type                                                        |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
 | errors.GetV2TargetIdentifierAttributesAttributeOptionsNotFoundError | 404                                                                 | application/json                                                    |
-| errors.AttioDefaultError                                            | 4XX, 5XX                                                            | \*/\*                                                               |
+| errors.AttioError                                                   | 4XX, 5XX                                                            | \*/\*                                                               |
 
 ## postV2TargetIdentifierAttributesAttributeOptions
 
@@ -637,7 +637,7 @@ run();
 | errors.PostV2TargetIdentifierAttributesAttributeOptionsValidationTypeError | 400                                                                        | application/json                                                           |
 | errors.PostV2TargetIdentifierAttributesAttributeOptionsNotFoundError       | 404                                                                        | application/json                                                           |
 | errors.PostV2TargetIdentifierAttributesAttributeOptionsSlugConflictError   | 409                                                                        | application/json                                                           |
-| errors.AttioDefaultError                                                   | 4XX, 5XX                                                                   | \*/\*                                                                      |
+| errors.AttioError                                                          | 4XX, 5XX                                                                   | \*/\*                                                                      |
 
 ## patchV2TargetIdentifierAttributesAttributeOptionsOption
 
@@ -733,7 +733,7 @@ run();
 | errors.PatchV2TargetIdentifierAttributesAttributeOptionsOptionValueNotFoundError | 400                                                                              | application/json                                                                 |
 | errors.PatchV2TargetIdentifierAttributesAttributeOptionsOptionNotFoundError      | 404                                                                              | application/json                                                                 |
 | errors.PatchV2TargetIdentifierAttributesAttributeOptionsOptionSlugConflictError  | 409                                                                              | application/json                                                                 |
-| errors.AttioDefaultError                                                         | 4XX, 5XX                                                                         | \*/\*                                                                            |
+| errors.AttioError                                                                | 4XX, 5XX                                                                         | \*/\*                                                                            |
 
 ## getV2TargetIdentifierAttributesAttributeStatuses
 
@@ -815,7 +815,7 @@ run();
 | Error Type                                                           | Status Code                                                          | Content Type                                                         |
 | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
 | errors.GetV2TargetIdentifierAttributesAttributeStatusesNotFoundError | 404                                                                  | application/json                                                     |
-| errors.AttioDefaultError                                             | 4XX, 5XX                                                             | \*/\*                                                                |
+| errors.AttioError                                                    | 4XX, 5XX                                                             | \*/\*                                                                |
 
 ## postV2TargetIdentifierAttributesAttributeStatuses
 
@@ -911,7 +911,7 @@ run();
 | errors.PostV2TargetIdentifierAttributesAttributeStatusesValidationTypeError | 400                                                                         | application/json                                                            |
 | errors.PostV2TargetIdentifierAttributesAttributeStatusesNotFoundError       | 404                                                                         | application/json                                                            |
 | errors.PostV2TargetIdentifierAttributesAttributeStatusesSlugConflictError   | 409                                                                         | application/json                                                            |
-| errors.AttioDefaultError                                                    | 4XX, 5XX                                                                    | \*/\*                                                                       |
+| errors.AttioError                                                           | 4XX, 5XX                                                                    | \*/\*                                                                       |
 
 ## patchV2TargetIdentifierAttributesAttributeStatusesStatus
 
@@ -1011,4 +1011,4 @@ run();
 | errors.PatchV2TargetIdentifierAttributesAttributeStatusesStatusValueNotFoundError | 400                                                                               | application/json                                                                  |
 | errors.PatchV2TargetIdentifierAttributesAttributeStatusesStatusNotFoundError      | 404                                                                               | application/json                                                                  |
 | errors.PatchV2TargetIdentifierAttributesAttributeStatusesStatusSlugConflictError  | 409                                                                               | application/json                                                                  |
-| errors.AttioDefaultError                                                          | 4XX, 5XX                                                                          | \*/\*                                                                             |
+| errors.AttioError                                                                 | 4XX, 5XX                                                                          | \*/\*                                                                             |

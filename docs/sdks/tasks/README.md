@@ -95,9 +95,9 @@ run();
 
 ### Errors
 
-| Error Type               | Status Code              | Content Type             |
-| ------------------------ | ------------------------ | ------------------------ |
-| errors.AttioDefaultError | 4XX, 5XX                 | \*/\*                    |
+| Error Type        | Status Code       | Content Type      |
+| ----------------- | ----------------- | ----------------- |
+| errors.AttioError | 4XX, 5XX          | \*/\*             |
 
 ## postV2Tasks
 
@@ -190,7 +190,7 @@ run();
 | ------------------------------------- | ------------------------------------- | ------------------------------------- |
 | errors.PostV2TasksValidationTypeError | 400                                   | application/json                      |
 | errors.PostV2TasksNotFoundError       | 404                                   | application/json                      |
-| errors.AttioDefaultError              | 4XX, 5XX                              | \*/\*                                 |
+| errors.AttioError                     | 4XX, 5XX                              | \*/\*                                 |
 
 ## getV2TasksTaskId
 
@@ -266,7 +266,7 @@ run();
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
 | errors.GetV2TasksTaskIdNotFoundError | 404                                  | application/json                     |
-| errors.AttioDefaultError             | 4XX, 5XX                             | \*/\*                                |
+| errors.AttioError                    | 4XX, 5XX                             | \*/\*                                |
 
 ## deleteV2TasksTaskId
 
@@ -342,7 +342,7 @@ run();
 | Error Type                              | Status Code                             | Content Type                            |
 | --------------------------------------- | --------------------------------------- | --------------------------------------- |
 | errors.DeleteV2TasksTaskIdNotFoundError | 404                                     | application/json                        |
-| errors.AttioDefaultError                | 4XX, 5XX                                | \*/\*                                   |
+| errors.AttioError                       | 4XX, 5XX                                | \*/\*                                   |
 
 ## patchV2TasksTaskId
 
@@ -453,4 +453,4 @@ run();
 | -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
 | errors.PatchV2TasksTaskIdValidationTypeError | 400                                          | application/json                             |
 | errors.PatchV2TasksTaskIdNotFoundError       | 404                                          | application/json                             |
-| errors.AttioDefaultError                     | 4XX, 5XX                                     | \*/\*                                        |
+| errors.AttioError                            | 4XX, 5XX                                     | \*/\*                                        |
