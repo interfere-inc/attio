@@ -3,9 +3,14 @@
  */
 
 import * as z from "zod/v4-mini";
+import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
+import * as discriminatedUnionTypes from "../../types/discriminated-union.js";
+import { discriminatedUnion } from "../../types/discriminated-union.js";
+import * as openEnums from "../../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
+import * as types from "../../types/primitives.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
 import * as models from "../index.js";
 
@@ -52,6 +57,2437 @@ export type GetV2TargetIdentifierAttributesAttributeCode = ClosedEnum<
 export type GetV2TargetIdentifierAttributesAttributeResponse = {
   data: models.Attribute;
 };
+
+/**
+ * Whether the attribute is on an object or a list.
+ */
+export const PatchV2TargetIdentifierAttributesAttributeTarget = {
+  Objects: "objects",
+  Lists: "lists",
+} as const;
+/**
+ * Whether the attribute is on an object or a list.
+ */
+export type PatchV2TargetIdentifierAttributesAttributeTarget = ClosedEnum<
+  typeof PatchV2TargetIdentifierAttributesAttributeTarget
+>;
+
+export type PatchV2TargetIdentifierAttributesAttributeDefaultValueStatic = {
+  type: "static";
+  template: Array<models.InputValueUnion>;
+};
+
+/**
+ * For actor reference attributes, you may pass a dynamic value of `"current-user"`. When creating new records or entries, this will cause the actor reference value to be populated with either the workspace member or API token that created the record/entry.
+ */
+export const PatchV2TargetIdentifierAttributesAttributeTemplate = {
+  CurrentUser: "current-user",
+} as const;
+/**
+ * For actor reference attributes, you may pass a dynamic value of `"current-user"`. When creating new records or entries, this will cause the actor reference value to be populated with either the workspace member or API token that created the record/entry.
+ */
+export type PatchV2TargetIdentifierAttributesAttributeTemplate = ClosedEnum<
+  typeof PatchV2TargetIdentifierAttributesAttributeTemplate
+>;
+
+export type PatchV2TargetIdentifierAttributesAttributeDefaultValueDynamic = {
+  type: "dynamic";
+  template: any;
+};
+
+/**
+ * The default value for this attribute. Static values are used to directly populate values using their contents. Dynamic values are used to lookup data at the point of creation. For example, you could use a dynamic value to insert a value for the currently logged in user. Which default values are available is dependent on the type of the attribute. Default values are not currently supported on people or company objects.
+ */
+export type PatchV2TargetIdentifierAttributesAttributeDefaultValueUnion =
+  | PatchV2TargetIdentifierAttributesAttributeDefaultValueDynamic
+  | PatchV2TargetIdentifierAttributesAttributeDefaultValueStatic;
+
+/**
+ * The ISO4217 code representing the currency that values for this attribute should be stored in.
+ */
+export const PatchV2TargetIdentifierAttributesAttributeDefaultCurrencyCode = {
+  Ars: "ARS",
+  Aud: "AUD",
+  Brl: "BRL",
+  Bgn: "BGN",
+  Cad: "CAD",
+  Clp: "CLP",
+  Cny: "CNY",
+  Cop: "COP",
+  Czk: "CZK",
+  Dkk: "DKK",
+  Eur: "EUR",
+  Hkd: "HKD",
+  Huf: "HUF",
+  Isk: "ISK",
+  Inr: "INR",
+  Ils: "ILS",
+  Jpy: "JPY",
+  Kes: "KES",
+  Krw: "KRW",
+  Myr: "MYR",
+  Mxn: "MXN",
+  Ntd: "NTD",
+  Nzd: "NZD",
+  Ngn: "NGN",
+  Nok: "NOK",
+  Xpf: "XPF",
+  Pen: "PEN",
+  Php: "PHP",
+  Pln: "PLN",
+  Gbp: "GBP",
+  Rwf: "RWF",
+  Sar: "SAR",
+  Sgd: "SGD",
+  Zar: "ZAR",
+  Sek: "SEK",
+  Chf: "CHF",
+  Thb: "THB",
+  Aed: "AED",
+  Uyu: "UYU",
+  Usd: "USD",
+} as const;
+/**
+ * The ISO4217 code representing the currency that values for this attribute should be stored in.
+ */
+export type PatchV2TargetIdentifierAttributesAttributeDefaultCurrencyCode =
+  ClosedEnum<
+    typeof PatchV2TargetIdentifierAttributesAttributeDefaultCurrencyCode
+  >;
+
+/**
+ * How the currency should be displayed across the app. "code" will display the ISO currency code e.g. "USD", "name" will display the localized currency name e.g. "British pound", "narrowSymbol" will display "$1" instead of "US$1" and "symbol" will display a localized currency symbol such as "$".
+ */
+export const PatchV2TargetIdentifierAttributesAttributeDisplayType = {
+  Code: "code",
+  Name: "name",
+  NarrowSymbol: "narrowSymbol",
+  Symbol: "symbol",
+} as const;
+/**
+ * How the currency should be displayed across the app. "code" will display the ISO currency code e.g. "USD", "name" will display the localized currency name e.g. "British pound", "narrowSymbol" will display "$1" instead of "US$1" and "symbol" will display a localized currency symbol such as "$".
+ */
+export type PatchV2TargetIdentifierAttributesAttributeDisplayType = ClosedEnum<
+  typeof PatchV2TargetIdentifierAttributesAttributeDisplayType
+>;
+
+/**
+ * Configuration available for attributes of type "currency".
+ */
+export type PatchV2TargetIdentifierAttributesAttributeCurrency = {
+  /**
+   * The ISO4217 code representing the currency that values for this attribute should be stored in.
+   */
+  defaultCurrencyCode:
+    PatchV2TargetIdentifierAttributesAttributeDefaultCurrencyCode;
+  /**
+   * How the currency should be displayed across the app. "code" will display the ISO currency code e.g. "USD", "name" will display the localized currency name e.g. "British pound", "narrowSymbol" will display "$1" instead of "US$1" and "symbol" will display a localized currency symbol such as "$".
+   */
+  displayType: PatchV2TargetIdentifierAttributesAttributeDisplayType;
+};
+
+/**
+ * Configuration available for attributes of type "record-reference".
+ */
+export type PatchV2TargetIdentifierAttributesAttributeRecordReference = {
+  /**
+   * A list of slugs or UUIDs to indicate which objects records are allowed to belong to. If `relationship` is also provided, this must contain only the relationship object.
+   */
+  allowedObjects: Array<string>;
+};
+
+/**
+ * Additional, type-dependent configuration for the attribute.
+ */
+export type PatchV2TargetIdentifierAttributesAttributeConfig = {
+  /**
+   * Configuration available for attributes of type "currency".
+   */
+  currency?: PatchV2TargetIdentifierAttributesAttributeCurrency | undefined;
+  /**
+   * Configuration available for attributes of type "record-reference".
+   */
+  recordReference?:
+    | PatchV2TargetIdentifierAttributesAttributeRecordReference
+    | undefined;
+};
+
+export type PatchV2TargetIdentifierAttributesAttributeData = {
+  /**
+   * The name of the attribute. The title will be visible across Attio's UI.
+   */
+  title?: string | undefined;
+  /**
+   * A text description for the attribute.
+   */
+  description?: string | null | undefined;
+  /**
+   * A unique, human-readable slug to access the attribute through URLs and API calls. Formatted in snake case.
+   */
+  apiSlug?: string | undefined;
+  /**
+   * When `is_required` is `true`, new records/entries must have a value for this attribute. If `false`, values may be `null`. This value does not affect existing data and you do not need to backfill `null` values if changing `is_required` from `false` to `true`.
+   */
+  isRequired?: boolean | undefined;
+  /**
+   * Whether or not new values for this attribute must be unique. Uniqueness restrictions are only applied to new data and do not apply retroactively to previously created data.
+   */
+  isUnique?: boolean | undefined;
+  /**
+   * The default value for this attribute. Static values are used to directly populate values using their contents. Dynamic values are used to lookup data at the point of creation. For example, you could use a dynamic value to insert a value for the currently logged in user. Which default values are available is dependent on the type of the attribute. Default values are not currently supported on people or company objects.
+   */
+  defaultValue?:
+    | PatchV2TargetIdentifierAttributesAttributeDefaultValueDynamic
+    | PatchV2TargetIdentifierAttributesAttributeDefaultValueStatic
+    | null
+    | undefined;
+  /**
+   * Additional, type-dependent configuration for the attribute.
+   */
+  config?: PatchV2TargetIdentifierAttributesAttributeConfig | undefined;
+  /**
+   * Whether the attribute has been archived or not. See our [archiving guide](/docs/archiving-vs-deleting) for more information on archiving.
+   */
+  isArchived?: boolean | undefined;
+};
+
+export type PatchV2TargetIdentifierAttributesAttributeRequestBody = {
+  data: PatchV2TargetIdentifierAttributesAttributeData;
+};
+
+export type PatchV2TargetIdentifierAttributesAttributeRequest = {
+  /**
+   * Whether the attribute is on an object or a list.
+   */
+  target: PatchV2TargetIdentifierAttributesAttributeTarget;
+  identifier: string;
+  attribute: string;
+  body: PatchV2TargetIdentifierAttributesAttributeRequestBody;
+};
+
+export const PatchV2TargetIdentifierAttributesAttributeBadRequestType = {
+  InvalidRequestError: "invalid_request_error",
+} as const;
+export type PatchV2TargetIdentifierAttributesAttributeBadRequestType =
+  ClosedEnum<typeof PatchV2TargetIdentifierAttributesAttributeBadRequestType>;
+
+export const CodeSystemEditUnauthorized = {
+  SystemEditUnauthorized: "system_edit_unauthorized",
+} as const;
+export type CodeSystemEditUnauthorized = ClosedEnum<
+  typeof CodeSystemEditUnauthorized
+>;
+
+/**
+ * Success
+ */
+export type PatchV2TargetIdentifierAttributesAttributeResponse = {
+  data: models.Attribute;
+};
+
+/**
+ * Whether the attribute is on an object or a list.
+ */
+export const GetV2TargetIdentifierAttributesAttributeOptionsTarget = {
+  Objects: "objects",
+  Lists: "lists",
+} as const;
+/**
+ * Whether the attribute is on an object or a list.
+ */
+export type GetV2TargetIdentifierAttributesAttributeOptionsTarget = ClosedEnum<
+  typeof GetV2TargetIdentifierAttributesAttributeOptionsTarget
+>;
+
+export type GetV2TargetIdentifierAttributesAttributeOptionsRequest = {
+  /**
+   * Whether the attribute is on an object or a list.
+   */
+  target: GetV2TargetIdentifierAttributesAttributeOptionsTarget;
+  identifier: string;
+  attribute: string;
+  showArchived?: boolean | undefined;
+};
+
+/**
+ * Success
+ */
+export type GetV2TargetIdentifierAttributesAttributeOptionsResponse = {
+  data: Array<models.SelectOption>;
+};
+
+/**
+ * Whether the attribute is on an object or a list.
+ */
+export const PostV2TargetIdentifierAttributesAttributeOptionsTarget = {
+  Objects: "objects",
+  Lists: "lists",
+} as const;
+/**
+ * Whether the attribute is on an object or a list.
+ */
+export type PostV2TargetIdentifierAttributesAttributeOptionsTarget = ClosedEnum<
+  typeof PostV2TargetIdentifierAttributesAttributeOptionsTarget
+>;
+
+export type PostV2TargetIdentifierAttributesAttributeOptionsData = {
+  /**
+   * The Title of the select option
+   */
+  title: string;
+};
+
+export type PostV2TargetIdentifierAttributesAttributeOptionsRequestBody = {
+  data: PostV2TargetIdentifierAttributesAttributeOptionsData;
+};
+
+export type PostV2TargetIdentifierAttributesAttributeOptionsRequest = {
+  /**
+   * Whether the attribute is on an object or a list.
+   */
+  target: PostV2TargetIdentifierAttributesAttributeOptionsTarget;
+  identifier: string;
+  attribute: string;
+  body: PostV2TargetIdentifierAttributesAttributeOptionsRequestBody;
+};
+
+export const PostV2TargetIdentifierAttributesAttributeOptionsConflictType = {
+  InvalidRequestError: "invalid_request_error",
+} as const;
+export type PostV2TargetIdentifierAttributesAttributeOptionsConflictType =
+  ClosedEnum<
+    typeof PostV2TargetIdentifierAttributesAttributeOptionsConflictType
+  >;
+
+export const PostV2TargetIdentifierAttributesAttributeOptionsConflictCode = {
+  SlugConflict: "slug_conflict",
+} as const;
+export type PostV2TargetIdentifierAttributesAttributeOptionsConflictCode =
+  ClosedEnum<
+    typeof PostV2TargetIdentifierAttributesAttributeOptionsConflictCode
+  >;
+
+export const PostV2TargetIdentifierAttributesAttributeOptionsBadRequestType = {
+  InvalidRequestError: "invalid_request_error",
+} as const;
+export type PostV2TargetIdentifierAttributesAttributeOptionsBadRequestType =
+  ClosedEnum<
+    typeof PostV2TargetIdentifierAttributesAttributeOptionsBadRequestType
+  >;
+
+export const PostV2TargetIdentifierAttributesAttributeOptionsCodeValidationType =
+  {
+    ValidationType: "validation_type",
+  } as const;
+export type PostV2TargetIdentifierAttributesAttributeOptionsCodeValidationType =
+  ClosedEnum<
+    typeof PostV2TargetIdentifierAttributesAttributeOptionsCodeValidationType
+  >;
+
+/**
+ * Success
+ */
+export type PostV2TargetIdentifierAttributesAttributeOptionsResponse = {
+  data: models.SelectOption;
+};
+
+/**
+ * Whether the attribute is on an object or a list.
+ */
+export const PatchV2TargetIdentifierAttributesAttributeOptionsOptionTarget = {
+  Objects: "objects",
+  Lists: "lists",
+} as const;
+/**
+ * Whether the attribute is on an object or a list.
+ */
+export type PatchV2TargetIdentifierAttributesAttributeOptionsOptionTarget =
+  ClosedEnum<
+    typeof PatchV2TargetIdentifierAttributesAttributeOptionsOptionTarget
+  >;
+
+export type PatchV2TargetIdentifierAttributesAttributeOptionsOptionData = {
+  /**
+   * The Title of the select option
+   */
+  title?: string | undefined;
+  /**
+   * Whether or not to archive the select option. See our [archiving guide](/docs/archiving-vs-deleting) for more information on archiving.
+   */
+  isArchived?: boolean | undefined;
+};
+
+export type PatchV2TargetIdentifierAttributesAttributeOptionsOptionRequestBody =
+  {
+    data: PatchV2TargetIdentifierAttributesAttributeOptionsOptionData;
+  };
+
+export type PatchV2TargetIdentifierAttributesAttributeOptionsOptionRequest = {
+  /**
+   * Whether the attribute is on an object or a list.
+   */
+  target: PatchV2TargetIdentifierAttributesAttributeOptionsOptionTarget;
+  identifier: string;
+  attribute: string;
+  option: string;
+  body: PatchV2TargetIdentifierAttributesAttributeOptionsOptionRequestBody;
+};
+
+export const PatchV2TargetIdentifierAttributesAttributeOptionsOptionBadRequestType =
+  {
+    InvalidRequestError: "invalid_request_error",
+  } as const;
+export type PatchV2TargetIdentifierAttributesAttributeOptionsOptionBadRequestType =
+  ClosedEnum<
+    typeof PatchV2TargetIdentifierAttributesAttributeOptionsOptionBadRequestType
+  >;
+
+export const PatchV2TargetIdentifierAttributesAttributeOptionsOptionCodeValueNotFound =
+  {
+    ValueNotFound: "value_not_found",
+  } as const;
+export type PatchV2TargetIdentifierAttributesAttributeOptionsOptionCodeValueNotFound =
+  ClosedEnum<
+    typeof PatchV2TargetIdentifierAttributesAttributeOptionsOptionCodeValueNotFound
+  >;
+
+/**
+ * Success
+ */
+export type PatchV2TargetIdentifierAttributesAttributeOptionsOptionResponse = {
+  data: models.SelectOption;
+};
+
+/**
+ * Whether the attribute is on an object or a list. Please note that the company and people objects do not support status attributes at this time.
+ */
+export const GetV2TargetIdentifierAttributesAttributeStatusesTarget = {
+  Lists: "lists",
+  Objects: "objects",
+} as const;
+/**
+ * Whether the attribute is on an object or a list. Please note that the company and people objects do not support status attributes at this time.
+ */
+export type GetV2TargetIdentifierAttributesAttributeStatusesTarget = ClosedEnum<
+  typeof GetV2TargetIdentifierAttributesAttributeStatusesTarget
+>;
+
+export type GetV2TargetIdentifierAttributesAttributeStatusesRequest = {
+  /**
+   * Whether the attribute is on an object or a list. Please note that the company and people objects do not support status attributes at this time.
+   */
+  target: GetV2TargetIdentifierAttributesAttributeStatusesTarget;
+  identifier: string;
+  attribute: string;
+  showArchived?: boolean | undefined;
+};
+
+/**
+ * Success
+ */
+export type GetV2TargetIdentifierAttributesAttributeStatusesResponse = {
+  data: Array<models.Status>;
+};
+
+/**
+ * Whether the attribute is on an object or a list. Please note that company and person objects do not support status attributes at this time.
+ */
+export const PostV2TargetIdentifierAttributesAttributeStatusesTarget = {
+  Lists: "lists",
+  Objects: "objects",
+} as const;
+/**
+ * Whether the attribute is on an object or a list. Please note that company and person objects do not support status attributes at this time.
+ */
+export type PostV2TargetIdentifierAttributesAttributeStatusesTarget =
+  ClosedEnum<typeof PostV2TargetIdentifierAttributesAttributeStatusesTarget>;
+
+export type PostV2TargetIdentifierAttributesAttributeStatusesData = {
+  /**
+   * The Title of the status
+   */
+  title: string;
+  /**
+   * Whether arriving at this status triggers a celebration effect
+   */
+  celebrationEnabled?: boolean | undefined;
+  /**
+   * Target time for a record to spend in given status expressed as a ISO-8601 duration string
+   */
+  targetTimeInStatus?: string | null | undefined;
+};
+
+export type PostV2TargetIdentifierAttributesAttributeStatusesRequestBody = {
+  data: PostV2TargetIdentifierAttributesAttributeStatusesData;
+};
+
+export type PostV2TargetIdentifierAttributesAttributeStatusesRequest = {
+  /**
+   * Whether the attribute is on an object or a list. Please note that company and person objects do not support status attributes at this time.
+   */
+  target: PostV2TargetIdentifierAttributesAttributeStatusesTarget;
+  identifier: string;
+  attribute: string;
+  body: PostV2TargetIdentifierAttributesAttributeStatusesRequestBody;
+};
+
+export const PostV2TargetIdentifierAttributesAttributeStatusesConflictType = {
+  InvalidRequestError: "invalid_request_error",
+} as const;
+export type PostV2TargetIdentifierAttributesAttributeStatusesConflictType =
+  ClosedEnum<
+    typeof PostV2TargetIdentifierAttributesAttributeStatusesConflictType
+  >;
+
+export const PostV2TargetIdentifierAttributesAttributeStatusesConflictCode = {
+  SlugConflict: "slug_conflict",
+} as const;
+export type PostV2TargetIdentifierAttributesAttributeStatusesConflictCode =
+  ClosedEnum<
+    typeof PostV2TargetIdentifierAttributesAttributeStatusesConflictCode
+  >;
+
+export const PostV2TargetIdentifierAttributesAttributeStatusesBadRequestType = {
+  InvalidRequestError: "invalid_request_error",
+} as const;
+export type PostV2TargetIdentifierAttributesAttributeStatusesBadRequestType =
+  ClosedEnum<
+    typeof PostV2TargetIdentifierAttributesAttributeStatusesBadRequestType
+  >;
+
+export const PostV2TargetIdentifierAttributesAttributeStatusesCodeValidationType =
+  {
+    ValidationType: "validation_type",
+  } as const;
+export type PostV2TargetIdentifierAttributesAttributeStatusesCodeValidationType =
+  ClosedEnum<
+    typeof PostV2TargetIdentifierAttributesAttributeStatusesCodeValidationType
+  >;
+
+/**
+ * Success
+ */
+export type PostV2TargetIdentifierAttributesAttributeStatusesResponse = {
+  data: models.Status;
+};
+
+/**
+ * Whether the attribute is on an object or a list. Please note that company and person objects do not support status attributes at this time.
+ */
+export const PatchV2TargetIdentifierAttributesAttributeStatusesStatusTarget = {
+  Lists: "lists",
+  Objects: "objects",
+} as const;
+/**
+ * Whether the attribute is on an object or a list. Please note that company and person objects do not support status attributes at this time.
+ */
+export type PatchV2TargetIdentifierAttributesAttributeStatusesStatusTarget =
+  ClosedEnum<
+    typeof PatchV2TargetIdentifierAttributesAttributeStatusesStatusTarget
+  >;
+
+export type PatchV2TargetIdentifierAttributesAttributeStatusesStatusData = {
+  /**
+   * The Title of the status
+   */
+  title?: string | undefined;
+  /**
+   * Whether arriving at this status triggers a celebration effect
+   */
+  celebrationEnabled?: boolean | undefined;
+  /**
+   * Target time for a record to spend in given status expressed as a ISO-8601 duration string
+   */
+  targetTimeInStatus?: string | null | undefined;
+  /**
+   * Whether or not to archive the status. See our [archiving guide](/docs/archiving-vs-deleting) for more information on archiving.
+   */
+  isArchived?: boolean | undefined;
+};
+
+export type PatchV2TargetIdentifierAttributesAttributeStatusesStatusRequestBody =
+  {
+    data: PatchV2TargetIdentifierAttributesAttributeStatusesStatusData;
+  };
+
+export type PatchV2TargetIdentifierAttributesAttributeStatusesStatusRequest = {
+  /**
+   * Whether the attribute is on an object or a list. Please note that company and person objects do not support status attributes at this time.
+   */
+  target: PatchV2TargetIdentifierAttributesAttributeStatusesStatusTarget;
+  identifier: string;
+  attribute: string;
+  status: string;
+  body: PatchV2TargetIdentifierAttributesAttributeStatusesStatusRequestBody;
+};
+
+export const PatchV2TargetIdentifierAttributesAttributeStatusesStatusBadRequestType =
+  {
+    InvalidRequestError: "invalid_request_error",
+  } as const;
+export type PatchV2TargetIdentifierAttributesAttributeStatusesStatusBadRequestType =
+  ClosedEnum<
+    typeof PatchV2TargetIdentifierAttributesAttributeStatusesStatusBadRequestType
+  >;
+
+export const PatchV2TargetIdentifierAttributesAttributeStatusesStatusCodeValueNotFound =
+  {
+    ValueNotFound: "value_not_found",
+  } as const;
+export type PatchV2TargetIdentifierAttributesAttributeStatusesStatusCodeValueNotFound =
+  ClosedEnum<
+    typeof PatchV2TargetIdentifierAttributesAttributeStatusesStatusCodeValueNotFound
+  >;
+
+/**
+ * Success
+ */
+export type PatchV2TargetIdentifierAttributesAttributeStatusesStatusResponse = {
+  data: models.Status;
+};
+
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesRequest =
+  {
+    object: string;
+    recordId: string;
+    attribute: string;
+    showHistoric?: boolean | undefined;
+    limit?: number | undefined;
+    offset?: number | undefined;
+  };
+
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesBadRequestType =
+  {
+    InvalidRequestError: "invalid_request_error",
+  } as const;
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesBadRequestType =
+  ClosedEnum<
+    typeof GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesBadRequestType
+  >;
+
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCodeValidationType =
+  {
+    ValidationType: "validation_type",
+  } as const;
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCodeValidationType =
+  ClosedEnum<
+    typeof GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCodeValidationType
+  >;
+
+/**
+ * The type of actor. [Read more information on actor types here](/docs/actors).
+ */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType17 =
+  {
+    ApiToken: "api-token",
+    WorkspaceMember: "workspace-member",
+    System: "system",
+    App: "app",
+  } as const;
+/**
+ * The type of actor. [Read more information on actor types here](/docs/actors).
+ */
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType17 =
+  OpenEnum<
+    typeof GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType17
+  >;
+
+/**
+ * The actor that created this value.
+ */
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor17 =
+  {
+    /**
+     * An ID to identify the actor.
+     */
+    id?: string | null | undefined;
+    /**
+     * The type of actor. [Read more information on actor types here](/docs/actors).
+     */
+    type?:
+      | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType17
+      | null
+      | undefined;
+  };
+
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataTimestamp =
+  {
+    /**
+     * The point in time at which this value was made "active". `active_from` can be considered roughly analogous to `created_at`.
+     */
+    activeFrom: Date;
+    /**
+     * The point in time at which this value was deactivated. If `null`, the value is active.
+     */
+    activeUntil: Date | null;
+    /**
+     * The actor that created this value.
+     */
+    createdByActor:
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor17;
+    /**
+     * The attribute type of the value.
+     */
+    attributeType: "timestamp";
+    /**
+     * A timestamp value represents a single, universal moment in time using an ISO 8601 formatted string. This means that a timestamp consists of a date, a time (with nanosecond precision), and a time zone. Attio will coerce timestamps which do not provide full nanosecond precision and UTC is assumed if no time zone is provided. For example, "2023", "2023-01", "2023-01-02", "2023-01-02T13:00", "2023-01-02T13:00:00", and "2023-01-02T13:00:00.000000000" will all be coerced to "2023-01-02T13:00:00.000000000Z". Timestamps are always returned in UTC. For example, writing a timestamp value using the string "2023-01-02T13:00:00.000000000+02:00" will result in the value "2023-01-02T11:00:00.000000000Z" being returned. The maximum date is "9999-12-31T23:59:59.999999999Z".
+     */
+    value: Date;
+  };
+
+/**
+ * The type of actor. [Read more information on actor types here](/docs/actors).
+ */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType16 =
+  {
+    ApiToken: "api-token",
+    WorkspaceMember: "workspace-member",
+    System: "system",
+    App: "app",
+  } as const;
+/**
+ * The type of actor. [Read more information on actor types here](/docs/actors).
+ */
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType16 =
+  OpenEnum<
+    typeof GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType16
+  >;
+
+/**
+ * The actor that created this value.
+ */
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor16 =
+  {
+    /**
+     * An ID to identify the actor.
+     */
+    id?: string | null | undefined;
+    /**
+     * The type of actor. [Read more information on actor types here](/docs/actors).
+     */
+    type?:
+      | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType16
+      | null
+      | undefined;
+  };
+
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataText =
+  {
+    /**
+     * The point in time at which this value was made "active". `active_from` can be considered roughly analogous to `created_at`.
+     */
+    activeFrom: Date;
+    /**
+     * The point in time at which this value was deactivated. If `null`, the value is active.
+     */
+    activeUntil: Date | null;
+    /**
+     * The actor that created this value.
+     */
+    createdByActor:
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor16;
+    /**
+     * A raw text field. Values are limited to 10MB.
+     */
+    value: string;
+    /**
+     * The attribute type of the value.
+     */
+    attributeType: "text";
+  };
+
+/**
+ * The type of actor. [Read more information on actor types here](/docs/actors).
+ */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType15 =
+  {
+    ApiToken: "api-token",
+    WorkspaceMember: "workspace-member",
+    System: "system",
+    App: "app",
+  } as const;
+/**
+ * The type of actor. [Read more information on actor types here](/docs/actors).
+ */
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType15 =
+  OpenEnum<
+    typeof GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType15
+  >;
+
+/**
+ * The actor that created this value.
+ */
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor15 =
+  {
+    /**
+     * An ID to identify the actor.
+     */
+    id?: string | null | undefined;
+    /**
+     * The type of actor. [Read more information on actor types here](/docs/actors).
+     */
+    type?:
+      | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType15
+      | null
+      | undefined;
+  };
+
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataSelect =
+  {
+    /**
+     * The point in time at which this value was made "active". `active_from` can be considered roughly analogous to `created_at`.
+     */
+    activeFrom: Date;
+    /**
+     * The point in time at which this value was deactivated. If `null`, the value is active.
+     */
+    activeUntil: Date | null;
+    /**
+     * The actor that created this value.
+     */
+    createdByActor:
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor15;
+    option: models.SelectOption;
+    /**
+     * The attribute type of the value.
+     */
+    attributeType: "select";
+  };
+
+/**
+ * The type of actor. [Read more information on actor types here](/docs/actors).
+ */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType14 =
+  {
+    ApiToken: "api-token",
+    WorkspaceMember: "workspace-member",
+    System: "system",
+    App: "app",
+  } as const;
+/**
+ * The type of actor. [Read more information on actor types here](/docs/actors).
+ */
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType14 =
+  OpenEnum<
+    typeof GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType14
+  >;
+
+/**
+ * The actor that created this value.
+ */
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor14 =
+  {
+    /**
+     * An ID to identify the actor.
+     */
+    id?: string | null | undefined;
+    /**
+     * The type of actor. [Read more information on actor types here](/docs/actors).
+     */
+    type?:
+      | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType14
+      | null
+      | undefined;
+  };
+
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataRating =
+  {
+    /**
+     * The point in time at which this value was made "active". `active_from` can be considered roughly analogous to `created_at`.
+     */
+    activeFrom: Date;
+    /**
+     * The point in time at which this value was deactivated. If `null`, the value is active.
+     */
+    activeUntil: Date | null;
+    /**
+     * The actor that created this value.
+     */
+    createdByActor:
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor14;
+    /**
+     * A number between 0 and 5 (inclusive) to represent a star rating.
+     */
+    value: number;
+    /**
+     * The attribute type of the value.
+     */
+    attributeType: "rating";
+  };
+
+/**
+ * The type of actor. [Read more information on actor types here](/docs/actors).
+ */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType13 =
+  {
+    ApiToken: "api-token",
+    WorkspaceMember: "workspace-member",
+    System: "system",
+    App: "app",
+  } as const;
+/**
+ * The type of actor. [Read more information on actor types here](/docs/actors).
+ */
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType13 =
+  OpenEnum<
+    typeof GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType13
+  >;
+
+/**
+ * The actor that created this value.
+ */
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor13 =
+  {
+    /**
+     * An ID to identify the actor.
+     */
+    id?: string | null | undefined;
+    /**
+     * The type of actor. [Read more information on actor types here](/docs/actors).
+     */
+    type?:
+      | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType13
+      | null
+      | undefined;
+  };
+
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataStatus =
+  {
+    /**
+     * The point in time at which this value was made "active". `active_from` can be considered roughly analogous to `created_at`.
+     */
+    activeFrom: Date;
+    /**
+     * The point in time at which this value was deactivated. If `null`, the value is active.
+     */
+    activeUntil: Date | null;
+    /**
+     * The actor that created this value.
+     */
+    createdByActor:
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor13;
+    status: models.Status;
+    /**
+     * The attribute type of the value.
+     */
+    attributeType: "status";
+  };
+
+/**
+ * The type of actor. [Read more information on actor types here](/docs/actors).
+ */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType12 =
+  {
+    ApiToken: "api-token",
+    WorkspaceMember: "workspace-member",
+    System: "system",
+    App: "app",
+  } as const;
+/**
+ * The type of actor. [Read more information on actor types here](/docs/actors).
+ */
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType12 =
+  OpenEnum<
+    typeof GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType12
+  >;
+
+/**
+ * The actor that created this value.
+ */
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor12 =
+  {
+    /**
+     * An ID to identify the actor.
+     */
+    id?: string | null | undefined;
+    /**
+     * The type of actor. [Read more information on actor types here](/docs/actors).
+     */
+    type?:
+      | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType12
+      | null
+      | undefined;
+  };
+
+/**
+ * The ISO 3166-1 alpha-2 country code representing the country that this phone number belongs to.
+ */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCountryCode2 =
+  {
+    Af: "AF",
+    Ax: "AX",
+    Al: "AL",
+    Dz: "DZ",
+    As: "AS",
+    Ad: "AD",
+    Ao: "AO",
+    Ai: "AI",
+    Aq: "AQ",
+    Ag: "AG",
+    Ar: "AR",
+    Am: "AM",
+    Aw: "AW",
+    Au: "AU",
+    At: "AT",
+    Az: "AZ",
+    Bs: "BS",
+    Bh: "BH",
+    Bd: "BD",
+    Bb: "BB",
+    By: "BY",
+    Be: "BE",
+    Bz: "BZ",
+    Bj: "BJ",
+    Bm: "BM",
+    Bt: "BT",
+    Bo: "BO",
+    Ba: "BA",
+    Bw: "BW",
+    Bv: "BV",
+    Br: "BR",
+    Io: "IO",
+    Bn: "BN",
+    Bg: "BG",
+    Bf: "BF",
+    Bi: "BI",
+    Kh: "KH",
+    Cm: "CM",
+    Ca: "CA",
+    Cv: "CV",
+    Ky: "KY",
+    Cf: "CF",
+    Td: "TD",
+    Cl: "CL",
+    Cn: "CN",
+    Cx: "CX",
+    Cc: "CC",
+    Co: "CO",
+    Km: "KM",
+    Cg: "CG",
+    Cd: "CD",
+    Ck: "CK",
+    Cr: "CR",
+    Ci: "CI",
+    Hr: "HR",
+    Cu: "CU",
+    Cw: "CW",
+    Cy: "CY",
+    Cz: "CZ",
+    Dk: "DK",
+    Dj: "DJ",
+    Dm: "DM",
+    Do: "DO",
+    Ec: "EC",
+    Eg: "EG",
+    Sv: "SV",
+    Gq: "GQ",
+    Er: "ER",
+    Ee: "EE",
+    Et: "ET",
+    Fk: "FK",
+    Fo: "FO",
+    Fj: "FJ",
+    Fi: "FI",
+    Fr: "FR",
+    Gf: "GF",
+    Pf: "PF",
+    Tf: "TF",
+    Ga: "GA",
+    Gm: "GM",
+    Ge: "GE",
+    De: "DE",
+    Gh: "GH",
+    Gi: "GI",
+    Gr: "GR",
+    Gl: "GL",
+    Gd: "GD",
+    Gp: "GP",
+    Gu: "GU",
+    Gt: "GT",
+    Gg: "GG",
+    Gn: "GN",
+    Gw: "GW",
+    Gy: "GY",
+    Ht: "HT",
+    Hm: "HM",
+    Va: "VA",
+    Hn: "HN",
+    Hk: "HK",
+    Hu: "HU",
+    Is: "IS",
+    In: "IN",
+    Id: "ID",
+    Ir: "IR",
+    Iq: "IQ",
+    Ie: "IE",
+    Im: "IM",
+    Il: "IL",
+    It: "IT",
+    Jm: "JM",
+    Jp: "JP",
+    Je: "JE",
+    Jo: "JO",
+    Kz: "KZ",
+    Ke: "KE",
+    Ki: "KI",
+    Kr: "KR",
+    Kw: "KW",
+    Kg: "KG",
+    La: "LA",
+    Lv: "LV",
+    Lb: "LB",
+    Ls: "LS",
+    Lr: "LR",
+    Ly: "LY",
+    Li: "LI",
+    Lt: "LT",
+    Lu: "LU",
+    Mo: "MO",
+    Mk: "MK",
+    Mg: "MG",
+    Mw: "MW",
+    My: "MY",
+    Mv: "MV",
+    Ml: "ML",
+    Mt: "MT",
+    Mh: "MH",
+    Mq: "MQ",
+    Mr: "MR",
+    Mu: "MU",
+    Yt: "YT",
+    Mx: "MX",
+    Fm: "FM",
+    Md: "MD",
+    Mc: "MC",
+    Mn: "MN",
+    Me: "ME",
+    Ms: "MS",
+    Ma: "MA",
+    Mz: "MZ",
+    Mm: "MM",
+    Na: "NA",
+    Nr: "NR",
+    Np: "NP",
+    Nl: "NL",
+    An: "AN",
+    Nc: "NC",
+    Nz: "NZ",
+    Ni: "NI",
+    Ne: "NE",
+    Ng: "NG",
+    Nu: "NU",
+    Nf: "NF",
+    Mp: "MP",
+    No: "NO",
+    Om: "OM",
+    Pk: "PK",
+    Pw: "PW",
+    Ps: "PS",
+    Pa: "PA",
+    Pg: "PG",
+    Py: "PY",
+    Pe: "PE",
+    Ph: "PH",
+    Pn: "PN",
+    Pl: "PL",
+    Pt: "PT",
+    Pr: "PR",
+    Qa: "QA",
+    Re: "RE",
+    Ro: "RO",
+    Ru: "RU",
+    Rw: "RW",
+    Bl: "BL",
+    Sh: "SH",
+    Kn: "KN",
+    Lc: "LC",
+    Mf: "MF",
+    Pm: "PM",
+    Vc: "VC",
+    Ws: "WS",
+    Sm: "SM",
+    St: "ST",
+    Sa: "SA",
+    Sn: "SN",
+    Ss: "SS",
+    Rs: "RS",
+    Sc: "SC",
+    Sl: "SL",
+    Sg: "SG",
+    Sk: "SK",
+    Si: "SI",
+    Sb: "SB",
+    So: "SO",
+    Za: "ZA",
+    Gs: "GS",
+    Es: "ES",
+    Lk: "LK",
+    Sd: "SD",
+    Sr: "SR",
+    Sj: "SJ",
+    Sz: "SZ",
+    Se: "SE",
+    Ch: "CH",
+    Sy: "SY",
+    Tw: "TW",
+    Tj: "TJ",
+    Tz: "TZ",
+    Th: "TH",
+    Tl: "TL",
+    Tg: "TG",
+    Tk: "TK",
+    To: "TO",
+    Tt: "TT",
+    Tn: "TN",
+    Tr: "TR",
+    Tm: "TM",
+    Tc: "TC",
+    Tv: "TV",
+    Ug: "UG",
+    Ua: "UA",
+    Ae: "AE",
+    Gb: "GB",
+    Us: "US",
+    Um: "UM",
+    Uy: "UY",
+    Uz: "UZ",
+    Vu: "VU",
+    Ve: "VE",
+    Vn: "VN",
+    Vg: "VG",
+    Vi: "VI",
+    Wf: "WF",
+    Eh: "EH",
+    Ye: "YE",
+    Zm: "ZM",
+    Zw: "ZW",
+    Bq: "BQ",
+    Kp: "KP",
+    Sx: "SX",
+    Xk: "XK",
+    Ac: "AC",
+  } as const;
+/**
+ * The ISO 3166-1 alpha-2 country code representing the country that this phone number belongs to.
+ */
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCountryCode2 =
+  OpenEnum<
+    typeof GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCountryCode2
+  >;
+
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataPhoneNumber =
+  {
+    /**
+     * The point in time at which this value was made "active". `active_from` can be considered roughly analogous to `created_at`.
+     */
+    activeFrom: Date;
+    /**
+     * The point in time at which this value was deactivated. If `null`, the value is active.
+     */
+    activeUntil: Date | null;
+    /**
+     * The actor that created this value.
+     */
+    createdByActor:
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor12;
+    /**
+     * The raw, original phone number, as inputted.
+     */
+    originalPhoneNumber: string;
+    /**
+     * The ISO 3166-1 alpha-2 country code representing the country that this phone number belongs to.
+     */
+    countryCode:
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCountryCode2;
+    phoneNumber: string;
+    /**
+     * The attribute type of the value.
+     */
+    attributeType: "phone-number";
+  };
+
+/**
+ * The type of actor. [Read more information on actor types here](/docs/actors).
+ */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType11 =
+  {
+    ApiToken: "api-token",
+    WorkspaceMember: "workspace-member",
+    System: "system",
+    App: "app",
+  } as const;
+/**
+ * The type of actor. [Read more information on actor types here](/docs/actors).
+ */
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType11 =
+  OpenEnum<
+    typeof GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType11
+  >;
+
+/**
+ * The actor that created this value.
+ */
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor11 =
+  {
+    /**
+     * An ID to identify the actor.
+     */
+    id?: string | null | undefined;
+    /**
+     * The type of actor. [Read more information on actor types here](/docs/actors).
+     */
+    type?:
+      | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType11
+      | null
+      | undefined;
+  };
+
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataPersonalName =
+  {
+    /**
+     * The point in time at which this value was made "active". `active_from` can be considered roughly analogous to `created_at`.
+     */
+    activeFrom: Date;
+    /**
+     * The point in time at which this value was deactivated. If `null`, the value is active.
+     */
+    activeUntil: Date | null;
+    /**
+     * The actor that created this value.
+     */
+    createdByActor:
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor11;
+    /**
+     * The first name.
+     */
+    firstName: string;
+    /**
+     * The last name.
+     */
+    lastName: string;
+    /**
+     * The full name.
+     */
+    fullName: string;
+    /**
+     * The attribute type of the value.
+     */
+    attributeType: "personal-name";
+  };
+
+/**
+ * The type of actor. [Read more information on actor types here](/docs/actors).
+ */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType10 =
+  {
+    ApiToken: "api-token",
+    WorkspaceMember: "workspace-member",
+    System: "system",
+    App: "app",
+  } as const;
+/**
+ * The type of actor. [Read more information on actor types here](/docs/actors).
+ */
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType10 =
+  OpenEnum<
+    typeof GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType10
+  >;
+
+/**
+ * The actor that created this value.
+ */
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor10 =
+  {
+    /**
+     * An ID to identify the actor.
+     */
+    id?: string | null | undefined;
+    /**
+     * The type of actor. [Read more information on actor types here](/docs/actors).
+     */
+    type?:
+      | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType10
+      | null
+      | undefined;
+  };
+
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataNumber =
+  {
+    /**
+     * The point in time at which this value was made "active". `active_from` can be considered roughly analogous to `created_at`.
+     */
+    activeFrom: Date;
+    /**
+     * The point in time at which this value was deactivated. If `null`, the value is active.
+     */
+    activeUntil: Date | null;
+    /**
+     * The actor that created this value.
+     */
+    createdByActor:
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor10;
+    /**
+     * Numbers are persisted as 64 bit floats.
+     */
+    value: number;
+    /**
+     * The attribute type of the value.
+     */
+    attributeType: "number";
+  };
+
+/**
+ * The type of actor. [Read more information on actor types here](/docs/actors).
+ */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType9 =
+  {
+    ApiToken: "api-token",
+    WorkspaceMember: "workspace-member",
+    System: "system",
+    App: "app",
+  } as const;
+/**
+ * The type of actor. [Read more information on actor types here](/docs/actors).
+ */
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType9 =
+  OpenEnum<
+    typeof GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType9
+  >;
+
+/**
+ * The actor that created this value.
+ */
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor9 =
+  {
+    /**
+     * An ID to identify the actor.
+     */
+    id?: string | null | undefined;
+    /**
+     * The type of actor. [Read more information on actor types here](/docs/actors).
+     */
+    type?:
+      | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType9
+      | null
+      | undefined;
+  };
+
+/**
+ * The ISO 3166-1 alpha-2 country code for the country this location is in.
+ */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCountryCode1 =
+  {
+    Af: "AF",
+    Ax: "AX",
+    Al: "AL",
+    Dz: "DZ",
+    As: "AS",
+    Ad: "AD",
+    Ao: "AO",
+    Ai: "AI",
+    Aq: "AQ",
+    Ag: "AG",
+    Ar: "AR",
+    Am: "AM",
+    Aw: "AW",
+    Au: "AU",
+    At: "AT",
+    Az: "AZ",
+    Bs: "BS",
+    Bh: "BH",
+    Bd: "BD",
+    Bb: "BB",
+    By: "BY",
+    Be: "BE",
+    Bz: "BZ",
+    Bj: "BJ",
+    Bm: "BM",
+    Bt: "BT",
+    Bo: "BO",
+    Ba: "BA",
+    Bw: "BW",
+    Bv: "BV",
+    Br: "BR",
+    Io: "IO",
+    Bn: "BN",
+    Bg: "BG",
+    Bf: "BF",
+    Bi: "BI",
+    Kh: "KH",
+    Cm: "CM",
+    Ca: "CA",
+    Cv: "CV",
+    Ky: "KY",
+    Cf: "CF",
+    Td: "TD",
+    Cl: "CL",
+    Cn: "CN",
+    Cx: "CX",
+    Cc: "CC",
+    Co: "CO",
+    Km: "KM",
+    Cg: "CG",
+    Cd: "CD",
+    Ck: "CK",
+    Cr: "CR",
+    Ci: "CI",
+    Hr: "HR",
+    Cu: "CU",
+    Cw: "CW",
+    Cy: "CY",
+    Cz: "CZ",
+    Dk: "DK",
+    Dj: "DJ",
+    Dm: "DM",
+    Do: "DO",
+    Ec: "EC",
+    Eg: "EG",
+    Sv: "SV",
+    Gq: "GQ",
+    Er: "ER",
+    Ee: "EE",
+    Et: "ET",
+    Fk: "FK",
+    Fo: "FO",
+    Fj: "FJ",
+    Fi: "FI",
+    Fr: "FR",
+    Gf: "GF",
+    Pf: "PF",
+    Tf: "TF",
+    Ga: "GA",
+    Gm: "GM",
+    Ge: "GE",
+    De: "DE",
+    Gh: "GH",
+    Gi: "GI",
+    Gr: "GR",
+    Gl: "GL",
+    Gd: "GD",
+    Gp: "GP",
+    Gu: "GU",
+    Gt: "GT",
+    Gg: "GG",
+    Gn: "GN",
+    Gw: "GW",
+    Gy: "GY",
+    Ht: "HT",
+    Hm: "HM",
+    Va: "VA",
+    Hn: "HN",
+    Hk: "HK",
+    Hu: "HU",
+    Is: "IS",
+    In: "IN",
+    Id: "ID",
+    Ir: "IR",
+    Iq: "IQ",
+    Ie: "IE",
+    Im: "IM",
+    Il: "IL",
+    It: "IT",
+    Jm: "JM",
+    Jp: "JP",
+    Je: "JE",
+    Jo: "JO",
+    Kz: "KZ",
+    Ke: "KE",
+    Ki: "KI",
+    Kr: "KR",
+    Kw: "KW",
+    Kg: "KG",
+    La: "LA",
+    Lv: "LV",
+    Lb: "LB",
+    Ls: "LS",
+    Lr: "LR",
+    Ly: "LY",
+    Li: "LI",
+    Lt: "LT",
+    Lu: "LU",
+    Mo: "MO",
+    Mk: "MK",
+    Mg: "MG",
+    Mw: "MW",
+    My: "MY",
+    Mv: "MV",
+    Ml: "ML",
+    Mt: "MT",
+    Mh: "MH",
+    Mq: "MQ",
+    Mr: "MR",
+    Mu: "MU",
+    Yt: "YT",
+    Mx: "MX",
+    Fm: "FM",
+    Md: "MD",
+    Mc: "MC",
+    Mn: "MN",
+    Me: "ME",
+    Ms: "MS",
+    Ma: "MA",
+    Mz: "MZ",
+    Mm: "MM",
+    Na: "NA",
+    Nr: "NR",
+    Np: "NP",
+    Nl: "NL",
+    An: "AN",
+    Nc: "NC",
+    Nz: "NZ",
+    Ni: "NI",
+    Ne: "NE",
+    Ng: "NG",
+    Nu: "NU",
+    Nf: "NF",
+    Mp: "MP",
+    No: "NO",
+    Om: "OM",
+    Pk: "PK",
+    Pw: "PW",
+    Ps: "PS",
+    Pa: "PA",
+    Pg: "PG",
+    Py: "PY",
+    Pe: "PE",
+    Ph: "PH",
+    Pn: "PN",
+    Pl: "PL",
+    Pt: "PT",
+    Pr: "PR",
+    Qa: "QA",
+    Re: "RE",
+    Ro: "RO",
+    Ru: "RU",
+    Rw: "RW",
+    Bl: "BL",
+    Sh: "SH",
+    Kn: "KN",
+    Lc: "LC",
+    Mf: "MF",
+    Pm: "PM",
+    Vc: "VC",
+    Ws: "WS",
+    Sm: "SM",
+    St: "ST",
+    Sa: "SA",
+    Sn: "SN",
+    Ss: "SS",
+    Rs: "RS",
+    Sc: "SC",
+    Sl: "SL",
+    Sg: "SG",
+    Sk: "SK",
+    Si: "SI",
+    Sb: "SB",
+    So: "SO",
+    Za: "ZA",
+    Gs: "GS",
+    Es: "ES",
+    Lk: "LK",
+    Sd: "SD",
+    Sr: "SR",
+    Sj: "SJ",
+    Sz: "SZ",
+    Se: "SE",
+    Ch: "CH",
+    Sy: "SY",
+    Tw: "TW",
+    Tj: "TJ",
+    Tz: "TZ",
+    Th: "TH",
+    Tl: "TL",
+    Tg: "TG",
+    Tk: "TK",
+    To: "TO",
+    Tt: "TT",
+    Tn: "TN",
+    Tr: "TR",
+    Tm: "TM",
+    Tc: "TC",
+    Tv: "TV",
+    Ug: "UG",
+    Ua: "UA",
+    Ae: "AE",
+    Gb: "GB",
+    Us: "US",
+    Um: "UM",
+    Uy: "UY",
+    Uz: "UZ",
+    Vu: "VU",
+    Ve: "VE",
+    Vn: "VN",
+    Vg: "VG",
+    Vi: "VI",
+    Wf: "WF",
+    Eh: "EH",
+    Ye: "YE",
+    Zm: "ZM",
+    Zw: "ZW",
+    Bq: "BQ",
+    Kp: "KP",
+    Sx: "SX",
+    Xk: "XK",
+    Ac: "AC",
+  } as const;
+/**
+ * The ISO 3166-1 alpha-2 country code for the country this location is in.
+ */
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCountryCode1 =
+  OpenEnum<
+    typeof GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCountryCode1
+  >;
+
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataLocation =
+  {
+    /**
+     * The point in time at which this value was made "active". `active_from` can be considered roughly analogous to `created_at`.
+     */
+    activeFrom: Date;
+    /**
+     * The point in time at which this value was deactivated. If `null`, the value is active.
+     */
+    activeUntil: Date | null;
+    /**
+     * The actor that created this value.
+     */
+    createdByActor:
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor9;
+    /**
+     * The first line of the address. Note that this value is not currently represented in the UI but will be persisted and readable through API calls.
+     */
+    line1: string | null;
+    /**
+     * The second line of the address. Note that this value is not currently represented in the UI but will be persisted and readable through API calls.
+     */
+    line2: string | null;
+    /**
+     * The third line of the address. Note that this value is not currently represented in the UI but will be persisted and readable through API calls.
+     */
+    line3: string | null;
+    /**
+     * The fourth line of the address. Note that this value is not currently represented in the UI but will be persisted and readable through API calls.
+     */
+    line4: string | null;
+    /**
+     * The town, neighborhood or area the location is in.
+     */
+    locality: string | null;
+    /**
+     * The state, county, province or region that the location is in.
+     */
+    region: string | null;
+    /**
+     * The postcode or zip code for the location. Note that this value is not currently represented in the UI but will be persisted and readable through API calls.}
+     */
+    postcode: string | null;
+    /**
+     * The ISO 3166-1 alpha-2 country code for the country this location is in.
+     */
+    countryCode:
+      | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCountryCode1
+      | null;
+    /**
+     * The latitude of the location. Validated by the regular expression `/^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)$/`. Values are stored with up to 9 decimal places of precision. Note that this value is not currently represented in the UI but will be persisted and readable through API calls.}
+     */
+    latitude: string | null;
+    /**
+     * The longitude of the location. Validated by the regular expression `/^[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/`. Values are stored with up to 9 decimal places of precision. Note that this value is not currently represented in the UI but will be persisted and readable through API calls.}
+     */
+    longitude: string | null;
+    /**
+     * The attribute type of the value.
+     */
+    attributeType: "location";
+  };
+
+/**
+ * The type of actor. [Read more information on actor types here](/docs/actors).
+ */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType8 =
+  {
+    ApiToken: "api-token",
+    WorkspaceMember: "workspace-member",
+    System: "system",
+    App: "app",
+  } as const;
+/**
+ * The type of actor. [Read more information on actor types here](/docs/actors).
+ */
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType8 =
+  OpenEnum<
+    typeof GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType8
+  >;
+
+/**
+ * The actor that created this value.
+ */
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor8 =
+  {
+    /**
+     * An ID to identify the actor.
+     */
+    id?: string | null | undefined;
+    /**
+     * The type of actor. [Read more information on actor types here](/docs/actors).
+     */
+    type?:
+      | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType8
+      | null
+      | undefined;
+  };
+
+/**
+ * The type of interaction e.g. calendar or email.
+ */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesInteractionType =
+  {
+    CalendarEvent: "calendar-event",
+    Call: "call",
+    ChatThread: "chat-thread",
+    Email: "email",
+    InPersonMeeting: "in-person-meeting",
+    Meeting: "meeting",
+  } as const;
+/**
+ * The type of interaction e.g. calendar or email.
+ */
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesInteractionType =
+  OpenEnum<
+    typeof GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesInteractionType
+  >;
+
+/**
+ * The type of actor. [Read more information on actor types here](/docs/actors).
+ */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesOwnerActorType =
+  {
+    ApiToken: "api-token",
+    WorkspaceMember: "workspace-member",
+    System: "system",
+    App: "app",
+  } as const;
+/**
+ * The type of actor. [Read more information on actor types here](/docs/actors).
+ */
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesOwnerActorType =
+  OpenEnum<
+    typeof GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesOwnerActorType
+  >;
+
+/**
+ * The actor that created this value.
+ */
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesOwnerActor =
+  {
+    /**
+     * An ID to identify the actor.
+     */
+    id?: string | null | undefined;
+    /**
+     * The type of actor. [Read more information on actor types here](/docs/actors).
+     */
+    type?:
+      | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesOwnerActorType
+      | null
+      | undefined;
+  };
+
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataInteraction =
+  {
+    /**
+     * The point in time at which this value was made "active". `active_from` can be considered roughly analogous to `created_at`.
+     */
+    activeFrom: Date;
+    /**
+     * The point in time at which this value was deactivated. If `null`, the value is active.
+     */
+    activeUntil: Date | null;
+    /**
+     * The actor that created this value.
+     */
+    createdByActor:
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor8;
+    /**
+     * The type of interaction e.g. calendar or email.
+     */
+    interactionType:
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesInteractionType;
+    /**
+     * When the interaction occurred.
+     */
+    interactedAt: Date;
+    /**
+     * The actor that created this value.
+     */
+    ownerActor:
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesOwnerActor;
+    /**
+     * The attribute type of the value.
+     */
+    attributeType: "interaction";
+  };
+
+/**
+ * The type of actor. [Read more information on actor types here](/docs/actors).
+ */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType7 =
+  {
+    ApiToken: "api-token",
+    WorkspaceMember: "workspace-member",
+    System: "system",
+    App: "app",
+  } as const;
+/**
+ * The type of actor. [Read more information on actor types here](/docs/actors).
+ */
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType7 =
+  OpenEnum<
+    typeof GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType7
+  >;
+
+/**
+ * The actor that created this value.
+ */
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor7 =
+  {
+    /**
+     * An ID to identify the actor.
+     */
+    id?: string | null | undefined;
+    /**
+     * The type of actor. [Read more information on actor types here](/docs/actors).
+     */
+    type?:
+      | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType7
+      | null
+      | undefined;
+  };
+
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataRecordReference =
+  {
+    /**
+     * The point in time at which this value was made "active". `active_from` can be considered roughly analogous to `created_at`.
+     */
+    activeFrom: Date;
+    /**
+     * The point in time at which this value was deactivated. If `null`, the value is active.
+     */
+    activeUntil: Date | null;
+    /**
+     * The actor that created this value.
+     */
+    createdByActor:
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor7;
+    /**
+     * A slug identifying the object that the referenced record belongs to.
+     */
+    targetObject: string;
+    /**
+     * A UUID to identify the referenced record.
+     */
+    targetRecordId: string;
+    /**
+     * The attribute type of the value.
+     */
+    attributeType: "record-reference";
+  };
+
+/**
+ * The type of actor. [Read more information on actor types here](/docs/actors).
+ */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType6 =
+  {
+    ApiToken: "api-token",
+    WorkspaceMember: "workspace-member",
+    System: "system",
+    App: "app",
+  } as const;
+/**
+ * The type of actor. [Read more information on actor types here](/docs/actors).
+ */
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType6 =
+  OpenEnum<
+    typeof GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType6
+  >;
+
+/**
+ * The actor that created this value.
+ */
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor6 =
+  {
+    /**
+     * An ID to identify the actor.
+     */
+    id?: string | null | undefined;
+    /**
+     * The type of actor. [Read more information on actor types here](/docs/actors).
+     */
+    type?:
+      | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType6
+      | null
+      | undefined;
+  };
+
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataEmailAddress =
+  {
+    /**
+     * The point in time at which this value was made "active". `active_from` can be considered roughly analogous to `created_at`.
+     */
+    activeFrom: Date;
+    /**
+     * The point in time at which this value was deactivated. If `null`, the value is active.
+     */
+    activeUntil: Date | null;
+    /**
+     * The actor that created this value.
+     */
+    createdByActor:
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor6;
+    originalEmailAddress: string;
+    emailAddress: string;
+    emailDomain: string;
+    emailRootDomain: string;
+    emailLocalSpecifier: string;
+    /**
+     * The attribute type of the value.
+     */
+    attributeType: "email-address";
+  };
+
+/**
+ * The type of actor. [Read more information on actor types here](/docs/actors).
+ */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType5 =
+  {
+    ApiToken: "api-token",
+    WorkspaceMember: "workspace-member",
+    System: "system",
+    App: "app",
+  } as const;
+/**
+ * The type of actor. [Read more information on actor types here](/docs/actors).
+ */
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType5 =
+  OpenEnum<
+    typeof GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType5
+  >;
+
+/**
+ * The actor that created this value.
+ */
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor5 =
+  {
+    /**
+     * An ID to identify the actor.
+     */
+    id?: string | null | undefined;
+    /**
+     * The type of actor. [Read more information on actor types here](/docs/actors).
+     */
+    type?:
+      | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType5
+      | null
+      | undefined;
+  };
+
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataDomain =
+  {
+    /**
+     * The point in time at which this value was made "active". `active_from` can be considered roughly analogous to `created_at`.
+     */
+    activeFrom: Date;
+    /**
+     * The point in time at which this value was deactivated. If `null`, the value is active.
+     */
+    activeUntil: Date | null;
+    /**
+     * The actor that created this value.
+     */
+    createdByActor:
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor5;
+    domain: string;
+    rootDomain: string;
+    /**
+     * The attribute type of the value.
+     */
+    attributeType: "domain";
+  };
+
+/**
+ * The type of actor. [Read more information on actor types here](/docs/actors).
+ */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType4 =
+  {
+    ApiToken: "api-token",
+    WorkspaceMember: "workspace-member",
+    System: "system",
+    App: "app",
+  } as const;
+/**
+ * The type of actor. [Read more information on actor types here](/docs/actors).
+ */
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType4 =
+  OpenEnum<
+    typeof GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType4
+  >;
+
+/**
+ * The actor that created this value.
+ */
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor4 =
+  {
+    /**
+     * An ID to identify the actor.
+     */
+    id?: string | null | undefined;
+    /**
+     * The type of actor. [Read more information on actor types here](/docs/actors).
+     */
+    type?:
+      | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType4
+      | null
+      | undefined;
+  };
+
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataDate =
+  {
+    /**
+     * The point in time at which this value was made "active". `active_from` can be considered roughly analogous to `created_at`.
+     */
+    activeFrom: Date;
+    /**
+     * The point in time at which this value was deactivated. If `null`, the value is active.
+     */
+    activeUntil: Date | null;
+    /**
+     * The actor that created this value.
+     */
+    createdByActor:
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor4;
+    /**
+     * The attribute type of the value.
+     */
+    attributeType: "date";
+    /**
+     * A date represents a single calendar year, month and day, independent of timezone. If hours, months, seconds or timezones are provided, they will be trimmed. For example, "2023" and "2023-01" will be coerced into "2023-01-01", and "2023-01-02", "2023-01-02T13:00", "2023-01-02T14:00:00", "2023-01-02T15:00:00.000000000", and "2023-01-02T15:00:00.000000000+02:00" will all be coerced to "2023-01-02". If a timezone is provided that would result in a different calendar date in UTC, the date will be coerced to UTC and then the timezone component will be trimmed. For example, the value "2023-01-02T23:00:00-10:00" will be returned as "2023-01-03". The maximum date is "9999-12-31".
+     */
+    value: string;
+  };
+
+/**
+ * The type of actor. [Read more information on actor types here](/docs/actors).
+ */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType3 =
+  {
+    ApiToken: "api-token",
+    WorkspaceMember: "workspace-member",
+    System: "system",
+    App: "app",
+  } as const;
+/**
+ * The type of actor. [Read more information on actor types here](/docs/actors).
+ */
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType3 =
+  OpenEnum<
+    typeof GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType3
+  >;
+
+/**
+ * The actor that created this value.
+ */
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor3 =
+  {
+    /**
+     * An ID to identify the actor.
+     */
+    id?: string | null | undefined;
+    /**
+     * The type of actor. [Read more information on actor types here](/docs/actors).
+     */
+    type?:
+      | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType3
+      | null
+      | undefined;
+  };
+
+/**
+ * The ISO4217 currency code representing the currency that the value is stored in.
+ */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCurrencyCode =
+  {
+    Ars: "ARS",
+    Aud: "AUD",
+    Brl: "BRL",
+    Bgn: "BGN",
+    Cad: "CAD",
+    Clp: "CLP",
+    Cny: "CNY",
+    Cop: "COP",
+    Czk: "CZK",
+    Dkk: "DKK",
+    Eur: "EUR",
+    Hkd: "HKD",
+    Huf: "HUF",
+    Isk: "ISK",
+    Inr: "INR",
+    Ils: "ILS",
+    Jpy: "JPY",
+    Kes: "KES",
+    Krw: "KRW",
+    Myr: "MYR",
+    Mxn: "MXN",
+    Ntd: "NTD",
+    Nzd: "NZD",
+    Ngn: "NGN",
+    Nok: "NOK",
+    Xpf: "XPF",
+    Pen: "PEN",
+    Php: "PHP",
+    Pln: "PLN",
+    Gbp: "GBP",
+    Rwf: "RWF",
+    Sar: "SAR",
+    Sgd: "SGD",
+    Zar: "ZAR",
+    Sek: "SEK",
+    Chf: "CHF",
+    Thb: "THB",
+    Aed: "AED",
+    Uyu: "UYU",
+    Usd: "USD",
+  } as const;
+/**
+ * The ISO4217 currency code representing the currency that the value is stored in.
+ */
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCurrencyCode =
+  OpenEnum<
+    typeof GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCurrencyCode
+  >;
+
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataCurrency =
+  {
+    /**
+     * The point in time at which this value was made "active". `active_from` can be considered roughly analogous to `created_at`.
+     */
+    activeFrom: Date;
+    /**
+     * The point in time at which this value was deactivated. If `null`, the value is active.
+     */
+    activeUntil: Date | null;
+    /**
+     * The actor that created this value.
+     */
+    createdByActor:
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor3;
+    /**
+     * A numerical representation of the currency value. A decimal with a max of 4 decimal places.
+     */
+    currencyValue: number;
+    /**
+     * The ISO4217 currency code representing the currency that the value is stored in.
+     */
+    currencyCode?:
+      | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCurrencyCode
+      | null
+      | undefined;
+    /**
+     * The attribute type of the value.
+     */
+    attributeType: "currency";
+  };
+
+/**
+ * The type of actor. [Read more information on actor types here](/docs/actors).
+ */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType2 =
+  {
+    ApiToken: "api-token",
+    WorkspaceMember: "workspace-member",
+    System: "system",
+    App: "app",
+  } as const;
+/**
+ * The type of actor. [Read more information on actor types here](/docs/actors).
+ */
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType2 =
+  OpenEnum<
+    typeof GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType2
+  >;
+
+/**
+ * The actor that created this value.
+ */
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor2 =
+  {
+    /**
+     * An ID to identify the actor.
+     */
+    id?: string | null | undefined;
+    /**
+     * The type of actor. [Read more information on actor types here](/docs/actors).
+     */
+    type?:
+      | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType2
+      | null
+      | undefined;
+  };
+
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataCheckbox =
+  {
+    /**
+     * The point in time at which this value was made "active". `active_from` can be considered roughly analogous to `created_at`.
+     */
+    activeFrom: Date;
+    /**
+     * The point in time at which this value was deactivated. If `null`, the value is active.
+     */
+    activeUntil: Date | null;
+    /**
+     * The actor that created this value.
+     */
+    createdByActor:
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor2;
+    /**
+     * A boolean representing whether the checkbox is checked or not. The string values 'true' and 'false' are also accepted.
+     */
+    value: boolean;
+    /**
+     * The attribute type of the value.
+     */
+    attributeType: "checkbox";
+  };
+
+/**
+ * The type of actor. [Read more information on actor types here](/docs/actors).
+ */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType1 =
+  {
+    ApiToken: "api-token",
+    WorkspaceMember: "workspace-member",
+    System: "system",
+    App: "app",
+  } as const;
+/**
+ * The type of actor. [Read more information on actor types here](/docs/actors).
+ */
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType1 =
+  OpenEnum<
+    typeof GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType1
+  >;
+
+/**
+ * The actor that created this value.
+ */
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor1 =
+  {
+    /**
+     * An ID to identify the actor.
+     */
+    id?: string | null | undefined;
+    /**
+     * The type of actor. [Read more information on actor types here](/docs/actors).
+     */
+    type?:
+      | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType1
+      | null
+      | undefined;
+  };
+
+/**
+ * The type of the referenced actor. [Read more information on actor types here](/docs/actors).
+ */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesReferencedActorType =
+  {
+    ApiToken: "api-token",
+    WorkspaceMember: "workspace-member",
+    System: "system",
+    App: "app",
+  } as const;
+/**
+ * The type of the referenced actor. [Read more information on actor types here](/docs/actors).
+ */
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesReferencedActorType =
+  OpenEnum<
+    typeof GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesReferencedActorType
+  >;
+
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataActorReference =
+  {
+    /**
+     * The point in time at which this value was made "active". `active_from` can be considered roughly analogous to `created_at`.
+     */
+    activeFrom: Date;
+    /**
+     * The point in time at which this value was deactivated. If `null`, the value is active.
+     */
+    activeUntil: Date | null;
+    /**
+     * The actor that created this value.
+     */
+    createdByActor:
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor1;
+    /**
+     * The type of the referenced actor. [Read more information on actor types here](/docs/actors).
+     */
+    referencedActorType:
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesReferencedActorType;
+    /**
+     * The ID of the referenced actor.
+     */
+    referencedActorId: string | null;
+    /**
+     * The attribute type of the value.
+     */
+    attributeType: "actor-reference";
+  };
+
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataUnion =
+  | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataActorReference
+  | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataCheckbox
+  | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataCurrency
+  | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataDate
+  | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataDomain
+  | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataEmailAddress
+  | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataRecordReference
+  | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataInteraction
+  | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataLocation
+  | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataNumber
+  | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataPersonalName
+  | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataPhoneNumber
+  | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataStatus
+  | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataRating
+  | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataSelect
+  | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataText
+  | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataTimestamp
+  | discriminatedUnionTypes.Unknown<"attributeType">;
+
+/**
+ * Success
+ */
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesResponse =
+  {
+    data: Array<
+      | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataActorReference
+      | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataCheckbox
+      | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataCurrency
+      | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataDate
+      | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataDomain
+      | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataEmailAddress
+      | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataRecordReference
+      | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataInteraction
+      | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataLocation
+      | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataNumber
+      | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataPersonalName
+      | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataPhoneNumber
+      | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataStatus
+      | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataRating
+      | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataSelect
+      | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataText
+      | GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataTimestamp
+      | discriminatedUnionTypes.Unknown<"attributeType">
+    >;
+  };
 
 /** @internal */
 export const GetV2TargetIdentifierAttributesAttributeTarget$outboundSchema:
@@ -120,5 +2556,2784 @@ export function getV2TargetIdentifierAttributesAttributeResponseFromJSON(
         JSON.parse(x),
       ),
     `Failed to parse 'GetV2TargetIdentifierAttributesAttributeResponse' from JSON`,
+  );
+}
+
+/** @internal */
+export const PatchV2TargetIdentifierAttributesAttributeTarget$outboundSchema:
+  z.ZodMiniEnum<typeof PatchV2TargetIdentifierAttributesAttributeTarget> = z
+    .enum(PatchV2TargetIdentifierAttributesAttributeTarget);
+
+/** @internal */
+export type PatchV2TargetIdentifierAttributesAttributeDefaultValueStatic$Outbound =
+  {
+    type: "static";
+    template: Array<models.InputValueUnion$Outbound>;
+  };
+
+/** @internal */
+export const PatchV2TargetIdentifierAttributesAttributeDefaultValueStatic$outboundSchema:
+  z.ZodMiniType<
+    PatchV2TargetIdentifierAttributesAttributeDefaultValueStatic$Outbound,
+    PatchV2TargetIdentifierAttributesAttributeDefaultValueStatic
+  > = z.object({
+    type: z.literal("static"),
+    template: z.array(models.InputValueUnion$outboundSchema),
+  });
+
+export function patchV2TargetIdentifierAttributesAttributeDefaultValueStaticToJSON(
+  patchV2TargetIdentifierAttributesAttributeDefaultValueStatic:
+    PatchV2TargetIdentifierAttributesAttributeDefaultValueStatic,
+): string {
+  return JSON.stringify(
+    PatchV2TargetIdentifierAttributesAttributeDefaultValueStatic$outboundSchema
+      .parse(patchV2TargetIdentifierAttributesAttributeDefaultValueStatic),
+  );
+}
+
+/** @internal */
+export const PatchV2TargetIdentifierAttributesAttributeTemplate$outboundSchema:
+  z.ZodMiniEnum<typeof PatchV2TargetIdentifierAttributesAttributeTemplate> = z
+    .enum(PatchV2TargetIdentifierAttributesAttributeTemplate);
+
+/** @internal */
+export type PatchV2TargetIdentifierAttributesAttributeDefaultValueDynamic$Outbound =
+  {
+    type: "dynamic";
+    template: any;
+  };
+
+/** @internal */
+export const PatchV2TargetIdentifierAttributesAttributeDefaultValueDynamic$outboundSchema:
+  z.ZodMiniType<
+    PatchV2TargetIdentifierAttributesAttributeDefaultValueDynamic$Outbound,
+    PatchV2TargetIdentifierAttributesAttributeDefaultValueDynamic
+  > = z.object({
+    type: z.literal("dynamic"),
+    template: z.any(),
+  });
+
+export function patchV2TargetIdentifierAttributesAttributeDefaultValueDynamicToJSON(
+  patchV2TargetIdentifierAttributesAttributeDefaultValueDynamic:
+    PatchV2TargetIdentifierAttributesAttributeDefaultValueDynamic,
+): string {
+  return JSON.stringify(
+    PatchV2TargetIdentifierAttributesAttributeDefaultValueDynamic$outboundSchema
+      .parse(patchV2TargetIdentifierAttributesAttributeDefaultValueDynamic),
+  );
+}
+
+/** @internal */
+export type PatchV2TargetIdentifierAttributesAttributeDefaultValueUnion$Outbound =
+  | PatchV2TargetIdentifierAttributesAttributeDefaultValueDynamic$Outbound
+  | PatchV2TargetIdentifierAttributesAttributeDefaultValueStatic$Outbound;
+
+/** @internal */
+export const PatchV2TargetIdentifierAttributesAttributeDefaultValueUnion$outboundSchema:
+  z.ZodMiniType<
+    PatchV2TargetIdentifierAttributesAttributeDefaultValueUnion$Outbound,
+    PatchV2TargetIdentifierAttributesAttributeDefaultValueUnion
+  > = z.union([
+    z.lazy(() =>
+      PatchV2TargetIdentifierAttributesAttributeDefaultValueDynamic$outboundSchema
+    ),
+    z.lazy(() =>
+      PatchV2TargetIdentifierAttributesAttributeDefaultValueStatic$outboundSchema
+    ),
+  ]);
+
+export function patchV2TargetIdentifierAttributesAttributeDefaultValueUnionToJSON(
+  patchV2TargetIdentifierAttributesAttributeDefaultValueUnion:
+    PatchV2TargetIdentifierAttributesAttributeDefaultValueUnion,
+): string {
+  return JSON.stringify(
+    PatchV2TargetIdentifierAttributesAttributeDefaultValueUnion$outboundSchema
+      .parse(patchV2TargetIdentifierAttributesAttributeDefaultValueUnion),
+  );
+}
+
+/** @internal */
+export const PatchV2TargetIdentifierAttributesAttributeDefaultCurrencyCode$outboundSchema:
+  z.ZodMiniEnum<
+    typeof PatchV2TargetIdentifierAttributesAttributeDefaultCurrencyCode
+  > = z.enum(PatchV2TargetIdentifierAttributesAttributeDefaultCurrencyCode);
+
+/** @internal */
+export const PatchV2TargetIdentifierAttributesAttributeDisplayType$outboundSchema:
+  z.ZodMiniEnum<typeof PatchV2TargetIdentifierAttributesAttributeDisplayType> =
+    z.enum(PatchV2TargetIdentifierAttributesAttributeDisplayType);
+
+/** @internal */
+export type PatchV2TargetIdentifierAttributesAttributeCurrency$Outbound = {
+  default_currency_code: string;
+  display_type: string;
+};
+
+/** @internal */
+export const PatchV2TargetIdentifierAttributesAttributeCurrency$outboundSchema:
+  z.ZodMiniType<
+    PatchV2TargetIdentifierAttributesAttributeCurrency$Outbound,
+    PatchV2TargetIdentifierAttributesAttributeCurrency
+  > = z.pipe(
+    z.object({
+      defaultCurrencyCode:
+        PatchV2TargetIdentifierAttributesAttributeDefaultCurrencyCode$outboundSchema,
+      displayType:
+        PatchV2TargetIdentifierAttributesAttributeDisplayType$outboundSchema,
+    }),
+    z.transform((v) => {
+      return remap$(v, {
+        defaultCurrencyCode: "default_currency_code",
+        displayType: "display_type",
+      });
+    }),
+  );
+
+export function patchV2TargetIdentifierAttributesAttributeCurrencyToJSON(
+  patchV2TargetIdentifierAttributesAttributeCurrency:
+    PatchV2TargetIdentifierAttributesAttributeCurrency,
+): string {
+  return JSON.stringify(
+    PatchV2TargetIdentifierAttributesAttributeCurrency$outboundSchema.parse(
+      patchV2TargetIdentifierAttributesAttributeCurrency,
+    ),
+  );
+}
+
+/** @internal */
+export type PatchV2TargetIdentifierAttributesAttributeRecordReference$Outbound =
+  {
+    allowed_objects: Array<string>;
+  };
+
+/** @internal */
+export const PatchV2TargetIdentifierAttributesAttributeRecordReference$outboundSchema:
+  z.ZodMiniType<
+    PatchV2TargetIdentifierAttributesAttributeRecordReference$Outbound,
+    PatchV2TargetIdentifierAttributesAttributeRecordReference
+  > = z.pipe(
+    z.object({
+      allowedObjects: z.array(z.string()),
+    }),
+    z.transform((v) => {
+      return remap$(v, {
+        allowedObjects: "allowed_objects",
+      });
+    }),
+  );
+
+export function patchV2TargetIdentifierAttributesAttributeRecordReferenceToJSON(
+  patchV2TargetIdentifierAttributesAttributeRecordReference:
+    PatchV2TargetIdentifierAttributesAttributeRecordReference,
+): string {
+  return JSON.stringify(
+    PatchV2TargetIdentifierAttributesAttributeRecordReference$outboundSchema
+      .parse(patchV2TargetIdentifierAttributesAttributeRecordReference),
+  );
+}
+
+/** @internal */
+export type PatchV2TargetIdentifierAttributesAttributeConfig$Outbound = {
+  currency?:
+    | PatchV2TargetIdentifierAttributesAttributeCurrency$Outbound
+    | undefined;
+  record_reference?:
+    | PatchV2TargetIdentifierAttributesAttributeRecordReference$Outbound
+    | undefined;
+};
+
+/** @internal */
+export const PatchV2TargetIdentifierAttributesAttributeConfig$outboundSchema:
+  z.ZodMiniType<
+    PatchV2TargetIdentifierAttributesAttributeConfig$Outbound,
+    PatchV2TargetIdentifierAttributesAttributeConfig
+  > = z.pipe(
+    z.object({
+      currency: z.optional(z.lazy(() =>
+        PatchV2TargetIdentifierAttributesAttributeCurrency$outboundSchema
+      )),
+      recordReference: z.optional(z.lazy(() =>
+        PatchV2TargetIdentifierAttributesAttributeRecordReference$outboundSchema
+      )),
+    }),
+    z.transform((v) => {
+      return remap$(v, {
+        recordReference: "record_reference",
+      });
+    }),
+  );
+
+export function patchV2TargetIdentifierAttributesAttributeConfigToJSON(
+  patchV2TargetIdentifierAttributesAttributeConfig:
+    PatchV2TargetIdentifierAttributesAttributeConfig,
+): string {
+  return JSON.stringify(
+    PatchV2TargetIdentifierAttributesAttributeConfig$outboundSchema.parse(
+      patchV2TargetIdentifierAttributesAttributeConfig,
+    ),
+  );
+}
+
+/** @internal */
+export type PatchV2TargetIdentifierAttributesAttributeData$Outbound = {
+  title?: string | undefined;
+  description?: string | null | undefined;
+  api_slug?: string | undefined;
+  is_required?: boolean | undefined;
+  is_unique?: boolean | undefined;
+  default_value?:
+    | PatchV2TargetIdentifierAttributesAttributeDefaultValueDynamic$Outbound
+    | PatchV2TargetIdentifierAttributesAttributeDefaultValueStatic$Outbound
+    | null
+    | undefined;
+  config?:
+    | PatchV2TargetIdentifierAttributesAttributeConfig$Outbound
+    | undefined;
+  is_archived?: boolean | undefined;
+};
+
+/** @internal */
+export const PatchV2TargetIdentifierAttributesAttributeData$outboundSchema:
+  z.ZodMiniType<
+    PatchV2TargetIdentifierAttributesAttributeData$Outbound,
+    PatchV2TargetIdentifierAttributesAttributeData
+  > = z.pipe(
+    z.object({
+      title: z.optional(z.string()),
+      description: z.optional(z.nullable(z.string())),
+      apiSlug: z.optional(z.string()),
+      isRequired: z.optional(z.boolean()),
+      isUnique: z.optional(z.boolean()),
+      defaultValue: z.optional(z.nullable(z.union([
+        z.lazy(() =>
+          PatchV2TargetIdentifierAttributesAttributeDefaultValueDynamic$outboundSchema
+        ),
+        z.lazy(() =>
+          PatchV2TargetIdentifierAttributesAttributeDefaultValueStatic$outboundSchema
+        ),
+      ]))),
+      config: z.optional(z.lazy(() =>
+        PatchV2TargetIdentifierAttributesAttributeConfig$outboundSchema
+      )),
+      isArchived: z.optional(z.boolean()),
+    }),
+    z.transform((v) => {
+      return remap$(v, {
+        apiSlug: "api_slug",
+        isRequired: "is_required",
+        isUnique: "is_unique",
+        defaultValue: "default_value",
+        isArchived: "is_archived",
+      });
+    }),
+  );
+
+export function patchV2TargetIdentifierAttributesAttributeDataToJSON(
+  patchV2TargetIdentifierAttributesAttributeData:
+    PatchV2TargetIdentifierAttributesAttributeData,
+): string {
+  return JSON.stringify(
+    PatchV2TargetIdentifierAttributesAttributeData$outboundSchema.parse(
+      patchV2TargetIdentifierAttributesAttributeData,
+    ),
+  );
+}
+
+/** @internal */
+export type PatchV2TargetIdentifierAttributesAttributeRequestBody$Outbound = {
+  data: PatchV2TargetIdentifierAttributesAttributeData$Outbound;
+};
+
+/** @internal */
+export const PatchV2TargetIdentifierAttributesAttributeRequestBody$outboundSchema:
+  z.ZodMiniType<
+    PatchV2TargetIdentifierAttributesAttributeRequestBody$Outbound,
+    PatchV2TargetIdentifierAttributesAttributeRequestBody
+  > = z.object({
+    data: z.lazy(() =>
+      PatchV2TargetIdentifierAttributesAttributeData$outboundSchema
+    ),
+  });
+
+export function patchV2TargetIdentifierAttributesAttributeRequestBodyToJSON(
+  patchV2TargetIdentifierAttributesAttributeRequestBody:
+    PatchV2TargetIdentifierAttributesAttributeRequestBody,
+): string {
+  return JSON.stringify(
+    PatchV2TargetIdentifierAttributesAttributeRequestBody$outboundSchema.parse(
+      patchV2TargetIdentifierAttributesAttributeRequestBody,
+    ),
+  );
+}
+
+/** @internal */
+export type PatchV2TargetIdentifierAttributesAttributeRequest$Outbound = {
+  target: string;
+  identifier: string;
+  attribute: string;
+  body: PatchV2TargetIdentifierAttributesAttributeRequestBody$Outbound;
+};
+
+/** @internal */
+export const PatchV2TargetIdentifierAttributesAttributeRequest$outboundSchema:
+  z.ZodMiniType<
+    PatchV2TargetIdentifierAttributesAttributeRequest$Outbound,
+    PatchV2TargetIdentifierAttributesAttributeRequest
+  > = z.object({
+    target: PatchV2TargetIdentifierAttributesAttributeTarget$outboundSchema,
+    identifier: z.string(),
+    attribute: z.string(),
+    body: z.lazy(() =>
+      PatchV2TargetIdentifierAttributesAttributeRequestBody$outboundSchema
+    ),
+  });
+
+export function patchV2TargetIdentifierAttributesAttributeRequestToJSON(
+  patchV2TargetIdentifierAttributesAttributeRequest:
+    PatchV2TargetIdentifierAttributesAttributeRequest,
+): string {
+  return JSON.stringify(
+    PatchV2TargetIdentifierAttributesAttributeRequest$outboundSchema.parse(
+      patchV2TargetIdentifierAttributesAttributeRequest,
+    ),
+  );
+}
+
+/** @internal */
+export const PatchV2TargetIdentifierAttributesAttributeBadRequestType$inboundSchema:
+  z.ZodMiniEnum<
+    typeof PatchV2TargetIdentifierAttributesAttributeBadRequestType
+  > = z.enum(PatchV2TargetIdentifierAttributesAttributeBadRequestType);
+
+/** @internal */
+export const CodeSystemEditUnauthorized$inboundSchema: z.ZodMiniEnum<
+  typeof CodeSystemEditUnauthorized
+> = z.enum(CodeSystemEditUnauthorized);
+
+/** @internal */
+export const PatchV2TargetIdentifierAttributesAttributeResponse$inboundSchema:
+  z.ZodMiniType<PatchV2TargetIdentifierAttributesAttributeResponse, unknown> = z
+    .object({
+      data: models.Attribute$inboundSchema,
+    });
+
+export function patchV2TargetIdentifierAttributesAttributeResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  PatchV2TargetIdentifierAttributesAttributeResponse,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      PatchV2TargetIdentifierAttributesAttributeResponse$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'PatchV2TargetIdentifierAttributesAttributeResponse' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetV2TargetIdentifierAttributesAttributeOptionsTarget$outboundSchema:
+  z.ZodMiniEnum<typeof GetV2TargetIdentifierAttributesAttributeOptionsTarget> =
+    z.enum(GetV2TargetIdentifierAttributesAttributeOptionsTarget);
+
+/** @internal */
+export type GetV2TargetIdentifierAttributesAttributeOptionsRequest$Outbound = {
+  target: string;
+  identifier: string;
+  attribute: string;
+  show_archived?: boolean | undefined;
+};
+
+/** @internal */
+export const GetV2TargetIdentifierAttributesAttributeOptionsRequest$outboundSchema:
+  z.ZodMiniType<
+    GetV2TargetIdentifierAttributesAttributeOptionsRequest$Outbound,
+    GetV2TargetIdentifierAttributesAttributeOptionsRequest
+  > = z.pipe(
+    z.object({
+      target:
+        GetV2TargetIdentifierAttributesAttributeOptionsTarget$outboundSchema,
+      identifier: z.string(),
+      attribute: z.string(),
+      showArchived: z.optional(z.boolean()),
+    }),
+    z.transform((v) => {
+      return remap$(v, {
+        showArchived: "show_archived",
+      });
+    }),
+  );
+
+export function getV2TargetIdentifierAttributesAttributeOptionsRequestToJSON(
+  getV2TargetIdentifierAttributesAttributeOptionsRequest:
+    GetV2TargetIdentifierAttributesAttributeOptionsRequest,
+): string {
+  return JSON.stringify(
+    GetV2TargetIdentifierAttributesAttributeOptionsRequest$outboundSchema.parse(
+      getV2TargetIdentifierAttributesAttributeOptionsRequest,
+    ),
+  );
+}
+
+/** @internal */
+export const GetV2TargetIdentifierAttributesAttributeOptionsResponse$inboundSchema:
+  z.ZodMiniType<
+    GetV2TargetIdentifierAttributesAttributeOptionsResponse,
+    unknown
+  > = z.object({
+    data: z.array(models.SelectOption$inboundSchema),
+  });
+
+export function getV2TargetIdentifierAttributesAttributeOptionsResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetV2TargetIdentifierAttributesAttributeOptionsResponse,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetV2TargetIdentifierAttributesAttributeOptionsResponse$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'GetV2TargetIdentifierAttributesAttributeOptionsResponse' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostV2TargetIdentifierAttributesAttributeOptionsTarget$outboundSchema:
+  z.ZodMiniEnum<typeof PostV2TargetIdentifierAttributesAttributeOptionsTarget> =
+    z.enum(PostV2TargetIdentifierAttributesAttributeOptionsTarget);
+
+/** @internal */
+export type PostV2TargetIdentifierAttributesAttributeOptionsData$Outbound = {
+  title: string;
+};
+
+/** @internal */
+export const PostV2TargetIdentifierAttributesAttributeOptionsData$outboundSchema:
+  z.ZodMiniType<
+    PostV2TargetIdentifierAttributesAttributeOptionsData$Outbound,
+    PostV2TargetIdentifierAttributesAttributeOptionsData
+  > = z.object({
+    title: z.string(),
+  });
+
+export function postV2TargetIdentifierAttributesAttributeOptionsDataToJSON(
+  postV2TargetIdentifierAttributesAttributeOptionsData:
+    PostV2TargetIdentifierAttributesAttributeOptionsData,
+): string {
+  return JSON.stringify(
+    PostV2TargetIdentifierAttributesAttributeOptionsData$outboundSchema.parse(
+      postV2TargetIdentifierAttributesAttributeOptionsData,
+    ),
+  );
+}
+
+/** @internal */
+export type PostV2TargetIdentifierAttributesAttributeOptionsRequestBody$Outbound =
+  {
+    data: PostV2TargetIdentifierAttributesAttributeOptionsData$Outbound;
+  };
+
+/** @internal */
+export const PostV2TargetIdentifierAttributesAttributeOptionsRequestBody$outboundSchema:
+  z.ZodMiniType<
+    PostV2TargetIdentifierAttributesAttributeOptionsRequestBody$Outbound,
+    PostV2TargetIdentifierAttributesAttributeOptionsRequestBody
+  > = z.object({
+    data: z.lazy(() =>
+      PostV2TargetIdentifierAttributesAttributeOptionsData$outboundSchema
+    ),
+  });
+
+export function postV2TargetIdentifierAttributesAttributeOptionsRequestBodyToJSON(
+  postV2TargetIdentifierAttributesAttributeOptionsRequestBody:
+    PostV2TargetIdentifierAttributesAttributeOptionsRequestBody,
+): string {
+  return JSON.stringify(
+    PostV2TargetIdentifierAttributesAttributeOptionsRequestBody$outboundSchema
+      .parse(postV2TargetIdentifierAttributesAttributeOptionsRequestBody),
+  );
+}
+
+/** @internal */
+export type PostV2TargetIdentifierAttributesAttributeOptionsRequest$Outbound = {
+  target: string;
+  identifier: string;
+  attribute: string;
+  body: PostV2TargetIdentifierAttributesAttributeOptionsRequestBody$Outbound;
+};
+
+/** @internal */
+export const PostV2TargetIdentifierAttributesAttributeOptionsRequest$outboundSchema:
+  z.ZodMiniType<
+    PostV2TargetIdentifierAttributesAttributeOptionsRequest$Outbound,
+    PostV2TargetIdentifierAttributesAttributeOptionsRequest
+  > = z.object({
+    target:
+      PostV2TargetIdentifierAttributesAttributeOptionsTarget$outboundSchema,
+    identifier: z.string(),
+    attribute: z.string(),
+    body: z.lazy(() =>
+      PostV2TargetIdentifierAttributesAttributeOptionsRequestBody$outboundSchema
+    ),
+  });
+
+export function postV2TargetIdentifierAttributesAttributeOptionsRequestToJSON(
+  postV2TargetIdentifierAttributesAttributeOptionsRequest:
+    PostV2TargetIdentifierAttributesAttributeOptionsRequest,
+): string {
+  return JSON.stringify(
+    PostV2TargetIdentifierAttributesAttributeOptionsRequest$outboundSchema
+      .parse(postV2TargetIdentifierAttributesAttributeOptionsRequest),
+  );
+}
+
+/** @internal */
+export const PostV2TargetIdentifierAttributesAttributeOptionsConflictType$inboundSchema:
+  z.ZodMiniEnum<
+    typeof PostV2TargetIdentifierAttributesAttributeOptionsConflictType
+  > = z.enum(PostV2TargetIdentifierAttributesAttributeOptionsConflictType);
+
+/** @internal */
+export const PostV2TargetIdentifierAttributesAttributeOptionsConflictCode$inboundSchema:
+  z.ZodMiniEnum<
+    typeof PostV2TargetIdentifierAttributesAttributeOptionsConflictCode
+  > = z.enum(PostV2TargetIdentifierAttributesAttributeOptionsConflictCode);
+
+/** @internal */
+export const PostV2TargetIdentifierAttributesAttributeOptionsBadRequestType$inboundSchema:
+  z.ZodMiniEnum<
+    typeof PostV2TargetIdentifierAttributesAttributeOptionsBadRequestType
+  > = z.enum(PostV2TargetIdentifierAttributesAttributeOptionsBadRequestType);
+
+/** @internal */
+export const PostV2TargetIdentifierAttributesAttributeOptionsCodeValidationType$inboundSchema:
+  z.ZodMiniEnum<
+    typeof PostV2TargetIdentifierAttributesAttributeOptionsCodeValidationType
+  > = z.enum(
+    PostV2TargetIdentifierAttributesAttributeOptionsCodeValidationType,
+  );
+
+/** @internal */
+export const PostV2TargetIdentifierAttributesAttributeOptionsResponse$inboundSchema:
+  z.ZodMiniType<
+    PostV2TargetIdentifierAttributesAttributeOptionsResponse,
+    unknown
+  > = z.object({
+    data: models.SelectOption$inboundSchema,
+  });
+
+export function postV2TargetIdentifierAttributesAttributeOptionsResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  PostV2TargetIdentifierAttributesAttributeOptionsResponse,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      PostV2TargetIdentifierAttributesAttributeOptionsResponse$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'PostV2TargetIdentifierAttributesAttributeOptionsResponse' from JSON`,
+  );
+}
+
+/** @internal */
+export const PatchV2TargetIdentifierAttributesAttributeOptionsOptionTarget$outboundSchema:
+  z.ZodMiniEnum<
+    typeof PatchV2TargetIdentifierAttributesAttributeOptionsOptionTarget
+  > = z.enum(PatchV2TargetIdentifierAttributesAttributeOptionsOptionTarget);
+
+/** @internal */
+export type PatchV2TargetIdentifierAttributesAttributeOptionsOptionData$Outbound =
+  {
+    title?: string | undefined;
+    is_archived?: boolean | undefined;
+  };
+
+/** @internal */
+export const PatchV2TargetIdentifierAttributesAttributeOptionsOptionData$outboundSchema:
+  z.ZodMiniType<
+    PatchV2TargetIdentifierAttributesAttributeOptionsOptionData$Outbound,
+    PatchV2TargetIdentifierAttributesAttributeOptionsOptionData
+  > = z.pipe(
+    z.object({
+      title: z.optional(z.string()),
+      isArchived: z.optional(z.boolean()),
+    }),
+    z.transform((v) => {
+      return remap$(v, {
+        isArchived: "is_archived",
+      });
+    }),
+  );
+
+export function patchV2TargetIdentifierAttributesAttributeOptionsOptionDataToJSON(
+  patchV2TargetIdentifierAttributesAttributeOptionsOptionData:
+    PatchV2TargetIdentifierAttributesAttributeOptionsOptionData,
+): string {
+  return JSON.stringify(
+    PatchV2TargetIdentifierAttributesAttributeOptionsOptionData$outboundSchema
+      .parse(patchV2TargetIdentifierAttributesAttributeOptionsOptionData),
+  );
+}
+
+/** @internal */
+export type PatchV2TargetIdentifierAttributesAttributeOptionsOptionRequestBody$Outbound =
+  {
+    data: PatchV2TargetIdentifierAttributesAttributeOptionsOptionData$Outbound;
+  };
+
+/** @internal */
+export const PatchV2TargetIdentifierAttributesAttributeOptionsOptionRequestBody$outboundSchema:
+  z.ZodMiniType<
+    PatchV2TargetIdentifierAttributesAttributeOptionsOptionRequestBody$Outbound,
+    PatchV2TargetIdentifierAttributesAttributeOptionsOptionRequestBody
+  > = z.object({
+    data: z.lazy(() =>
+      PatchV2TargetIdentifierAttributesAttributeOptionsOptionData$outboundSchema
+    ),
+  });
+
+export function patchV2TargetIdentifierAttributesAttributeOptionsOptionRequestBodyToJSON(
+  patchV2TargetIdentifierAttributesAttributeOptionsOptionRequestBody:
+    PatchV2TargetIdentifierAttributesAttributeOptionsOptionRequestBody,
+): string {
+  return JSON.stringify(
+    PatchV2TargetIdentifierAttributesAttributeOptionsOptionRequestBody$outboundSchema
+      .parse(
+        patchV2TargetIdentifierAttributesAttributeOptionsOptionRequestBody,
+      ),
+  );
+}
+
+/** @internal */
+export type PatchV2TargetIdentifierAttributesAttributeOptionsOptionRequest$Outbound =
+  {
+    target: string;
+    identifier: string;
+    attribute: string;
+    option: string;
+    body:
+      PatchV2TargetIdentifierAttributesAttributeOptionsOptionRequestBody$Outbound;
+  };
+
+/** @internal */
+export const PatchV2TargetIdentifierAttributesAttributeOptionsOptionRequest$outboundSchema:
+  z.ZodMiniType<
+    PatchV2TargetIdentifierAttributesAttributeOptionsOptionRequest$Outbound,
+    PatchV2TargetIdentifierAttributesAttributeOptionsOptionRequest
+  > = z.object({
+    target:
+      PatchV2TargetIdentifierAttributesAttributeOptionsOptionTarget$outboundSchema,
+    identifier: z.string(),
+    attribute: z.string(),
+    option: z.string(),
+    body: z.lazy(() =>
+      PatchV2TargetIdentifierAttributesAttributeOptionsOptionRequestBody$outboundSchema
+    ),
+  });
+
+export function patchV2TargetIdentifierAttributesAttributeOptionsOptionRequestToJSON(
+  patchV2TargetIdentifierAttributesAttributeOptionsOptionRequest:
+    PatchV2TargetIdentifierAttributesAttributeOptionsOptionRequest,
+): string {
+  return JSON.stringify(
+    PatchV2TargetIdentifierAttributesAttributeOptionsOptionRequest$outboundSchema
+      .parse(patchV2TargetIdentifierAttributesAttributeOptionsOptionRequest),
+  );
+}
+
+/** @internal */
+export const PatchV2TargetIdentifierAttributesAttributeOptionsOptionBadRequestType$inboundSchema:
+  z.ZodMiniEnum<
+    typeof PatchV2TargetIdentifierAttributesAttributeOptionsOptionBadRequestType
+  > = z.enum(
+    PatchV2TargetIdentifierAttributesAttributeOptionsOptionBadRequestType,
+  );
+
+/** @internal */
+export const PatchV2TargetIdentifierAttributesAttributeOptionsOptionCodeValueNotFound$inboundSchema:
+  z.ZodMiniEnum<
+    typeof PatchV2TargetIdentifierAttributesAttributeOptionsOptionCodeValueNotFound
+  > = z.enum(
+    PatchV2TargetIdentifierAttributesAttributeOptionsOptionCodeValueNotFound,
+  );
+
+/** @internal */
+export const PatchV2TargetIdentifierAttributesAttributeOptionsOptionResponse$inboundSchema:
+  z.ZodMiniType<
+    PatchV2TargetIdentifierAttributesAttributeOptionsOptionResponse,
+    unknown
+  > = z.object({
+    data: models.SelectOption$inboundSchema,
+  });
+
+export function patchV2TargetIdentifierAttributesAttributeOptionsOptionResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  PatchV2TargetIdentifierAttributesAttributeOptionsOptionResponse,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      PatchV2TargetIdentifierAttributesAttributeOptionsOptionResponse$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'PatchV2TargetIdentifierAttributesAttributeOptionsOptionResponse' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetV2TargetIdentifierAttributesAttributeStatusesTarget$outboundSchema:
+  z.ZodMiniEnum<typeof GetV2TargetIdentifierAttributesAttributeStatusesTarget> =
+    z.enum(GetV2TargetIdentifierAttributesAttributeStatusesTarget);
+
+/** @internal */
+export type GetV2TargetIdentifierAttributesAttributeStatusesRequest$Outbound = {
+  target: string;
+  identifier: string;
+  attribute: string;
+  show_archived: boolean;
+};
+
+/** @internal */
+export const GetV2TargetIdentifierAttributesAttributeStatusesRequest$outboundSchema:
+  z.ZodMiniType<
+    GetV2TargetIdentifierAttributesAttributeStatusesRequest$Outbound,
+    GetV2TargetIdentifierAttributesAttributeStatusesRequest
+  > = z.pipe(
+    z.object({
+      target:
+        GetV2TargetIdentifierAttributesAttributeStatusesTarget$outboundSchema,
+      identifier: z.string(),
+      attribute: z.string(),
+      showArchived: z._default(z.boolean(), false),
+    }),
+    z.transform((v) => {
+      return remap$(v, {
+        showArchived: "show_archived",
+      });
+    }),
+  );
+
+export function getV2TargetIdentifierAttributesAttributeStatusesRequestToJSON(
+  getV2TargetIdentifierAttributesAttributeStatusesRequest:
+    GetV2TargetIdentifierAttributesAttributeStatusesRequest,
+): string {
+  return JSON.stringify(
+    GetV2TargetIdentifierAttributesAttributeStatusesRequest$outboundSchema
+      .parse(getV2TargetIdentifierAttributesAttributeStatusesRequest),
+  );
+}
+
+/** @internal */
+export const GetV2TargetIdentifierAttributesAttributeStatusesResponse$inboundSchema:
+  z.ZodMiniType<
+    GetV2TargetIdentifierAttributesAttributeStatusesResponse,
+    unknown
+  > = z.object({
+    data: z.array(models.Status$inboundSchema),
+  });
+
+export function getV2TargetIdentifierAttributesAttributeStatusesResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetV2TargetIdentifierAttributesAttributeStatusesResponse,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetV2TargetIdentifierAttributesAttributeStatusesResponse$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'GetV2TargetIdentifierAttributesAttributeStatusesResponse' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostV2TargetIdentifierAttributesAttributeStatusesTarget$outboundSchema:
+  z.ZodMiniEnum<
+    typeof PostV2TargetIdentifierAttributesAttributeStatusesTarget
+  > = z.enum(PostV2TargetIdentifierAttributesAttributeStatusesTarget);
+
+/** @internal */
+export type PostV2TargetIdentifierAttributesAttributeStatusesData$Outbound = {
+  title: string;
+  celebration_enabled: boolean;
+  target_time_in_status?: string | null | undefined;
+};
+
+/** @internal */
+export const PostV2TargetIdentifierAttributesAttributeStatusesData$outboundSchema:
+  z.ZodMiniType<
+    PostV2TargetIdentifierAttributesAttributeStatusesData$Outbound,
+    PostV2TargetIdentifierAttributesAttributeStatusesData
+  > = z.pipe(
+    z.object({
+      title: z.string(),
+      celebrationEnabled: z._default(z.boolean(), false),
+      targetTimeInStatus: z.optional(z.nullable(z.string())),
+    }),
+    z.transform((v) => {
+      return remap$(v, {
+        celebrationEnabled: "celebration_enabled",
+        targetTimeInStatus: "target_time_in_status",
+      });
+    }),
+  );
+
+export function postV2TargetIdentifierAttributesAttributeStatusesDataToJSON(
+  postV2TargetIdentifierAttributesAttributeStatusesData:
+    PostV2TargetIdentifierAttributesAttributeStatusesData,
+): string {
+  return JSON.stringify(
+    PostV2TargetIdentifierAttributesAttributeStatusesData$outboundSchema.parse(
+      postV2TargetIdentifierAttributesAttributeStatusesData,
+    ),
+  );
+}
+
+/** @internal */
+export type PostV2TargetIdentifierAttributesAttributeStatusesRequestBody$Outbound =
+  {
+    data: PostV2TargetIdentifierAttributesAttributeStatusesData$Outbound;
+  };
+
+/** @internal */
+export const PostV2TargetIdentifierAttributesAttributeStatusesRequestBody$outboundSchema:
+  z.ZodMiniType<
+    PostV2TargetIdentifierAttributesAttributeStatusesRequestBody$Outbound,
+    PostV2TargetIdentifierAttributesAttributeStatusesRequestBody
+  > = z.object({
+    data: z.lazy(() =>
+      PostV2TargetIdentifierAttributesAttributeStatusesData$outboundSchema
+    ),
+  });
+
+export function postV2TargetIdentifierAttributesAttributeStatusesRequestBodyToJSON(
+  postV2TargetIdentifierAttributesAttributeStatusesRequestBody:
+    PostV2TargetIdentifierAttributesAttributeStatusesRequestBody,
+): string {
+  return JSON.stringify(
+    PostV2TargetIdentifierAttributesAttributeStatusesRequestBody$outboundSchema
+      .parse(postV2TargetIdentifierAttributesAttributeStatusesRequestBody),
+  );
+}
+
+/** @internal */
+export type PostV2TargetIdentifierAttributesAttributeStatusesRequest$Outbound =
+  {
+    target: string;
+    identifier: string;
+    attribute: string;
+    body: PostV2TargetIdentifierAttributesAttributeStatusesRequestBody$Outbound;
+  };
+
+/** @internal */
+export const PostV2TargetIdentifierAttributesAttributeStatusesRequest$outboundSchema:
+  z.ZodMiniType<
+    PostV2TargetIdentifierAttributesAttributeStatusesRequest$Outbound,
+    PostV2TargetIdentifierAttributesAttributeStatusesRequest
+  > = z.object({
+    target:
+      PostV2TargetIdentifierAttributesAttributeStatusesTarget$outboundSchema,
+    identifier: z.string(),
+    attribute: z.string(),
+    body: z.lazy(() =>
+      PostV2TargetIdentifierAttributesAttributeStatusesRequestBody$outboundSchema
+    ),
+  });
+
+export function postV2TargetIdentifierAttributesAttributeStatusesRequestToJSON(
+  postV2TargetIdentifierAttributesAttributeStatusesRequest:
+    PostV2TargetIdentifierAttributesAttributeStatusesRequest,
+): string {
+  return JSON.stringify(
+    PostV2TargetIdentifierAttributesAttributeStatusesRequest$outboundSchema
+      .parse(postV2TargetIdentifierAttributesAttributeStatusesRequest),
+  );
+}
+
+/** @internal */
+export const PostV2TargetIdentifierAttributesAttributeStatusesConflictType$inboundSchema:
+  z.ZodMiniEnum<
+    typeof PostV2TargetIdentifierAttributesAttributeStatusesConflictType
+  > = z.enum(PostV2TargetIdentifierAttributesAttributeStatusesConflictType);
+
+/** @internal */
+export const PostV2TargetIdentifierAttributesAttributeStatusesConflictCode$inboundSchema:
+  z.ZodMiniEnum<
+    typeof PostV2TargetIdentifierAttributesAttributeStatusesConflictCode
+  > = z.enum(PostV2TargetIdentifierAttributesAttributeStatusesConflictCode);
+
+/** @internal */
+export const PostV2TargetIdentifierAttributesAttributeStatusesBadRequestType$inboundSchema:
+  z.ZodMiniEnum<
+    typeof PostV2TargetIdentifierAttributesAttributeStatusesBadRequestType
+  > = z.enum(PostV2TargetIdentifierAttributesAttributeStatusesBadRequestType);
+
+/** @internal */
+export const PostV2TargetIdentifierAttributesAttributeStatusesCodeValidationType$inboundSchema:
+  z.ZodMiniEnum<
+    typeof PostV2TargetIdentifierAttributesAttributeStatusesCodeValidationType
+  > = z.enum(
+    PostV2TargetIdentifierAttributesAttributeStatusesCodeValidationType,
+  );
+
+/** @internal */
+export const PostV2TargetIdentifierAttributesAttributeStatusesResponse$inboundSchema:
+  z.ZodMiniType<
+    PostV2TargetIdentifierAttributesAttributeStatusesResponse,
+    unknown
+  > = z.object({
+    data: models.Status$inboundSchema,
+  });
+
+export function postV2TargetIdentifierAttributesAttributeStatusesResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  PostV2TargetIdentifierAttributesAttributeStatusesResponse,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      PostV2TargetIdentifierAttributesAttributeStatusesResponse$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'PostV2TargetIdentifierAttributesAttributeStatusesResponse' from JSON`,
+  );
+}
+
+/** @internal */
+export const PatchV2TargetIdentifierAttributesAttributeStatusesStatusTarget$outboundSchema:
+  z.ZodMiniEnum<
+    typeof PatchV2TargetIdentifierAttributesAttributeStatusesStatusTarget
+  > = z.enum(PatchV2TargetIdentifierAttributesAttributeStatusesStatusTarget);
+
+/** @internal */
+export type PatchV2TargetIdentifierAttributesAttributeStatusesStatusData$Outbound =
+  {
+    title?: string | undefined;
+    celebration_enabled: boolean;
+    target_time_in_status?: string | null | undefined;
+    is_archived?: boolean | undefined;
+  };
+
+/** @internal */
+export const PatchV2TargetIdentifierAttributesAttributeStatusesStatusData$outboundSchema:
+  z.ZodMiniType<
+    PatchV2TargetIdentifierAttributesAttributeStatusesStatusData$Outbound,
+    PatchV2TargetIdentifierAttributesAttributeStatusesStatusData
+  > = z.pipe(
+    z.object({
+      title: z.optional(z.string()),
+      celebrationEnabled: z._default(z.boolean(), false),
+      targetTimeInStatus: z.optional(z.nullable(z.string())),
+      isArchived: z.optional(z.boolean()),
+    }),
+    z.transform((v) => {
+      return remap$(v, {
+        celebrationEnabled: "celebration_enabled",
+        targetTimeInStatus: "target_time_in_status",
+        isArchived: "is_archived",
+      });
+    }),
+  );
+
+export function patchV2TargetIdentifierAttributesAttributeStatusesStatusDataToJSON(
+  patchV2TargetIdentifierAttributesAttributeStatusesStatusData:
+    PatchV2TargetIdentifierAttributesAttributeStatusesStatusData,
+): string {
+  return JSON.stringify(
+    PatchV2TargetIdentifierAttributesAttributeStatusesStatusData$outboundSchema
+      .parse(patchV2TargetIdentifierAttributesAttributeStatusesStatusData),
+  );
+}
+
+/** @internal */
+export type PatchV2TargetIdentifierAttributesAttributeStatusesStatusRequestBody$Outbound =
+  {
+    data: PatchV2TargetIdentifierAttributesAttributeStatusesStatusData$Outbound;
+  };
+
+/** @internal */
+export const PatchV2TargetIdentifierAttributesAttributeStatusesStatusRequestBody$outboundSchema:
+  z.ZodMiniType<
+    PatchV2TargetIdentifierAttributesAttributeStatusesStatusRequestBody$Outbound,
+    PatchV2TargetIdentifierAttributesAttributeStatusesStatusRequestBody
+  > = z.object({
+    data: z.lazy(() =>
+      PatchV2TargetIdentifierAttributesAttributeStatusesStatusData$outboundSchema
+    ),
+  });
+
+export function patchV2TargetIdentifierAttributesAttributeStatusesStatusRequestBodyToJSON(
+  patchV2TargetIdentifierAttributesAttributeStatusesStatusRequestBody:
+    PatchV2TargetIdentifierAttributesAttributeStatusesStatusRequestBody,
+): string {
+  return JSON.stringify(
+    PatchV2TargetIdentifierAttributesAttributeStatusesStatusRequestBody$outboundSchema
+      .parse(
+        patchV2TargetIdentifierAttributesAttributeStatusesStatusRequestBody,
+      ),
+  );
+}
+
+/** @internal */
+export type PatchV2TargetIdentifierAttributesAttributeStatusesStatusRequest$Outbound =
+  {
+    target: string;
+    identifier: string;
+    attribute: string;
+    status: string;
+    body:
+      PatchV2TargetIdentifierAttributesAttributeStatusesStatusRequestBody$Outbound;
+  };
+
+/** @internal */
+export const PatchV2TargetIdentifierAttributesAttributeStatusesStatusRequest$outboundSchema:
+  z.ZodMiniType<
+    PatchV2TargetIdentifierAttributesAttributeStatusesStatusRequest$Outbound,
+    PatchV2TargetIdentifierAttributesAttributeStatusesStatusRequest
+  > = z.object({
+    target:
+      PatchV2TargetIdentifierAttributesAttributeStatusesStatusTarget$outboundSchema,
+    identifier: z.string(),
+    attribute: z.string(),
+    status: z.string(),
+    body: z.lazy(() =>
+      PatchV2TargetIdentifierAttributesAttributeStatusesStatusRequestBody$outboundSchema
+    ),
+  });
+
+export function patchV2TargetIdentifierAttributesAttributeStatusesStatusRequestToJSON(
+  patchV2TargetIdentifierAttributesAttributeStatusesStatusRequest:
+    PatchV2TargetIdentifierAttributesAttributeStatusesStatusRequest,
+): string {
+  return JSON.stringify(
+    PatchV2TargetIdentifierAttributesAttributeStatusesStatusRequest$outboundSchema
+      .parse(patchV2TargetIdentifierAttributesAttributeStatusesStatusRequest),
+  );
+}
+
+/** @internal */
+export const PatchV2TargetIdentifierAttributesAttributeStatusesStatusBadRequestType$inboundSchema:
+  z.ZodMiniEnum<
+    typeof PatchV2TargetIdentifierAttributesAttributeStatusesStatusBadRequestType
+  > = z.enum(
+    PatchV2TargetIdentifierAttributesAttributeStatusesStatusBadRequestType,
+  );
+
+/** @internal */
+export const PatchV2TargetIdentifierAttributesAttributeStatusesStatusCodeValueNotFound$inboundSchema:
+  z.ZodMiniEnum<
+    typeof PatchV2TargetIdentifierAttributesAttributeStatusesStatusCodeValueNotFound
+  > = z.enum(
+    PatchV2TargetIdentifierAttributesAttributeStatusesStatusCodeValueNotFound,
+  );
+
+/** @internal */
+export const PatchV2TargetIdentifierAttributesAttributeStatusesStatusResponse$inboundSchema:
+  z.ZodMiniType<
+    PatchV2TargetIdentifierAttributesAttributeStatusesStatusResponse,
+    unknown
+  > = z.object({
+    data: models.Status$inboundSchema,
+  });
+
+export function patchV2TargetIdentifierAttributesAttributeStatusesStatusResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  PatchV2TargetIdentifierAttributesAttributeStatusesStatusResponse,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      PatchV2TargetIdentifierAttributesAttributeStatusesStatusResponse$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'PatchV2TargetIdentifierAttributesAttributeStatusesStatusResponse' from JSON`,
+  );
+}
+
+/** @internal */
+export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesRequest$Outbound =
+  {
+    object: string;
+    record_id: string;
+    attribute: string;
+    show_historic: boolean;
+    limit?: number | undefined;
+    offset?: number | undefined;
+  };
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesRequest$outboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesRequest$Outbound,
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesRequest
+  > = z.pipe(
+    z.object({
+      object: z.string(),
+      recordId: z.string(),
+      attribute: z.string(),
+      showHistoric: z._default(z.boolean(), false),
+      limit: z.optional(z.int()),
+      offset: z.optional(z.int()),
+    }),
+    z.transform((v) => {
+      return remap$(v, {
+        recordId: "record_id",
+        showHistoric: "show_historic",
+      });
+    }),
+  );
+
+export function getV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesRequestToJSON(
+  getV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesRequest:
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesRequest,
+): string {
+  return JSON.stringify(
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesRequest$outboundSchema
+      .parse(getV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesRequest),
+  );
+}
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesBadRequestType$inboundSchema:
+  z.ZodMiniEnum<
+    typeof GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesBadRequestType
+  > = z.enum(
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesBadRequestType,
+  );
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCodeValidationType$inboundSchema:
+  z.ZodMiniEnum<
+    typeof GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCodeValidationType
+  > = z.enum(
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCodeValidationType,
+  );
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType17$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType17,
+    unknown
+  > = openEnums.inboundSchema(
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType17,
+  );
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor17$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor17,
+    unknown
+  > = z.object({
+    id: z.optional(z.nullable(types.string())),
+    type: z.optional(
+      z.nullable(
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType17$inboundSchema,
+      ),
+    ),
+  });
+
+export function getV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor17FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor17,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor17$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor17' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataTimestamp$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataTimestamp,
+    unknown
+  > = z.pipe(
+    z.object({
+      active_from: types.date(),
+      active_until: types.nullable(types.date()),
+      created_by_actor: z.lazy(() =>
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor17$inboundSchema
+      ),
+      attribute_type: types.literal("timestamp"),
+      value: types.date(),
+    }),
+    z.transform((v) => {
+      return remap$(v, {
+        "active_from": "activeFrom",
+        "active_until": "activeUntil",
+        "created_by_actor": "createdByActor",
+        "attribute_type": "attributeType",
+      });
+    }),
+  );
+
+export function getV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataTimestampFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataTimestamp,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataTimestamp$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataTimestamp' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType16$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType16,
+    unknown
+  > = openEnums.inboundSchema(
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType16,
+  );
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor16$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor16,
+    unknown
+  > = z.object({
+    id: z.optional(z.nullable(types.string())),
+    type: z.optional(
+      z.nullable(
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType16$inboundSchema,
+      ),
+    ),
+  });
+
+export function getV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor16FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor16,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor16$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor16' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataText$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataText,
+    unknown
+  > = z.pipe(
+    z.object({
+      active_from: types.date(),
+      active_until: types.nullable(types.date()),
+      created_by_actor: z.lazy(() =>
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor16$inboundSchema
+      ),
+      value: types.string(),
+      attribute_type: types.literal("text"),
+    }),
+    z.transform((v) => {
+      return remap$(v, {
+        "active_from": "activeFrom",
+        "active_until": "activeUntil",
+        "created_by_actor": "createdByActor",
+        "attribute_type": "attributeType",
+      });
+    }),
+  );
+
+export function getV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataTextFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataText,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataText$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataText' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType15$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType15,
+    unknown
+  > = openEnums.inboundSchema(
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType15,
+  );
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor15$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor15,
+    unknown
+  > = z.object({
+    id: z.optional(z.nullable(types.string())),
+    type: z.optional(
+      z.nullable(
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType15$inboundSchema,
+      ),
+    ),
+  });
+
+export function getV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor15FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor15,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor15$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor15' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataSelect$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataSelect,
+    unknown
+  > = z.pipe(
+    z.object({
+      active_from: types.date(),
+      active_until: types.nullable(types.date()),
+      created_by_actor: z.lazy(() =>
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor15$inboundSchema
+      ),
+      option: models.SelectOption$inboundSchema,
+      attribute_type: types.literal("select"),
+    }),
+    z.transform((v) => {
+      return remap$(v, {
+        "active_from": "activeFrom",
+        "active_until": "activeUntil",
+        "created_by_actor": "createdByActor",
+        "attribute_type": "attributeType",
+      });
+    }),
+  );
+
+export function getV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataSelectFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataSelect,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataSelect$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataSelect' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType14$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType14,
+    unknown
+  > = openEnums.inboundSchema(
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType14,
+  );
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor14$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor14,
+    unknown
+  > = z.object({
+    id: z.optional(z.nullable(types.string())),
+    type: z.optional(
+      z.nullable(
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType14$inboundSchema,
+      ),
+    ),
+  });
+
+export function getV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor14FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor14,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor14$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor14' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataRating$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataRating,
+    unknown
+  > = z.pipe(
+    z.object({
+      active_from: types.date(),
+      active_until: types.nullable(types.date()),
+      created_by_actor: z.lazy(() =>
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor14$inboundSchema
+      ),
+      value: types.number(),
+      attribute_type: types.literal("rating"),
+    }),
+    z.transform((v) => {
+      return remap$(v, {
+        "active_from": "activeFrom",
+        "active_until": "activeUntil",
+        "created_by_actor": "createdByActor",
+        "attribute_type": "attributeType",
+      });
+    }),
+  );
+
+export function getV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataRatingFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataRating,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataRating$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataRating' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType13$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType13,
+    unknown
+  > = openEnums.inboundSchema(
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType13,
+  );
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor13$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor13,
+    unknown
+  > = z.object({
+    id: z.optional(z.nullable(types.string())),
+    type: z.optional(
+      z.nullable(
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType13$inboundSchema,
+      ),
+    ),
+  });
+
+export function getV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor13FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor13,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor13$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor13' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataStatus$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataStatus,
+    unknown
+  > = z.pipe(
+    z.object({
+      active_from: types.date(),
+      active_until: types.nullable(types.date()),
+      created_by_actor: z.lazy(() =>
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor13$inboundSchema
+      ),
+      status: models.Status$inboundSchema,
+      attribute_type: types.literal("status"),
+    }),
+    z.transform((v) => {
+      return remap$(v, {
+        "active_from": "activeFrom",
+        "active_until": "activeUntil",
+        "created_by_actor": "createdByActor",
+        "attribute_type": "attributeType",
+      });
+    }),
+  );
+
+export function getV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataStatusFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataStatus,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataStatus$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataStatus' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType12$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType12,
+    unknown
+  > = openEnums.inboundSchema(
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType12,
+  );
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor12$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor12,
+    unknown
+  > = z.object({
+    id: z.optional(z.nullable(types.string())),
+    type: z.optional(
+      z.nullable(
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType12$inboundSchema,
+      ),
+    ),
+  });
+
+export function getV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor12FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor12,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor12$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor12' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCountryCode2$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCountryCode2,
+    unknown
+  > = openEnums.inboundSchema(
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCountryCode2,
+  );
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataPhoneNumber$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataPhoneNumber,
+    unknown
+  > = z.pipe(
+    z.object({
+      active_from: types.date(),
+      active_until: types.nullable(types.date()),
+      created_by_actor: z.lazy(() =>
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor12$inboundSchema
+      ),
+      original_phone_number: types.string(),
+      country_code:
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCountryCode2$inboundSchema,
+      phone_number: types.string(),
+      attribute_type: types.literal("phone-number"),
+    }),
+    z.transform((v) => {
+      return remap$(v, {
+        "active_from": "activeFrom",
+        "active_until": "activeUntil",
+        "created_by_actor": "createdByActor",
+        "original_phone_number": "originalPhoneNumber",
+        "country_code": "countryCode",
+        "phone_number": "phoneNumber",
+        "attribute_type": "attributeType",
+      });
+    }),
+  );
+
+export function getV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataPhoneNumberFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataPhoneNumber,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataPhoneNumber$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataPhoneNumber' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType11$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType11,
+    unknown
+  > = openEnums.inboundSchema(
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType11,
+  );
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor11$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor11,
+    unknown
+  > = z.object({
+    id: z.optional(z.nullable(types.string())),
+    type: z.optional(
+      z.nullable(
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType11$inboundSchema,
+      ),
+    ),
+  });
+
+export function getV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor11FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor11,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor11$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor11' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataPersonalName$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataPersonalName,
+    unknown
+  > = z.pipe(
+    z.object({
+      active_from: types.date(),
+      active_until: types.nullable(types.date()),
+      created_by_actor: z.lazy(() =>
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor11$inboundSchema
+      ),
+      first_name: types.string(),
+      last_name: types.string(),
+      full_name: types.string(),
+      attribute_type: types.literal("personal-name"),
+    }),
+    z.transform((v) => {
+      return remap$(v, {
+        "active_from": "activeFrom",
+        "active_until": "activeUntil",
+        "created_by_actor": "createdByActor",
+        "first_name": "firstName",
+        "last_name": "lastName",
+        "full_name": "fullName",
+        "attribute_type": "attributeType",
+      });
+    }),
+  );
+
+export function getV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataPersonalNameFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataPersonalName,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataPersonalName$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataPersonalName' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType10$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType10,
+    unknown
+  > = openEnums.inboundSchema(
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType10,
+  );
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor10$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor10,
+    unknown
+  > = z.object({
+    id: z.optional(z.nullable(types.string())),
+    type: z.optional(
+      z.nullable(
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType10$inboundSchema,
+      ),
+    ),
+  });
+
+export function getV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor10FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor10,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor10$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor10' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataNumber$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataNumber,
+    unknown
+  > = z.pipe(
+    z.object({
+      active_from: types.date(),
+      active_until: types.nullable(types.date()),
+      created_by_actor: z.lazy(() =>
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor10$inboundSchema
+      ),
+      value: types.number(),
+      attribute_type: types.literal("number"),
+    }),
+    z.transform((v) => {
+      return remap$(v, {
+        "active_from": "activeFrom",
+        "active_until": "activeUntil",
+        "created_by_actor": "createdByActor",
+        "attribute_type": "attributeType",
+      });
+    }),
+  );
+
+export function getV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataNumberFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataNumber,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataNumber$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataNumber' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType9$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType9,
+    unknown
+  > = openEnums.inboundSchema(
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType9,
+  );
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor9$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor9,
+    unknown
+  > = z.object({
+    id: z.optional(z.nullable(types.string())),
+    type: z.optional(
+      z.nullable(
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType9$inboundSchema,
+      ),
+    ),
+  });
+
+export function getV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor9FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor9,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor9$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor9' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCountryCode1$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCountryCode1,
+    unknown
+  > = openEnums.inboundSchema(
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCountryCode1,
+  );
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataLocation$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataLocation,
+    unknown
+  > = z.pipe(
+    z.object({
+      active_from: types.date(),
+      active_until: types.nullable(types.date()),
+      created_by_actor: z.lazy(() =>
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor9$inboundSchema
+      ),
+      line_1: types.nullable(types.string()),
+      line_2: types.nullable(types.string()),
+      line_3: types.nullable(types.string()),
+      line_4: types.nullable(types.string()),
+      locality: types.nullable(types.string()),
+      region: types.nullable(types.string()),
+      postcode: types.nullable(types.string()),
+      country_code: types.nullable(
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCountryCode1$inboundSchema,
+      ),
+      latitude: types.nullable(types.string()),
+      longitude: types.nullable(types.string()),
+      attribute_type: types.literal("location"),
+    }),
+    z.transform((v) => {
+      return remap$(v, {
+        "active_from": "activeFrom",
+        "active_until": "activeUntil",
+        "created_by_actor": "createdByActor",
+        "line_1": "line1",
+        "line_2": "line2",
+        "line_3": "line3",
+        "line_4": "line4",
+        "country_code": "countryCode",
+        "attribute_type": "attributeType",
+      });
+    }),
+  );
+
+export function getV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataLocationFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataLocation,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataLocation$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataLocation' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType8$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType8,
+    unknown
+  > = openEnums.inboundSchema(
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType8,
+  );
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor8$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor8,
+    unknown
+  > = z.object({
+    id: z.optional(z.nullable(types.string())),
+    type: z.optional(
+      z.nullable(
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType8$inboundSchema,
+      ),
+    ),
+  });
+
+export function getV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor8FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor8,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor8$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor8' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesInteractionType$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesInteractionType,
+    unknown
+  > = openEnums.inboundSchema(
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesInteractionType,
+  );
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesOwnerActorType$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesOwnerActorType,
+    unknown
+  > = openEnums.inboundSchema(
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesOwnerActorType,
+  );
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesOwnerActor$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesOwnerActor,
+    unknown
+  > = z.object({
+    id: z.optional(z.nullable(types.string())),
+    type: z.optional(
+      z.nullable(
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesOwnerActorType$inboundSchema,
+      ),
+    ),
+  });
+
+export function getV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesOwnerActorFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesOwnerActor,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesOwnerActor$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesOwnerActor' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataInteraction$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataInteraction,
+    unknown
+  > = z.pipe(
+    z.object({
+      active_from: types.date(),
+      active_until: types.nullable(types.date()),
+      created_by_actor: z.lazy(() =>
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor8$inboundSchema
+      ),
+      interaction_type:
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesInteractionType$inboundSchema,
+      interacted_at: types.date(),
+      owner_actor: z.lazy(() =>
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesOwnerActor$inboundSchema
+      ),
+      attribute_type: types.literal("interaction"),
+    }),
+    z.transform((v) => {
+      return remap$(v, {
+        "active_from": "activeFrom",
+        "active_until": "activeUntil",
+        "created_by_actor": "createdByActor",
+        "interaction_type": "interactionType",
+        "interacted_at": "interactedAt",
+        "owner_actor": "ownerActor",
+        "attribute_type": "attributeType",
+      });
+    }),
+  );
+
+export function getV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataInteractionFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataInteraction,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataInteraction$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataInteraction' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType7$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType7,
+    unknown
+  > = openEnums.inboundSchema(
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType7,
+  );
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor7$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor7,
+    unknown
+  > = z.object({
+    id: z.optional(z.nullable(types.string())),
+    type: z.optional(
+      z.nullable(
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType7$inboundSchema,
+      ),
+    ),
+  });
+
+export function getV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor7FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor7,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor7$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor7' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataRecordReference$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataRecordReference,
+    unknown
+  > = z.pipe(
+    z.object({
+      active_from: types.date(),
+      active_until: types.nullable(types.date()),
+      created_by_actor: z.lazy(() =>
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor7$inboundSchema
+      ),
+      target_object: types.string(),
+      target_record_id: types.string(),
+      attribute_type: types.literal("record-reference"),
+    }),
+    z.transform((v) => {
+      return remap$(v, {
+        "active_from": "activeFrom",
+        "active_until": "activeUntil",
+        "created_by_actor": "createdByActor",
+        "target_object": "targetObject",
+        "target_record_id": "targetRecordId",
+        "attribute_type": "attributeType",
+      });
+    }),
+  );
+
+export function getV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataRecordReferenceFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataRecordReference,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataRecordReference$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataRecordReference' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType6$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType6,
+    unknown
+  > = openEnums.inboundSchema(
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType6,
+  );
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor6$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor6,
+    unknown
+  > = z.object({
+    id: z.optional(z.nullable(types.string())),
+    type: z.optional(
+      z.nullable(
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType6$inboundSchema,
+      ),
+    ),
+  });
+
+export function getV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor6FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor6,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor6$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor6' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataEmailAddress$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataEmailAddress,
+    unknown
+  > = z.pipe(
+    z.object({
+      active_from: types.date(),
+      active_until: types.nullable(types.date()),
+      created_by_actor: z.lazy(() =>
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor6$inboundSchema
+      ),
+      original_email_address: types.string(),
+      email_address: types.string(),
+      email_domain: types.string(),
+      email_root_domain: types.string(),
+      email_local_specifier: types.string(),
+      attribute_type: types.literal("email-address"),
+    }),
+    z.transform((v) => {
+      return remap$(v, {
+        "active_from": "activeFrom",
+        "active_until": "activeUntil",
+        "created_by_actor": "createdByActor",
+        "original_email_address": "originalEmailAddress",
+        "email_address": "emailAddress",
+        "email_domain": "emailDomain",
+        "email_root_domain": "emailRootDomain",
+        "email_local_specifier": "emailLocalSpecifier",
+        "attribute_type": "attributeType",
+      });
+    }),
+  );
+
+export function getV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataEmailAddressFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataEmailAddress,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataEmailAddress$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataEmailAddress' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType5$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType5,
+    unknown
+  > = openEnums.inboundSchema(
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType5,
+  );
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor5$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor5,
+    unknown
+  > = z.object({
+    id: z.optional(z.nullable(types.string())),
+    type: z.optional(
+      z.nullable(
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType5$inboundSchema,
+      ),
+    ),
+  });
+
+export function getV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor5FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor5,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor5$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor5' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataDomain$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataDomain,
+    unknown
+  > = z.pipe(
+    z.object({
+      active_from: types.date(),
+      active_until: types.nullable(types.date()),
+      created_by_actor: z.lazy(() =>
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor5$inboundSchema
+      ),
+      domain: types.string(),
+      root_domain: types.string(),
+      attribute_type: types.literal("domain"),
+    }),
+    z.transform((v) => {
+      return remap$(v, {
+        "active_from": "activeFrom",
+        "active_until": "activeUntil",
+        "created_by_actor": "createdByActor",
+        "root_domain": "rootDomain",
+        "attribute_type": "attributeType",
+      });
+    }),
+  );
+
+export function getV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataDomainFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataDomain,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataDomain$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataDomain' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType4$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType4,
+    unknown
+  > = openEnums.inboundSchema(
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType4,
+  );
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor4$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor4,
+    unknown
+  > = z.object({
+    id: z.optional(z.nullable(types.string())),
+    type: z.optional(
+      z.nullable(
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType4$inboundSchema,
+      ),
+    ),
+  });
+
+export function getV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor4FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor4,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor4$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor4' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataDate$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataDate,
+    unknown
+  > = z.pipe(
+    z.object({
+      active_from: types.date(),
+      active_until: types.nullable(types.date()),
+      created_by_actor: z.lazy(() =>
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor4$inboundSchema
+      ),
+      attribute_type: types.literal("date"),
+      value: types.string(),
+    }),
+    z.transform((v) => {
+      return remap$(v, {
+        "active_from": "activeFrom",
+        "active_until": "activeUntil",
+        "created_by_actor": "createdByActor",
+        "attribute_type": "attributeType",
+      });
+    }),
+  );
+
+export function getV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataDateFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataDate,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataDate$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataDate' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType3$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType3,
+    unknown
+  > = openEnums.inboundSchema(
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType3,
+  );
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor3$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor3,
+    unknown
+  > = z.object({
+    id: z.optional(z.nullable(types.string())),
+    type: z.optional(
+      z.nullable(
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType3$inboundSchema,
+      ),
+    ),
+  });
+
+export function getV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor3FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor3,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor3$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor3' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCurrencyCode$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCurrencyCode,
+    unknown
+  > = openEnums.inboundSchema(
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCurrencyCode,
+  );
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataCurrency$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataCurrency,
+    unknown
+  > = z.pipe(
+    z.object({
+      active_from: types.date(),
+      active_until: types.nullable(types.date()),
+      created_by_actor: z.lazy(() =>
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor3$inboundSchema
+      ),
+      currency_value: types.number(),
+      currency_code: z.optional(
+        z.nullable(
+          GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCurrencyCode$inboundSchema,
+        ),
+      ),
+      attribute_type: types.literal("currency"),
+    }),
+    z.transform((v) => {
+      return remap$(v, {
+        "active_from": "activeFrom",
+        "active_until": "activeUntil",
+        "created_by_actor": "createdByActor",
+        "currency_value": "currencyValue",
+        "currency_code": "currencyCode",
+        "attribute_type": "attributeType",
+      });
+    }),
+  );
+
+export function getV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataCurrencyFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataCurrency,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataCurrency$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataCurrency' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType2$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType2,
+    unknown
+  > = openEnums.inboundSchema(
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType2,
+  );
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor2$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor2,
+    unknown
+  > = z.object({
+    id: z.optional(z.nullable(types.string())),
+    type: z.optional(
+      z.nullable(
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType2$inboundSchema,
+      ),
+    ),
+  });
+
+export function getV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor2FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor2,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor2$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor2' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataCheckbox$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataCheckbox,
+    unknown
+  > = z.pipe(
+    z.object({
+      active_from: types.date(),
+      active_until: types.nullable(types.date()),
+      created_by_actor: z.lazy(() =>
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor2$inboundSchema
+      ),
+      value: types.boolean(),
+      attribute_type: types.literal("checkbox"),
+    }),
+    z.transform((v) => {
+      return remap$(v, {
+        "active_from": "activeFrom",
+        "active_until": "activeUntil",
+        "created_by_actor": "createdByActor",
+        "attribute_type": "attributeType",
+      });
+    }),
+  );
+
+export function getV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataCheckboxFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataCheckbox,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataCheckbox$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataCheckbox' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType1$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType1,
+    unknown
+  > = openEnums.inboundSchema(
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType1,
+  );
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor1$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor1,
+    unknown
+  > = z.object({
+    id: z.optional(z.nullable(types.string())),
+    type: z.optional(
+      z.nullable(
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActorType1$inboundSchema,
+      ),
+    ),
+  });
+
+export function getV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor1FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor1,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor1$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor1' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesReferencedActorType$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesReferencedActorType,
+    unknown
+  > = openEnums.inboundSchema(
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesReferencedActorType,
+  );
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataActorReference$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataActorReference,
+    unknown
+  > = z.pipe(
+    z.object({
+      active_from: types.date(),
+      active_until: types.nullable(types.date()),
+      created_by_actor: z.lazy(() =>
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesCreatedByActor1$inboundSchema
+      ),
+      referenced_actor_type:
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesReferencedActorType$inboundSchema,
+      referenced_actor_id: types.nullable(types.string()),
+      attribute_type: types.literal("actor-reference"),
+    }),
+    z.transform((v) => {
+      return remap$(v, {
+        "active_from": "activeFrom",
+        "active_until": "activeUntil",
+        "created_by_actor": "createdByActor",
+        "referenced_actor_type": "referencedActorType",
+        "referenced_actor_id": "referencedActorId",
+        "attribute_type": "attributeType",
+      });
+    }),
+  );
+
+export function getV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataActorReferenceFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataActorReference,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataActorReference$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataActorReference' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataUnion$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataUnion,
+    unknown
+  > = discriminatedUnion("attribute_type", {
+    ["actor-reference"]: z.lazy(() =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataActorReference$inboundSchema
+    ),
+    checkbox: z.lazy(() =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataCheckbox$inboundSchema
+    ),
+    currency: z.lazy(() =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataCurrency$inboundSchema
+    ),
+    date: z.lazy(() =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataDate$inboundSchema
+    ),
+    domain: z.lazy(() =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataDomain$inboundSchema
+    ),
+    ["email-address"]: z.lazy(() =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataEmailAddress$inboundSchema
+    ),
+    ["record-reference"]: z.lazy(() =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataRecordReference$inboundSchema
+    ),
+    interaction: z.lazy(() =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataInteraction$inboundSchema
+    ),
+    location: z.lazy(() =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataLocation$inboundSchema
+    ),
+    number: z.lazy(() =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataNumber$inboundSchema
+    ),
+    ["personal-name"]: z.lazy(() =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataPersonalName$inboundSchema
+    ),
+    ["phone-number"]: z.lazy(() =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataPhoneNumber$inboundSchema
+    ),
+    status: z.lazy(() =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataStatus$inboundSchema
+    ),
+    rating: z.lazy(() =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataRating$inboundSchema
+    ),
+    select: z.lazy(() =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataSelect$inboundSchema
+    ),
+    text: z.lazy(() =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataText$inboundSchema
+    ),
+    timestamp: z.lazy(() =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataTimestamp$inboundSchema
+    ),
+  }, { outputPropertyName: "attributeType" });
+
+export function getV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataUnion,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataUnion$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesResponse$inboundSchema:
+  z.ZodMiniType<
+    GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesResponse,
+    unknown
+  > = z.object({
+    data: z.array(discriminatedUnion("attribute_type", {
+      ["actor-reference"]: z.lazy(() =>
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataActorReference$inboundSchema
+      ),
+      checkbox: z.lazy(() =>
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataCheckbox$inboundSchema
+      ),
+      currency: z.lazy(() =>
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataCurrency$inboundSchema
+      ),
+      date: z.lazy(() =>
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataDate$inboundSchema
+      ),
+      domain: z.lazy(() =>
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataDomain$inboundSchema
+      ),
+      ["email-address"]: z.lazy(() =>
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataEmailAddress$inboundSchema
+      ),
+      ["record-reference"]: z.lazy(() =>
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataRecordReference$inboundSchema
+      ),
+      interaction: z.lazy(() =>
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataInteraction$inboundSchema
+      ),
+      location: z.lazy(() =>
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataLocation$inboundSchema
+      ),
+      number: z.lazy(() =>
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataNumber$inboundSchema
+      ),
+      ["personal-name"]: z.lazy(() =>
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataPersonalName$inboundSchema
+      ),
+      ["phone-number"]: z.lazy(() =>
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataPhoneNumber$inboundSchema
+      ),
+      status: z.lazy(() =>
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataStatus$inboundSchema
+      ),
+      rating: z.lazy(() =>
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataRating$inboundSchema
+      ),
+      select: z.lazy(() =>
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataSelect$inboundSchema
+      ),
+      text: z.lazy(() =>
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataText$inboundSchema
+      ),
+      timestamp: z.lazy(() =>
+        GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesDataTimestamp$inboundSchema
+      ),
+    }, { outputPropertyName: "attributeType" })),
+  });
+
+export function getV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesResponse,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesResponse$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesResponse' from JSON`,
   );
 }

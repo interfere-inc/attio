@@ -144,6 +144,40 @@ export class PostV2ListsValueNotFoundError extends AttioBaseError {
   }
 }
 
+/**
+ * Not Found
+ */
+export type GetV2ListsListNotFoundErrorData = {
+  statusCode: number;
+  type: operations.GetV2ListsListType;
+  code: operations.GetV2ListsListCode;
+  message: string;
+};
+
+/**
+ * Not Found
+ */
+export class GetV2ListsListNotFoundError extends AttioBaseError {
+  type: operations.GetV2ListsListType;
+  code: operations.GetV2ListsListCode;
+
+  /** The original data that was passed to this error instance. */
+  data$: GetV2ListsListNotFoundErrorData;
+
+  constructor(
+    err: GetV2ListsListNotFoundErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    this.type = err.type;
+    this.code = err.code;
+
+    this.name = "GetV2ListsListNotFoundError";
+  }
+}
+
 /** @internal */
 export const PostV2ListsSlugConflictError$inboundSchema: z.ZodMiniType<
   PostV2ListsSlugConflictError,
@@ -243,6 +277,33 @@ export const PostV2ListsValueNotFoundError$inboundSchema: z.ZodMiniType<
     });
 
     return new PostV2ListsValueNotFoundError(remapped, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
+  }),
+);
+
+/** @internal */
+export const GetV2ListsListNotFoundError$inboundSchema: z.ZodMiniType<
+  GetV2ListsListNotFoundError,
+  unknown
+> = z.pipe(
+  z.object({
+    status_code: types.number(),
+    type: operations.GetV2ListsListType$inboundSchema,
+    code: operations.GetV2ListsListCode$inboundSchema,
+    message: types.string(),
+    request$: z.custom<Request>(x => x instanceof Request),
+    response$: z.custom<Response>(x => x instanceof Response),
+    body$: z.string(),
+  }),
+  z.transform((v) => {
+    const remapped = remap$(v, {
+      "status_code": "statusCode",
+    });
+
+    return new GetV2ListsListNotFoundError(remapped, {
       request: v.request$,
       response: v.response$,
       body: v.body$,

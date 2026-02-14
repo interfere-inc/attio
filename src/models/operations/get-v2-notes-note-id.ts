@@ -31,6 +31,15 @@ export type GetV2NotesNoteIdResponse = {
   data: models.Note;
 };
 
+export type DeleteV2NotesNoteIdRequest = {
+  noteId: string;
+};
+
+/**
+ * Success
+ */
+export type DeleteV2NotesNoteIdResponse = {};
+
 /** @internal */
 export type GetV2NotesNoteIdRequest$Outbound = {
   note_id: string;
@@ -84,5 +93,49 @@ export function getV2NotesNoteIdResponseFromJSON(
     jsonString,
     (x) => GetV2NotesNoteIdResponse$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'GetV2NotesNoteIdResponse' from JSON`,
+  );
+}
+
+/** @internal */
+export type DeleteV2NotesNoteIdRequest$Outbound = {
+  note_id: string;
+};
+
+/** @internal */
+export const DeleteV2NotesNoteIdRequest$outboundSchema: z.ZodMiniType<
+  DeleteV2NotesNoteIdRequest$Outbound,
+  DeleteV2NotesNoteIdRequest
+> = z.pipe(
+  z.object({
+    noteId: z.string(),
+  }),
+  z.transform((v) => {
+    return remap$(v, {
+      noteId: "note_id",
+    });
+  }),
+);
+
+export function deleteV2NotesNoteIdRequestToJSON(
+  deleteV2NotesNoteIdRequest: DeleteV2NotesNoteIdRequest,
+): string {
+  return JSON.stringify(
+    DeleteV2NotesNoteIdRequest$outboundSchema.parse(deleteV2NotesNoteIdRequest),
+  );
+}
+
+/** @internal */
+export const DeleteV2NotesNoteIdResponse$inboundSchema: z.ZodMiniType<
+  DeleteV2NotesNoteIdResponse,
+  unknown
+> = z.object({});
+
+export function deleteV2NotesNoteIdResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<DeleteV2NotesNoteIdResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => DeleteV2NotesNoteIdResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'DeleteV2NotesNoteIdResponse' from JSON`,
   );
 }

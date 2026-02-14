@@ -5,6 +5,7 @@ generation:
     schemaPath: .speakeasy/out.openapi.yaml
   sdkClassName: Attio
   maintainOpenAPIOrder: true
+  deduplicateErrors: true
   usageSnippets:
     optionalPropertyRendering: withExample
     sdkInitStyle: constructor
@@ -33,7 +34,7 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: false
 typescript:
-  version: 0.0.1
+  version: 0.1.1
   acceptHeaderEnum: false
   additionalDependencies:
     dependencies: {}

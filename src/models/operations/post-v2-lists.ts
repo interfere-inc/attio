@@ -139,6 +139,103 @@ export type PostV2ListsResponse = {
   data: models.List;
 };
 
+export type GetV2ListsListRequest = {
+  list: string;
+};
+
+export const GetV2ListsListType = {
+  InvalidRequestError: "invalid_request_error",
+} as const;
+export type GetV2ListsListType = ClosedEnum<typeof GetV2ListsListType>;
+
+export const GetV2ListsListCode = {
+  NotFound: "not_found",
+} as const;
+export type GetV2ListsListCode = ClosedEnum<typeof GetV2ListsListCode>;
+
+/**
+ * Success
+ */
+export type GetV2ListsListResponse = {
+  data: models.List;
+};
+
+/**
+ * The level of access granted to all members of the workspace for this list. Pass `null` to keep the list private and only grant access to specific workspace members.
+ */
+export const PatchV2ListsListWorkspaceAccess = {
+  FullAccess: "full-access",
+  ReadAndWrite: "read-and-write",
+  ReadOnly: "read-only",
+} as const;
+/**
+ * The level of access granted to all members of the workspace for this list. Pass `null` to keep the list private and only grant access to specific workspace members.
+ */
+export type PatchV2ListsListWorkspaceAccess = ClosedEnum<
+  typeof PatchV2ListsListWorkspaceAccess
+>;
+
+/**
+ * The level of access to the list.
+ */
+export const PatchV2ListsListLevel = {
+  FullAccess: "full-access",
+  ReadAndWrite: "read-and-write",
+  ReadOnly: "read-only",
+} as const;
+/**
+ * The level of access to the list.
+ */
+export type PatchV2ListsListLevel = ClosedEnum<typeof PatchV2ListsListLevel>;
+
+export type PatchV2ListsListWorkspaceMemberAccess = {
+  /**
+   * A UUID to identify the workspace member to grant access to.
+   */
+  workspaceMemberId: string;
+  /**
+   * The level of access to the list.
+   */
+  level: PatchV2ListsListLevel;
+};
+
+export type PatchV2ListsListData = {
+  /**
+   * The human-readable name of the list.
+   */
+  name?: string | undefined;
+  /**
+   * A unique, human-readable slug to access the list through API calls. Should be formatted in snake case.
+   */
+  apiSlug?: string | undefined;
+  /**
+   * The level of access granted to all members of the workspace for this list. Pass `null` to keep the list private and only grant access to specific workspace members.
+   */
+  workspaceAccess?: PatchV2ListsListWorkspaceAccess | null | undefined;
+  /**
+   * The level of access granted to specific workspace members for this list. Pass an empty array to grant access to no workspace members.
+   */
+  workspaceMemberAccess?:
+    | Array<PatchV2ListsListWorkspaceMemberAccess>
+    | undefined;
+};
+
+export type PatchV2ListsListRequestBody = {
+  data: PatchV2ListsListData;
+};
+
+export type PatchV2ListsListRequest = {
+  list: string;
+  body: PatchV2ListsListRequestBody;
+};
+
+/**
+ * Success
+ */
+export type PatchV2ListsListResponse = {
+  data: models.List;
+};
+
 /** @internal */
 export const PostV2ListsWorkspaceAccess$outboundSchema: z.ZodMiniEnum<
   typeof PostV2ListsWorkspaceAccess
@@ -296,5 +393,205 @@ export function postV2ListsResponseFromJSON(
     jsonString,
     (x) => PostV2ListsResponse$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'PostV2ListsResponse' from JSON`,
+  );
+}
+
+/** @internal */
+export type GetV2ListsListRequest$Outbound = {
+  list: string;
+};
+
+/** @internal */
+export const GetV2ListsListRequest$outboundSchema: z.ZodMiniType<
+  GetV2ListsListRequest$Outbound,
+  GetV2ListsListRequest
+> = z.object({
+  list: z.string(),
+});
+
+export function getV2ListsListRequestToJSON(
+  getV2ListsListRequest: GetV2ListsListRequest,
+): string {
+  return JSON.stringify(
+    GetV2ListsListRequest$outboundSchema.parse(getV2ListsListRequest),
+  );
+}
+
+/** @internal */
+export const GetV2ListsListType$inboundSchema: z.ZodMiniEnum<
+  typeof GetV2ListsListType
+> = z.enum(GetV2ListsListType);
+
+/** @internal */
+export const GetV2ListsListCode$inboundSchema: z.ZodMiniEnum<
+  typeof GetV2ListsListCode
+> = z.enum(GetV2ListsListCode);
+
+/** @internal */
+export const GetV2ListsListResponse$inboundSchema: z.ZodMiniType<
+  GetV2ListsListResponse,
+  unknown
+> = z.object({
+  data: models.List$inboundSchema,
+});
+
+export function getV2ListsListResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GetV2ListsListResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetV2ListsListResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetV2ListsListResponse' from JSON`,
+  );
+}
+
+/** @internal */
+export const PatchV2ListsListWorkspaceAccess$outboundSchema: z.ZodMiniEnum<
+  typeof PatchV2ListsListWorkspaceAccess
+> = z.enum(PatchV2ListsListWorkspaceAccess);
+
+/** @internal */
+export const PatchV2ListsListLevel$outboundSchema: z.ZodMiniEnum<
+  typeof PatchV2ListsListLevel
+> = z.enum(PatchV2ListsListLevel);
+
+/** @internal */
+export type PatchV2ListsListWorkspaceMemberAccess$Outbound = {
+  workspace_member_id: string;
+  level: string;
+};
+
+/** @internal */
+export const PatchV2ListsListWorkspaceMemberAccess$outboundSchema:
+  z.ZodMiniType<
+    PatchV2ListsListWorkspaceMemberAccess$Outbound,
+    PatchV2ListsListWorkspaceMemberAccess
+  > = z.pipe(
+    z.object({
+      workspaceMemberId: z.string(),
+      level: PatchV2ListsListLevel$outboundSchema,
+    }),
+    z.transform((v) => {
+      return remap$(v, {
+        workspaceMemberId: "workspace_member_id",
+      });
+    }),
+  );
+
+export function patchV2ListsListWorkspaceMemberAccessToJSON(
+  patchV2ListsListWorkspaceMemberAccess: PatchV2ListsListWorkspaceMemberAccess,
+): string {
+  return JSON.stringify(
+    PatchV2ListsListWorkspaceMemberAccess$outboundSchema.parse(
+      patchV2ListsListWorkspaceMemberAccess,
+    ),
+  );
+}
+
+/** @internal */
+export type PatchV2ListsListData$Outbound = {
+  name?: string | undefined;
+  api_slug?: string | undefined;
+  workspace_access?: string | null | undefined;
+  workspace_member_access?:
+    | Array<PatchV2ListsListWorkspaceMemberAccess$Outbound>
+    | undefined;
+};
+
+/** @internal */
+export const PatchV2ListsListData$outboundSchema: z.ZodMiniType<
+  PatchV2ListsListData$Outbound,
+  PatchV2ListsListData
+> = z.pipe(
+  z.object({
+    name: z.optional(z.string()),
+    apiSlug: z.optional(z.string()),
+    workspaceAccess: z.optional(
+      z.nullable(PatchV2ListsListWorkspaceAccess$outboundSchema),
+    ),
+    workspaceMemberAccess: z.optional(
+      z.array(
+        z.lazy(() => PatchV2ListsListWorkspaceMemberAccess$outboundSchema),
+      ),
+    ),
+  }),
+  z.transform((v) => {
+    return remap$(v, {
+      apiSlug: "api_slug",
+      workspaceAccess: "workspace_access",
+      workspaceMemberAccess: "workspace_member_access",
+    });
+  }),
+);
+
+export function patchV2ListsListDataToJSON(
+  patchV2ListsListData: PatchV2ListsListData,
+): string {
+  return JSON.stringify(
+    PatchV2ListsListData$outboundSchema.parse(patchV2ListsListData),
+  );
+}
+
+/** @internal */
+export type PatchV2ListsListRequestBody$Outbound = {
+  data: PatchV2ListsListData$Outbound;
+};
+
+/** @internal */
+export const PatchV2ListsListRequestBody$outboundSchema: z.ZodMiniType<
+  PatchV2ListsListRequestBody$Outbound,
+  PatchV2ListsListRequestBody
+> = z.object({
+  data: z.lazy(() => PatchV2ListsListData$outboundSchema),
+});
+
+export function patchV2ListsListRequestBodyToJSON(
+  patchV2ListsListRequestBody: PatchV2ListsListRequestBody,
+): string {
+  return JSON.stringify(
+    PatchV2ListsListRequestBody$outboundSchema.parse(
+      patchV2ListsListRequestBody,
+    ),
+  );
+}
+
+/** @internal */
+export type PatchV2ListsListRequest$Outbound = {
+  list: string;
+  body: PatchV2ListsListRequestBody$Outbound;
+};
+
+/** @internal */
+export const PatchV2ListsListRequest$outboundSchema: z.ZodMiniType<
+  PatchV2ListsListRequest$Outbound,
+  PatchV2ListsListRequest
+> = z.object({
+  list: z.string(),
+  body: z.lazy(() => PatchV2ListsListRequestBody$outboundSchema),
+});
+
+export function patchV2ListsListRequestToJSON(
+  patchV2ListsListRequest: PatchV2ListsListRequest,
+): string {
+  return JSON.stringify(
+    PatchV2ListsListRequest$outboundSchema.parse(patchV2ListsListRequest),
+  );
+}
+
+/** @internal */
+export const PatchV2ListsListResponse$inboundSchema: z.ZodMiniType<
+  PatchV2ListsListResponse,
+  unknown
+> = z.object({
+  data: models.List$inboundSchema,
+});
+
+export function patchV2ListsListResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<PatchV2ListsListResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PatchV2ListsListResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PatchV2ListsListResponse' from JSON`,
   );
 }

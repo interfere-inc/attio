@@ -1,14 +1,12 @@
-# SCIMSchemas
+# ScimSchemas
 
 ## Overview
 
-SCIM schemas describe the resource types supported by this SCIM service provider.
-
 ### Available Operations
 
-* [getScimV2Schemas](#getscimv2schemas) - List SCIM schemas
+* [list](#list) - List SCIM schemas
 
-## getScimV2Schemas
+## list
 
 Lists the SCIM schemas supported by this service provider.
 
@@ -25,7 +23,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.scimSchemas.getScimV2Schemas();
+  const result = await attio.scimSchemas.list();
 
   console.log(result);
 }
@@ -39,7 +37,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { scimSchemasGetSCIMV2Schemas } from "@interfere/attio/funcs/scim-schemas-get-scimv2-schemas.js";
+import { scimSchemasList } from "@interfere/attio/funcs/scim-schemas-list.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -48,12 +46,12 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await scimSchemasGetSCIMV2Schemas(attio);
+  const res = await scimSchemasList(attio);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("scimSchemasGetSCIMV2Schemas failed:", res.error);
+    console.log("scimSchemasList failed:", res.error);
   }
 }
 

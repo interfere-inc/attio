@@ -6,9 +6,9 @@ Transcripts contain the speech segments and speaker information for a call recor
 
 ### Available Operations
 
-* [getV2MeetingsMeetingIdCallRecordingsCallRecordingIdTranscript](#getv2meetingsmeetingidcallrecordingscallrecordingidtranscript) - Get call transcript
+* [get](#get) - Get call transcript
 
-## getV2MeetingsMeetingIdCallRecordingsCallRecordingIdTranscript
+## get
 
 Get the transcript for a call recording.
 
@@ -27,7 +27,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.transcripts.getV2MeetingsMeetingIdCallRecordingsCallRecordingIdTranscript({
+  const result = await attio.transcripts.get({
     meetingId: "cb59ab17-ad15-460c-a126-0715617c0853",
     callRecordingId: "e8f2a3b7-9b4d-4c5e-8a1f-3d7b2c5e8f9a",
     cursor: "eyJkZXNjcmlwdGlvbiI6ICJ0aGlzIGlzIGEgY3Vyc29yIn0=.eM56CGbqZ6G1NHiJchTIkH4vKDr",
@@ -45,7 +45,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { transcriptsGetV2MeetingsMeetingIdCallRecordingsCallRecordingIdTranscript } from "@interfere/attio/funcs/transcripts-get-v2-meetings-meeting-id-call-recordings-call-recording-id-transcript.js";
+import { transcriptsGet } from "@interfere/attio/funcs/transcripts-get.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -54,7 +54,7 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await transcriptsGetV2MeetingsMeetingIdCallRecordingsCallRecordingIdTranscript(attio, {
+  const res = await transcriptsGet(attio, {
     meetingId: "cb59ab17-ad15-460c-a126-0715617c0853",
     callRecordingId: "e8f2a3b7-9b4d-4c5e-8a1f-3d7b2c5e8f9a",
     cursor: "eyJkZXNjcmlwdGlvbiI6ICJ0aGlzIGlzIGEgY3Vyc29yIn0=.eM56CGbqZ6G1NHiJchTIkH4vKDr",
@@ -63,7 +63,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("transcriptsGetV2MeetingsMeetingIdCallRecordingsCallRecordingIdTranscript failed:", res.error);
+    console.log("transcriptsGet failed:", res.error);
   }
 }
 

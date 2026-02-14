@@ -6,12 +6,12 @@ Lists are used to model a particular process. A list contains many records of a 
 
 ### Available Operations
 
-* [getV2Lists](#getv2lists) - List all lists
-* [postV2Lists](#postv2lists) - Create a list
-* [getV2ListsList](#getv2listslist) - Get a list
-* [patchV2ListsList](#patchv2listslist) - Update a list
+* [list](#list) - List all lists
+* [create](#create) - Create a list
+* [get](#get) - Get a list
+* [update](#update) - Update a list
 
-## getV2Lists
+## list
 
 List all lists that your access token has access to. lists are returned in the order that they are sorted in the sidebar.
 
@@ -28,7 +28,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.lists.getV2Lists();
+  const result = await attio.lists.list();
 
   console.log(result);
 }
@@ -42,7 +42,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { listsGetV2Lists } from "@interfere/attio/funcs/lists-get-v2-lists.js";
+import { listsList } from "@interfere/attio/funcs/lists-list.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -51,12 +51,12 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await listsGetV2Lists(attio);
+  const res = await listsList(attio);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("listsGetV2Lists failed:", res.error);
+    console.log("listsList failed:", res.error);
   }
 }
 
@@ -81,7 +81,7 @@ run();
 | ----------------- | ----------------- | ----------------- |
 | errors.AttioError | 4XX, 5XX          | \*/\*             |
 
-## postV2Lists
+## create
 
 Creates a new list.
 
@@ -104,7 +104,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.lists.postV2Lists({
+  const result = await attio.lists.create({
     data: {
       name: "Enterprise Sales",
       apiSlug: "enterprise_sales",
@@ -131,7 +131,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { listsPostV2Lists } from "@interfere/attio/funcs/lists-post-v2-lists.js";
+import { listsCreate } from "@interfere/attio/funcs/lists-create.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -140,7 +140,7 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await listsPostV2Lists(attio, {
+  const res = await listsCreate(attio, {
     data: {
       name: "Enterprise Sales",
       apiSlug: "enterprise_sales",
@@ -158,7 +158,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("listsPostV2Lists failed:", res.error);
+    console.log("listsCreate failed:", res.error);
   }
 }
 
@@ -188,7 +188,7 @@ run();
 | errors.PostV2ListsSlugConflictError  | 409                                  | application/json                     |
 | errors.AttioError                    | 4XX, 5XX                             | \*/\*                                |
 
-## getV2ListsList
+## get
 
 Gets a single list in your workspace that your access token has access to.
 
@@ -205,7 +205,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.lists.getV2ListsList({
+  const result = await attio.lists.get({
     list: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0",
   });
 
@@ -221,7 +221,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { listsGetV2ListsList } from "@interfere/attio/funcs/lists-get-v2-lists-list.js";
+import { listsGet } from "@interfere/attio/funcs/lists-get.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -230,14 +230,14 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await listsGetV2ListsList(attio, {
+  const res = await listsGet(attio, {
     list: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("listsGetV2ListsList failed:", res.error);
+    console.log("listsGet failed:", res.error);
   }
 }
 
@@ -264,7 +264,7 @@ run();
 | errors.GetV2ListsListNotFoundError | 404                                | application/json                   |
 | errors.AttioError                  | 4XX, 5XX                           | \*/\*                              |
 
-## patchV2ListsList
+## update
 
 Updates an existing list. Permissions for the list are controlled with the `workspace_access` and `workspace_member_access` parameters. Please note that lists must have either `workspace_access` set to `"full-access"` or one or more element of `workspace_member_access` with a `"full-access"` level. It is also possible to receive a `403` billing error if your workspace is not on a plan that supports either advanced workspace or workspace member level access for lists. Changing the parent object of a list is not possible through the API as it can have unintended side-effects that should be considered carefully. If you wish to carry out a parent object change you should do so through the UI.
 
@@ -281,7 +281,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.lists.patchV2ListsList({
+  const result = await attio.lists.update({
     list: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0",
     body: {
       data: {
@@ -310,7 +310,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { listsPatchV2ListsList } from "@interfere/attio/funcs/lists-patch-v2-lists-list.js";
+import { listsUpdate } from "@interfere/attio/funcs/lists-update.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -319,7 +319,7 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await listsPatchV2ListsList(attio, {
+  const res = await listsUpdate(attio, {
     list: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0",
     body: {
       data: {
@@ -339,7 +339,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("listsPatchV2ListsList failed:", res.error);
+    console.log("listsUpdate failed:", res.error);
   }
 }
 
@@ -361,8 +361,8 @@ run();
 
 ### Errors
 
-| Error Type                                | Status Code                               | Content Type                              |
-| ----------------------------------------- | ----------------------------------------- | ----------------------------------------- |
-| errors.PatchV2ListsListValueNotFoundError | 400                                       | application/json                          |
-| errors.PatchV2ListsListNotFoundError      | 404                                       | application/json                          |
-| errors.AttioError                         | 4XX, 5XX                                  | \*/\*                                     |
+| Error Type                           | Status Code                          | Content Type                         |
+| ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.PostV2ListsValueNotFoundError | 400                                  | application/json                     |
+| errors.GetV2ListsListNotFoundError   | 404                                  | application/json                     |
+| errors.AttioError                    | 4XX, 5XX                             | \*/\*                                |

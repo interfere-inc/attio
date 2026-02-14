@@ -14,7 +14,7 @@ targets:
         sourceRevisionDigest: sha256:093fd1486cd4f7d7c10f86d6f7b7bf80c80f5d6f9b14273c81e16794d5a30f5a
         sourceBlobDigest: sha256:1470bfcb7673c995393eb04af0ceded373ddafd3451373b7f266ae29709ab692
         codeSamplesNamespace: attio-api-typescript-code-samples
-        codeSamplesRevisionDigest: sha256:8276d6a14c8c0bd46fa3032f6867c26f349c198696e5859fb9de1c8a00ecde24
+        codeSamplesRevisionDigest: sha256:7d3ee66fbf3b7964e8cfa55b4438925ac0f1f5932b031e27084e99973460b564
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
@@ -22,6 +22,8 @@ workflow:
         Attio API:
             inputs:
                 - location: https://api.attio.com/openapi/api
+            overlays:
+                - location: .speakeasy/speakeasy-modifications-overlay.yaml
             output: .speakeasy/out.openapi.yaml
             registry:
                 location: registry.speakeasyapi.dev/interfere/api/attio-api

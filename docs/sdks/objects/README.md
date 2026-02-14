@@ -6,12 +6,12 @@ Objects are the core data models inside of Attio. They contain standard objects,
 
 ### Available Operations
 
-* [getV2Objects](#getv2objects) - List objects
-* [postV2Objects](#postv2objects) - Create an object
-* [getV2ObjectsObject](#getv2objectsobject) - Get an object
-* [patchV2ObjectsObject](#patchv2objectsobject) - Update an object
+* [list](#list) - List objects
+* [create](#create) - Create an object
+* [get](#get) - Get an object
+* [update](#update) - Update an object
 
-## getV2Objects
+## list
 
 Lists all system-defined and user-defined objects in your workspace.
 
@@ -28,7 +28,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.objects.getV2Objects();
+  const result = await attio.objects.list();
 
   console.log(result);
 }
@@ -42,7 +42,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { objectsGetV2Objects } from "@interfere/attio/funcs/objects-get-v2-objects.js";
+import { objectsList } from "@interfere/attio/funcs/objects-list.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -51,12 +51,12 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await objectsGetV2Objects(attio);
+  const res = await objectsList(attio);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("objectsGetV2Objects failed:", res.error);
+    console.log("objectsList failed:", res.error);
   }
 }
 
@@ -81,7 +81,7 @@ run();
 | ----------------- | ----------------- | ----------------- |
 | errors.AttioError | 4XX, 5XX          | \*/\*             |
 
-## postV2Objects
+## create
 
 Creates a new custom object in your workspace.
 
@@ -98,7 +98,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.objects.postV2Objects({
+  const result = await attio.objects.create({
     data: {
       apiSlug: "people",
       singularNoun: "Person",
@@ -118,7 +118,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { objectsPostV2Objects } from "@interfere/attio/funcs/objects-post-v2-objects.js";
+import { objectsCreate } from "@interfere/attio/funcs/objects-create.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -127,7 +127,7 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await objectsPostV2Objects(attio, {
+  const res = await objectsCreate(attio, {
     data: {
       apiSlug: "people",
       singularNoun: "Person",
@@ -138,7 +138,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("objectsPostV2Objects failed:", res.error);
+    console.log("objectsCreate failed:", res.error);
   }
 }
 
@@ -165,7 +165,7 @@ run();
 | errors.PostV2ObjectsSlugConflictError | 409                                   | application/json                      |
 | errors.AttioError                     | 4XX, 5XX                              | \*/\*                                 |
 
-## getV2ObjectsObject
+## get
 
 Gets a single object by its `object_id` or slug.
 
@@ -182,7 +182,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.objects.getV2ObjectsObject({
+  const result = await attio.objects.get({
     object: "people",
   });
 
@@ -198,7 +198,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { objectsGetV2ObjectsObject } from "@interfere/attio/funcs/objects-get-v2-objects-object.js";
+import { objectsGet } from "@interfere/attio/funcs/objects-get.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -207,14 +207,14 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await objectsGetV2ObjectsObject(attio, {
+  const res = await objectsGet(attio, {
     object: "people",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("objectsGetV2ObjectsObject failed:", res.error);
+    console.log("objectsGet failed:", res.error);
   }
 }
 
@@ -241,7 +241,7 @@ run();
 | errors.GetV2ObjectsObjectNotFoundError | 404                                    | application/json                       |
 | errors.AttioError                      | 4XX, 5XX                               | \*/\*                                  |
 
-## patchV2ObjectsObject
+## update
 
 Updates a single object. The object to be updated is identified by its `object_id`.
 
@@ -258,7 +258,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.objects.patchV2ObjectsObject({
+  const result = await attio.objects.update({
     object: "people",
     body: {
       data: {
@@ -281,7 +281,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { objectsPatchV2ObjectsObject } from "@interfere/attio/funcs/objects-patch-v2-objects-object.js";
+import { objectsUpdate } from "@interfere/attio/funcs/objects-update.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -290,7 +290,7 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await objectsPatchV2ObjectsObject(attio, {
+  const res = await objectsUpdate(attio, {
     object: "people",
     body: {
       data: {
@@ -304,7 +304,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("objectsPatchV2ObjectsObject failed:", res.error);
+    console.log("objectsUpdate failed:", res.error);
   }
 }
 
@@ -329,6 +329,6 @@ run();
 | Error Type                                     | Status Code                                    | Content Type                                   |
 | ---------------------------------------------- | ---------------------------------------------- | ---------------------------------------------- |
 | errors.PatchV2ObjectsObjectValidationTypeError | 400                                            | application/json                               |
-| errors.PatchV2ObjectsObjectNotFoundError       | 404                                            | application/json                               |
+| errors.GetV2ObjectsObjectNotFoundError         | 404                                            | application/json                               |
 | errors.PatchV2ObjectsObjectSlugConflictError   | 409                                            | application/json                               |
 | errors.AttioError                              | 4XX, 5XX                                       | \*/\*                                          |

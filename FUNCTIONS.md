@@ -20,7 +20,7 @@ specific category of applications.
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { objectsGetV2Objects } from "@interfere/attio/funcs/objects-get-v2-objects.js";
+import { objectsList } from "@interfere/attio/funcs/objects-list.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -29,12 +29,12 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await objectsGetV2Objects(attio);
+  const res = await objectsList(attio);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("objectsGetV2Objects failed:", res.error);
+    console.log("objectsList failed:", res.error);
   }
 }
 

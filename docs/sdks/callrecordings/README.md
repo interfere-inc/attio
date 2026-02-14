@@ -2,16 +2,14 @@
 
 ## Overview
 
-Call recordings store video, audio, transcript and speaker information for calls. They are linked to meetings.
-
 ### Available Operations
 
-* [getV2MeetingsMeetingIdCallRecordings](#getv2meetingsmeetingidcallrecordings) - List call recordings
-* [postV2MeetingsMeetingIdCallRecordings](#postv2meetingsmeetingidcallrecordings) - Create call recording
-* [getV2MeetingsMeetingIdCallRecordingsCallRecordingId](#getv2meetingsmeetingidcallrecordingscallrecordingid) - Get call recording
-* [deleteV2MeetingsMeetingIdCallRecordingsCallRecordingId](#deletev2meetingsmeetingidcallrecordingscallrecordingid) - Delete call recording
+* [listByMeeting](#listbymeeting) - List call recordings
+* [create](#create) - Create call recording
+* [get](#get) - Get call recording
+* [delete](#delete) - Delete call recording
 
-## getV2MeetingsMeetingIdCallRecordings
+## listByMeeting
 
 List all call recordings for a meeting.
 
@@ -30,7 +28,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.callRecordings.getV2MeetingsMeetingIdCallRecordings({
+  const result = await attio.callRecordings.listByMeeting({
     meetingId: "cb59ab17-ad15-460c-a126-0715617c0853",
     limit: 50,
     cursor: "eyJkZXNjcmlwdGlvbiI6ICJ0aGlzIGlzIGEgY3Vyc29yIn0=.eM56CGbqZ6G1NHiJchTIkH4vKDr",
@@ -48,7 +46,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { callRecordingsGetV2MeetingsMeetingIdCallRecordings } from "@interfere/attio/funcs/call-recordings-get-v2-meetings-meeting-id-call-recordings.js";
+import { callRecordingsListByMeeting } from "@interfere/attio/funcs/call-recordings-list-by-meeting.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -57,7 +55,7 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await callRecordingsGetV2MeetingsMeetingIdCallRecordings(attio, {
+  const res = await callRecordingsListByMeeting(attio, {
     meetingId: "cb59ab17-ad15-460c-a126-0715617c0853",
     limit: 50,
     cursor: "eyJkZXNjcmlwdGlvbiI6ICJ0aGlzIGlzIGEgY3Vyc29yIn0=.eM56CGbqZ6G1NHiJchTIkH4vKDr",
@@ -66,7 +64,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("callRecordingsGetV2MeetingsMeetingIdCallRecordings failed:", res.error);
+    console.log("callRecordingsListByMeeting failed:", res.error);
   }
 }
 
@@ -92,7 +90,7 @@ run();
 | ----------------- | ----------------- | ----------------- |
 | errors.AttioError | 4XX, 5XX          | \*/\*             |
 
-## postV2MeetingsMeetingIdCallRecordings
+## create
 
 Create a call recording for a meeting. This endpoint is rate limited to 1 request per second.
 
@@ -111,7 +109,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.callRecordings.postV2MeetingsMeetingIdCallRecordings({
+  const result = await attio.callRecordings.create({
     meetingId: "cb59ab17-ad15-460c-a126-0715617c0853",
     body: {
       data: {
@@ -132,7 +130,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { callRecordingsPostV2MeetingsMeetingIdCallRecordings } from "@interfere/attio/funcs/call-recordings-post-v2-meetings-meeting-id-call-recordings.js";
+import { callRecordingsCreate } from "@interfere/attio/funcs/call-recordings-create.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -141,7 +139,7 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await callRecordingsPostV2MeetingsMeetingIdCallRecordings(attio, {
+  const res = await callRecordingsCreate(attio, {
     meetingId: "cb59ab17-ad15-460c-a126-0715617c0853",
     body: {
       data: {
@@ -153,7 +151,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("callRecordingsPostV2MeetingsMeetingIdCallRecordings failed:", res.error);
+    console.log("callRecordingsCreate failed:", res.error);
   }
 }
 
@@ -182,7 +180,7 @@ run();
 | errors.PostV2MeetingsMeetingIdCallRecordingsNotFoundError       | 404                                                             | application/json                                                |
 | errors.AttioError                                               | 4XX, 5XX                                                        | \*/\*                                                           |
 
-## getV2MeetingsMeetingIdCallRecordingsCallRecordingId
+## get
 
 Get a single call recording by ID.
 
@@ -201,7 +199,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.callRecordings.getV2MeetingsMeetingIdCallRecordingsCallRecordingId({
+  const result = await attio.callRecordings.get({
     meetingId: "cb59ab17-ad15-460c-a126-0715617c0853",
     callRecordingId: "e8f2a3b7-9b4d-4c5e-8a1f-3d7b2c5e8f9a",
   });
@@ -218,7 +216,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { callRecordingsGetV2MeetingsMeetingIdCallRecordingsCallRecordingId } from "@interfere/attio/funcs/call-recordings-get-v2-meetings-meeting-id-call-recordings-call-recording-id.js";
+import { callRecordingsGet } from "@interfere/attio/funcs/call-recordings-get.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -227,7 +225,7 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await callRecordingsGetV2MeetingsMeetingIdCallRecordingsCallRecordingId(attio, {
+  const res = await callRecordingsGet(attio, {
     meetingId: "cb59ab17-ad15-460c-a126-0715617c0853",
     callRecordingId: "e8f2a3b7-9b4d-4c5e-8a1f-3d7b2c5e8f9a",
   });
@@ -235,7 +233,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("callRecordingsGetV2MeetingsMeetingIdCallRecordingsCallRecordingId failed:", res.error);
+    console.log("callRecordingsGet failed:", res.error);
   }
 }
 
@@ -262,7 +260,7 @@ run();
 | errors.GetV2MeetingsMeetingIdCallRecordingsCallRecordingIdNotFoundError | 404                                                                     | application/json                                                        |
 | errors.AttioError                                                       | 4XX, 5XX                                                                | \*/\*                                                                   |
 
-## deleteV2MeetingsMeetingIdCallRecordingsCallRecordingId
+## delete
 
 Deletes the specified call recording. This will remove the call recording and all associated data.
 
@@ -281,7 +279,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.callRecordings.deleteV2MeetingsMeetingIdCallRecordingsCallRecordingId({
+  const result = await attio.callRecordings.delete({
     meetingId: "cb59ab17-ad15-460c-a126-0715617c0853",
     callRecordingId: "e8f2a3b7-9b4d-4c5e-8a1f-3d7b2c5e8f9a",
   });
@@ -298,7 +296,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { callRecordingsDeleteV2MeetingsMeetingIdCallRecordingsCallRecordingId } from "@interfere/attio/funcs/call-recordings-delete-v2-meetings-meeting-id-call-recordings-call-recording-id.js";
+import { callRecordingsDelete } from "@interfere/attio/funcs/call-recordings-delete.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -307,7 +305,7 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await callRecordingsDeleteV2MeetingsMeetingIdCallRecordingsCallRecordingId(attio, {
+  const res = await callRecordingsDelete(attio, {
     meetingId: "cb59ab17-ad15-460c-a126-0715617c0853",
     callRecordingId: "e8f2a3b7-9b4d-4c5e-8a1f-3d7b2c5e8f9a",
   });
@@ -315,7 +313,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("callRecordingsDeleteV2MeetingsMeetingIdCallRecordingsCallRecordingId failed:", res.error);
+    console.log("callRecordingsDelete failed:", res.error);
   }
 }
 

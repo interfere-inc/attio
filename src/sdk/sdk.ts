@@ -13,7 +13,7 @@ import { Meta } from "./meta.js";
 import { Notes } from "./notes.js";
 import { Objects } from "./objects.js";
 import { Records } from "./records.js";
-import { SCIMSchemas } from "./scim-schemas.js";
+import { ScimSchemas } from "./scim-schemas.js";
 import { Tasks } from "./tasks.js";
 import { Threads } from "./threads.js";
 import { Transcripts } from "./transcripts.js";
@@ -86,9 +86,9 @@ export class Attio extends ClientSDK {
     return (this._transcripts ??= new Transcripts(this._options));
   }
 
-  private _scimSchemas?: SCIMSchemas;
-  get scimSchemas(): SCIMSchemas {
-    return (this._scimSchemas ??= new SCIMSchemas(this._options));
+  private _scimSchemas?: ScimSchemas;
+  get scimSchemas(): ScimSchemas {
+    return (this._scimSchemas ??= new ScimSchemas(this._options));
   }
 
   private _webhooks?: Webhooks;

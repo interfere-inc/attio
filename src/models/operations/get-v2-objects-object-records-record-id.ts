@@ -1773,6 +1773,16 @@ export type GetV2ObjectsObjectRecordsRecordIdResponse = {
   data: GetV2ObjectsObjectRecordsRecordIdData;
 };
 
+export type DeleteV2ObjectsObjectRecordsRecordIdRequest = {
+  object: string;
+  recordId: string;
+};
+
+/**
+ * Success
+ */
+export type DeleteV2ObjectsObjectRecordsRecordIdResponse = {};
+
 /** @internal */
 export type GetV2ObjectsObjectRecordsRecordIdRequest$Outbound = {
   object: string;
@@ -3414,5 +3424,60 @@ export function getV2ObjectsObjectRecordsRecordIdResponseFromJSON(
         JSON.parse(x),
       ),
     `Failed to parse 'GetV2ObjectsObjectRecordsRecordIdResponse' from JSON`,
+  );
+}
+
+/** @internal */
+export type DeleteV2ObjectsObjectRecordsRecordIdRequest$Outbound = {
+  object: string;
+  record_id: string;
+};
+
+/** @internal */
+export const DeleteV2ObjectsObjectRecordsRecordIdRequest$outboundSchema:
+  z.ZodMiniType<
+    DeleteV2ObjectsObjectRecordsRecordIdRequest$Outbound,
+    DeleteV2ObjectsObjectRecordsRecordIdRequest
+  > = z.pipe(
+    z.object({
+      object: z.string(),
+      recordId: z.string(),
+    }),
+    z.transform((v) => {
+      return remap$(v, {
+        recordId: "record_id",
+      });
+    }),
+  );
+
+export function deleteV2ObjectsObjectRecordsRecordIdRequestToJSON(
+  deleteV2ObjectsObjectRecordsRecordIdRequest:
+    DeleteV2ObjectsObjectRecordsRecordIdRequest,
+): string {
+  return JSON.stringify(
+    DeleteV2ObjectsObjectRecordsRecordIdRequest$outboundSchema.parse(
+      deleteV2ObjectsObjectRecordsRecordIdRequest,
+    ),
+  );
+}
+
+/** @internal */
+export const DeleteV2ObjectsObjectRecordsRecordIdResponse$inboundSchema:
+  z.ZodMiniType<DeleteV2ObjectsObjectRecordsRecordIdResponse, unknown> = z
+    .object({});
+
+export function deleteV2ObjectsObjectRecordsRecordIdResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  DeleteV2ObjectsObjectRecordsRecordIdResponse,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      DeleteV2ObjectsObjectRecordsRecordIdResponse$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'DeleteV2ObjectsObjectRecordsRecordIdResponse' from JSON`,
   );
 }

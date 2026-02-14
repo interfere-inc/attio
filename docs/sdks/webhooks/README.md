@@ -6,13 +6,13 @@ Webhooks allow you to listen for changes to data in Attio, for example when a re
 
 ### Available Operations
 
-* [getV2Webhooks](#getv2webhooks) - List webhooks
-* [postV2Webhooks](#postv2webhooks) - Create a webhook
-* [getV2WebhooksWebhookId](#getv2webhookswebhookid) - Get a webhook
-* [deleteV2WebhooksWebhookId](#deletev2webhookswebhookid) - Delete a webhook
-* [patchV2WebhooksWebhookId](#patchv2webhookswebhookid) - Update a webhook
+* [list](#list) - List webhooks
+* [create](#create) - Create a webhook
+* [get](#get) - Get a webhook
+* [update](#update) - Update a webhook
+* [delete](#delete) - Delete a webhook
 
-## getV2Webhooks
+## list
 
 Get all of the webhooks in your workspace.
 
@@ -29,7 +29,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.webhooks.getV2Webhooks({
+  const result = await attio.webhooks.list({
     limit: 10,
     offset: 5,
   });
@@ -46,7 +46,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { webhooksGetV2Webhooks } from "@interfere/attio/funcs/webhooks-get-v2-webhooks.js";
+import { webhooksList } from "@interfere/attio/funcs/webhooks-list.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -55,7 +55,7 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await webhooksGetV2Webhooks(attio, {
+  const res = await webhooksList(attio, {
     limit: 10,
     offset: 5,
   });
@@ -63,7 +63,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("webhooksGetV2Webhooks failed:", res.error);
+    console.log("webhooksList failed:", res.error);
   }
 }
 
@@ -89,7 +89,7 @@ run();
 | ----------------- | ----------------- | ----------------- |
 | errors.AttioError | 4XX, 5XX          | \*/\*             |
 
-## postV2Webhooks
+## create
 
 Create a webhook and associated subscriptions.
 
@@ -106,7 +106,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.webhooks.postV2Webhooks({
+  const result = await attio.webhooks.create({
     data: {
       targetUrl: "https://example.com/webhook",
       subscriptions: [],
@@ -125,7 +125,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { webhooksPostV2Webhooks } from "@interfere/attio/funcs/webhooks-post-v2-webhooks.js";
+import { webhooksCreate } from "@interfere/attio/funcs/webhooks-create.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -134,7 +134,7 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await webhooksPostV2Webhooks(attio, {
+  const res = await webhooksCreate(attio, {
     data: {
       targetUrl: "https://example.com/webhook",
       subscriptions: [],
@@ -144,7 +144,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("webhooksPostV2Webhooks failed:", res.error);
+    console.log("webhooksCreate failed:", res.error);
   }
 }
 
@@ -171,7 +171,7 @@ run();
 | errors.PostV2WebhooksValidationTypeError | 400                                      | application/json                         |
 | errors.AttioError                        | 4XX, 5XX                                 | \*/\*                                    |
 
-## getV2WebhooksWebhookId
+## get
 
 Get a single webhook.
 
@@ -188,7 +188,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.webhooks.getV2WebhooksWebhookId({
+  const result = await attio.webhooks.get({
     webhookId: "23e42eaf-323a-41da-b5bb-fd67eebda553",
   });
 
@@ -204,7 +204,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { webhooksGetV2WebhooksWebhookId } from "@interfere/attio/funcs/webhooks-get-v2-webhooks-webhook-id.js";
+import { webhooksGet } from "@interfere/attio/funcs/webhooks-get.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -213,14 +213,14 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await webhooksGetV2WebhooksWebhookId(attio, {
+  const res = await webhooksGet(attio, {
     webhookId: "23e42eaf-323a-41da-b5bb-fd67eebda553",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("webhooksGetV2WebhooksWebhookId failed:", res.error);
+    console.log("webhooksGet failed:", res.error);
   }
 }
 
@@ -247,7 +247,121 @@ run();
 | errors.GetV2WebhooksWebhookIdNotFoundError | 404                                        | application/json                           |
 | errors.AttioError                          | 4XX, 5XX                                   | \*/\*                                      |
 
-## deleteV2WebhooksWebhookId
+## update
+
+Update a webhook and associated subscriptions.
+
+Required scopes: `webhook:read-write`.
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="patch_/v2/webhooks/{webhook_id}" method="patch" path="/v2/webhooks/{webhook_id}" -->
+```typescript
+import { Attio } from "@interfere/attio";
+
+const attio = new Attio({
+  oauth2: process.env["ATTIO_OAUTH2"] ?? "",
+});
+
+async function run() {
+  const result = await attio.webhooks.update({
+    webhookId: "23e42eaf-323a-41da-b5bb-fd67eebda553",
+    body: {
+      data: {
+        targetUrl: "https://example.com/webhook",
+        subscriptions: [
+          {
+            eventType: "note.created",
+            filter: {
+              dollarAnd: [
+                {
+                  field: "parent_object_id",
+                  operator: "equals",
+                  value: "97052eb9-e65e-443f-a297-f2d9a4a7f795",
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { AttioCore } from "@interfere/attio/core.js";
+import { webhooksUpdate } from "@interfere/attio/funcs/webhooks-update.js";
+
+// Use `AttioCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const attio = new AttioCore({
+  oauth2: process.env["ATTIO_OAUTH2"] ?? "",
+});
+
+async function run() {
+  const res = await webhooksUpdate(attio, {
+    webhookId: "23e42eaf-323a-41da-b5bb-fd67eebda553",
+    body: {
+      data: {
+        targetUrl: "https://example.com/webhook",
+        subscriptions: [
+          {
+            eventType: "note.created",
+            filter: {
+              dollarAnd: [
+                {
+                  field: "parent_object_id",
+                  operator: "equals",
+                  value: "97052eb9-e65e-443f-a297-f2d9a4a7f795",
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("webhooksUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.PatchV2WebhooksWebhookIdRequest](../../models/operations/patch-v2-webhooks-webhook-id-request.md)                                                                  | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.PatchV2WebhooksWebhookIdResponse](../../models/operations/patch-v2-webhooks-webhook-id-response.md)\>**
+
+### Errors
+
+| Error Type                                 | Status Code                                | Content Type                               |
+| ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
+| errors.GetV2WebhooksWebhookIdNotFoundError | 404                                        | application/json                           |
+| errors.AttioError                          | 4XX, 5XX                                   | \*/\*                                      |
+
+## delete
 
 Delete a webhook by ID.
 
@@ -264,7 +378,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.webhooks.deleteV2WebhooksWebhookId({
+  const result = await attio.webhooks.delete({
     webhookId: "23e42eaf-323a-41da-b5bb-fd67eebda553",
   });
 
@@ -280,7 +394,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { webhooksDeleteV2WebhooksWebhookId } from "@interfere/attio/funcs/webhooks-delete-v2-webhooks-webhook-id.js";
+import { webhooksDelete } from "@interfere/attio/funcs/webhooks-delete.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -289,14 +403,14 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await webhooksDeleteV2WebhooksWebhookId(attio, {
+  const res = await webhooksDelete(attio, {
     webhookId: "23e42eaf-323a-41da-b5bb-fd67eebda553",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("webhooksDeleteV2WebhooksWebhookId failed:", res.error);
+    console.log("webhooksDelete failed:", res.error);
   }
 }
 
@@ -322,117 +436,3 @@ run();
 | --------------------------------------------- | --------------------------------------------- | --------------------------------------------- |
 | errors.DeleteV2WebhooksWebhookIdNotFoundError | 404                                           | application/json                              |
 | errors.AttioError                             | 4XX, 5XX                                      | \*/\*                                         |
-
-## patchV2WebhooksWebhookId
-
-Update a webhook and associated subscriptions.
-
-Required scopes: `webhook:read-write`.
-
-### Example Usage
-
-<!-- UsageSnippet language="typescript" operationID="patch_/v2/webhooks/{webhook_id}" method="patch" path="/v2/webhooks/{webhook_id}" -->
-```typescript
-import { Attio } from "@interfere/attio";
-
-const attio = new Attio({
-  oauth2: process.env["ATTIO_OAUTH2"] ?? "",
-});
-
-async function run() {
-  const result = await attio.webhooks.patchV2WebhooksWebhookId({
-    webhookId: "23e42eaf-323a-41da-b5bb-fd67eebda553",
-    body: {
-      data: {
-        targetUrl: "https://example.com/webhook",
-        subscriptions: [
-          {
-            eventType: "note.created",
-            filter: {
-              dollarAnd: [
-                {
-                  field: "parent_object_id",
-                  operator: "equals",
-                  value: "97052eb9-e65e-443f-a297-f2d9a4a7f795",
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  });
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { AttioCore } from "@interfere/attio/core.js";
-import { webhooksPatchV2WebhooksWebhookId } from "@interfere/attio/funcs/webhooks-patch-v2-webhooks-webhook-id.js";
-
-// Use `AttioCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const attio = new AttioCore({
-  oauth2: process.env["ATTIO_OAUTH2"] ?? "",
-});
-
-async function run() {
-  const res = await webhooksPatchV2WebhooksWebhookId(attio, {
-    webhookId: "23e42eaf-323a-41da-b5bb-fd67eebda553",
-    body: {
-      data: {
-        targetUrl: "https://example.com/webhook",
-        subscriptions: [
-          {
-            eventType: "note.created",
-            filter: {
-              dollarAnd: [
-                {
-                  field: "parent_object_id",
-                  operator: "equals",
-                  value: "97052eb9-e65e-443f-a297-f2d9a4a7f795",
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  });
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("webhooksPatchV2WebhooksWebhookId failed:", res.error);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.PatchV2WebhooksWebhookIdRequest](../../models/operations/patch-v2-webhooks-webhook-id-request.md)                                                                  | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-
-### Response
-
-**Promise\<[operations.PatchV2WebhooksWebhookIdResponse](../../models/operations/patch-v2-webhooks-webhook-id-response.md)\>**
-
-### Errors
-
-| Error Type                                   | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| errors.PatchV2WebhooksWebhookIdNotFoundError | 404                                          | application/json                             |
-| errors.AttioError                            | 4XX, 5XX                                     | \*/\*                                        |

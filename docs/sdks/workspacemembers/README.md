@@ -2,14 +2,12 @@
 
 ## Overview
 
-Workspace members represent a user with access to a workspace. Workspace members are assigned roles that determine what they can do within the workspace.
-
 ### Available Operations
 
-* [getV2WorkspaceMembers](#getv2workspacemembers) - List workspace members
-* [getV2WorkspaceMembersWorkspaceMemberId](#getv2workspacemembersworkspacememberid) - Get a workspace member
+* [list](#list) - List workspace members
+* [get](#get) - Get a workspace member
 
-## getV2WorkspaceMembers
+## list
 
 Lists all workspace members in the workspace.
 
@@ -26,7 +24,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.workspaceMembers.getV2WorkspaceMembers();
+  const result = await attio.workspaceMembers.list();
 
   console.log(result);
 }
@@ -40,7 +38,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { workspaceMembersGetV2WorkspaceMembers } from "@interfere/attio/funcs/workspace-members-get-v2-workspace-members.js";
+import { workspaceMembersList } from "@interfere/attio/funcs/workspace-members-list.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -49,12 +47,12 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await workspaceMembersGetV2WorkspaceMembers(attio);
+  const res = await workspaceMembersList(attio);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("workspaceMembersGetV2WorkspaceMembers failed:", res.error);
+    console.log("workspaceMembersList failed:", res.error);
   }
 }
 
@@ -79,7 +77,7 @@ run();
 | ----------------- | ----------------- | ----------------- |
 | errors.AttioError | 4XX, 5XX          | \*/\*             |
 
-## getV2WorkspaceMembersWorkspaceMemberId
+## get
 
 Gets a single workspace member by ID.
 
@@ -96,7 +94,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.workspaceMembers.getV2WorkspaceMembersWorkspaceMemberId({
+  const result = await attio.workspaceMembers.get({
     workspaceMemberId: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
   });
 
@@ -112,7 +110,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { workspaceMembersGetV2WorkspaceMembersWorkspaceMemberId } from "@interfere/attio/funcs/workspace-members-get-v2-workspace-members-workspace-member-id.js";
+import { workspaceMembersGet } from "@interfere/attio/funcs/workspace-members-get.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -121,14 +119,14 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await workspaceMembersGetV2WorkspaceMembersWorkspaceMemberId(attio, {
+  const res = await workspaceMembersGet(attio, {
     workspaceMemberId: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("workspaceMembersGetV2WorkspaceMembersWorkspaceMemberId failed:", res.error);
+    console.log("workspaceMembersGet failed:", res.error);
   }
 }
 

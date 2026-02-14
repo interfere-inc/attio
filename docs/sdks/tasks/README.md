@@ -6,13 +6,13 @@ A task is a defined, actionable item with references to linked records and assig
 
 ### Available Operations
 
-* [getV2Tasks](#getv2tasks) - List tasks
-* [postV2Tasks](#postv2tasks) - Create a task
-* [getV2TasksTaskId](#getv2taskstaskid) - Get a task
-* [deleteV2TasksTaskId](#deletev2taskstaskid) - Delete a task
-* [patchV2TasksTaskId](#patchv2taskstaskid) - Update a task
+* [list](#list) - List tasks
+* [create](#create) - Create a task
+* [get](#get) - Get a task
+* [update](#update) - Update a task
+* [delete](#delete) - Delete a task
 
-## getV2Tasks
+## list
 
 List all tasks. Results are sorted by creation date, from oldest to newest.
 
@@ -29,7 +29,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.tasks.getV2Tasks({
+  const result = await attio.tasks.list({
     limit: 10,
     offset: 5,
     sort: "created_at:desc",
@@ -51,7 +51,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { tasksGetV2Tasks } from "@interfere/attio/funcs/tasks-get-v2-tasks.js";
+import { tasksList } from "@interfere/attio/funcs/tasks-list.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -60,7 +60,7 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await tasksGetV2Tasks(attio, {
+  const res = await tasksList(attio, {
     limit: 10,
     offset: 5,
     sort: "created_at:desc",
@@ -73,7 +73,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("tasksGetV2Tasks failed:", res.error);
+    console.log("tasksList failed:", res.error);
   }
 }
 
@@ -99,7 +99,7 @@ run();
 | ----------------- | ----------------- | ----------------- |
 | errors.AttioError | 4XX, 5XX          | \*/\*             |
 
-## postV2Tasks
+## create
 
 Creates a new task.
 
@@ -118,7 +118,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.tasks.postV2Tasks({
+  const result = await attio.tasks.create({
     data: {
       content: "Follow up on current software solutions",
       format: "plaintext",
@@ -141,7 +141,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { tasksPostV2Tasks } from "@interfere/attio/funcs/tasks-post-v2-tasks.js";
+import { tasksCreate } from "@interfere/attio/funcs/tasks-create.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -150,7 +150,7 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await tasksPostV2Tasks(attio, {
+  const res = await tasksCreate(attio, {
     data: {
       content: "Follow up on current software solutions",
       format: "plaintext",
@@ -164,7 +164,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("tasksPostV2Tasks failed:", res.error);
+    console.log("tasksCreate failed:", res.error);
   }
 }
 
@@ -186,13 +186,13 @@ run();
 
 ### Errors
 
-| Error Type                            | Status Code                           | Content Type                          |
-| ------------------------------------- | ------------------------------------- | ------------------------------------- |
-| errors.PostV2TasksValidationTypeError | 400                                   | application/json                      |
-| errors.PostV2TasksNotFoundError       | 404                                   | application/json                      |
-| errors.AttioError                     | 4XX, 5XX                              | \*/\*                                 |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.PostV2TasksValidationTypeError  | 400                                    | application/json                       |
+| errors.GetV2ObjectsObjectNotFoundError | 404                                    | application/json                       |
+| errors.AttioError                      | 4XX, 5XX                               | \*/\*                                  |
 
-## getV2TasksTaskId
+## get
 
 Get a single task by ID.
 
@@ -209,7 +209,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.tasks.getV2TasksTaskId({
+  const result = await attio.tasks.get({
     taskId: "649e34f4-c39a-4f4d-99ef-48a36bef8f04",
   });
 
@@ -225,7 +225,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { tasksGetV2TasksTaskId } from "@interfere/attio/funcs/tasks-get-v2-tasks-task-id.js";
+import { tasksGet } from "@interfere/attio/funcs/tasks-get.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -234,14 +234,14 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await tasksGetV2TasksTaskId(attio, {
+  const res = await tasksGet(attio, {
     taskId: "649e34f4-c39a-4f4d-99ef-48a36bef8f04",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("tasksGetV2TasksTaskId failed:", res.error);
+    console.log("tasksGet failed:", res.error);
   }
 }
 
@@ -268,83 +268,7 @@ run();
 | errors.GetV2TasksTaskIdNotFoundError | 404                                  | application/json                     |
 | errors.AttioError                    | 4XX, 5XX                             | \*/\*                                |
 
-## deleteV2TasksTaskId
-
-Delete a task by ID.
-
-Required scopes: `task:read-write`.
-
-### Example Usage
-
-<!-- UsageSnippet language="typescript" operationID="delete_/v2/tasks/{task_id}" method="delete" path="/v2/tasks/{task_id}" -->
-```typescript
-import { Attio } from "@interfere/attio";
-
-const attio = new Attio({
-  oauth2: process.env["ATTIO_OAUTH2"] ?? "",
-});
-
-async function run() {
-  const result = await attio.tasks.deleteV2TasksTaskId({
-    taskId: "649e34f4-c39a-4f4d-99ef-48a36bef8f04",
-  });
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { AttioCore } from "@interfere/attio/core.js";
-import { tasksDeleteV2TasksTaskId } from "@interfere/attio/funcs/tasks-delete-v2-tasks-task-id.js";
-
-// Use `AttioCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const attio = new AttioCore({
-  oauth2: process.env["ATTIO_OAUTH2"] ?? "",
-});
-
-async function run() {
-  const res = await tasksDeleteV2TasksTaskId(attio, {
-    taskId: "649e34f4-c39a-4f4d-99ef-48a36bef8f04",
-  });
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("tasksDeleteV2TasksTaskId failed:", res.error);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.DeleteV2TasksTaskIdRequest](../../models/operations/delete-v2-tasks-task-id-request.md)                                                                            | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-
-### Response
-
-**Promise\<[operations.DeleteV2TasksTaskIdResponse](../../models/operations/delete-v2-tasks-task-id-response.md)\>**
-
-### Errors
-
-| Error Type                              | Status Code                             | Content Type                            |
-| --------------------------------------- | --------------------------------------- | --------------------------------------- |
-| errors.DeleteV2TasksTaskIdNotFoundError | 404                                     | application/json                        |
-| errors.AttioError                       | 4XX, 5XX                                | \*/\*                                   |
-
-## patchV2TasksTaskId
+## update
 
 Updates an existing task by `task_id`. At present, only the `deadline_at`, `is_completed`, `linked_records`, and `assignees` fields can be updated.
 
@@ -361,7 +285,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.tasks.patchV2TasksTaskId({
+  const result = await attio.tasks.update({
     taskId: "649e34f4-c39a-4f4d-99ef-48a36bef8f04",
     body: {
       data: {
@@ -394,7 +318,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { tasksPatchV2TasksTaskId } from "@interfere/attio/funcs/tasks-patch-v2-tasks-task-id.js";
+import { tasksUpdate } from "@interfere/attio/funcs/tasks-update.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -403,7 +327,7 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await tasksPatchV2TasksTaskId(attio, {
+  const res = await tasksUpdate(attio, {
     taskId: "649e34f4-c39a-4f4d-99ef-48a36bef8f04",
     body: {
       data: {
@@ -427,7 +351,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("tasksPatchV2TasksTaskId failed:", res.error);
+    console.log("tasksUpdate failed:", res.error);
   }
 }
 
@@ -449,8 +373,84 @@ run();
 
 ### Errors
 
-| Error Type                                   | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| errors.PatchV2TasksTaskIdValidationTypeError | 400                                          | application/json                             |
-| errors.PatchV2TasksTaskIdNotFoundError       | 404                                          | application/json                             |
-| errors.AttioError                            | 4XX, 5XX                                     | \*/\*                                        |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.PostV2TasksValidationTypeError  | 400                                    | application/json                       |
+| errors.PatchV2TasksTaskIdNotFoundError | 404                                    | application/json                       |
+| errors.AttioError                      | 4XX, 5XX                               | \*/\*                                  |
+
+## delete
+
+Delete a task by ID.
+
+Required scopes: `task:read-write`.
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="delete_/v2/tasks/{task_id}" method="delete" path="/v2/tasks/{task_id}" -->
+```typescript
+import { Attio } from "@interfere/attio";
+
+const attio = new Attio({
+  oauth2: process.env["ATTIO_OAUTH2"] ?? "",
+});
+
+async function run() {
+  const result = await attio.tasks.delete({
+    taskId: "649e34f4-c39a-4f4d-99ef-48a36bef8f04",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { AttioCore } from "@interfere/attio/core.js";
+import { tasksDelete } from "@interfere/attio/funcs/tasks-delete.js";
+
+// Use `AttioCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const attio = new AttioCore({
+  oauth2: process.env["ATTIO_OAUTH2"] ?? "",
+});
+
+async function run() {
+  const res = await tasksDelete(attio, {
+    taskId: "649e34f4-c39a-4f4d-99ef-48a36bef8f04",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("tasksDelete failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.DeleteV2TasksTaskIdRequest](../../models/operations/delete-v2-tasks-task-id-request.md)                                                                            | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.DeleteV2TasksTaskIdResponse](../../models/operations/delete-v2-tasks-task-id-response.md)\>**
+
+### Errors
+
+| Error Type                           | Status Code                          | Content Type                         |
+| ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.GetV2TasksTaskIdNotFoundError | 404                                  | application/json                     |
+| errors.AttioError                    | 4XX, 5XX                             | \*/\*                                |

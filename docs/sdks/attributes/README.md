@@ -6,18 +6,18 @@ Attributes model properties of objects and lists. Some attributes, such as the `
 
 ### Available Operations
 
-* [getV2TargetIdentifierAttributes](#getv2targetidentifierattributes) - List attributes
-* [postV2TargetIdentifierAttributes](#postv2targetidentifierattributes) - Create an attribute
-* [getV2TargetIdentifierAttributesAttribute](#getv2targetidentifierattributesattribute) - Get an attribute
-* [patchV2TargetIdentifierAttributesAttribute](#patchv2targetidentifierattributesattribute) - Update an attribute
-* [getV2TargetIdentifierAttributesAttributeOptions](#getv2targetidentifierattributesattributeoptions) - List select options
-* [postV2TargetIdentifierAttributesAttributeOptions](#postv2targetidentifierattributesattributeoptions) - Create a select option
-* [patchV2TargetIdentifierAttributesAttributeOptionsOption](#patchv2targetidentifierattributesattributeoptionsoption) - Update a select option
-* [getV2TargetIdentifierAttributesAttributeStatuses](#getv2targetidentifierattributesattributestatuses) - List statuses
-* [postV2TargetIdentifierAttributesAttributeStatuses](#postv2targetidentifierattributesattributestatuses) - Create a status
-* [patchV2TargetIdentifierAttributesAttributeStatusesStatus](#patchv2targetidentifierattributesattributestatusesstatus) - Update a status
+* [list](#list) - List attributes
+* [create](#create) - Create an attribute
+* [get](#get) - Get an attribute
+* [update](#update) - Update an attribute
+* [listOptions](#listoptions) - List select options
+* [createOption](#createoption) - Create a select option
+* [updateOption](#updateoption) - Update a select option
+* [listStatuses](#liststatuses) - List statuses
+* [createStatus](#createstatus) - Create a status
+* [updateStatus](#updatestatus) - Update a status
 
-## getV2TargetIdentifierAttributes
+## list
 
 Lists all attributes defined on a specific object or list. Attributes are returned in the order that they are sorted by in the UI.
 
@@ -34,7 +34,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.attributes.getV2TargetIdentifierAttributes({
+  const result = await attio.attributes.list({
     target: "lists",
     identifier: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0",
     limit: 10,
@@ -54,7 +54,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { attributesGetV2TargetIdentifierAttributes } from "@interfere/attio/funcs/attributes-get-v2-target-identifier-attributes.js";
+import { attributesList } from "@interfere/attio/funcs/attributes-list.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -63,7 +63,7 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await attributesGetV2TargetIdentifierAttributes(attio, {
+  const res = await attributesList(attio, {
     target: "lists",
     identifier: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0",
     limit: 10,
@@ -74,7 +74,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("attributesGetV2TargetIdentifierAttributes failed:", res.error);
+    console.log("attributesList failed:", res.error);
   }
 }
 
@@ -100,7 +100,7 @@ run();
 | ----------------- | ----------------- | ----------------- |
 | errors.AttioError | 4XX, 5XX          | \*/\*             |
 
-## postV2TargetIdentifierAttributes
+## create
 
 Creates a new attribute on either an object or a list.
 
@@ -121,7 +121,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.attributes.postV2TargetIdentifierAttributes({
+  const result = await attio.attributes.create({
     target: "lists",
     identifier: "97052eb9-e65e-443f-a297-f2d9a4a7f795",
     body: {
@@ -169,7 +169,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { attributesPostV2TargetIdentifierAttributes } from "@interfere/attio/funcs/attributes-post-v2-target-identifier-attributes.js";
+import { attributesCreate } from "@interfere/attio/funcs/attributes-create.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -178,7 +178,7 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await attributesPostV2TargetIdentifierAttributes(attio, {
+  const res = await attributesCreate(attio, {
     target: "lists",
     identifier: "97052eb9-e65e-443f-a297-f2d9a4a7f795",
     body: {
@@ -217,7 +217,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("attributesPostV2TargetIdentifierAttributes failed:", res.error);
+    console.log("attributesCreate failed:", res.error);
   }
 }
 
@@ -246,7 +246,7 @@ run();
 | errors.PostV2TargetIdentifierAttributesSlugConflictError   | 409                                                        | application/json                                           |
 | errors.AttioError                                          | 4XX, 5XX                                                   | \*/\*                                                      |
 
-## getV2TargetIdentifierAttributesAttribute
+## get
 
 Gets information about a single attribute on either an object or a list.
 
@@ -263,7 +263,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.attributes.getV2TargetIdentifierAttributesAttribute({
+  const result = await attio.attributes.get({
     target: "lists",
     identifier: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0",
     attribute: "41252299-f8c7-4b5e-99c9-4ff8321d2f96",
@@ -281,7 +281,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { attributesGetV2TargetIdentifierAttributesAttribute } from "@interfere/attio/funcs/attributes-get-v2-target-identifier-attributes-attribute.js";
+import { attributesGet } from "@interfere/attio/funcs/attributes-get.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -290,7 +290,7 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await attributesGetV2TargetIdentifierAttributesAttribute(attio, {
+  const res = await attributesGet(attio, {
     target: "lists",
     identifier: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0",
     attribute: "41252299-f8c7-4b5e-99c9-4ff8321d2f96",
@@ -299,7 +299,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("attributesGetV2TargetIdentifierAttributesAttribute failed:", res.error);
+    console.log("attributesGet failed:", res.error);
   }
 }
 
@@ -326,7 +326,7 @@ run();
 | errors.GetV2TargetIdentifierAttributesAttributeNotFoundError | 404                                                          | application/json                                             |
 | errors.AttioError                                            | 4XX, 5XX                                                     | \*/\*                                                        |
 
-## patchV2TargetIdentifierAttributesAttribute
+## update
 
 Updates a single attribute on a given object or list.
 
@@ -343,7 +343,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.attributes.patchV2TargetIdentifierAttributesAttribute({
+  const result = await attio.attributes.update({
     target: "lists",
     identifier: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0",
     attribute: "41252299-f8c7-4b5e-99c9-4ff8321d2f96",
@@ -390,7 +390,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { attributesPatchV2TargetIdentifierAttributesAttribute } from "@interfere/attio/funcs/attributes-patch-v2-target-identifier-attributes-attribute.js";
+import { attributesUpdate } from "@interfere/attio/funcs/attributes-update.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -399,7 +399,7 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await attributesPatchV2TargetIdentifierAttributesAttribute(attio, {
+  const res = await attributesUpdate(attio, {
     target: "lists",
     identifier: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0",
     attribute: "41252299-f8c7-4b5e-99c9-4ff8321d2f96",
@@ -437,7 +437,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("attributesPatchV2TargetIdentifierAttributesAttribute failed:", res.error);
+    console.log("attributesUpdate failed:", res.error);
   }
 }
 
@@ -459,13 +459,13 @@ run();
 
 ### Errors
 
-| Error Type                                                     | Status Code                                                    | Content Type                                                   |
-| -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- |
-| errors.SystemEditUnauthorizedError                             | 400                                                            | application/json                                               |
-| errors.PatchV2TargetIdentifierAttributesAttributeNotFoundError | 404                                                            | application/json                                               |
-| errors.AttioError                                              | 4XX, 5XX                                                       | \*/\*                                                          |
+| Error Type                                                   | Status Code                                                  | Content Type                                                 |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| errors.SystemEditUnauthorizedError                           | 400                                                          | application/json                                             |
+| errors.GetV2TargetIdentifierAttributesAttributeNotFoundError | 404                                                          | application/json                                             |
+| errors.AttioError                                            | 4XX, 5XX                                                     | \*/\*                                                        |
 
-## getV2TargetIdentifierAttributesAttributeOptions
+## listOptions
 
 Lists all select options for a particular attribute on either an object or a list.
 
@@ -482,7 +482,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.attributes.getV2TargetIdentifierAttributesAttributeOptions({
+  const result = await attio.attributes.listOptions({
     target: "lists",
     identifier: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0",
     attribute: "41252299-f8c7-4b5e-99c9-4ff8321d2f96",
@@ -501,7 +501,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { attributesGetV2TargetIdentifierAttributesAttributeOptions } from "@interfere/attio/funcs/attributes-get-v2-target-identifier-attributes-attribute-options.js";
+import { attributesListOptions } from "@interfere/attio/funcs/attributes-list-options.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -510,7 +510,7 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await attributesGetV2TargetIdentifierAttributesAttributeOptions(attio, {
+  const res = await attributesListOptions(attio, {
     target: "lists",
     identifier: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0",
     attribute: "41252299-f8c7-4b5e-99c9-4ff8321d2f96",
@@ -520,7 +520,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("attributesGetV2TargetIdentifierAttributesAttributeOptions failed:", res.error);
+    console.log("attributesListOptions failed:", res.error);
   }
 }
 
@@ -542,12 +542,12 @@ run();
 
 ### Errors
 
-| Error Type                                                          | Status Code                                                         | Content Type                                                        |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| errors.GetV2TargetIdentifierAttributesAttributeOptionsNotFoundError | 404                                                                 | application/json                                                    |
-| errors.AttioError                                                   | 4XX, 5XX                                                            | \*/\*                                                               |
+| Error Type                                                   | Status Code                                                  | Content Type                                                 |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| errors.GetV2TargetIdentifierAttributesAttributeNotFoundError | 404                                                          | application/json                                             |
+| errors.AttioError                                            | 4XX, 5XX                                                     | \*/\*                                                        |
 
-## postV2TargetIdentifierAttributesAttributeOptions
+## createOption
 
 Adds a select option to a select attribute on an object or a list.
 
@@ -564,7 +564,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.attributes.postV2TargetIdentifierAttributesAttributeOptions({
+  const result = await attio.attributes.createOption({
     target: "lists",
     identifier: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0",
     attribute: "41252299-f8c7-4b5e-99c9-4ff8321d2f96",
@@ -587,7 +587,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { attributesPostV2TargetIdentifierAttributesAttributeOptions } from "@interfere/attio/funcs/attributes-post-v2-target-identifier-attributes-attribute-options.js";
+import { attributesCreateOption } from "@interfere/attio/funcs/attributes-create-option.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -596,7 +596,7 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await attributesPostV2TargetIdentifierAttributesAttributeOptions(attio, {
+  const res = await attributesCreateOption(attio, {
     target: "lists",
     identifier: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0",
     attribute: "41252299-f8c7-4b5e-99c9-4ff8321d2f96",
@@ -610,7 +610,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("attributesPostV2TargetIdentifierAttributesAttributeOptions failed:", res.error);
+    console.log("attributesCreateOption failed:", res.error);
   }
 }
 
@@ -635,11 +635,11 @@ run();
 | Error Type                                                                 | Status Code                                                                | Content Type                                                               |
 | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
 | errors.PostV2TargetIdentifierAttributesAttributeOptionsValidationTypeError | 400                                                                        | application/json                                                           |
-| errors.PostV2TargetIdentifierAttributesAttributeOptionsNotFoundError       | 404                                                                        | application/json                                                           |
+| errors.GetV2TargetIdentifierAttributesAttributeNotFoundError               | 404                                                                        | application/json                                                           |
 | errors.PostV2TargetIdentifierAttributesAttributeOptionsSlugConflictError   | 409                                                                        | application/json                                                           |
 | errors.AttioError                                                          | 4XX, 5XX                                                                   | \*/\*                                                                      |
 
-## patchV2TargetIdentifierAttributesAttributeOptionsOption
+## updateOption
 
 Updates a select option on an attribute on either an object or a list.
 
@@ -656,7 +656,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.attributes.patchV2TargetIdentifierAttributesAttributeOptionsOption({
+  const result = await attio.attributes.updateOption({
     target: "lists",
     identifier: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0",
     attribute: "41252299-f8c7-4b5e-99c9-4ff8321d2f96",
@@ -681,7 +681,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { attributesPatchV2TargetIdentifierAttributesAttributeOptionsOption } from "@interfere/attio/funcs/attributes-patch-v2-target-identifier-attributes-attribute-options-option.js";
+import { attributesUpdateOption } from "@interfere/attio/funcs/attributes-update-option.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -690,7 +690,7 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await attributesPatchV2TargetIdentifierAttributesAttributeOptionsOption(attio, {
+  const res = await attributesUpdateOption(attio, {
     target: "lists",
     identifier: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0",
     attribute: "41252299-f8c7-4b5e-99c9-4ff8321d2f96",
@@ -706,7 +706,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("attributesPatchV2TargetIdentifierAttributesAttributeOptionsOption failed:", res.error);
+    console.log("attributesUpdateOption failed:", res.error);
   }
 }
 
@@ -731,11 +731,11 @@ run();
 | Error Type                                                                       | Status Code                                                                      | Content Type                                                                     |
 | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
 | errors.PatchV2TargetIdentifierAttributesAttributeOptionsOptionValueNotFoundError | 400                                                                              | application/json                                                                 |
-| errors.PatchV2TargetIdentifierAttributesAttributeOptionsOptionNotFoundError      | 404                                                                              | application/json                                                                 |
-| errors.PatchV2TargetIdentifierAttributesAttributeOptionsOptionSlugConflictError  | 409                                                                              | application/json                                                                 |
+| errors.GetV2TargetIdentifierAttributesAttributeNotFoundError                     | 404                                                                              | application/json                                                                 |
+| errors.PostV2TargetIdentifierAttributesAttributeOptionsSlugConflictError         | 409                                                                              | application/json                                                                 |
 | errors.AttioError                                                                | 4XX, 5XX                                                                         | \*/\*                                                                            |
 
-## getV2TargetIdentifierAttributesAttributeStatuses
+## listStatuses
 
 Lists all statuses for a particular status attribute on either an object or a list.
 
@@ -752,7 +752,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.attributes.getV2TargetIdentifierAttributesAttributeStatuses({
+  const result = await attio.attributes.listStatuses({
     target: "lists",
     identifier: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0",
     attribute: "41252299-f8c7-4b5e-99c9-4ff8321d2f96",
@@ -771,7 +771,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { attributesGetV2TargetIdentifierAttributesAttributeStatuses } from "@interfere/attio/funcs/attributes-get-v2-target-identifier-attributes-attribute-statuses.js";
+import { attributesListStatuses } from "@interfere/attio/funcs/attributes-list-statuses.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -780,7 +780,7 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await attributesGetV2TargetIdentifierAttributesAttributeStatuses(attio, {
+  const res = await attributesListStatuses(attio, {
     target: "lists",
     identifier: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0",
     attribute: "41252299-f8c7-4b5e-99c9-4ff8321d2f96",
@@ -790,7 +790,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("attributesGetV2TargetIdentifierAttributesAttributeStatuses failed:", res.error);
+    console.log("attributesListStatuses failed:", res.error);
   }
 }
 
@@ -812,12 +812,12 @@ run();
 
 ### Errors
 
-| Error Type                                                           | Status Code                                                          | Content Type                                                         |
-| -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
-| errors.GetV2TargetIdentifierAttributesAttributeStatusesNotFoundError | 404                                                                  | application/json                                                     |
-| errors.AttioError                                                    | 4XX, 5XX                                                             | \*/\*                                                                |
+| Error Type                                                   | Status Code                                                  | Content Type                                                 |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| errors.GetV2TargetIdentifierAttributesAttributeNotFoundError | 404                                                          | application/json                                             |
+| errors.AttioError                                            | 4XX, 5XX                                                     | \*/\*                                                        |
 
-## postV2TargetIdentifierAttributesAttributeStatuses
+## createStatus
 
 Add a new status to a status attribute on either an object or a list.
 
@@ -834,7 +834,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.attributes.postV2TargetIdentifierAttributesAttributeStatuses({
+  const result = await attio.attributes.createStatus({
     target: "lists",
     identifier: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0",
     attribute: "41252299-f8c7-4b5e-99c9-4ff8321d2f96",
@@ -859,7 +859,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { attributesPostV2TargetIdentifierAttributesAttributeStatuses } from "@interfere/attio/funcs/attributes-post-v2-target-identifier-attributes-attribute-statuses.js";
+import { attributesCreateStatus } from "@interfere/attio/funcs/attributes-create-status.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -868,7 +868,7 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await attributesPostV2TargetIdentifierAttributesAttributeStatuses(attio, {
+  const res = await attributesCreateStatus(attio, {
     target: "lists",
     identifier: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0",
     attribute: "41252299-f8c7-4b5e-99c9-4ff8321d2f96",
@@ -884,7 +884,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("attributesPostV2TargetIdentifierAttributesAttributeStatuses failed:", res.error);
+    console.log("attributesCreateStatus failed:", res.error);
   }
 }
 
@@ -909,11 +909,11 @@ run();
 | Error Type                                                                  | Status Code                                                                 | Content Type                                                                |
 | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
 | errors.PostV2TargetIdentifierAttributesAttributeStatusesValidationTypeError | 400                                                                         | application/json                                                            |
-| errors.PostV2TargetIdentifierAttributesAttributeStatusesNotFoundError       | 404                                                                         | application/json                                                            |
+| errors.GetV2TargetIdentifierAttributesAttributeNotFoundError                | 404                                                                         | application/json                                                            |
 | errors.PostV2TargetIdentifierAttributesAttributeStatusesSlugConflictError   | 409                                                                         | application/json                                                            |
 | errors.AttioError                                                           | 4XX, 5XX                                                                    | \*/\*                                                                       |
 
-## patchV2TargetIdentifierAttributesAttributeStatusesStatus
+## updateStatus
 
 Update a status on an status attribute on either an object or a list.
 
@@ -930,7 +930,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.attributes.patchV2TargetIdentifierAttributesAttributeStatusesStatus({
+  const result = await attio.attributes.updateStatus({
     target: "lists",
     identifier: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0",
     attribute: "41252299-f8c7-4b5e-99c9-4ff8321d2f96",
@@ -957,7 +957,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { attributesPatchV2TargetIdentifierAttributesAttributeStatusesStatus } from "@interfere/attio/funcs/attributes-patch-v2-target-identifier-attributes-attribute-statuses-status.js";
+import { attributesUpdateStatus } from "@interfere/attio/funcs/attributes-update-status.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -966,7 +966,7 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await attributesPatchV2TargetIdentifierAttributesAttributeStatusesStatus(attio, {
+  const res = await attributesUpdateStatus(attio, {
     target: "lists",
     identifier: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0",
     attribute: "41252299-f8c7-4b5e-99c9-4ff8321d2f96",
@@ -984,7 +984,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("attributesPatchV2TargetIdentifierAttributesAttributeStatusesStatus failed:", res.error);
+    console.log("attributesUpdateStatus failed:", res.error);
   }
 }
 
@@ -1009,6 +1009,6 @@ run();
 | Error Type                                                                        | Status Code                                                                       | Content Type                                                                      |
 | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
 | errors.PatchV2TargetIdentifierAttributesAttributeStatusesStatusValueNotFoundError | 400                                                                               | application/json                                                                  |
-| errors.PatchV2TargetIdentifierAttributesAttributeStatusesStatusNotFoundError      | 404                                                                               | application/json                                                                  |
-| errors.PatchV2TargetIdentifierAttributesAttributeStatusesStatusSlugConflictError  | 409                                                                               | application/json                                                                  |
+| errors.GetV2TargetIdentifierAttributesAttributeNotFoundError                      | 404                                                                               | application/json                                                                  |
+| errors.PostV2TargetIdentifierAttributesAttributeStatusesSlugConflictError         | 409                                                                               | application/json                                                                  |
 | errors.AttioError                                                                 | 4XX, 5XX                                                                          | \*/\*                                                                             |

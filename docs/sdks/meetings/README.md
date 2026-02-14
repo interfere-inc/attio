@@ -6,11 +6,11 @@ Meetings are events synced from your calendar, added manually or added from thir
 
 ### Available Operations
 
-* [getV2Meetings](#getv2meetings) - List meetings
-* [postV2Meetings](#postv2meetings) - Find or create a meeting
-* [getV2MeetingsMeetingId](#getv2meetingsmeetingid) - Get a meeting
+* [list](#list) - List meetings
+* [createOrFind](#createorfind) - Find or create a meeting
+* [get](#get) - Get a meeting
 
-## getV2Meetings
+## list
 
 Lists all meetings in the workspace using a deterministic sort order.
 
@@ -29,7 +29,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.meetings.getV2Meetings({});
+  const result = await attio.meetings.list({});
 
   console.log(result);
 }
@@ -43,7 +43,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { meetingsGetV2Meetings } from "@interfere/attio/funcs/meetings-get-v2-meetings.js";
+import { meetingsList } from "@interfere/attio/funcs/meetings-list.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -52,12 +52,12 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await meetingsGetV2Meetings(attio, {});
+  const res = await meetingsList(attio, {});
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("meetingsGetV2Meetings failed:", res.error);
+    console.log("meetingsList failed:", res.error);
   }
 }
 
@@ -83,7 +83,7 @@ run();
 | ----------------- | ----------------- | ----------------- |
 | errors.AttioError | 4XX, 5XX          | \*/\*             |
 
-## postV2Meetings
+## createOrFind
 
 Finds an existing meeting or creates a new one if it doesn't yet exist. [Please see here](/rest-api/guides/syncing-meetings) for a full guide on syncing meetings to Attio.
 
@@ -102,7 +102,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.meetings.postV2Meetings({
+  const result = await attio.meetings.createOrFind({
     data: {
       title: "Onboarding Session",
       description: "Getting you up to speed with the platform and answering any questions you have.",
@@ -137,7 +137,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { meetingsPostV2Meetings } from "@interfere/attio/funcs/meetings-post-v2-meetings.js";
+import { meetingsCreateOrFind } from "@interfere/attio/funcs/meetings-create-or-find.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -146,7 +146,7 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await meetingsPostV2Meetings(attio, {
+  const res = await meetingsCreateOrFind(attio, {
     data: {
       title: "Onboarding Session",
       description: "Getting you up to speed with the platform and answering any questions you have.",
@@ -172,7 +172,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("meetingsPostV2Meetings failed:", res.error);
+    console.log("meetingsCreateOrFind failed:", res.error);
   }
 }
 
@@ -199,7 +199,7 @@ run();
 | errors.PostV2MeetingsValidationTypeError | 400                                      | application/json                         |
 | errors.AttioError                        | 4XX, 5XX                                 | \*/\*                                    |
 
-## getV2MeetingsMeetingId
+## get
 
 Get a single meeting by ID.
 
@@ -218,7 +218,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.meetings.getV2MeetingsMeetingId({
+  const result = await attio.meetings.get({
     meetingId: "cb59ab17-ad15-460c-a126-0715617c0853",
   });
 
@@ -234,7 +234,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { meetingsGetV2MeetingsMeetingId } from "@interfere/attio/funcs/meetings-get-v2-meetings-meeting-id.js";
+import { meetingsGet } from "@interfere/attio/funcs/meetings-get.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -243,14 +243,14 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await meetingsGetV2MeetingsMeetingId(attio, {
+  const res = await meetingsGet(attio, {
     meetingId: "cb59ab17-ad15-460c-a126-0715617c0853",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("meetingsGetV2MeetingsMeetingId failed:", res.error);
+    console.log("meetingsGet failed:", res.error);
   }
 }
 

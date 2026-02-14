@@ -6,9 +6,9 @@ Meta endpoints are used to get information about the API token.
 
 ### Available Operations
 
-* [getV2Self](#getv2self) - Identify
+* [identify](#identify) - Identify
 
-## getV2Self
+## identify
 
 Identify the current access token, the workspace it is linked to, and any permissions it has.
 
@@ -23,7 +23,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.meta.getV2Self();
+  const result = await attio.meta.identify();
 
   console.log(result);
 }
@@ -37,7 +37,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { metaGetV2Self } from "@interfere/attio/funcs/meta-get-v2-self.js";
+import { metaIdentify } from "@interfere/attio/funcs/meta-identify.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -46,12 +46,12 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await metaGetV2Self(attio);
+  const res = await metaIdentify(attio);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("metaGetV2Self failed:", res.error);
+    console.log("metaIdentify failed:", res.error);
   }
 }
 

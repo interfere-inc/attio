@@ -6,12 +6,12 @@ Notes are rich text documents that reference a single parent record.
 
 ### Available Operations
 
-* [getV2Notes](#getv2notes) - List notes
-* [postV2Notes](#postv2notes) - Create a note
-* [getV2NotesNoteId](#getv2notesnoteid) - Get a note
-* [deleteV2NotesNoteId](#deletev2notesnoteid) - Delete a note
+* [list](#list) - List notes
+* [create](#create) - Create a note
+* [get](#get) - Get a note
+* [delete](#delete) - Delete a note
 
-## getV2Notes
+## list
 
 List notes for all records or for a specific record.
 
@@ -28,7 +28,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.notes.getV2Notes({
+  const result = await attio.notes.list({
     limit: 10,
     offset: 5,
     parentObject: "people",
@@ -47,7 +47,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { notesGetV2Notes } from "@interfere/attio/funcs/notes-get-v2-notes.js";
+import { notesList } from "@interfere/attio/funcs/notes-list.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -56,7 +56,7 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await notesGetV2Notes(attio, {
+  const res = await notesList(attio, {
     limit: 10,
     offset: 5,
     parentObject: "people",
@@ -66,7 +66,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("notesGetV2Notes failed:", res.error);
+    console.log("notesList failed:", res.error);
   }
 }
 
@@ -88,12 +88,12 @@ run();
 
 ### Errors
 
-| Error Type                     | Status Code                    | Content Type                   |
-| ------------------------------ | ------------------------------ | ------------------------------ |
-| errors.GetV2NotesNotFoundError | 404                            | application/json               |
-| errors.AttioError              | 4XX, 5XX                       | \*/\*                          |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.GetV2ObjectsObjectNotFoundError | 404                                    | application/json                       |
+| errors.AttioError                      | 4XX, 5XX                               | \*/\*                                  |
 
-## postV2Notes
+## create
 
 Creates a new note for a given record.
 
@@ -110,7 +110,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.notes.postV2Notes({
+  const result = await attio.notes.create({
     data: {
       parentObject: "people",
       parentRecordId: "891dcbfc-9141-415d-9b2a-2238a6cc012d",
@@ -134,7 +134,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { notesPostV2Notes } from "@interfere/attio/funcs/notes-post-v2-notes.js";
+import { notesCreate } from "@interfere/attio/funcs/notes-create.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -143,7 +143,7 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await notesPostV2Notes(attio, {
+  const res = await notesCreate(attio, {
     data: {
       parentObject: "people",
       parentRecordId: "891dcbfc-9141-415d-9b2a-2238a6cc012d",
@@ -158,7 +158,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("notesPostV2Notes failed:", res.error);
+    console.log("notesCreate failed:", res.error);
   }
 }
 
@@ -180,12 +180,12 @@ run();
 
 ### Errors
 
-| Error Type                      | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| errors.PostV2NotesNotFoundError | 404                             | application/json                |
-| errors.AttioError               | 4XX, 5XX                        | \*/\*                           |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.GetV2ObjectsObjectNotFoundError | 404                                    | application/json                       |
+| errors.AttioError                      | 4XX, 5XX                               | \*/\*                                  |
 
-## getV2NotesNoteId
+## get
 
 Get a single note by ID.
 
@@ -202,7 +202,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.notes.getV2NotesNoteId({
+  const result = await attio.notes.get({
     noteId: "ff3f3bd4-40f4-4f80-8187-cd02385af424",
   });
 
@@ -218,7 +218,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { notesGetV2NotesNoteId } from "@interfere/attio/funcs/notes-get-v2-notes-note-id.js";
+import { notesGet } from "@interfere/attio/funcs/notes-get.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -227,14 +227,14 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await notesGetV2NotesNoteId(attio, {
+  const res = await notesGet(attio, {
     noteId: "ff3f3bd4-40f4-4f80-8187-cd02385af424",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("notesGetV2NotesNoteId failed:", res.error);
+    console.log("notesGet failed:", res.error);
   }
 }
 
@@ -261,7 +261,7 @@ run();
 | errors.GetV2NotesNoteIdNotFoundError | 404                                  | application/json                     |
 | errors.AttioError                    | 4XX, 5XX                             | \*/\*                                |
 
-## deleteV2NotesNoteId
+## delete
 
 Delete a single note by ID.
 
@@ -278,7 +278,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.notes.deleteV2NotesNoteId({
+  const result = await attio.notes.delete({
     noteId: "ff3f3bd4-40f4-4f80-8187-cd02385af424",
   });
 
@@ -294,7 +294,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { notesDeleteV2NotesNoteId } from "@interfere/attio/funcs/notes-delete-v2-notes-note-id.js";
+import { notesDelete } from "@interfere/attio/funcs/notes-delete.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -303,14 +303,14 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await notesDeleteV2NotesNoteId(attio, {
+  const res = await notesDelete(attio, {
     noteId: "ff3f3bd4-40f4-4f80-8187-cd02385af424",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("notesDeleteV2NotesNoteId failed:", res.error);
+    console.log("notesDelete failed:", res.error);
   }
 }
 
@@ -332,7 +332,7 @@ run();
 
 ### Errors
 
-| Error Type                              | Status Code                             | Content Type                            |
-| --------------------------------------- | --------------------------------------- | --------------------------------------- |
-| errors.DeleteV2NotesNoteIdNotFoundError | 404                                     | application/json                        |
-| errors.AttioError                       | 4XX, 5XX                                | \*/\*                                   |
+| Error Type                           | Status Code                          | Content Type                         |
+| ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.GetV2NotesNoteIdNotFoundError | 404                                  | application/json                     |
+| errors.AttioError                    | 4XX, 5XX                             | \*/\*                                |

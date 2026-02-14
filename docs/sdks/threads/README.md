@@ -6,10 +6,10 @@ Threads are groups of [comments](/rest-api/endpoint-reference/comments/get-a-com
 
 ### Available Operations
 
-* [getV2Threads](#getv2threads) - List threads
-* [getV2ThreadsThreadId](#getv2threadsthreadid) - Get a thread
+* [list](#list) - List threads
+* [get](#get) - Get a thread
 
-## getV2Threads
+## list
 
 List threads of comments on a record or list entry.
 
@@ -30,7 +30,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.threads.getV2Threads({
+  const result = await attio.threads.list({
     recordId: "891dcbfc-9141-415d-9b2a-2238a6cc012d",
     object: "people",
     entryId: "2e6e29ea-c4e0-4f44-842d-78a891f8c156",
@@ -51,7 +51,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { threadsGetV2Threads } from "@interfere/attio/funcs/threads-get-v2-threads.js";
+import { threadsList } from "@interfere/attio/funcs/threads-list.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -60,7 +60,7 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await threadsGetV2Threads(attio, {
+  const res = await threadsList(attio, {
     recordId: "891dcbfc-9141-415d-9b2a-2238a6cc012d",
     object: "people",
     entryId: "2e6e29ea-c4e0-4f44-842d-78a891f8c156",
@@ -72,7 +72,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("threadsGetV2Threads failed:", res.error);
+    console.log("threadsList failed:", res.error);
   }
 }
 
@@ -98,7 +98,7 @@ run();
 | ----------------- | ----------------- | ----------------- |
 | errors.AttioError | 4XX, 5XX          | \*/\*             |
 
-## getV2ThreadsThreadId
+## get
 
 Get all comments in a thread.
 
@@ -119,7 +119,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.threads.getV2ThreadsThreadId({
+  const result = await attio.threads.get({
     threadId: "a649e4d9-435c-43fb-83ba-847b4876f27a",
   });
 
@@ -135,7 +135,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { threadsGetV2ThreadsThreadId } from "@interfere/attio/funcs/threads-get-v2-threads-thread-id.js";
+import { threadsGet } from "@interfere/attio/funcs/threads-get.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -144,14 +144,14 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await threadsGetV2ThreadsThreadId(attio, {
+  const res = await threadsGet(attio, {
     threadId: "a649e4d9-435c-43fb-83ba-847b4876f27a",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("threadsGetV2ThreadsThreadId failed:", res.error);
+    console.log("threadsGet failed:", res.error);
   }
 }
 

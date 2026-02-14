@@ -9,27 +9,27 @@ import * as operations from "../operations/index.js";
 import { AttioBaseError } from "./attio-base-error.js";
 
 /**
- * Not Found
+ * Bad Request
  */
-export type GetV2ListsListNotFoundErrorData = {
+export type ImmutableValueErrorData = {
   statusCode: number;
-  type: operations.GetV2ListsListType;
-  code: operations.GetV2ListsListCode;
+  type: operations.PatchV2ListsListEntriesEntryIdBadRequestType;
+  code: operations.PatchV2ListsListEntriesEntryIdCodeImmutableValue;
   message: string;
 };
 
 /**
- * Not Found
+ * Bad Request
  */
-export class GetV2ListsListNotFoundError extends AttioBaseError {
-  type: operations.GetV2ListsListType;
-  code: operations.GetV2ListsListCode;
+export class ImmutableValueError extends AttioBaseError {
+  type: operations.PatchV2ListsListEntriesEntryIdBadRequestType;
+  code: operations.PatchV2ListsListEntriesEntryIdCodeImmutableValue;
 
   /** The original data that was passed to this error instance. */
-  data$: GetV2ListsListNotFoundErrorData;
+  data$: ImmutableValueErrorData;
 
   constructor(
-    err: GetV2ListsListNotFoundErrorData,
+    err: ImmutableValueErrorData,
     httpMeta: { response: Response; request: Request; body: string },
   ) {
     const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
@@ -38,19 +38,20 @@ export class GetV2ListsListNotFoundError extends AttioBaseError {
     this.type = err.type;
     this.code = err.code;
 
-    this.name = "GetV2ListsListNotFoundError";
+    this.name = "ImmutableValueError";
   }
 }
 
 /** @internal */
-export const GetV2ListsListNotFoundError$inboundSchema: z.ZodMiniType<
-  GetV2ListsListNotFoundError,
+export const ImmutableValueError$inboundSchema: z.ZodMiniType<
+  ImmutableValueError,
   unknown
 > = z.pipe(
   z.object({
     status_code: types.number(),
-    type: operations.GetV2ListsListType$inboundSchema,
-    code: operations.GetV2ListsListCode$inboundSchema,
+    type: operations.PatchV2ListsListEntriesEntryIdBadRequestType$inboundSchema,
+    code:
+      operations.PatchV2ListsListEntriesEntryIdCodeImmutableValue$inboundSchema,
     message: types.string(),
     request$: z.custom<Request>(x => x instanceof Request),
     response$: z.custom<Response>(x => x instanceof Response),
@@ -61,7 +62,7 @@ export const GetV2ListsListNotFoundError$inboundSchema: z.ZodMiniType<
       "status_code": "statusCode",
     });
 
-    return new GetV2ListsListNotFoundError(remapped, {
+    return new ImmutableValueError(remapped, {
       request: v.request$,
       response: v.response$,
       body: v.body$,

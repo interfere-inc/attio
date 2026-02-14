@@ -31,6 +31,15 @@ export type GetV2TasksTaskIdResponse = {
   data: models.Task;
 };
 
+export type DeleteV2TasksTaskIdRequest = {
+  taskId: string;
+};
+
+/**
+ * Success
+ */
+export type DeleteV2TasksTaskIdResponse = {};
+
 /** @internal */
 export type GetV2TasksTaskIdRequest$Outbound = {
   task_id: string;
@@ -84,5 +93,49 @@ export function getV2TasksTaskIdResponseFromJSON(
     jsonString,
     (x) => GetV2TasksTaskIdResponse$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'GetV2TasksTaskIdResponse' from JSON`,
+  );
+}
+
+/** @internal */
+export type DeleteV2TasksTaskIdRequest$Outbound = {
+  task_id: string;
+};
+
+/** @internal */
+export const DeleteV2TasksTaskIdRequest$outboundSchema: z.ZodMiniType<
+  DeleteV2TasksTaskIdRequest$Outbound,
+  DeleteV2TasksTaskIdRequest
+> = z.pipe(
+  z.object({
+    taskId: z.string(),
+  }),
+  z.transform((v) => {
+    return remap$(v, {
+      taskId: "task_id",
+    });
+  }),
+);
+
+export function deleteV2TasksTaskIdRequestToJSON(
+  deleteV2TasksTaskIdRequest: DeleteV2TasksTaskIdRequest,
+): string {
+  return JSON.stringify(
+    DeleteV2TasksTaskIdRequest$outboundSchema.parse(deleteV2TasksTaskIdRequest),
+  );
+}
+
+/** @internal */
+export const DeleteV2TasksTaskIdResponse$inboundSchema: z.ZodMiniType<
+  DeleteV2TasksTaskIdResponse,
+  unknown
+> = z.object({});
+
+export function deleteV2TasksTaskIdResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<DeleteV2TasksTaskIdResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => DeleteV2TasksTaskIdResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'DeleteV2TasksTaskIdResponse' from JSON`,
   );
 }

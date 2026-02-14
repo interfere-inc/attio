@@ -6,11 +6,11 @@ Comments are messages on a [thread](/rest-api/endpoint-reference/threads/list-th
 
 ### Available Operations
 
-* [postV2Comments](#postv2comments) - Create a comment
-* [getV2CommentsCommentId](#getv2commentscommentid) - Get a comment
-* [deleteV2CommentsCommentId](#deletev2commentscommentid) - Delete a comment
+* [create](#create) - Create a comment
+* [get](#get) - Get a comment
+* [delete](#delete) - Delete a comment
 
-## postV2Comments
+## create
 
 Creates a new comment related to an existing thread, record or entry.
 
@@ -31,7 +31,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.comments.postV2Comments({
+  const result = await attio.comments.create({
     data: {
       format: "plaintext",
       content: "If I put the email address of my colleague on Attio in here, e.g. alice@attio.com, they will be notified. Other emails (e.g. person@example.com) will be turned into clickable links.",
@@ -59,7 +59,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { commentsPostV2Comments } from "@interfere/attio/funcs/comments-post-v2-comments.js";
+import { commentsCreate } from "@interfere/attio/funcs/comments-create.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -68,7 +68,7 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await commentsPostV2Comments(attio, {
+  const res = await commentsCreate(attio, {
     data: {
       format: "plaintext",
       content: "If I put the email address of my colleague on Attio in here, e.g. alice@attio.com, they will be notified. Other emails (e.g. person@example.com) will be turned into clickable links.",
@@ -87,7 +87,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("commentsPostV2Comments failed:", res.error);
+    console.log("commentsCreate failed:", res.error);
   }
 }
 
@@ -114,7 +114,7 @@ run();
 | errors.PostV2CommentsValueNotFoundError | 400                                     | application/json                        |
 | errors.AttioError                       | 4XX, 5XX                                | \*/\*                                   |
 
-## getV2CommentsCommentId
+## get
 
 Get a single comment by ID.
 
@@ -135,7 +135,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.comments.getV2CommentsCommentId({
+  const result = await attio.comments.get({
     commentId: "aa1dc1d9-93ac-4c6c-987e-16b6eea9aab2",
   });
 
@@ -151,7 +151,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { commentsGetV2CommentsCommentId } from "@interfere/attio/funcs/comments-get-v2-comments-comment-id.js";
+import { commentsGet } from "@interfere/attio/funcs/comments-get.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -160,14 +160,14 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await commentsGetV2CommentsCommentId(attio, {
+  const res = await commentsGet(attio, {
     commentId: "aa1dc1d9-93ac-4c6c-987e-16b6eea9aab2",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("commentsGetV2CommentsCommentId failed:", res.error);
+    console.log("commentsGet failed:", res.error);
   }
 }
 
@@ -194,7 +194,7 @@ run();
 | errors.GetV2CommentsCommentIdNotFoundError | 404                                        | application/json                           |
 | errors.AttioError                          | 4XX, 5XX                                   | \*/\*                                      |
 
-## deleteV2CommentsCommentId
+## delete
 
 Deletes a comment by ID. If deleting a comment at the head of a thread, all messages in the thread are also deleted.
 
@@ -211,7 +211,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.comments.deleteV2CommentsCommentId({
+  const result = await attio.comments.delete({
     commentId: "aa1dc1d9-93ac-4c6c-987e-16b6eea9aab2",
   });
 
@@ -227,7 +227,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { commentsDeleteV2CommentsCommentId } from "@interfere/attio/funcs/comments-delete-v2-comments-comment-id.js";
+import { commentsDelete } from "@interfere/attio/funcs/comments-delete.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -236,14 +236,14 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await commentsDeleteV2CommentsCommentId(attio, {
+  const res = await commentsDelete(attio, {
     commentId: "aa1dc1d9-93ac-4c6c-987e-16b6eea9aab2",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("commentsDeleteV2CommentsCommentId failed:", res.error);
+    console.log("commentsDelete failed:", res.error);
   }
 }
 

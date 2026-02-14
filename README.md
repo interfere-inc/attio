@@ -1,6 +1,6 @@
 # @interfere/attio
 
-Developer-friendly & type-safe Typescript SDK specifically catered to leverage *@interfere/attio* API.
+Developer-friendly & type-safe Typescript SDK specifically catered to leverage the *Attio REST API*.
 
 [![Built by Speakeasy](https://img.shields.io/badge/Built_by-SPEAKEASY-374151?style=for-the-badge&labelColor=f3f4f6)](https://www.speakeasy.com/?utm_source=@interfere/attio&utm_campaign=typescript)
 [![License: MIT](https://img.shields.io/badge/LICENSE_//_MIT-3b5bdb?style=for-the-badge&labelColor=eff6ff)](https://opensource.org/licenses/MIT)
@@ -93,7 +93,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.objects.getV2Objects();
+  const result = await attio.objects.list();
 
   console.log(result);
 }
@@ -123,7 +123,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.objects.getV2Objects();
+  const result = await attio.objects.list();
 
   console.log(result);
 }
@@ -141,118 +141,118 @@ run();
 
 ### [Attributes](docs/sdks/attributes/README.md)
 
-* [getV2TargetIdentifierAttributes](docs/sdks/attributes/README.md#getv2targetidentifierattributes) - List attributes
-* [postV2TargetIdentifierAttributes](docs/sdks/attributes/README.md#postv2targetidentifierattributes) - Create an attribute
-* [getV2TargetIdentifierAttributesAttribute](docs/sdks/attributes/README.md#getv2targetidentifierattributesattribute) - Get an attribute
-* [patchV2TargetIdentifierAttributesAttribute](docs/sdks/attributes/README.md#patchv2targetidentifierattributesattribute) - Update an attribute
-* [getV2TargetIdentifierAttributesAttributeOptions](docs/sdks/attributes/README.md#getv2targetidentifierattributesattributeoptions) - List select options
-* [postV2TargetIdentifierAttributesAttributeOptions](docs/sdks/attributes/README.md#postv2targetidentifierattributesattributeoptions) - Create a select option
-* [patchV2TargetIdentifierAttributesAttributeOptionsOption](docs/sdks/attributes/README.md#patchv2targetidentifierattributesattributeoptionsoption) - Update a select option
-* [getV2TargetIdentifierAttributesAttributeStatuses](docs/sdks/attributes/README.md#getv2targetidentifierattributesattributestatuses) - List statuses
-* [postV2TargetIdentifierAttributesAttributeStatuses](docs/sdks/attributes/README.md#postv2targetidentifierattributesattributestatuses) - Create a status
-* [patchV2TargetIdentifierAttributesAttributeStatusesStatus](docs/sdks/attributes/README.md#patchv2targetidentifierattributesattributestatusesstatus) - Update a status
+* [list](docs/sdks/attributes/README.md#list) - List attributes
+* [create](docs/sdks/attributes/README.md#create) - Create an attribute
+* [get](docs/sdks/attributes/README.md#get) - Get an attribute
+* [update](docs/sdks/attributes/README.md#update) - Update an attribute
+* [listOptions](docs/sdks/attributes/README.md#listoptions) - List select options
+* [createOption](docs/sdks/attributes/README.md#createoption) - Create a select option
+* [updateOption](docs/sdks/attributes/README.md#updateoption) - Update a select option
+* [listStatuses](docs/sdks/attributes/README.md#liststatuses) - List statuses
+* [createStatus](docs/sdks/attributes/README.md#createstatus) - Create a status
+* [updateStatus](docs/sdks/attributes/README.md#updatestatus) - Update a status
 
 ### [CallRecordings](docs/sdks/callrecordings/README.md)
 
-* [getV2MeetingsMeetingIdCallRecordings](docs/sdks/callrecordings/README.md#getv2meetingsmeetingidcallrecordings) - List call recordings
-* [postV2MeetingsMeetingIdCallRecordings](docs/sdks/callrecordings/README.md#postv2meetingsmeetingidcallrecordings) - Create call recording
-* [getV2MeetingsMeetingIdCallRecordingsCallRecordingId](docs/sdks/callrecordings/README.md#getv2meetingsmeetingidcallrecordingscallrecordingid) - Get call recording
-* [deleteV2MeetingsMeetingIdCallRecordingsCallRecordingId](docs/sdks/callrecordings/README.md#deletev2meetingsmeetingidcallrecordingscallrecordingid) - Delete call recording
+* [listByMeeting](docs/sdks/callrecordings/README.md#listbymeeting) - List call recordings
+* [create](docs/sdks/callrecordings/README.md#create) - Create call recording
+* [get](docs/sdks/callrecordings/README.md#get) - Get call recording
+* [delete](docs/sdks/callrecordings/README.md#delete) - Delete call recording
 
 ### [Comments](docs/sdks/comments/README.md)
 
-* [postV2Comments](docs/sdks/comments/README.md#postv2comments) - Create a comment
-* [getV2CommentsCommentId](docs/sdks/comments/README.md#getv2commentscommentid) - Get a comment
-* [deleteV2CommentsCommentId](docs/sdks/comments/README.md#deletev2commentscommentid) - Delete a comment
+* [create](docs/sdks/comments/README.md#create) - Create a comment
+* [get](docs/sdks/comments/README.md#get) - Get a comment
+* [delete](docs/sdks/comments/README.md#delete) - Delete a comment
 
 ### [Entries](docs/sdks/entries/README.md)
 
-* [postV2ListsListEntriesQuery](docs/sdks/entries/README.md#postv2listslistentriesquery) - List entries
-* [putV2ListsListEntries](docs/sdks/entries/README.md#putv2listslistentries) - Assert a list entry by parent
-* [postV2ListsListEntries](docs/sdks/entries/README.md#postv2listslistentries) - Create an entry (add record to list)
-* [getV2ListsListEntriesEntryId](docs/sdks/entries/README.md#getv2listslistentriesentryid) - Get a list entry
-* [putV2ListsListEntriesEntryId](docs/sdks/entries/README.md#putv2listslistentriesentryid) - Update a list entry (overwrite multiselect values)
-* [deleteV2ListsListEntriesEntryId](docs/sdks/entries/README.md#deletev2listslistentriesentryid) - Delete a list entry
-* [patchV2ListsListEntriesEntryId](docs/sdks/entries/README.md#patchv2listslistentriesentryid) - Update a list entry (append multiselect values)
-* [getV2ListsListEntriesEntryIdAttributesAttributeValues](docs/sdks/entries/README.md#getv2listslistentriesentryidattributesattributevalues) - List attribute values for a list entry
+* [query](docs/sdks/entries/README.md#query) - List entries
+* [create](docs/sdks/entries/README.md#create) - Create an entry (add record to list)
+* [upsertByParent](docs/sdks/entries/README.md#upsertbyparent) - Assert a list entry by parent
+* [get](docs/sdks/entries/README.md#get) - Get a list entry
+* [appendUpdate](docs/sdks/entries/README.md#appendupdate) - Update a list entry (append multiselect values)
+* [update](docs/sdks/entries/README.md#update) - Update a list entry (overwrite multiselect values)
+* [delete](docs/sdks/entries/README.md#delete) - Delete a list entry
+* [listAttributeValues](docs/sdks/entries/README.md#listattributevalues) - List attribute values for a list entry
 
 ### [Lists](docs/sdks/lists/README.md)
 
-* [getV2Lists](docs/sdks/lists/README.md#getv2lists) - List all lists
-* [postV2Lists](docs/sdks/lists/README.md#postv2lists) - Create a list
-* [getV2ListsList](docs/sdks/lists/README.md#getv2listslist) - Get a list
-* [patchV2ListsList](docs/sdks/lists/README.md#patchv2listslist) - Update a list
+* [list](docs/sdks/lists/README.md#list) - List all lists
+* [create](docs/sdks/lists/README.md#create) - Create a list
+* [get](docs/sdks/lists/README.md#get) - Get a list
+* [update](docs/sdks/lists/README.md#update) - Update a list
 
 ### [Meetings](docs/sdks/meetings/README.md)
 
-* [getV2Meetings](docs/sdks/meetings/README.md#getv2meetings) - List meetings
-* [postV2Meetings](docs/sdks/meetings/README.md#postv2meetings) - Find or create a meeting
-* [getV2MeetingsMeetingId](docs/sdks/meetings/README.md#getv2meetingsmeetingid) - Get a meeting
+* [list](docs/sdks/meetings/README.md#list) - List meetings
+* [createOrFind](docs/sdks/meetings/README.md#createorfind) - Find or create a meeting
+* [get](docs/sdks/meetings/README.md#get) - Get a meeting
 
 ### [Meta](docs/sdks/meta/README.md)
 
-* [getV2Self](docs/sdks/meta/README.md#getv2self) - Identify
+* [identify](docs/sdks/meta/README.md#identify) - Identify
 
 ### [Notes](docs/sdks/notes/README.md)
 
-* [getV2Notes](docs/sdks/notes/README.md#getv2notes) - List notes
-* [postV2Notes](docs/sdks/notes/README.md#postv2notes) - Create a note
-* [getV2NotesNoteId](docs/sdks/notes/README.md#getv2notesnoteid) - Get a note
-* [deleteV2NotesNoteId](docs/sdks/notes/README.md#deletev2notesnoteid) - Delete a note
+* [list](docs/sdks/notes/README.md#list) - List notes
+* [create](docs/sdks/notes/README.md#create) - Create a note
+* [get](docs/sdks/notes/README.md#get) - Get a note
+* [delete](docs/sdks/notes/README.md#delete) - Delete a note
 
 ### [Objects](docs/sdks/objects/README.md)
 
-* [getV2Objects](docs/sdks/objects/README.md#getv2objects) - List objects
-* [postV2Objects](docs/sdks/objects/README.md#postv2objects) - Create an object
-* [getV2ObjectsObject](docs/sdks/objects/README.md#getv2objectsobject) - Get an object
-* [patchV2ObjectsObject](docs/sdks/objects/README.md#patchv2objectsobject) - Update an object
+* [list](docs/sdks/objects/README.md#list) - List objects
+* [create](docs/sdks/objects/README.md#create) - Create an object
+* [get](docs/sdks/objects/README.md#get) - Get an object
+* [update](docs/sdks/objects/README.md#update) - Update an object
 
 ### [Records](docs/sdks/records/README.md)
 
-* [postV2ObjectsObjectRecordsQuery](docs/sdks/records/README.md#postv2objectsobjectrecordsquery) - List records
-* [putV2ObjectsObjectRecords](docs/sdks/records/README.md#putv2objectsobjectrecords) - Assert a record
-* [postV2ObjectsObjectRecords](docs/sdks/records/README.md#postv2objectsobjectrecords) - Create a record
-* [getV2ObjectsObjectRecordsRecordId](docs/sdks/records/README.md#getv2objectsobjectrecordsrecordid) - Get a record
-* [putV2ObjectsObjectRecordsRecordId](docs/sdks/records/README.md#putv2objectsobjectrecordsrecordid) - Update a record (overwrite multiselect values)
-* [deleteV2ObjectsObjectRecordsRecordId](docs/sdks/records/README.md#deletev2objectsobjectrecordsrecordid) - Delete a record
-* [patchV2ObjectsObjectRecordsRecordId](docs/sdks/records/README.md#patchv2objectsobjectrecordsrecordid) - Update a record (append multiselect values)
-* [getV2ObjectsObjectRecordsRecordIdAttributesAttributeValues](docs/sdks/records/README.md#getv2objectsobjectrecordsrecordidattributesattributevalues) - List record attribute values
-* [getV2ObjectsObjectRecordsRecordIdEntries](docs/sdks/records/README.md#getv2objectsobjectrecordsrecordidentries) - List record entries
-* [postV2ObjectsRecordsSearch](docs/sdks/records/README.md#postv2objectsrecordssearch) - Search records
+* [query](docs/sdks/records/README.md#query) - List records
+* [create](docs/sdks/records/README.md#create) - Create a record
+* [assert](docs/sdks/records/README.md#assert) - Assert a record
+* [get](docs/sdks/records/README.md#get) - Get a record
+* [update](docs/sdks/records/README.md#update) - Update a record (append multiselect values)
+* [overwriteUpdate](docs/sdks/records/README.md#overwriteupdate) - Update a record (overwrite multiselect values)
+* [delete](docs/sdks/records/README.md#delete) - Delete a record
+* [getAttributeValues](docs/sdks/records/README.md#getattributevalues) - List record attribute values
+* [listEntries](docs/sdks/records/README.md#listentries) - List record entries
+* [search](docs/sdks/records/README.md#search) - Search records
 
-### [SCIMSchemas](docs/sdks/scimschemas/README.md)
+### [ScimSchemas](docs/sdks/scimschemas/README.md)
 
-* [getScimV2Schemas](docs/sdks/scimschemas/README.md#getscimv2schemas) - List SCIM schemas
+* [list](docs/sdks/scimschemas/README.md#list) - List SCIM schemas
 
 ### [Tasks](docs/sdks/tasks/README.md)
 
-* [getV2Tasks](docs/sdks/tasks/README.md#getv2tasks) - List tasks
-* [postV2Tasks](docs/sdks/tasks/README.md#postv2tasks) - Create a task
-* [getV2TasksTaskId](docs/sdks/tasks/README.md#getv2taskstaskid) - Get a task
-* [deleteV2TasksTaskId](docs/sdks/tasks/README.md#deletev2taskstaskid) - Delete a task
-* [patchV2TasksTaskId](docs/sdks/tasks/README.md#patchv2taskstaskid) - Update a task
+* [list](docs/sdks/tasks/README.md#list) - List tasks
+* [create](docs/sdks/tasks/README.md#create) - Create a task
+* [get](docs/sdks/tasks/README.md#get) - Get a task
+* [update](docs/sdks/tasks/README.md#update) - Update a task
+* [delete](docs/sdks/tasks/README.md#delete) - Delete a task
 
 ### [Threads](docs/sdks/threads/README.md)
 
-* [getV2Threads](docs/sdks/threads/README.md#getv2threads) - List threads
-* [getV2ThreadsThreadId](docs/sdks/threads/README.md#getv2threadsthreadid) - Get a thread
+* [list](docs/sdks/threads/README.md#list) - List threads
+* [get](docs/sdks/threads/README.md#get) - Get a thread
 
 ### [Transcripts](docs/sdks/transcripts/README.md)
 
-* [getV2MeetingsMeetingIdCallRecordingsCallRecordingIdTranscript](docs/sdks/transcripts/README.md#getv2meetingsmeetingidcallrecordingscallrecordingidtranscript) - Get call transcript
+* [get](docs/sdks/transcripts/README.md#get) - Get call transcript
 
 ### [Webhooks](docs/sdks/webhooks/README.md)
 
-* [getV2Webhooks](docs/sdks/webhooks/README.md#getv2webhooks) - List webhooks
-* [postV2Webhooks](docs/sdks/webhooks/README.md#postv2webhooks) - Create a webhook
-* [getV2WebhooksWebhookId](docs/sdks/webhooks/README.md#getv2webhookswebhookid) - Get a webhook
-* [deleteV2WebhooksWebhookId](docs/sdks/webhooks/README.md#deletev2webhookswebhookid) - Delete a webhook
-* [patchV2WebhooksWebhookId](docs/sdks/webhooks/README.md#patchv2webhookswebhookid) - Update a webhook
+* [list](docs/sdks/webhooks/README.md#list) - List webhooks
+* [create](docs/sdks/webhooks/README.md#create) - Create a webhook
+* [get](docs/sdks/webhooks/README.md#get) - Get a webhook
+* [update](docs/sdks/webhooks/README.md#update) - Update a webhook
+* [delete](docs/sdks/webhooks/README.md#delete) - Delete a webhook
 
 ### [WorkspaceMembers](docs/sdks/workspacemembers/README.md)
 
-* [getV2WorkspaceMembers](docs/sdks/workspacemembers/README.md#getv2workspacemembers) - List workspace members
-* [getV2WorkspaceMembersWorkspaceMemberId](docs/sdks/workspacemembers/README.md#getv2workspacemembersworkspacememberid) - Get a workspace member
+* [list](docs/sdks/workspacemembers/README.md#list) - List workspace members
+* [get](docs/sdks/workspacemembers/README.md#get) - Get a workspace member
 
 </details>
 <!-- End Available Resources and Operations [operations] -->
@@ -272,73 +272,73 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 
 <summary>Available standalone functions</summary>
 
-- [`attributesGetV2TargetIdentifierAttributes`](docs/sdks/attributes/README.md#getv2targetidentifierattributes) - List attributes
-- [`attributesGetV2TargetIdentifierAttributesAttribute`](docs/sdks/attributes/README.md#getv2targetidentifierattributesattribute) - Get an attribute
-- [`attributesGetV2TargetIdentifierAttributesAttributeOptions`](docs/sdks/attributes/README.md#getv2targetidentifierattributesattributeoptions) - List select options
-- [`attributesGetV2TargetIdentifierAttributesAttributeStatuses`](docs/sdks/attributes/README.md#getv2targetidentifierattributesattributestatuses) - List statuses
-- [`attributesPatchV2TargetIdentifierAttributesAttribute`](docs/sdks/attributes/README.md#patchv2targetidentifierattributesattribute) - Update an attribute
-- [`attributesPatchV2TargetIdentifierAttributesAttributeOptionsOption`](docs/sdks/attributes/README.md#patchv2targetidentifierattributesattributeoptionsoption) - Update a select option
-- [`attributesPatchV2TargetIdentifierAttributesAttributeStatusesStatus`](docs/sdks/attributes/README.md#patchv2targetidentifierattributesattributestatusesstatus) - Update a status
-- [`attributesPostV2TargetIdentifierAttributes`](docs/sdks/attributes/README.md#postv2targetidentifierattributes) - Create an attribute
-- [`attributesPostV2TargetIdentifierAttributesAttributeOptions`](docs/sdks/attributes/README.md#postv2targetidentifierattributesattributeoptions) - Create a select option
-- [`attributesPostV2TargetIdentifierAttributesAttributeStatuses`](docs/sdks/attributes/README.md#postv2targetidentifierattributesattributestatuses) - Create a status
-- [`callRecordingsDeleteV2MeetingsMeetingIdCallRecordingsCallRecordingId`](docs/sdks/callrecordings/README.md#deletev2meetingsmeetingidcallrecordingscallrecordingid) - Delete call recording
-- [`callRecordingsGetV2MeetingsMeetingIdCallRecordings`](docs/sdks/callrecordings/README.md#getv2meetingsmeetingidcallrecordings) - List call recordings
-- [`callRecordingsGetV2MeetingsMeetingIdCallRecordingsCallRecordingId`](docs/sdks/callrecordings/README.md#getv2meetingsmeetingidcallrecordingscallrecordingid) - Get call recording
-- [`callRecordingsPostV2MeetingsMeetingIdCallRecordings`](docs/sdks/callrecordings/README.md#postv2meetingsmeetingidcallrecordings) - Create call recording
-- [`commentsDeleteV2CommentsCommentId`](docs/sdks/comments/README.md#deletev2commentscommentid) - Delete a comment
-- [`commentsGetV2CommentsCommentId`](docs/sdks/comments/README.md#getv2commentscommentid) - Get a comment
-- [`commentsPostV2Comments`](docs/sdks/comments/README.md#postv2comments) - Create a comment
-- [`entriesDeleteV2ListsListEntriesEntryId`](docs/sdks/entries/README.md#deletev2listslistentriesentryid) - Delete a list entry
-- [`entriesGetV2ListsListEntriesEntryId`](docs/sdks/entries/README.md#getv2listslistentriesentryid) - Get a list entry
-- [`entriesGetV2ListsListEntriesEntryIdAttributesAttributeValues`](docs/sdks/entries/README.md#getv2listslistentriesentryidattributesattributevalues) - List attribute values for a list entry
-- [`entriesPatchV2ListsListEntriesEntryId`](docs/sdks/entries/README.md#patchv2listslistentriesentryid) - Update a list entry (append multiselect values)
-- [`entriesPostV2ListsListEntries`](docs/sdks/entries/README.md#postv2listslistentries) - Create an entry (add record to list)
-- [`entriesPostV2ListsListEntriesQuery`](docs/sdks/entries/README.md#postv2listslistentriesquery) - List entries
-- [`entriesPutV2ListsListEntries`](docs/sdks/entries/README.md#putv2listslistentries) - Assert a list entry by parent
-- [`entriesPutV2ListsListEntriesEntryId`](docs/sdks/entries/README.md#putv2listslistentriesentryid) - Update a list entry (overwrite multiselect values)
-- [`listsGetV2Lists`](docs/sdks/lists/README.md#getv2lists) - List all lists
-- [`listsGetV2ListsList`](docs/sdks/lists/README.md#getv2listslist) - Get a list
-- [`listsPatchV2ListsList`](docs/sdks/lists/README.md#patchv2listslist) - Update a list
-- [`listsPostV2Lists`](docs/sdks/lists/README.md#postv2lists) - Create a list
-- [`meetingsGetV2Meetings`](docs/sdks/meetings/README.md#getv2meetings) - List meetings
-- [`meetingsGetV2MeetingsMeetingId`](docs/sdks/meetings/README.md#getv2meetingsmeetingid) - Get a meeting
-- [`meetingsPostV2Meetings`](docs/sdks/meetings/README.md#postv2meetings) - Find or create a meeting
-- [`metaGetV2Self`](docs/sdks/meta/README.md#getv2self) - Identify
-- [`notesDeleteV2NotesNoteId`](docs/sdks/notes/README.md#deletev2notesnoteid) - Delete a note
-- [`notesGetV2Notes`](docs/sdks/notes/README.md#getv2notes) - List notes
-- [`notesGetV2NotesNoteId`](docs/sdks/notes/README.md#getv2notesnoteid) - Get a note
-- [`notesPostV2Notes`](docs/sdks/notes/README.md#postv2notes) - Create a note
-- [`objectsGetV2Objects`](docs/sdks/objects/README.md#getv2objects) - List objects
-- [`objectsGetV2ObjectsObject`](docs/sdks/objects/README.md#getv2objectsobject) - Get an object
-- [`objectsPatchV2ObjectsObject`](docs/sdks/objects/README.md#patchv2objectsobject) - Update an object
-- [`objectsPostV2Objects`](docs/sdks/objects/README.md#postv2objects) - Create an object
-- [`recordsDeleteV2ObjectsObjectRecordsRecordId`](docs/sdks/records/README.md#deletev2objectsobjectrecordsrecordid) - Delete a record
-- [`recordsGetV2ObjectsObjectRecordsRecordId`](docs/sdks/records/README.md#getv2objectsobjectrecordsrecordid) - Get a record
-- [`recordsGetV2ObjectsObjectRecordsRecordIdAttributesAttributeValues`](docs/sdks/records/README.md#getv2objectsobjectrecordsrecordidattributesattributevalues) - List record attribute values
-- [`recordsGetV2ObjectsObjectRecordsRecordIdEntries`](docs/sdks/records/README.md#getv2objectsobjectrecordsrecordidentries) - List record entries
-- [`recordsPatchV2ObjectsObjectRecordsRecordId`](docs/sdks/records/README.md#patchv2objectsobjectrecordsrecordid) - Update a record (append multiselect values)
-- [`recordsPostV2ObjectsObjectRecords`](docs/sdks/records/README.md#postv2objectsobjectrecords) - Create a record
-- [`recordsPostV2ObjectsObjectRecordsQuery`](docs/sdks/records/README.md#postv2objectsobjectrecordsquery) - List records
-- [`recordsPostV2ObjectsRecordsSearch`](docs/sdks/records/README.md#postv2objectsrecordssearch) - Search records
-- [`recordsPutV2ObjectsObjectRecords`](docs/sdks/records/README.md#putv2objectsobjectrecords) - Assert a record
-- [`recordsPutV2ObjectsObjectRecordsRecordId`](docs/sdks/records/README.md#putv2objectsobjectrecordsrecordid) - Update a record (overwrite multiselect values)
-- [`scimSchemasGetSCIMV2Schemas`](docs/sdks/scimschemas/README.md#getscimv2schemas) - List SCIM schemas
-- [`tasksDeleteV2TasksTaskId`](docs/sdks/tasks/README.md#deletev2taskstaskid) - Delete a task
-- [`tasksGetV2Tasks`](docs/sdks/tasks/README.md#getv2tasks) - List tasks
-- [`tasksGetV2TasksTaskId`](docs/sdks/tasks/README.md#getv2taskstaskid) - Get a task
-- [`tasksPatchV2TasksTaskId`](docs/sdks/tasks/README.md#patchv2taskstaskid) - Update a task
-- [`tasksPostV2Tasks`](docs/sdks/tasks/README.md#postv2tasks) - Create a task
-- [`threadsGetV2Threads`](docs/sdks/threads/README.md#getv2threads) - List threads
-- [`threadsGetV2ThreadsThreadId`](docs/sdks/threads/README.md#getv2threadsthreadid) - Get a thread
-- [`transcriptsGetV2MeetingsMeetingIdCallRecordingsCallRecordingIdTranscript`](docs/sdks/transcripts/README.md#getv2meetingsmeetingidcallrecordingscallrecordingidtranscript) - Get call transcript
-- [`webhooksDeleteV2WebhooksWebhookId`](docs/sdks/webhooks/README.md#deletev2webhookswebhookid) - Delete a webhook
-- [`webhooksGetV2Webhooks`](docs/sdks/webhooks/README.md#getv2webhooks) - List webhooks
-- [`webhooksGetV2WebhooksWebhookId`](docs/sdks/webhooks/README.md#getv2webhookswebhookid) - Get a webhook
-- [`webhooksPatchV2WebhooksWebhookId`](docs/sdks/webhooks/README.md#patchv2webhookswebhookid) - Update a webhook
-- [`webhooksPostV2Webhooks`](docs/sdks/webhooks/README.md#postv2webhooks) - Create a webhook
-- [`workspaceMembersGetV2WorkspaceMembers`](docs/sdks/workspacemembers/README.md#getv2workspacemembers) - List workspace members
-- [`workspaceMembersGetV2WorkspaceMembersWorkspaceMemberId`](docs/sdks/workspacemembers/README.md#getv2workspacemembersworkspacememberid) - Get a workspace member
+- [`attributesCreate`](docs/sdks/attributes/README.md#create) - Create an attribute
+- [`attributesCreateOption`](docs/sdks/attributes/README.md#createoption) - Create a select option
+- [`attributesCreateStatus`](docs/sdks/attributes/README.md#createstatus) - Create a status
+- [`attributesGet`](docs/sdks/attributes/README.md#get) - Get an attribute
+- [`attributesList`](docs/sdks/attributes/README.md#list) - List attributes
+- [`attributesListOptions`](docs/sdks/attributes/README.md#listoptions) - List select options
+- [`attributesListStatuses`](docs/sdks/attributes/README.md#liststatuses) - List statuses
+- [`attributesUpdate`](docs/sdks/attributes/README.md#update) - Update an attribute
+- [`attributesUpdateOption`](docs/sdks/attributes/README.md#updateoption) - Update a select option
+- [`attributesUpdateStatus`](docs/sdks/attributes/README.md#updatestatus) - Update a status
+- [`callRecordingsCreate`](docs/sdks/callrecordings/README.md#create) - Create call recording
+- [`callRecordingsDelete`](docs/sdks/callrecordings/README.md#delete) - Delete call recording
+- [`callRecordingsGet`](docs/sdks/callrecordings/README.md#get) - Get call recording
+- [`callRecordingsListByMeeting`](docs/sdks/callrecordings/README.md#listbymeeting) - List call recordings
+- [`commentsCreate`](docs/sdks/comments/README.md#create) - Create a comment
+- [`commentsDelete`](docs/sdks/comments/README.md#delete) - Delete a comment
+- [`commentsGet`](docs/sdks/comments/README.md#get) - Get a comment
+- [`entriesAppendUpdate`](docs/sdks/entries/README.md#appendupdate) - Update a list entry (append multiselect values)
+- [`entriesCreate`](docs/sdks/entries/README.md#create) - Create an entry (add record to list)
+- [`entriesDelete`](docs/sdks/entries/README.md#delete) - Delete a list entry
+- [`entriesGet`](docs/sdks/entries/README.md#get) - Get a list entry
+- [`entriesListAttributeValues`](docs/sdks/entries/README.md#listattributevalues) - List attribute values for a list entry
+- [`entriesQuery`](docs/sdks/entries/README.md#query) - List entries
+- [`entriesUpdate`](docs/sdks/entries/README.md#update) - Update a list entry (overwrite multiselect values)
+- [`entriesUpsertByParent`](docs/sdks/entries/README.md#upsertbyparent) - Assert a list entry by parent
+- [`listsCreate`](docs/sdks/lists/README.md#create) - Create a list
+- [`listsGet`](docs/sdks/lists/README.md#get) - Get a list
+- [`listsList`](docs/sdks/lists/README.md#list) - List all lists
+- [`listsUpdate`](docs/sdks/lists/README.md#update) - Update a list
+- [`meetingsCreateOrFind`](docs/sdks/meetings/README.md#createorfind) - Find or create a meeting
+- [`meetingsGet`](docs/sdks/meetings/README.md#get) - Get a meeting
+- [`meetingsList`](docs/sdks/meetings/README.md#list) - List meetings
+- [`metaIdentify`](docs/sdks/meta/README.md#identify) - Identify
+- [`notesCreate`](docs/sdks/notes/README.md#create) - Create a note
+- [`notesDelete`](docs/sdks/notes/README.md#delete) - Delete a note
+- [`notesGet`](docs/sdks/notes/README.md#get) - Get a note
+- [`notesList`](docs/sdks/notes/README.md#list) - List notes
+- [`objectsCreate`](docs/sdks/objects/README.md#create) - Create an object
+- [`objectsGet`](docs/sdks/objects/README.md#get) - Get an object
+- [`objectsList`](docs/sdks/objects/README.md#list) - List objects
+- [`objectsUpdate`](docs/sdks/objects/README.md#update) - Update an object
+- [`recordsAssert`](docs/sdks/records/README.md#assert) - Assert a record
+- [`recordsCreate`](docs/sdks/records/README.md#create) - Create a record
+- [`recordsDelete`](docs/sdks/records/README.md#delete) - Delete a record
+- [`recordsGet`](docs/sdks/records/README.md#get) - Get a record
+- [`recordsGetAttributeValues`](docs/sdks/records/README.md#getattributevalues) - List record attribute values
+- [`recordsListEntries`](docs/sdks/records/README.md#listentries) - List record entries
+- [`recordsOverwriteUpdate`](docs/sdks/records/README.md#overwriteupdate) - Update a record (overwrite multiselect values)
+- [`recordsQuery`](docs/sdks/records/README.md#query) - List records
+- [`recordsSearch`](docs/sdks/records/README.md#search) - Search records
+- [`recordsUpdate`](docs/sdks/records/README.md#update) - Update a record (append multiselect values)
+- [`scimSchemasList`](docs/sdks/scimschemas/README.md#list) - List SCIM schemas
+- [`tasksCreate`](docs/sdks/tasks/README.md#create) - Create a task
+- [`tasksDelete`](docs/sdks/tasks/README.md#delete) - Delete a task
+- [`tasksGet`](docs/sdks/tasks/README.md#get) - Get a task
+- [`tasksList`](docs/sdks/tasks/README.md#list) - List tasks
+- [`tasksUpdate`](docs/sdks/tasks/README.md#update) - Update a task
+- [`threadsGet`](docs/sdks/threads/README.md#get) - Get a thread
+- [`threadsList`](docs/sdks/threads/README.md#list) - List threads
+- [`transcriptsGet`](docs/sdks/transcripts/README.md#get) - Get call transcript
+- [`webhooksCreate`](docs/sdks/webhooks/README.md#create) - Create a webhook
+- [`webhooksDelete`](docs/sdks/webhooks/README.md#delete) - Delete a webhook
+- [`webhooksGet`](docs/sdks/webhooks/README.md#get) - Get a webhook
+- [`webhooksList`](docs/sdks/webhooks/README.md#list) - List webhooks
+- [`webhooksUpdate`](docs/sdks/webhooks/README.md#update) - Update a webhook
+- [`workspaceMembersGet`](docs/sdks/workspacemembers/README.md#get) - Get a workspace member
+- [`workspaceMembersList`](docs/sdks/workspacemembers/README.md#list) - List workspace members
 
 </details>
 <!-- End Standalone functions [standalone-funcs] -->
@@ -357,7 +357,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.objects.getV2Objects({
+  const result = await attio.objects.list({
     retries: {
       strategy: "backoff",
       backoff: {
@@ -396,7 +396,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.objects.getV2Objects();
+  const result = await attio.objects.list();
 
   console.log(result);
 }
@@ -431,7 +431,7 @@ const attio = new Attio({
 
 async function run() {
   try {
-    const result = await attio.objects.postV2Objects({
+    const result = await attio.objects.create({
       data: {
         apiSlug: "people",
         singularNoun: "Person",
@@ -467,7 +467,7 @@ run();
 **Primary error:**
 * [`AttioBaseError`](./src/models/errors/attio-base-error.ts): The base class for HTTP error responses.
 
-<details><summary>Less common errors (91)</summary>
+<details><summary>Less common errors (58)</summary>
 
 <br />
 
@@ -480,6 +480,19 @@ run();
 
 
 **Inherit from [`AttioBaseError`](./src/models/errors/attio-base-error.ts)**:
+* [`GetV2ObjectsObjectNotFoundError`](./src/models/errors/get-v2-objects-object-not-found-error.ts): Not Found. Status code `404`. Applicable to 9 of 67 methods.*
+* [`GetV2TargetIdentifierAttributesAttributeNotFoundError`](./src/models/errors/get-v2-target-identifier-attributes-attribute-not-found-error.ts): Not Found. Status code `404`. Applicable to 9 of 67 methods.*
+* [`GetV2ListsListNotFoundError`](./src/models/errors/get-v2-lists-list-not-found-error.ts): Not Found. Status code `404`. Applicable to 8 of 67 methods.*
+* [`MissingValueError`](./src/models/errors/missing-value-error.ts): Bad Request. Status code `400`. Applicable to 2 of 67 methods.*
+* [`PostV2ListsValueNotFoundError`](./src/models/errors/post-v2-lists-value-not-found-error.ts): Bad Request. Status code `400`. Applicable to 2 of 67 methods.*
+* [`ImmutableValueError`](./src/models/errors/immutable-value-error.ts): Bad Request. Status code `400`. Applicable to 2 of 67 methods.*
+* [`PostV2TasksValidationTypeError`](./src/models/errors/post-v2-tasks-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 2 of 67 methods.*
+* [`GetV2ObjectsObjectRecordsRecordIdNotFoundError`](./src/models/errors/get-v2-objects-object-records-record-id-not-found-error.ts): Not Found. Status code `404`. Applicable to 2 of 67 methods.*
+* [`GetV2NotesNoteIdNotFoundError`](./src/models/errors/get-v2-notes-note-id-not-found-error.ts): Not Found. Status code `404`. Applicable to 2 of 67 methods.*
+* [`GetV2TasksTaskIdNotFoundError`](./src/models/errors/get-v2-tasks-task-id-not-found-error.ts): Not Found. Status code `404`. Applicable to 2 of 67 methods.*
+* [`GetV2WebhooksWebhookIdNotFoundError`](./src/models/errors/get-v2-webhooks-webhook-id-not-found-error.ts): Not Found. Status code `404`. Applicable to 2 of 67 methods.*
+* [`PostV2TargetIdentifierAttributesAttributeOptionsSlugConflictError`](./src/models/errors/post-v2-target-identifier-attributes-attribute-options-slug-conflict-error.ts): Conflict. Status code `409`. Applicable to 2 of 67 methods.*
+* [`PostV2TargetIdentifierAttributesAttributeStatusesSlugConflictError`](./src/models/errors/post-v2-target-identifier-attributes-attribute-statuses-slug-conflict-error.ts): Conflict. Status code `409`. Applicable to 2 of 67 methods.*
 * [`PatchV2ObjectsObjectValidationTypeError`](./src/models/errors/patch-v2-objects-object-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 67 methods.*
 * [`PostV2TargetIdentifierAttributesValidationTypeError`](./src/models/errors/post-v2-target-identifier-attributes-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 67 methods.*
 * [`SystemEditUnauthorizedError`](./src/models/errors/system-edit-unauthorized-error.ts): Bad Request. Status code `400`. Applicable to 1 of 67 methods.*
@@ -488,64 +501,24 @@ run();
 * [`PostV2TargetIdentifierAttributesAttributeStatusesValidationTypeError`](./src/models/errors/post-v2-target-identifier-attributes-attribute-statuses-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 67 methods.*
 * [`PatchV2TargetIdentifierAttributesAttributeStatusesStatusValueNotFoundError`](./src/models/errors/patch-v2-target-identifier-attributes-attribute-statuses-status-value-not-found-error.ts): Bad Request. Status code `400`. Applicable to 1 of 67 methods.*
 * [`FilterError`](./src/models/errors/filter-error.ts): Bad Request. Status code `400`. Applicable to 1 of 67 methods.*
-* [`PutV2ObjectsObjectRecordsValueNotFoundError`](./src/models/errors/put-v2-objects-object-records-value-not-found-error.ts): Bad Request. Status code `400`. Applicable to 1 of 67 methods.*
 * [`PostV2ObjectsObjectRecordsValueNotFoundError`](./src/models/errors/post-v2-objects-object-records-value-not-found-error.ts): Bad Request. Status code `400`. Applicable to 1 of 67 methods.*
-* [`PutV2ObjectsObjectRecordsRecordIdMissingValueError`](./src/models/errors/put-v2-objects-object-records-record-id-missing-value-error.ts): Bad Request. Status code `400`. Applicable to 1 of 67 methods.*
-* [`PatchV2ObjectsObjectRecordsRecordIdMissingValueError`](./src/models/errors/patch-v2-objects-object-records-record-id-missing-value-error.ts): Bad Request. Status code `400`. Applicable to 1 of 67 methods.*
+* [`PutV2ObjectsObjectRecordsValueNotFoundError`](./src/models/errors/put-v2-objects-object-records-value-not-found-error.ts): Bad Request. Status code `400`. Applicable to 1 of 67 methods.*
 * [`GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesValidationTypeError`](./src/models/errors/get-v2-objects-object-records-record-id-attributes-attribute-values-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 67 methods.*
 * [`PostV2ObjectsRecordsSearchValueNotFoundError`](./src/models/errors/post-v2-objects-records-search-value-not-found-error.ts): Bad Request. Status code `400`. Applicable to 1 of 67 methods.*
-* [`PostV2ListsValueNotFoundError`](./src/models/errors/post-v2-lists-value-not-found-error.ts): Bad Request. Status code `400`. Applicable to 1 of 67 methods.*
-* [`PatchV2ListsListValueNotFoundError`](./src/models/errors/patch-v2-lists-list-value-not-found-error.ts): Bad Request. Status code `400`. Applicable to 1 of 67 methods.*
-* [`MultipleMatchResultsError`](./src/models/errors/multiple-match-results-error.ts): Bad Request. Status code `400`. Applicable to 1 of 67 methods.*
 * [`PostV2ListsListEntriesValueNotFoundError`](./src/models/errors/post-v2-lists-list-entries-value-not-found-error.ts): Bad Request. Status code `400`. Applicable to 1 of 67 methods.*
-* [`PutV2ListsListEntriesEntryIdImmutableValueError`](./src/models/errors/put-v2-lists-list-entries-entry-id-immutable-value-error.ts): Bad Request. Status code `400`. Applicable to 1 of 67 methods.*
-* [`PatchV2ListsListEntriesEntryIdImmutableValueError`](./src/models/errors/patch-v2-lists-list-entries-entry-id-immutable-value-error.ts): Bad Request. Status code `400`. Applicable to 1 of 67 methods.*
-* [`PostV2TasksValidationTypeError`](./src/models/errors/post-v2-tasks-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 67 methods.*
-* [`PatchV2TasksTaskIdValidationTypeError`](./src/models/errors/patch-v2-tasks-task-id-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 67 methods.*
+* [`MultipleMatchResultsError`](./src/models/errors/multiple-match-results-error.ts): Bad Request. Status code `400`. Applicable to 1 of 67 methods.*
 * [`PostV2CommentsValueNotFoundError`](./src/models/errors/post-v2-comments-value-not-found-error.ts): Bad Request. Status code `400`. Applicable to 1 of 67 methods.*
 * [`PostV2MeetingsValidationTypeError`](./src/models/errors/post-v2-meetings-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 67 methods.*
 * [`PostV2MeetingsMeetingIdCallRecordingsValidationTypeError`](./src/models/errors/post-v2-meetings-meeting-id-call-recordings-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 67 methods.*
 * [`PostV2WebhooksValidationTypeError`](./src/models/errors/post-v2-webhooks-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 67 methods.*
 * [`BillingError`](./src/models/errors/billing-error.ts): Forbidden. Status code `403`. Applicable to 1 of 67 methods.*
 * [`AuthError`](./src/models/errors/auth-error.ts): Forbidden. Status code `403`. Applicable to 1 of 67 methods.*
-* [`GetV2ObjectsObjectNotFoundError`](./src/models/errors/get-v2-objects-object-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
-* [`PatchV2ObjectsObjectNotFoundError`](./src/models/errors/patch-v2-objects-object-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
 * [`PostV2TargetIdentifierAttributesNotFoundError`](./src/models/errors/post-v2-target-identifier-attributes-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
-* [`GetV2TargetIdentifierAttributesAttributeNotFoundError`](./src/models/errors/get-v2-target-identifier-attributes-attribute-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
-* [`PatchV2TargetIdentifierAttributesAttributeNotFoundError`](./src/models/errors/patch-v2-target-identifier-attributes-attribute-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
-* [`GetV2TargetIdentifierAttributesAttributeOptionsNotFoundError`](./src/models/errors/get-v2-target-identifier-attributes-attribute-options-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
-* [`PostV2TargetIdentifierAttributesAttributeOptionsNotFoundError`](./src/models/errors/post-v2-target-identifier-attributes-attribute-options-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
-* [`PatchV2TargetIdentifierAttributesAttributeOptionsOptionNotFoundError`](./src/models/errors/patch-v2-target-identifier-attributes-attribute-options-option-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
-* [`GetV2TargetIdentifierAttributesAttributeStatusesNotFoundError`](./src/models/errors/get-v2-target-identifier-attributes-attribute-statuses-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
-* [`PostV2TargetIdentifierAttributesAttributeStatusesNotFoundError`](./src/models/errors/post-v2-target-identifier-attributes-attribute-statuses-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
-* [`PatchV2TargetIdentifierAttributesAttributeStatusesStatusNotFoundError`](./src/models/errors/patch-v2-target-identifier-attributes-attribute-statuses-status-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
 * [`PostV2ObjectsObjectRecordsQueryNotFoundError`](./src/models/errors/post-v2-objects-object-records-query-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
-* [`PutV2ObjectsObjectRecordsNotFoundError`](./src/models/errors/put-v2-objects-object-records-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
-* [`PostV2ObjectsObjectRecordsNotFoundError`](./src/models/errors/post-v2-objects-object-records-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
-* [`GetV2ObjectsObjectRecordsRecordIdNotFoundError`](./src/models/errors/get-v2-objects-object-records-record-id-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
-* [`PutV2ObjectsObjectRecordsRecordIdNotFoundError`](./src/models/errors/put-v2-objects-object-records-record-id-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
-* [`DeleteV2ObjectsObjectRecordsRecordIdNotFoundError`](./src/models/errors/delete-v2-objects-object-records-record-id-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
-* [`PatchV2ObjectsObjectRecordsRecordIdNotFoundError`](./src/models/errors/patch-v2-objects-object-records-record-id-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
-* [`GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesNotFoundError`](./src/models/errors/get-v2-objects-object-records-record-id-attributes-attribute-values-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
 * [`PostV2ListsNotFoundError`](./src/models/errors/post-v2-lists-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
-* [`GetV2ListsListNotFoundError`](./src/models/errors/get-v2-lists-list-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
-* [`PatchV2ListsListNotFoundError`](./src/models/errors/patch-v2-lists-list-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
-* [`PostV2ListsListEntriesQueryNotFoundError`](./src/models/errors/post-v2-lists-list-entries-query-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
-* [`PutV2ListsListEntriesNotFoundError`](./src/models/errors/put-v2-lists-list-entries-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
 * [`PostV2ListsListEntriesNotFoundError`](./src/models/errors/post-v2-lists-list-entries-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
-* [`GetV2ListsListEntriesEntryIdNotFoundError`](./src/models/errors/get-v2-lists-list-entries-entry-id-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
-* [`PutV2ListsListEntriesEntryIdNotFoundError`](./src/models/errors/put-v2-lists-list-entries-entry-id-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
-* [`DeleteV2ListsListEntriesEntryIdNotFoundError`](./src/models/errors/delete-v2-lists-list-entries-entry-id-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
-* [`PatchV2ListsListEntriesEntryIdNotFoundError`](./src/models/errors/patch-v2-lists-list-entries-entry-id-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
-* [`GetV2ListsListEntriesEntryIdAttributesAttributeValuesNotFoundError`](./src/models/errors/get-v2-lists-list-entries-entry-id-attributes-attribute-values-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
+* [`PutV2ListsListEntriesNotFoundError`](./src/models/errors/put-v2-lists-list-entries-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
 * [`GetV2WorkspaceMembersWorkspaceMemberIdNotFoundError`](./src/models/errors/get-v2-workspace-members-workspace-member-id-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
-* [`GetV2NotesNotFoundError`](./src/models/errors/get-v2-notes-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
-* [`PostV2NotesNotFoundError`](./src/models/errors/post-v2-notes-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
-* [`GetV2NotesNoteIdNotFoundError`](./src/models/errors/get-v2-notes-note-id-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
-* [`DeleteV2NotesNoteIdNotFoundError`](./src/models/errors/delete-v2-notes-note-id-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
-* [`PostV2TasksNotFoundError`](./src/models/errors/post-v2-tasks-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
-* [`GetV2TasksTaskIdNotFoundError`](./src/models/errors/get-v2-tasks-task-id-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
-* [`DeleteV2TasksTaskIdNotFoundError`](./src/models/errors/delete-v2-tasks-task-id-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
 * [`PatchV2TasksTaskIdNotFoundError`](./src/models/errors/patch-v2-tasks-task-id-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
 * [`GetV2ThreadsThreadIdNotFoundError`](./src/models/errors/get-v2-threads-thread-id-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
 * [`GetV2CommentsCommentIdNotFoundError`](./src/models/errors/get-v2-comments-comment-id-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
@@ -554,16 +527,10 @@ run();
 * [`PostV2MeetingsMeetingIdCallRecordingsNotFoundError`](./src/models/errors/post-v2-meetings-meeting-id-call-recordings-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
 * [`GetV2MeetingsMeetingIdCallRecordingsCallRecordingIdNotFoundError`](./src/models/errors/get-v2-meetings-meeting-id-call-recordings-call-recording-id-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
 * [`DeleteV2MeetingsMeetingIdCallRecordingsCallRecordingIdNotFoundError`](./src/models/errors/delete-v2-meetings-meeting-id-call-recordings-call-recording-id-not-found-error.ts): Call recording not found. Status code `404`. Applicable to 1 of 67 methods.*
-* [`GetV2WebhooksWebhookIdNotFoundError`](./src/models/errors/get-v2-webhooks-webhook-id-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
 * [`DeleteV2WebhooksWebhookIdNotFoundError`](./src/models/errors/delete-v2-webhooks-webhook-id-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
-* [`PatchV2WebhooksWebhookIdNotFoundError`](./src/models/errors/patch-v2-webhooks-webhook-id-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
 * [`PostV2ObjectsSlugConflictError`](./src/models/errors/post-v2-objects-slug-conflict-error.ts): Conflict. Status code `409`. Applicable to 1 of 67 methods.*
 * [`PatchV2ObjectsObjectSlugConflictError`](./src/models/errors/patch-v2-objects-object-slug-conflict-error.ts): Conflict. Status code `409`. Applicable to 1 of 67 methods.*
 * [`PostV2TargetIdentifierAttributesSlugConflictError`](./src/models/errors/post-v2-target-identifier-attributes-slug-conflict-error.ts): Conflict. Status code `409`. Applicable to 1 of 67 methods.*
-* [`PostV2TargetIdentifierAttributesAttributeOptionsSlugConflictError`](./src/models/errors/post-v2-target-identifier-attributes-attribute-options-slug-conflict-error.ts): Conflict. Status code `409`. Applicable to 1 of 67 methods.*
-* [`PatchV2TargetIdentifierAttributesAttributeOptionsOptionSlugConflictError`](./src/models/errors/patch-v2-target-identifier-attributes-attribute-options-option-slug-conflict-error.ts): Conflict. Status code `409`. Applicable to 1 of 67 methods.*
-* [`PostV2TargetIdentifierAttributesAttributeStatusesSlugConflictError`](./src/models/errors/post-v2-target-identifier-attributes-attribute-statuses-slug-conflict-error.ts): Conflict. Status code `409`. Applicable to 1 of 67 methods.*
-* [`PatchV2TargetIdentifierAttributesAttributeStatusesStatusSlugConflictError`](./src/models/errors/patch-v2-target-identifier-attributes-attribute-statuses-status-slug-conflict-error.ts): Conflict. Status code `409`. Applicable to 1 of 67 methods.*
 * [`PostV2ListsSlugConflictError`](./src/models/errors/post-v2-lists-slug-conflict-error.ts): Conflict. Status code `409`. Applicable to 1 of 67 methods.*
 * [`ResponseValidationError`](./src/models/errors/response-validation-error.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
@@ -587,7 +554,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.objects.getV2Objects();
+  const result = await attio.objects.list();
 
   console.log(result);
 }
