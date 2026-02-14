@@ -1,20 +1,9 @@
 # @interfere/attio
 
-Developer-friendly & type-safe Typescript SDK specifically catered to leverage the *Attio REST API*.
+An unofficial developer-friendly & type-safe Typescript SDK specifically catered to leverage the *Attio REST API*.
 
 [![Built by Speakeasy](https://img.shields.io/badge/Built_by-SPEAKEASY-374151?style=for-the-badge&labelColor=f3f4f6)](https://www.speakeasy.com/?utm_source=@interfere/attio&utm_campaign=typescript)
 [![License: MIT](https://img.shields.io/badge/LICENSE_//_MIT-3b5bdb?style=for-the-badge&labelColor=eff6ff)](https://opensource.org/licenses/MIT)
-
-
-<br /><br />
-> [!IMPORTANT]
-> This SDK is not yet ready for production use. To complete setup please follow the steps outlined in your [workspace](https://app.speakeasy.com/org/interfere/api). Delete this section before > publishing to a package manager.
-
-<!-- Start Summary [summary] -->
-## Summary
-
-
-<!-- End Summary [summary] -->
 
 <!-- Start Table of Contents [toc] -->
 ## Table of Contents
@@ -49,25 +38,25 @@ The SDK can be installed with either [npm](https://www.npmjs.com/), [pnpm](https
 ### NPM
 
 ```bash
-npm add <UNSET>
+npm add @interfere/attio
 ```
 
 ### PNPM
 
 ```bash
-pnpm add <UNSET>
+pnpm add @interfere/attio
 ```
 
 ### Bun
 
 ```bash
-bun add <UNSET>
+bun add @interfere/attio
 ```
 
 ### Yarn
 
 ```bash
-yarn add <UNSET>
+yarn add @interfere/attio
 ```
 
 > [!NOTE]

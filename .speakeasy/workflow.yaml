@@ -13,6 +13,9 @@ targets:
     attio:
         target: typescript
         source: Attio API
+        publish:
+            npm:
+                token: $npm_token
         codeSamples:
             registry:
                 location: registry.speakeasyapi.dev/interfere/api/attio-api-typescript-code-samples
