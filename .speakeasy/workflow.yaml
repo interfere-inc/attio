@@ -1,0 +1,19 @@
+workflowVersion: 1.0.0
+speakeasyVersion: latest
+sources:
+    Attio API:
+        inputs:
+            - location: https://api.attio.com/openapi/api
+        output: .speakeasy/out.openapi.yaml
+        registry:
+            location: registry.speakeasyapi.dev/interfere/api/attio-api
+targets:
+    attio:
+        target: typescript
+        source: Attio API
+        codeSamples:
+            registry:
+                location: registry.speakeasyapi.dev/interfere/api/attio-api-typescript-code-samples
+            labelOverride:
+                fixedValue: Typescript (SDK)
+            blocking: false

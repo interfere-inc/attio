@@ -1,0 +1,20 @@
+# PatchV2ObjectsObjectValidationTypeError
+
+Bad Request
+
+## Example Usage
+
+```typescript
+import { PatchV2ObjectsObjectValidationTypeError } from "@interfere/attio/models/errors";
+
+// No examples available for this model
+```
+
+## Fields
+
+| Field                                                                                                                        | Type                                                                                                                         | Required                                                                                                                     | Description                                                                                                                  | Example                                                                                                                      |
+| ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `statusCode`                                                                                                                 | *number*                                                                                                                     | :heavy_check_mark:                                                                                                           | N/A                                                                                                                          |                                                                                                                              |
+| `type`                                                                                                                       | [operations.PatchV2ObjectsObjectBadRequestType](../../models/operations/patch-v2-objects-object-bad-request-type.md)         | :heavy_check_mark:                                                                                                           | N/A                                                                                                                          |                                                                                                                              |
+| `code`                                                                                                                       | [operations.PatchV2ObjectsObjectCodeValidationType](../../models/operations/patch-v2-objects-object-code-validation-type.md) | :heavy_check_mark:                                                                                                           | N/A                                                                                                                          |                                                                                                                              |
+| `message`                                                                                                                    | *string*                                                                                                                     | :heavy_check_mark:                                                                                                           | N/A                                                                                                                          | You passed an empty payload. Please ensure you are updating at least one property in your request.                           |

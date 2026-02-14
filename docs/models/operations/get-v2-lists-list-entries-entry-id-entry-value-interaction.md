@@ -1,0 +1,35 @@
+# GetV2ListsListEntriesEntryIdEntryValueInteraction
+
+## Example Usage
+
+```typescript
+import { GetV2ListsListEntriesEntryIdEntryValueInteraction } from "@interfere/attio/models/operations";
+
+let value: GetV2ListsListEntriesEntryIdEntryValueInteraction = {
+  activeFrom: new Date("2023-01-01T15:00:00.000000000Z"),
+  activeUntil: new Date("2023-01-01T15:00:00.000000000Z"),
+  createdByActor: {
+    id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
+    type: "workspace-member",
+  },
+  interactionType: "email",
+  interactedAt: new Date("2023-01-01T15:00:00.000000000Z"),
+  ownerActor: {
+    id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
+    type: "workspace-member",
+  },
+  attributeType: "interaction",
+};
+```
+
+## Fields
+
+| Field                                                                                                                                     | Type                                                                                                                                      | Required                                                                                                                                  | Description                                                                                                                               | Example                                                                                                                                   |
+| ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `activeFrom`                                                                                                                              | [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)                                             | :heavy_check_mark:                                                                                                                        | The point in time at which this value was made "active". `active_from` can be considered roughly analogous to `created_at`.               | 2023-01-01T15:00:00.000000000Z                                                                                                            |
+| `activeUntil`                                                                                                                             | [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)                                             | :heavy_check_mark:                                                                                                                        | The point in time at which this value was deactivated. If `null`, the value is active.                                                    | 2023-01-01T15:00:00.000000000Z                                                                                                            |
+| `createdByActor`                                                                                                                          | [operations.GetV2ListsListEntriesEntryIdCreatedByActor8](../../models/operations/get-v2-lists-list-entries-entry-id-created-by-actor8.md) | :heavy_check_mark:                                                                                                                        | The actor that created this value.                                                                                                        | {<br/>"type": "workspace-member",<br/>"id": "50cf242c-7fa3-4cad-87d0-75b1af71c57b"<br/>}                                                  |
+| `interactionType`                                                                                                                         | [operations.GetV2ListsListEntriesEntryIdInteractionType](../../models/operations/get-v2-lists-list-entries-entry-id-interaction-type.md)  | :heavy_check_mark:                                                                                                                        | The type of interaction e.g. calendar or email.                                                                                           | email                                                                                                                                     |
+| `interactedAt`                                                                                                                            | [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)                                             | :heavy_check_mark:                                                                                                                        | When the interaction occurred.                                                                                                            | 2023-01-01T15:00:00.000000000Z                                                                                                            |
+| `ownerActor`                                                                                                                              | [operations.GetV2ListsListEntriesEntryIdOwnerActor](../../models/operations/get-v2-lists-list-entries-entry-id-owner-actor.md)            | :heavy_check_mark:                                                                                                                        | The actor that created this value.                                                                                                        | {<br/>"type": "workspace-member",<br/>"id": "50cf242c-7fa3-4cad-87d0-75b1af71c57b"<br/>}                                                  |
+| `attributeType`                                                                                                                           | *"interaction"*                                                                                                                           | :heavy_check_mark:                                                                                                                        | The attribute type of the value.                                                                                                          | interaction                                                                                                                               |

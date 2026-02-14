@@ -1,0 +1,20 @@
+# DeleteV2ListsListEntriesEntryIdNotFoundError
+
+Not Found
+
+## Example Usage
+
+```typescript
+import { DeleteV2ListsListEntriesEntryIdNotFoundError } from "@interfere/attio/models/errors";
+
+// No examples available for this model
+```
+
+## Fields
+
+| Field                                                                                                                   | Type                                                                                                                    | Required                                                                                                                | Description                                                                                                             | Example                                                                                                                 |
+| ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `statusCode`                                                                                                            | *number*                                                                                                                | :heavy_check_mark:                                                                                                      | N/A                                                                                                                     |                                                                                                                         |
+| `type`                                                                                                                  | [operations.DeleteV2ListsListEntriesEntryIdType](../../models/operations/delete-v2-lists-list-entries-entry-id-type.md) | :heavy_check_mark:                                                                                                      | N/A                                                                                                                     |                                                                                                                         |
+| `code`                                                                                                                  | [operations.DeleteV2ListsListEntriesEntryIdCode](../../models/operations/delete-v2-lists-list-entries-entry-id-code.md) | :heavy_check_mark:                                                                                                      | N/A                                                                                                                     |                                                                                                                         |
+| `message`                                                                                                               | *string*                                                                                                                | :heavy_check_mark:                                                                                                      | N/A                                                                                                                     | List with slug/ID "enterprise_sales" not found.                                                                         |
