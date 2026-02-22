@@ -21,6 +21,8 @@ tags:
     description: "Meta endpoints are used to get information about the API token."
   - name: "Entries"
     description: "Entries are elements in a list that reference a single parent record. Entries contain their own data from attributes defined on the list and also data from their parent record. See our [objects and lists guide](/docs/objects-and-lists) for more information."
+  - name: "Files"
+    description: "Files are documents and folders linked to records, stored either in Attio or connected via external storage providers."
   - name: "Workspace members"
     description: "Workspace members represent a user with access to a workspace. Workspace members are assigned roles that determine what they can do within the workspace."
   - name: "Notes"
@@ -2959,6 +2961,390 @@ components:
         - "resolved_by"
         - "created_at"
         - "author"
+    file:
+      oneOf:
+        - type: "object"
+          properties:
+            id:
+              type: "object"
+              properties:
+                workspace_id:
+                  type: "string"
+                  format: "uuid"
+                  description: "The ID of the workspace the file belongs to."
+                  example: "14beef7a-99f7-4534-a87e-70b564330a4c"
+                file_id:
+                  type: "string"
+                  format: "uuid"
+                  description: "The ID of the file entry."
+                  example: "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+              required:
+                - "workspace_id"
+                - "file_id"
+            object_id:
+              type: "string"
+              format: "uuid"
+              description: "The ID of the object the record belongs to."
+              example: "97052eb9-e65e-443f-a297-f2d9a4a7f795"
+            object_slug:
+              type: "string"
+              description: "The slug of the object the record belongs to."
+              example: "people"
+            record_id:
+              type: "string"
+              format: "uuid"
+              description: "The ID of the record the file is linked to."
+              example: "bf071e1f-6035-429d-b874-d83ea64ea13b"
+            storage_provider:
+              type: "string"
+              enum:
+                - "attio"
+                - "dropbox"
+                - "box"
+                - "google-drive"
+                - "microsoft-onedrive"
+              description: "The storage provider for this file entry."
+              example: "attio"
+            created_by_actor:
+              type: "object"
+              description: "The actor that created this file entry."
+              properties:
+                id:
+                  type: "string"
+                  description: "An ID to identify the actor."
+                  nullable: true
+                type:
+                  type: "string"
+                  enum:
+                    - "api-token"
+                    - "workspace-member"
+                    - "system"
+                    - "app"
+                  nullable: true
+                  description: "The type of actor. [Read more information on actor types here](/docs/actors)."
+              example:
+                type: "workspace-member"
+                id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b"
+            created_at:
+              type: "string"
+              description: "Timestamp representing when the file entry was created."
+              example: "2023-01-01T15:00:00.000000000Z"
+            file_type:
+              type: "string"
+              enum:
+                - "file"
+              description: "The type of file entry."
+            name:
+              type: "string"
+              description: "The name of the file."
+              example: "document.pdf"
+            content_type:
+              type:
+                - "string"
+                - "null"
+              description: "The content type of the file."
+              example: "application/pdf"
+            content_size:
+              type:
+                - "number"
+                - "null"
+              description: "The size of the file in bytes."
+              example: 1024
+            parent_folder_id:
+              type:
+                - "string"
+                - "null"
+              format: "uuid"
+              description: "The ID of the parent folder, or null if this is a top-level file."
+          required:
+            - "id"
+            - "object_id"
+            - "object_slug"
+            - "record_id"
+            - "storage_provider"
+            - "created_by_actor"
+            - "created_at"
+            - "file_type"
+            - "name"
+            - "content_type"
+            - "content_size"
+            - "parent_folder_id"
+        - type: "object"
+          properties:
+            id:
+              type: "object"
+              properties:
+                workspace_id:
+                  type: "string"
+                  format: "uuid"
+                  description: "The ID of the workspace the file belongs to."
+                  example: "14beef7a-99f7-4534-a87e-70b564330a4c"
+                file_id:
+                  type: "string"
+                  format: "uuid"
+                  description: "The ID of the file entry."
+                  example: "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+              required:
+                - "workspace_id"
+                - "file_id"
+            object_id:
+              type: "string"
+              format: "uuid"
+              description: "The ID of the object the record belongs to."
+              example: "97052eb9-e65e-443f-a297-f2d9a4a7f795"
+            object_slug:
+              type: "string"
+              description: "The slug of the object the record belongs to."
+              example: "people"
+            record_id:
+              type: "string"
+              format: "uuid"
+              description: "The ID of the record the file is linked to."
+              example: "bf071e1f-6035-429d-b874-d83ea64ea13b"
+            storage_provider:
+              type: "string"
+              enum:
+                - "attio"
+                - "dropbox"
+                - "box"
+                - "google-drive"
+                - "microsoft-onedrive"
+              description: "The storage provider for this file entry."
+              example: "attio"
+            created_by_actor:
+              type: "object"
+              description: "The actor that created this file entry."
+              properties:
+                id:
+                  type: "string"
+                  description: "An ID to identify the actor."
+                  nullable: true
+                type:
+                  type: "string"
+                  enum:
+                    - "api-token"
+                    - "workspace-member"
+                    - "system"
+                    - "app"
+                  nullable: true
+                  description: "The type of actor. [Read more information on actor types here](/docs/actors)."
+              example:
+                type: "workspace-member"
+                id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b"
+            created_at:
+              type: "string"
+              description: "Timestamp representing when the file entry was created."
+              example: "2023-01-01T15:00:00.000000000Z"
+            file_type:
+              type: "string"
+              enum:
+                - "folder"
+              description: "The type of file entry."
+            name:
+              type: "string"
+              description: "The name of the folder."
+              example: "Documents"
+            parent_folder_id:
+              type:
+                - "string"
+                - "null"
+              format: "uuid"
+              description: "The ID of the parent folder, or null if this is a top-level folder."
+          required:
+            - "id"
+            - "object_id"
+            - "object_slug"
+            - "record_id"
+            - "storage_provider"
+            - "created_by_actor"
+            - "created_at"
+            - "file_type"
+            - "name"
+            - "parent_folder_id"
+        - type: "object"
+          properties:
+            id:
+              type: "object"
+              properties:
+                workspace_id:
+                  type: "string"
+                  format: "uuid"
+                  description: "The ID of the workspace the file belongs to."
+                  example: "14beef7a-99f7-4534-a87e-70b564330a4c"
+                file_id:
+                  type: "string"
+                  format: "uuid"
+                  description: "The ID of the file entry."
+                  example: "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+              required:
+                - "workspace_id"
+                - "file_id"
+            object_id:
+              type: "string"
+              format: "uuid"
+              description: "The ID of the object the record belongs to."
+              example: "97052eb9-e65e-443f-a297-f2d9a4a7f795"
+            object_slug:
+              type: "string"
+              description: "The slug of the object the record belongs to."
+              example: "people"
+            record_id:
+              type: "string"
+              format: "uuid"
+              description: "The ID of the record the file is linked to."
+              example: "bf071e1f-6035-429d-b874-d83ea64ea13b"
+            storage_provider:
+              type: "string"
+              enum:
+                - "attio"
+                - "dropbox"
+                - "box"
+                - "google-drive"
+                - "microsoft-onedrive"
+              description: "The storage provider for this file entry."
+              example: "attio"
+            created_by_actor:
+              type: "object"
+              description: "The actor that created this file entry."
+              properties:
+                id:
+                  type: "string"
+                  description: "An ID to identify the actor."
+                  nullable: true
+                type:
+                  type: "string"
+                  enum:
+                    - "api-token"
+                    - "workspace-member"
+                    - "system"
+                    - "app"
+                  nullable: true
+                  description: "The type of actor. [Read more information on actor types here](/docs/actors)."
+              example:
+                type: "workspace-member"
+                id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b"
+            created_at:
+              type: "string"
+              description: "Timestamp representing when the file entry was created."
+              example: "2023-01-01T15:00:00.000000000Z"
+            file_type:
+              type: "string"
+              enum:
+                - "connected-file"
+              description: "The type of file entry."
+            external_provider_file_id:
+              type: "string"
+              description: "The file ID in the external storage provider."
+              example: "01ISGXZ5BRAMVD7SEPXNCYS4XGKT3YTOKQ"
+            external_provider_context:
+              type:
+                - "string"
+                - "null"
+              description: "Additional context required by the external storage provider. Required for Microsoft OneDrive to specify the drive ID"
+              example: "b!-RIj2DuyvEyV1T4NlOaMHk8XkS_I8MdFlUCq1BlcjgmhRfAj3-Z8RY2VpuvV_tpd"
+          required:
+            - "id"
+            - "object_id"
+            - "object_slug"
+            - "record_id"
+            - "storage_provider"
+            - "created_by_actor"
+            - "created_at"
+            - "file_type"
+            - "external_provider_file_id"
+            - "external_provider_context"
+        - type: "object"
+          properties:
+            id:
+              type: "object"
+              properties:
+                workspace_id:
+                  type: "string"
+                  format: "uuid"
+                  description: "The ID of the workspace the file belongs to."
+                  example: "14beef7a-99f7-4534-a87e-70b564330a4c"
+                file_id:
+                  type: "string"
+                  format: "uuid"
+                  description: "The ID of the file entry."
+                  example: "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+              required:
+                - "workspace_id"
+                - "file_id"
+            object_id:
+              type: "string"
+              format: "uuid"
+              description: "The ID of the object the record belongs to."
+              example: "97052eb9-e65e-443f-a297-f2d9a4a7f795"
+            object_slug:
+              type: "string"
+              description: "The slug of the object the record belongs to."
+              example: "people"
+            record_id:
+              type: "string"
+              format: "uuid"
+              description: "The ID of the record the file is linked to."
+              example: "bf071e1f-6035-429d-b874-d83ea64ea13b"
+            storage_provider:
+              type: "string"
+              enum:
+                - "attio"
+                - "dropbox"
+                - "box"
+                - "google-drive"
+                - "microsoft-onedrive"
+              description: "The storage provider for this file entry."
+              example: "attio"
+            created_by_actor:
+              type: "object"
+              description: "The actor that created this file entry."
+              properties:
+                id:
+                  type: "string"
+                  description: "An ID to identify the actor."
+                  nullable: true
+                type:
+                  type: "string"
+                  enum:
+                    - "api-token"
+                    - "workspace-member"
+                    - "system"
+                    - "app"
+                  nullable: true
+                  description: "The type of actor. [Read more information on actor types here](/docs/actors)."
+              example:
+                type: "workspace-member"
+                id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b"
+            created_at:
+              type: "string"
+              description: "Timestamp representing when the file entry was created."
+              example: "2023-01-01T15:00:00.000000000Z"
+            file_type:
+              type: "string"
+              enum:
+                - "connected-folder"
+              description: "The type of file entry."
+            external_provider_file_id:
+              type: "string"
+              description: "The file ID in the external storage provider."
+              example: "01ISGXZ5BRAMVD7SEPXNCYS4XGKT3YTOKQ"
+            external_provider_context:
+              type:
+                - "string"
+                - "null"
+              description: "Additional context required by the external storage provider. Required for Microsoft OneDrive to specify the drive ID"
+              example: "b!-RIj2DuyvEyV1T4NlOaMHk8XkS_I8MdFlUCq1BlcjgmhRfAj3-Z8RY2VpuvV_tpd"
+          required:
+            - "id"
+            - "object_id"
+            - "object_slug"
+            - "record_id"
+            - "storage_provider"
+            - "created_by_actor"
+            - "created_at"
+            - "file_type"
+            - "external_provider_file_id"
+            - "external_provider_context"
     meeting:
       type: "object"
       properties:
