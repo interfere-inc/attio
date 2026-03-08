@@ -11,10 +11,49 @@ import { smartUnion } from "../../types/smart-union.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
 import * as models from "../index.js";
 import {
-  PostV2TasksData,
-  PostV2TasksData$Outbound,
-  PostV2TasksData$outboundSchema,
-} from "./post-v2-tasks-data.js";
+  PostV2TasksAssignee,
+  PostV2TasksAssignee$Outbound,
+  PostV2TasksAssignee$outboundSchema,
+  PostV2TasksAssigneeWorkspaceMember,
+  PostV2TasksAssigneeWorkspaceMember$Outbound,
+  PostV2TasksAssigneeWorkspaceMember$outboundSchema,
+  PostV2TasksFormat,
+  PostV2TasksFormat$outboundSchema,
+  PostV2TasksLinkedRecordUnion,
+  PostV2TasksLinkedRecordUnion$Outbound,
+  PostV2TasksLinkedRecordUnion$outboundSchema,
+} from "./post-v2-tasks-assignee-workspace-member.js";
+
+export type PostV2TasksAssigneeUnion =
+  | PostV2TasksAssigneeWorkspaceMember
+  | PostV2TasksAssignee;
+
+export type PostV2TasksData = {
+  /**
+   * The text content of the task, in the format specified by the `format` property. A max length of 2000 characters is enforced.
+   */
+  content: string;
+  /**
+   * The format of the task content to be created. Rich text formatting, links and @references are not supported.
+   */
+  format: PostV2TasksFormat;
+  /**
+   * The deadline of the task, in ISO 8601 format.
+   */
+  deadlineAt: string | null;
+  /**
+   * Whether the task has been completed.
+   */
+  isCompleted: boolean;
+  /**
+   * Records linked to the task. Creating record links within task content text is not possible via the API at present.
+   */
+  linkedRecords: Array<PostV2TasksLinkedRecordUnion>;
+  /**
+   * Workspace members assigned to this task.
+   */
+  assignees: Array<PostV2TasksAssigneeWorkspaceMember | PostV2TasksAssignee>;
+};
 
 export type PostV2TasksRequest = {
   data: PostV2TasksData;
@@ -474,6 +513,73 @@ export type PatchV2TasksTaskIdResponse = {
 };
 
 /** @internal */
+export type PostV2TasksAssigneeUnion$Outbound =
+  | PostV2TasksAssigneeWorkspaceMember$Outbound
+  | PostV2TasksAssignee$Outbound;
+
+/** @internal */
+export const PostV2TasksAssigneeUnion$outboundSchema: z.ZodMiniType<
+  PostV2TasksAssigneeUnion$Outbound,
+  PostV2TasksAssigneeUnion
+> = smartUnion([
+  PostV2TasksAssigneeWorkspaceMember$outboundSchema,
+  PostV2TasksAssignee$outboundSchema,
+]);
+
+export function postV2TasksAssigneeUnionToJSON(
+  postV2TasksAssigneeUnion: PostV2TasksAssigneeUnion,
+): string {
+  return JSON.stringify(
+    PostV2TasksAssigneeUnion$outboundSchema.parse(postV2TasksAssigneeUnion),
+  );
+}
+
+/** @internal */
+export type PostV2TasksData$Outbound = {
+  content: string;
+  format: string;
+  deadline_at: string | null;
+  is_completed: boolean;
+  linked_records: Array<PostV2TasksLinkedRecordUnion$Outbound>;
+  assignees: Array<
+    PostV2TasksAssigneeWorkspaceMember$Outbound | PostV2TasksAssignee$Outbound
+  >;
+};
+
+/** @internal */
+export const PostV2TasksData$outboundSchema: z.ZodMiniType<
+  PostV2TasksData$Outbound,
+  PostV2TasksData
+> = z.pipe(
+  z.object({
+    content: z.string(),
+    format: PostV2TasksFormat$outboundSchema,
+    deadlineAt: z.nullable(z.string()),
+    isCompleted: z.boolean(),
+    linkedRecords: z.array(PostV2TasksLinkedRecordUnion$outboundSchema),
+    assignees: z.array(
+      smartUnion([
+        PostV2TasksAssigneeWorkspaceMember$outboundSchema,
+        PostV2TasksAssignee$outboundSchema,
+      ]),
+    ),
+  }),
+  z.transform((v) => {
+    return remap$(v, {
+      deadlineAt: "deadline_at",
+      isCompleted: "is_completed",
+      linkedRecords: "linked_records",
+    });
+  }),
+);
+
+export function postV2TasksDataToJSON(
+  postV2TasksData: PostV2TasksData,
+): string {
+  return JSON.stringify(PostV2TasksData$outboundSchema.parse(postV2TasksData));
+}
+
+/** @internal */
 export type PostV2TasksRequest$Outbound = {
   data: PostV2TasksData$Outbound;
 };
@@ -483,7 +589,7 @@ export const PostV2TasksRequest$outboundSchema: z.ZodMiniType<
   PostV2TasksRequest$Outbound,
   PostV2TasksRequest
 > = z.object({
-  data: PostV2TasksData$outboundSchema,
+  data: z.lazy(() => PostV2TasksData$outboundSchema),
 });
 
 export function postV2TasksRequestToJSON(

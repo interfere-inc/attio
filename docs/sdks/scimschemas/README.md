@@ -10,7 +10,7 @@
 
 Lists the SCIM schemas supported by this service provider.
 
-Required scopes: `scim_management:read-write`.
+Required scopes: `scim_management:read`.
 
 ### Example Usage
 

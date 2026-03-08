@@ -8,11 +8,11 @@ The level of access granted to all members of the workspace for this list. `null
 import { WorkspaceAccess } from "@interfere/attio/models";
 
 let value: WorkspaceAccess = "read-and-write";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "full-access" | "read-and-write" | "read-only" | Unrecognized<string>

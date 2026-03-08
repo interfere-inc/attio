@@ -9,11 +9,11 @@ import { PatchV2ListsListEntriesEntryIdCreatedByActorType8 } from "@interfere/at
 
 let value: PatchV2ListsListEntriesEntryIdCreatedByActorType8 =
   "workspace-member";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "api-token" | "workspace-member" | "system" | "app" | Unrecognized<string>

@@ -183,6 +183,7 @@ run();
 | Error Type                             | Status Code                            | Content Type                           |
 | -------------------------------------- | -------------------------------------- | -------------------------------------- |
 | errors.GetV2ObjectsObjectNotFoundError | 404                                    | application/json                       |
+| errors.PostV2NotesValidationTypeError  | 413                                    | application/json                       |
 | errors.AttioError                      | 4XX, 5XX                               | \*/\*                                  |
 
 ## get
