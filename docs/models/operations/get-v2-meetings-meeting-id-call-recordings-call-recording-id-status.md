@@ -9,11 +9,11 @@ import { GetV2MeetingsMeetingIdCallRecordingsCallRecordingIdStatus } from "@inte
 
 let value: GetV2MeetingsMeetingIdCallRecordingsCallRecordingIdStatus =
   "completed";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "processing" | "completed" | "failed" | Unrecognized<string>

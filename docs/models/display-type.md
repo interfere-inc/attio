@@ -8,11 +8,11 @@ How the currency should be displayed across the app. "code" will display the ISO
 import { DisplayType } from "@interfere/attio/models";
 
 let value: DisplayType = "code";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "code" | "name" | "narrowSymbol" | "symbol" | Unrecognized<string>

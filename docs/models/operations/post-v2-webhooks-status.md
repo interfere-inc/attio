@@ -8,11 +8,11 @@ The state of the webhook. Webhooks marked as active and degraded will receive ev
 import { PostV2WebhooksStatus } from "@interfere/attio/models/operations";
 
 let value: PostV2WebhooksStatus = "active";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "active" | "degraded" | "inactive" | Unrecognized<string>

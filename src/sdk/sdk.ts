@@ -7,13 +7,16 @@ import { Attributes } from "./attributes.js";
 import { CallRecordings } from "./call-recordings.js";
 import { Comments } from "./comments.js";
 import { Entries } from "./entries.js";
+import { Files } from "./files.js";
 import { Lists } from "./lists.js";
 import { Meetings } from "./meetings.js";
 import { Meta } from "./meta.js";
 import { Notes } from "./notes.js";
 import { Objects } from "./objects.js";
 import { Records } from "./records.js";
+import { SCIMGroups } from "./scim-groups.js";
 import { ScimSchemas } from "./scim-schemas.js";
+import { SCIMUsers } from "./scim-users.js";
 import { Tasks } from "./tasks.js";
 import { Threads } from "./threads.js";
 import { Transcripts } from "./transcripts.js";
@@ -86,9 +89,24 @@ export class Attio extends ClientSDK {
     return (this._transcripts ??= new Transcripts(this._options));
   }
 
+  private _files?: Files;
+  get files(): Files {
+    return (this._files ??= new Files(this._options));
+  }
+
   private _scimSchemas?: ScimSchemas;
   get scimSchemas(): ScimSchemas {
     return (this._scimSchemas ??= new ScimSchemas(this._options));
+  }
+
+  private _scimUsers?: SCIMUsers;
+  get scimUsers(): SCIMUsers {
+    return (this._scimUsers ??= new SCIMUsers(this._options));
+  }
+
+  private _scimGroups?: SCIMGroups;
+  get scimGroups(): SCIMGroups {
+    return (this._scimGroups ??= new SCIMGroups(this._options));
   }
 
   private _webhooks?: Webhooks;

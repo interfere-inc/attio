@@ -21,6 +21,7 @@ An unofficial developer-friendly & type-safe Typescript SDK specifically catered
   * [Authentication](#authentication)
   * [Available Resources and Operations](#available-resources-and-operations)
   * [Standalone functions](#standalone-functions)
+  * [File uploads](#file-uploads)
   * [Retries](#retries)
   * [Error Handling](#error-handling)
   * [Server Selection](#server-selection)
@@ -167,6 +168,15 @@ run();
 * [delete](docs/sdks/entries/README.md#delete) - Delete a list entry
 * [listAttributeValues](docs/sdks/entries/README.md#listattributevalues) - List attribute values for a list entry
 
+### [Files](docs/sdks/files/README.md)
+
+* [getV2Files](docs/sdks/files/README.md#getv2files) - List files
+* [postV2Files](docs/sdks/files/README.md#postv2files) - Create a folder
+* [postV2FilesUpload](docs/sdks/files/README.md#postv2filesupload) - Upload a file
+* [getV2FilesFileId](docs/sdks/files/README.md#getv2filesfileid) - Get a file
+* [deleteV2FilesFileId](docs/sdks/files/README.md#deletev2filesfileid) - Delete a file
+* [getV2FilesFileIdDownload](docs/sdks/files/README.md#getv2filesfileiddownload) - Download a file
+
 ### [Lists](docs/sdks/lists/README.md)
 
 * [list](docs/sdks/lists/README.md#list) - List all lists
@@ -210,6 +220,14 @@ run();
 * [getAttributeValues](docs/sdks/records/README.md#getattributevalues) - List record attribute values
 * [listEntries](docs/sdks/records/README.md#listentries) - List record entries
 * [search](docs/sdks/records/README.md#search) - Search records
+
+### [SCIMGroups](docs/sdks/scimgroups/README.md)
+
+* [getScimV2Groups](docs/sdks/scimgroups/README.md#getscimv2groups) - List SCIM groups
+
+### [SCIMUsers](docs/sdks/scimusers/README.md)
+
+* [getScimV2Users](docs/sdks/scimusers/README.md#getscimv2users) - List SCIM users
 
 ### [ScimSchemas](docs/sdks/scimschemas/README.md)
 
@@ -288,6 +306,12 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`entriesQuery`](docs/sdks/entries/README.md#query) - List entries
 - [`entriesUpdate`](docs/sdks/entries/README.md#update) - Update a list entry (overwrite multiselect values)
 - [`entriesUpsertByParent`](docs/sdks/entries/README.md#upsertbyparent) - Assert a list entry by parent
+- [`filesDeleteV2FilesFileId`](docs/sdks/files/README.md#deletev2filesfileid) - Delete a file
+- [`filesGetV2Files`](docs/sdks/files/README.md#getv2files) - List files
+- [`filesGetV2FilesFileId`](docs/sdks/files/README.md#getv2filesfileid) - Get a file
+- [`filesGetV2FilesFileIdDownload`](docs/sdks/files/README.md#getv2filesfileiddownload) - Download a file
+- [`filesPostV2Files`](docs/sdks/files/README.md#postv2files) - Create a folder
+- [`filesPostV2FilesUpload`](docs/sdks/files/README.md#postv2filesupload) - Upload a file
 - [`listsCreate`](docs/sdks/lists/README.md#create) - Create a list
 - [`listsGet`](docs/sdks/lists/README.md#get) - Get a list
 - [`listsList`](docs/sdks/lists/README.md#list) - List all lists
@@ -314,7 +338,9 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`recordsQuery`](docs/sdks/records/README.md#query) - List records
 - [`recordsSearch`](docs/sdks/records/README.md#search) - Search records
 - [`recordsUpdate`](docs/sdks/records/README.md#update) - Update a record (append multiselect values)
+- [`scimGroupsGetSCIMV2Groups`](docs/sdks/scimgroups/README.md#getscimv2groups) - List SCIM groups
 - [`scimSchemasList`](docs/sdks/scimschemas/README.md#list) - List SCIM schemas
+- [`scimUsersGetSCIMV2Users`](docs/sdks/scimusers/README.md#getscimv2users) - List SCIM users
 - [`tasksCreate`](docs/sdks/tasks/README.md#create) - Create a task
 - [`tasksDelete`](docs/sdks/tasks/README.md#delete) - Delete a task
 - [`tasksGet`](docs/sdks/tasks/README.md#get) - Get a task
@@ -333,6 +359,44 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 
 </details>
 <!-- End Standalone functions [standalone-funcs] -->
+
+<!-- Start File uploads [file-upload] -->
+## File uploads
+
+Certain SDK methods accept files as part of a multi-part request. It is possible and typically recommended to upload files as a stream rather than reading the entire contents into memory. This avoids excessive memory consumption and potentially crashing with out-of-memory errors when working with very large files. The following example demonstrates how to attach a file stream to a request.
+
+> [!TIP]
+>
+> Depending on your JavaScript runtime, there are convenient utilities that return a handle to a file without reading the entire contents into memory:
+>
+> - **Node.js v20+:** Since v20, Node.js comes with a native `openAsBlob` function in [`node:fs`](https://nodejs.org/docs/latest-v20.x/api/fs.html#fsopenasblobpath-options).
+> - **Bun:** The native [`Bun.file`](https://bun.sh/docs/api/file-io#reading-files-bun-file) function produces a file handle that can be used for streaming file uploads.
+> - **Browsers:** All supported browsers return an instance to a [`File`](https://developer.mozilla.org/en-US/docs/Web/API/File) when reading the value from an `<input type="file">` element.
+> - **Node.js v18:** A file stream can be created using the `fileFrom` helper from [`fetch-blob/from.js`](https://www.npmjs.com/package/fetch-blob).
+
+```typescript
+import { Attio } from "@interfere/attio";
+import { openAsBlob } from "node:fs";
+
+const attio = new Attio({
+  oauth2: process.env["ATTIO_OAUTH2"] ?? "",
+});
+
+async function run() {
+  const result = await attio.files.postV2FilesUpload({
+    file: await openAsBlob("example.file"),
+    object: "people",
+    recordId: "bf071e1f-6035-429d-b874-d83ea64ea13b",
+    parentFolderId: "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  });
+
+  console.log(result);
+}
+
+run();
+
+```
+<!-- End File uploads [file-upload] -->
 
 <!-- Start Retries [retries] -->
 ## Retries
@@ -458,7 +522,7 @@ run();
 **Primary error:**
 * [`AttioBaseError`](./src/models/errors/attio-base-error.ts): The base class for HTTP error responses.
 
-<details><summary>Less common errors (58)</summary>
+<details><summary>Less common errors (60)</summary>
 
 <br />
 
@@ -471,58 +535,60 @@ run();
 
 
 **Inherit from [`AttioBaseError`](./src/models/errors/attio-base-error.ts)**:
-* [`GetV2ObjectsObjectNotFoundError`](./src/models/errors/get-v2-objects-object-not-found-error.ts): Not Found. Status code `404`. Applicable to 9 of 67 methods.*
-* [`GetV2TargetIdentifierAttributesAttributeNotFoundError`](./src/models/errors/get-v2-target-identifier-attributes-attribute-not-found-error.ts): Not Found. Status code `404`. Applicable to 9 of 67 methods.*
-* [`GetV2ListsListNotFoundError`](./src/models/errors/get-v2-lists-list-not-found-error.ts): Not Found. Status code `404`. Applicable to 8 of 67 methods.*
-* [`MissingValueError`](./src/models/errors/missing-value-error.ts): Bad Request. Status code `400`. Applicable to 2 of 67 methods.*
-* [`PostV2ListsValueNotFoundError`](./src/models/errors/post-v2-lists-value-not-found-error.ts): Bad Request. Status code `400`. Applicable to 2 of 67 methods.*
-* [`ImmutableValueError`](./src/models/errors/immutable-value-error.ts): Bad Request. Status code `400`. Applicable to 2 of 67 methods.*
-* [`PostV2TasksValidationTypeError`](./src/models/errors/post-v2-tasks-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 2 of 67 methods.*
-* [`GetV2ObjectsObjectRecordsRecordIdNotFoundError`](./src/models/errors/get-v2-objects-object-records-record-id-not-found-error.ts): Not Found. Status code `404`. Applicable to 2 of 67 methods.*
-* [`GetV2NotesNoteIdNotFoundError`](./src/models/errors/get-v2-notes-note-id-not-found-error.ts): Not Found. Status code `404`. Applicable to 2 of 67 methods.*
-* [`GetV2TasksTaskIdNotFoundError`](./src/models/errors/get-v2-tasks-task-id-not-found-error.ts): Not Found. Status code `404`. Applicable to 2 of 67 methods.*
-* [`GetV2WebhooksWebhookIdNotFoundError`](./src/models/errors/get-v2-webhooks-webhook-id-not-found-error.ts): Not Found. Status code `404`. Applicable to 2 of 67 methods.*
-* [`PostV2TargetIdentifierAttributesAttributeOptionsSlugConflictError`](./src/models/errors/post-v2-target-identifier-attributes-attribute-options-slug-conflict-error.ts): Conflict. Status code `409`. Applicable to 2 of 67 methods.*
-* [`PostV2TargetIdentifierAttributesAttributeStatusesSlugConflictError`](./src/models/errors/post-v2-target-identifier-attributes-attribute-statuses-slug-conflict-error.ts): Conflict. Status code `409`. Applicable to 2 of 67 methods.*
-* [`PatchV2ObjectsObjectValidationTypeError`](./src/models/errors/patch-v2-objects-object-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 67 methods.*
-* [`PostV2TargetIdentifierAttributesValidationTypeError`](./src/models/errors/post-v2-target-identifier-attributes-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 67 methods.*
-* [`SystemEditUnauthorizedError`](./src/models/errors/system-edit-unauthorized-error.ts): Bad Request. Status code `400`. Applicable to 1 of 67 methods.*
-* [`PostV2TargetIdentifierAttributesAttributeOptionsValidationTypeError`](./src/models/errors/post-v2-target-identifier-attributes-attribute-options-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 67 methods.*
-* [`PatchV2TargetIdentifierAttributesAttributeOptionsOptionValueNotFoundError`](./src/models/errors/patch-v2-target-identifier-attributes-attribute-options-option-value-not-found-error.ts): Bad Request. Status code `400`. Applicable to 1 of 67 methods.*
-* [`PostV2TargetIdentifierAttributesAttributeStatusesValidationTypeError`](./src/models/errors/post-v2-target-identifier-attributes-attribute-statuses-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 67 methods.*
-* [`PatchV2TargetIdentifierAttributesAttributeStatusesStatusValueNotFoundError`](./src/models/errors/patch-v2-target-identifier-attributes-attribute-statuses-status-value-not-found-error.ts): Bad Request. Status code `400`. Applicable to 1 of 67 methods.*
-* [`FilterError`](./src/models/errors/filter-error.ts): Bad Request. Status code `400`. Applicable to 1 of 67 methods.*
-* [`PostV2ObjectsObjectRecordsValueNotFoundError`](./src/models/errors/post-v2-objects-object-records-value-not-found-error.ts): Bad Request. Status code `400`. Applicable to 1 of 67 methods.*
-* [`PutV2ObjectsObjectRecordsValueNotFoundError`](./src/models/errors/put-v2-objects-object-records-value-not-found-error.ts): Bad Request. Status code `400`. Applicable to 1 of 67 methods.*
-* [`GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesValidationTypeError`](./src/models/errors/get-v2-objects-object-records-record-id-attributes-attribute-values-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 67 methods.*
-* [`PostV2ObjectsRecordsSearchValueNotFoundError`](./src/models/errors/post-v2-objects-records-search-value-not-found-error.ts): Bad Request. Status code `400`. Applicable to 1 of 67 methods.*
-* [`PostV2ListsListEntriesValueNotFoundError`](./src/models/errors/post-v2-lists-list-entries-value-not-found-error.ts): Bad Request. Status code `400`. Applicable to 1 of 67 methods.*
-* [`MultipleMatchResultsError`](./src/models/errors/multiple-match-results-error.ts): Bad Request. Status code `400`. Applicable to 1 of 67 methods.*
-* [`PostV2CommentsValueNotFoundError`](./src/models/errors/post-v2-comments-value-not-found-error.ts): Bad Request. Status code `400`. Applicable to 1 of 67 methods.*
-* [`PostV2MeetingsValidationTypeError`](./src/models/errors/post-v2-meetings-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 67 methods.*
-* [`PostV2MeetingsMeetingIdCallRecordingsValidationTypeError`](./src/models/errors/post-v2-meetings-meeting-id-call-recordings-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 67 methods.*
-* [`PostV2WebhooksValidationTypeError`](./src/models/errors/post-v2-webhooks-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 67 methods.*
-* [`BillingError`](./src/models/errors/billing-error.ts): Forbidden. Status code `403`. Applicable to 1 of 67 methods.*
-* [`AuthError`](./src/models/errors/auth-error.ts): Forbidden. Status code `403`. Applicable to 1 of 67 methods.*
-* [`PostV2TargetIdentifierAttributesNotFoundError`](./src/models/errors/post-v2-target-identifier-attributes-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
-* [`PostV2ObjectsObjectRecordsQueryNotFoundError`](./src/models/errors/post-v2-objects-object-records-query-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
-* [`PostV2ListsNotFoundError`](./src/models/errors/post-v2-lists-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
-* [`PostV2ListsListEntriesNotFoundError`](./src/models/errors/post-v2-lists-list-entries-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
-* [`PutV2ListsListEntriesNotFoundError`](./src/models/errors/put-v2-lists-list-entries-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
-* [`GetV2WorkspaceMembersWorkspaceMemberIdNotFoundError`](./src/models/errors/get-v2-workspace-members-workspace-member-id-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
-* [`PatchV2TasksTaskIdNotFoundError`](./src/models/errors/patch-v2-tasks-task-id-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
-* [`GetV2ThreadsThreadIdNotFoundError`](./src/models/errors/get-v2-threads-thread-id-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
-* [`GetV2CommentsCommentIdNotFoundError`](./src/models/errors/get-v2-comments-comment-id-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
-* [`DeleteV2CommentsCommentIdNotFoundError`](./src/models/errors/delete-v2-comments-comment-id-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
-* [`GetV2MeetingsMeetingIdNotFoundError`](./src/models/errors/get-v2-meetings-meeting-id-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
-* [`PostV2MeetingsMeetingIdCallRecordingsNotFoundError`](./src/models/errors/post-v2-meetings-meeting-id-call-recordings-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
-* [`GetV2MeetingsMeetingIdCallRecordingsCallRecordingIdNotFoundError`](./src/models/errors/get-v2-meetings-meeting-id-call-recordings-call-recording-id-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
-* [`DeleteV2MeetingsMeetingIdCallRecordingsCallRecordingIdNotFoundError`](./src/models/errors/delete-v2-meetings-meeting-id-call-recordings-call-recording-id-not-found-error.ts): Call recording not found. Status code `404`. Applicable to 1 of 67 methods.*
-* [`DeleteV2WebhooksWebhookIdNotFoundError`](./src/models/errors/delete-v2-webhooks-webhook-id-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 67 methods.*
-* [`PostV2ObjectsSlugConflictError`](./src/models/errors/post-v2-objects-slug-conflict-error.ts): Conflict. Status code `409`. Applicable to 1 of 67 methods.*
-* [`PatchV2ObjectsObjectSlugConflictError`](./src/models/errors/patch-v2-objects-object-slug-conflict-error.ts): Conflict. Status code `409`. Applicable to 1 of 67 methods.*
-* [`PostV2TargetIdentifierAttributesSlugConflictError`](./src/models/errors/post-v2-target-identifier-attributes-slug-conflict-error.ts): Conflict. Status code `409`. Applicable to 1 of 67 methods.*
-* [`PostV2ListsSlugConflictError`](./src/models/errors/post-v2-lists-slug-conflict-error.ts): Conflict. Status code `409`. Applicable to 1 of 67 methods.*
+* [`GetV2ObjectsObjectNotFoundError`](./src/models/errors/get-v2-objects-object-not-found-error.ts): Not Found. Status code `404`. Applicable to 9 of 75 methods.*
+* [`GetV2TargetIdentifierAttributesAttributeNotFoundError`](./src/models/errors/get-v2-target-identifier-attributes-attribute-not-found-error.ts): Not Found. Status code `404`. Applicable to 9 of 75 methods.*
+* [`GetV2ListsListNotFoundError`](./src/models/errors/get-v2-lists-list-not-found-error.ts): Not Found. Status code `404`. Applicable to 8 of 75 methods.*
+* [`MissingValueError`](./src/models/errors/missing-value-error.ts): Bad Request. Status code `400`. Applicable to 2 of 75 methods.*
+* [`PostV2ListsValueNotFoundError`](./src/models/errors/post-v2-lists-value-not-found-error.ts): Bad Request. Status code `400`. Applicable to 2 of 75 methods.*
+* [`ImmutableValueError`](./src/models/errors/immutable-value-error.ts): Bad Request. Status code `400`. Applicable to 2 of 75 methods.*
+* [`PostV2TasksValidationTypeError`](./src/models/errors/post-v2-tasks-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 2 of 75 methods.*
+* [`GetV2ObjectsObjectRecordsRecordIdNotFoundError`](./src/models/errors/get-v2-objects-object-records-record-id-not-found-error.ts): Not Found. Status code `404`. Applicable to 2 of 75 methods.*
+* [`GetV2NotesNoteIdNotFoundError`](./src/models/errors/get-v2-notes-note-id-not-found-error.ts): Not Found. Status code `404`. Applicable to 2 of 75 methods.*
+* [`GetV2TasksTaskIdNotFoundError`](./src/models/errors/get-v2-tasks-task-id-not-found-error.ts): Not Found. Status code `404`. Applicable to 2 of 75 methods.*
+* [`GetV2FilesFileIdNotFoundError`](./src/models/errors/get-v2-files-file-id-not-found-error.ts): Not Found. Status code `404`. Applicable to 2 of 75 methods.*
+* [`GetV2WebhooksWebhookIdNotFoundError`](./src/models/errors/get-v2-webhooks-webhook-id-not-found-error.ts): Not Found. Status code `404`. Applicable to 2 of 75 methods.*
+* [`PostV2TargetIdentifierAttributesAttributeOptionsSlugConflictError`](./src/models/errors/post-v2-target-identifier-attributes-attribute-options-slug-conflict-error.ts): Conflict. Status code `409`. Applicable to 2 of 75 methods.*
+* [`PostV2TargetIdentifierAttributesAttributeStatusesSlugConflictError`](./src/models/errors/post-v2-target-identifier-attributes-attribute-statuses-slug-conflict-error.ts): Conflict. Status code `409`. Applicable to 2 of 75 methods.*
+* [`PatchV2ObjectsObjectValidationTypeError`](./src/models/errors/patch-v2-objects-object-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 75 methods.*
+* [`PostV2TargetIdentifierAttributesValidationTypeError`](./src/models/errors/post-v2-target-identifier-attributes-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 75 methods.*
+* [`SystemEditUnauthorizedError`](./src/models/errors/system-edit-unauthorized-error.ts): Bad Request. Status code `400`. Applicable to 1 of 75 methods.*
+* [`PostV2TargetIdentifierAttributesAttributeOptionsValidationTypeError`](./src/models/errors/post-v2-target-identifier-attributes-attribute-options-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 75 methods.*
+* [`PatchV2TargetIdentifierAttributesAttributeOptionsOptionValueNotFoundError`](./src/models/errors/patch-v2-target-identifier-attributes-attribute-options-option-value-not-found-error.ts): Bad Request. Status code `400`. Applicable to 1 of 75 methods.*
+* [`PostV2TargetIdentifierAttributesAttributeStatusesValidationTypeError`](./src/models/errors/post-v2-target-identifier-attributes-attribute-statuses-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 75 methods.*
+* [`PatchV2TargetIdentifierAttributesAttributeStatusesStatusValueNotFoundError`](./src/models/errors/patch-v2-target-identifier-attributes-attribute-statuses-status-value-not-found-error.ts): Bad Request. Status code `400`. Applicable to 1 of 75 methods.*
+* [`FilterError`](./src/models/errors/filter-error.ts): Bad Request. Status code `400`. Applicable to 1 of 75 methods.*
+* [`PostV2ObjectsObjectRecordsValueNotFoundError`](./src/models/errors/post-v2-objects-object-records-value-not-found-error.ts): Bad Request. Status code `400`. Applicable to 1 of 75 methods.*
+* [`PutV2ObjectsObjectRecordsValueNotFoundError`](./src/models/errors/put-v2-objects-object-records-value-not-found-error.ts): Bad Request. Status code `400`. Applicable to 1 of 75 methods.*
+* [`GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesValidationTypeError`](./src/models/errors/get-v2-objects-object-records-record-id-attributes-attribute-values-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 75 methods.*
+* [`PostV2ObjectsRecordsSearchValueNotFoundError`](./src/models/errors/post-v2-objects-records-search-value-not-found-error.ts): Bad Request. Status code `400`. Applicable to 1 of 75 methods.*
+* [`PostV2ListsListEntriesValueNotFoundError`](./src/models/errors/post-v2-lists-list-entries-value-not-found-error.ts): Bad Request. Status code `400`. Applicable to 1 of 75 methods.*
+* [`MultipleMatchResultsError`](./src/models/errors/multiple-match-results-error.ts): Bad Request. Status code `400`. Applicable to 1 of 75 methods.*
+* [`PostV2CommentsValueNotFoundError`](./src/models/errors/post-v2-comments-value-not-found-error.ts): Bad Request. Status code `400`. Applicable to 1 of 75 methods.*
+* [`PostV2MeetingsValidationTypeError`](./src/models/errors/post-v2-meetings-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 75 methods.*
+* [`PostV2MeetingsMeetingIdCallRecordingsValidationTypeError`](./src/models/errors/post-v2-meetings-meeting-id-call-recordings-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 75 methods.*
+* [`PostV2WebhooksValidationTypeError`](./src/models/errors/post-v2-webhooks-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 75 methods.*
+* [`BillingError`](./src/models/errors/billing-error.ts): Forbidden. Status code `403`. Applicable to 1 of 75 methods.*
+* [`AuthError`](./src/models/errors/auth-error.ts): Forbidden. Status code `403`. Applicable to 1 of 75 methods.*
+* [`PostV2TargetIdentifierAttributesNotFoundError`](./src/models/errors/post-v2-target-identifier-attributes-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 75 methods.*
+* [`PostV2ObjectsObjectRecordsQueryNotFoundError`](./src/models/errors/post-v2-objects-object-records-query-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 75 methods.*
+* [`PostV2ListsNotFoundError`](./src/models/errors/post-v2-lists-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 75 methods.*
+* [`PostV2ListsListEntriesNotFoundError`](./src/models/errors/post-v2-lists-list-entries-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 75 methods.*
+* [`PutV2ListsListEntriesNotFoundError`](./src/models/errors/put-v2-lists-list-entries-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 75 methods.*
+* [`GetV2WorkspaceMembersWorkspaceMemberIdNotFoundError`](./src/models/errors/get-v2-workspace-members-workspace-member-id-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 75 methods.*
+* [`PatchV2TasksTaskIdNotFoundError`](./src/models/errors/patch-v2-tasks-task-id-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 75 methods.*
+* [`GetV2ThreadsThreadIdNotFoundError`](./src/models/errors/get-v2-threads-thread-id-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 75 methods.*
+* [`GetV2CommentsCommentIdNotFoundError`](./src/models/errors/get-v2-comments-comment-id-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 75 methods.*
+* [`DeleteV2CommentsCommentIdNotFoundError`](./src/models/errors/delete-v2-comments-comment-id-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 75 methods.*
+* [`GetV2MeetingsMeetingIdNotFoundError`](./src/models/errors/get-v2-meetings-meeting-id-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 75 methods.*
+* [`PostV2MeetingsMeetingIdCallRecordingsNotFoundError`](./src/models/errors/post-v2-meetings-meeting-id-call-recordings-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 75 methods.*
+* [`GetV2MeetingsMeetingIdCallRecordingsCallRecordingIdNotFoundError`](./src/models/errors/get-v2-meetings-meeting-id-call-recordings-call-recording-id-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 75 methods.*
+* [`DeleteV2MeetingsMeetingIdCallRecordingsCallRecordingIdNotFoundError`](./src/models/errors/delete-v2-meetings-meeting-id-call-recordings-call-recording-id-not-found-error.ts): Call recording not found. Status code `404`. Applicable to 1 of 75 methods.*
+* [`DeleteV2WebhooksWebhookIdNotFoundError`](./src/models/errors/delete-v2-webhooks-webhook-id-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 75 methods.*
+* [`PostV2ObjectsSlugConflictError`](./src/models/errors/post-v2-objects-slug-conflict-error.ts): Conflict. Status code `409`. Applicable to 1 of 75 methods.*
+* [`PatchV2ObjectsObjectSlugConflictError`](./src/models/errors/patch-v2-objects-object-slug-conflict-error.ts): Conflict. Status code `409`. Applicable to 1 of 75 methods.*
+* [`PostV2TargetIdentifierAttributesSlugConflictError`](./src/models/errors/post-v2-target-identifier-attributes-slug-conflict-error.ts): Conflict. Status code `409`. Applicable to 1 of 75 methods.*
+* [`PostV2ListsSlugConflictError`](./src/models/errors/post-v2-lists-slug-conflict-error.ts): Conflict. Status code `409`. Applicable to 1 of 75 methods.*
+* [`PostV2NotesValidationTypeError`](./src/models/errors/post-v2-notes-validation-type-error.ts): Content Too Large. Status code `413`. Applicable to 1 of 75 methods.*
 * [`ResponseValidationError`](./src/models/errors/response-validation-error.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>

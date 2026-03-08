@@ -8,11 +8,11 @@ Whether the workspace member is suspended or not and what level of privileges th
 import { AccessLevel } from "@interfere/attio/models";
 
 let value: AccessLevel = "member";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "admin" | "member" | "suspended" | Unrecognized<string>
