@@ -6,14 +6,14 @@ Files are documents and folders linked to records, stored either in Attio or con
 
 ### Available Operations
 
-* [getV2Files](#getv2files) - List files
-* [postV2Files](#postv2files) - Create a folder
-* [postV2FilesUpload](#postv2filesupload) - Upload a file
-* [getV2FilesFileId](#getv2filesfileid) - Get a file
-* [deleteV2FilesFileId](#deletev2filesfileid) - Delete a file
-* [getV2FilesFileIdDownload](#getv2filesfileiddownload) - Download a file
+* [list](#list) - List files
+* [create](#create) - Create a folder
+* [upload](#upload) - Upload a file
+* [get](#get) - Get a file
+* [delete](#delete) - Delete a file
+* [download](#download) - Download a file
 
-## getV2Files
+## list
 
 Lists internal files, externally connected files and folders across the workspace. Optional query parameters may be provided to filter results by object, record, storage provider or parent folder.
 
@@ -32,7 +32,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.files.getV2Files({
+  const result = await attio.files.list({
     object: "<value>",
     recordId: "7e76e3c7-d094-4620-b8c3-0ec424086010",
   });
@@ -49,7 +49,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { filesGetV2Files } from "@interfere/attio/funcs/files-get-v2-files.js";
+import { filesList } from "@interfere/attio/funcs/files-list.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -58,7 +58,7 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await filesGetV2Files(attio, {
+  const res = await filesList(attio, {
     object: "<value>",
     recordId: "7e76e3c7-d094-4620-b8c3-0ec424086010",
   });
@@ -66,7 +66,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("filesGetV2Files failed:", res.error);
+    console.log("filesList failed:", res.error);
   }
 }
 
@@ -92,7 +92,7 @@ run();
 | ----------------- | ----------------- | ----------------- |
 | errors.AttioError | 4XX, 5XX          | \*/\*             |
 
-## postV2Files
+## create
 
 Creates a native folder entry or a connected file/folder entry on an object record.
 
@@ -111,7 +111,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.files.postV2Files({
+  const result = await attio.files.create({
     object: "people",
     recordId: "bf071e1f-6035-429d-b874-d83ea64ea13b",
     storageProvider: "google-drive",
@@ -131,7 +131,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { filesPostV2Files } from "@interfere/attio/funcs/files-post-v2-files.js";
+import { filesCreate } from "@interfere/attio/funcs/files-create.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -140,7 +140,7 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await filesPostV2Files(attio, {
+  const res = await filesCreate(attio, {
     object: "people",
     recordId: "bf071e1f-6035-429d-b874-d83ea64ea13b",
     storageProvider: "google-drive",
@@ -151,7 +151,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("filesPostV2Files failed:", res.error);
+    console.log("filesCreate failed:", res.error);
   }
 }
 
@@ -177,7 +177,7 @@ run();
 | ----------------- | ----------------- | ----------------- |
 | errors.AttioError | 4XX, 5XX          | \*/\*             |
 
-## postV2FilesUpload
+## upload
 
 Uploads a file to native Attio storage for a record. Send multipart/form-data with a single binary field named `file` together with the body fields `object`, `record_id`, and optional `parent_folder_id`. Maximum file size is 50 MB.
 
@@ -197,7 +197,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.files.postV2FilesUpload({
+  const result = await attio.files.upload({
     file: await openAsBlob("example.file"),
     object: "people",
     recordId: "bf071e1f-6035-429d-b874-d83ea64ea13b",
@@ -216,7 +216,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { filesPostV2FilesUpload } from "@interfere/attio/funcs/files-post-v2-files-upload.js";
+import { filesUpload } from "@interfere/attio/funcs/files-upload.js";
 import { openAsBlob } from "node:fs";
 
 // Use `AttioCore` for best tree-shaking performance.
@@ -226,7 +226,7 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await filesPostV2FilesUpload(attio, {
+  const res = await filesUpload(attio, {
     file: await openAsBlob("example.file"),
     object: "people",
     recordId: "bf071e1f-6035-429d-b874-d83ea64ea13b",
@@ -236,7 +236,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("filesPostV2FilesUpload failed:", res.error);
+    console.log("filesUpload failed:", res.error);
   }
 }
 
@@ -262,7 +262,7 @@ run();
 | ----------------- | ----------------- | ----------------- |
 | errors.AttioError | 4XX, 5XX          | \*/\*             |
 
-## getV2FilesFileId
+## get
 
 Get a single file entry by ID.
 
@@ -281,7 +281,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.files.getV2FilesFileId({
+  const result = await attio.files.get({
     fileId: "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
   });
 
@@ -297,7 +297,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { filesGetV2FilesFileId } from "@interfere/attio/funcs/files-get-v2-files-file-id.js";
+import { filesGet } from "@interfere/attio/funcs/files-get.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -306,14 +306,14 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await filesGetV2FilesFileId(attio, {
+  const res = await filesGet(attio, {
     fileId: "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("filesGetV2FilesFileId failed:", res.error);
+    console.log("filesGet failed:", res.error);
   }
 }
 
@@ -340,7 +340,7 @@ run();
 | errors.GetV2FilesFileIdNotFoundError | 404                                  | application/json                     |
 | errors.AttioError                    | 4XX, 5XX                             | \*/\*                                |
 
-## deleteV2FilesFileId
+## delete
 
 Delete a single file by ID. Deleting a folder will delete all of its descendants.
 
@@ -359,7 +359,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.files.deleteV2FilesFileId({
+  const result = await attio.files.delete({
     fileId: "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
   });
 
@@ -375,7 +375,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { filesDeleteV2FilesFileId } from "@interfere/attio/funcs/files-delete-v2-files-file-id.js";
+import { filesDelete } from "@interfere/attio/funcs/files-delete.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -384,14 +384,14 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await filesDeleteV2FilesFileId(attio, {
+  const res = await filesDelete(attio, {
     fileId: "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("filesDeleteV2FilesFileId failed:", res.error);
+    console.log("filesDelete failed:", res.error);
   }
 }
 
@@ -418,7 +418,7 @@ run();
 | errors.GetV2FilesFileIdNotFoundError | 404                                  | application/json                     |
 | errors.AttioError                    | 4XX, 5XX                             | \*/\*                                |
 
-## getV2FilesFileIdDownload
+## download
 
 Downloads a file by redirecting to a signed URL.
 
@@ -437,7 +437,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.files.getV2FilesFileIdDownload({
+  const result = await attio.files.download({
     fileId: "97de9380-4280-4233-9bf3-e41cc1bc2101",
   });
 
@@ -453,7 +453,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { filesGetV2FilesFileIdDownload } from "@interfere/attio/funcs/files-get-v2-files-file-id-download.js";
+import { filesDownload } from "@interfere/attio/funcs/files-download.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -462,14 +462,14 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await filesGetV2FilesFileIdDownload(attio, {
+  const res = await filesDownload(attio, {
     fileId: "97de9380-4280-4233-9bf3-e41cc1bc2101",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("filesGetV2FilesFileIdDownload failed:", res.error);
+    console.log("filesDownload failed:", res.error);
   }
 }
 

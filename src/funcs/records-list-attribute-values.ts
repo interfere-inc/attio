@@ -4,7 +4,7 @@
 
 import * as z from "zod/v4-mini";
 import { AttioCore } from "../core.js";
-import { encodeJSON, encodeSimple } from "../lib/encodings.js";
+import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -27,24 +27,23 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Update a select option
+ * List record attribute values
  *
  * @remarks
- * Updates a select option on an attribute on either an object or a list.
+ * Gets all values for a given attribute on a record. Historic values can be queried using the `show_historic` query param. Historic values cannot be queried on COMINT (Communication Intelligence) or enriched attributes and the endpoint will return a 400 error if this is attempted. Historic values are sorted from oldest to newest (by `active_from`). Some attributes are subject to billing status and will return an empty array of values if theworkspace being queried does not have the required billing flag enabled.
  *
- * Required scopes: `object_configuration:read-write`.
+ * Required scopes: `record_permission:read`, `object_configuration:read`.
  */
-export function attributesUpdateOption(
+export function recordsListAttributeValues(
   client: AttioCore,
   request:
-    operations.PatchV2TargetIdentifierAttributesAttributeOptionsOptionRequest,
+    operations.GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.PatchV2TargetIdentifierAttributesAttributeOptionsOptionResponse,
-    | errors.PatchV2TargetIdentifierAttributesAttributeOptionsOptionValueNotFoundError
+    operations.GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesResponse,
+    | errors.GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesValidationTypeError
     | errors.GetV2TargetIdentifierAttributesAttributeNotFoundError
-    | errors.PostV2TargetIdentifierAttributesAttributeOptionsSlugConflictError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -65,15 +64,14 @@ export function attributesUpdateOption(
 async function $do(
   client: AttioCore,
   request:
-    operations.PatchV2TargetIdentifierAttributesAttributeOptionsOptionRequest,
+    operations.GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.PatchV2TargetIdentifierAttributesAttributeOptionsOptionResponse,
-      | errors.PatchV2TargetIdentifierAttributesAttributeOptionsOptionValueNotFoundError
+      operations.GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesResponse,
+      | errors.GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesValidationTypeError
       | errors.GetV2TargetIdentifierAttributesAttributeNotFoundError
-      | errors.PostV2TargetIdentifierAttributesAttributeOptionsSlugConflictError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -91,7 +89,7 @@ async function $do(
     (value) =>
       z.parse(
         operations
-          .PatchV2TargetIdentifierAttributesAttributeOptionsOptionRequest$outboundSchema,
+          .GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesRequest$outboundSchema,
         value,
       ),
     "Input validation failed",
@@ -100,33 +98,34 @@ async function $do(
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = encodeJSON("body", payload.body, { explode: true });
+  const body = null;
 
   const pathParams = {
     attribute: encodeSimple("attribute", payload.attribute, {
       explode: false,
       charEncoding: "percent",
     }),
-    identifier: encodeSimple("identifier", payload.identifier, {
+    object: encodeSimple("object", payload.object, {
       explode: false,
       charEncoding: "percent",
     }),
-    option: encodeSimple("option", payload.option, {
-      explode: false,
-      charEncoding: "percent",
-    }),
-    target: encodeSimple("target", payload.target, {
+    record_id: encodeSimple("record_id", payload.record_id, {
       explode: false,
       charEncoding: "percent",
     }),
   };
 
   const path = pathToFunc(
-    "/v2/{target}/{identifier}/attributes/{attribute}/options/{option}",
+    "/v2/objects/{object}/records/{record_id}/attributes/{attribute}/values",
   )(pathParams);
 
+  const query = encodeFormQuery({
+    "limit": payload.limit,
+    "offset": payload.offset,
+    "show_historic": payload.show_historic,
+  });
+
   const headers = new Headers(compactMap({
-    "Content-Type": "application/json",
     Accept: "application/json",
   }));
 
@@ -138,7 +137,7 @@ async function $do(
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
     operationID:
-      "patch_/v2/{target}/{identifier}/attributes/{attribute}/options/{option}",
+      "get_/v2/objects/{object}/records/{record_id}/attributes/{attribute}/values",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -152,10 +151,11 @@ async function $do(
 
   const requestRes = client._createRequest(context, {
     security: requestSecurity,
-    method: "PATCH",
+    method: "GET",
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
+    query: query,
     body: body,
     userAgent: client._options.userAgent,
     timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,
@@ -167,7 +167,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["400", "404", "409", "4XX", "5XX"],
+    errorCodes: ["400", "404", "4XX", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -181,10 +181,9 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.PatchV2TargetIdentifierAttributesAttributeOptionsOptionResponse,
-    | errors.PatchV2TargetIdentifierAttributesAttributeOptionsOptionValueNotFoundError
+    operations.GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesResponse,
+    | errors.GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesValidationTypeError
     | errors.GetV2TargetIdentifierAttributesAttributeNotFoundError
-    | errors.PostV2TargetIdentifierAttributesAttributeOptionsSlugConflictError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -197,22 +196,17 @@ async function $do(
     M.json(
       200,
       operations
-        .PatchV2TargetIdentifierAttributesAttributeOptionsOptionResponse$inboundSchema,
+        .GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesResponse$inboundSchema,
     ),
     M.jsonErr(
       400,
       errors
-        .PatchV2TargetIdentifierAttributesAttributeOptionsOptionValueNotFoundError$inboundSchema,
+        .GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesValidationTypeError$inboundSchema,
     ),
     M.jsonErr(
       404,
       errors
         .GetV2TargetIdentifierAttributesAttributeNotFoundError$inboundSchema,
-    ),
-    M.jsonErr(
-      409,
-      errors
-        .PostV2TargetIdentifierAttributesAttributeOptionsSlugConflictError$inboundSchema,
     ),
     M.fail("4XX"),
     M.fail("5XX"),

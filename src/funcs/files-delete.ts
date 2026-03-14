@@ -4,7 +4,7 @@
 
 import * as z from "zod/v4-mini";
 import { AttioCore } from "../core.js";
-import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
+import { encodeSimple } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -27,23 +27,23 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * List record attribute values
+ * Delete a file
  *
  * @remarks
- * Gets all values for a given attribute on a record. Historic values can be queried using the `show_historic` query param. Historic values cannot be queried on COMINT (Communication Intelligence) or enriched attributes and the endpoint will return a 400 error if this is attempted. Historic values are sorted from oldest to newest (by `active_from`). Some attributes are subject to billing status and will return an empty array of values if theworkspace being queried does not have the required billing flag enabled.
+ * Delete a single file by ID. Deleting a folder will delete all of its descendants.
  *
- * Required scopes: `record_permission:read`, `object_configuration:read`.
+ * This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
+ *
+ * Required scopes: `file:read-write`, `object_configuration:read`, `record_permission:read`.
  */
-export function recordsGetAttributeValues(
+export function filesDelete(
   client: AttioCore,
-  request:
-    operations.GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesRequest,
+  request: operations.DeleteV2FilesFileIdRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesResponse,
-    | errors.GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesValidationTypeError
-    | errors.GetV2TargetIdentifierAttributesAttributeNotFoundError
+    operations.DeleteV2FilesFileIdResponse,
+    | errors.GetV2FilesFileIdNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -63,15 +63,13 @@ export function recordsGetAttributeValues(
 
 async function $do(
   client: AttioCore,
-  request:
-    operations.GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesRequest,
+  request: operations.DeleteV2FilesFileIdRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesResponse,
-      | errors.GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesValidationTypeError
-      | errors.GetV2TargetIdentifierAttributesAttributeNotFoundError
+      operations.DeleteV2FilesFileIdResponse,
+      | errors.GetV2FilesFileIdNotFoundError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -87,11 +85,7 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      z.parse(
-        operations
-          .GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesRequest$outboundSchema,
-        value,
-      ),
+      z.parse(operations.DeleteV2FilesFileIdRequest$outboundSchema, value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -101,29 +95,13 @@ async function $do(
   const body = null;
 
   const pathParams = {
-    attribute: encodeSimple("attribute", payload.attribute, {
-      explode: false,
-      charEncoding: "percent",
-    }),
-    object: encodeSimple("object", payload.object, {
-      explode: false,
-      charEncoding: "percent",
-    }),
-    record_id: encodeSimple("record_id", payload.record_id, {
+    file_id: encodeSimple("file_id", payload.file_id, {
       explode: false,
       charEncoding: "percent",
     }),
   };
 
-  const path = pathToFunc(
-    "/v2/objects/{object}/records/{record_id}/attributes/{attribute}/values",
-  )(pathParams);
-
-  const query = encodeFormQuery({
-    "limit": payload.limit,
-    "offset": payload.offset,
-    "show_historic": payload.show_historic,
-  });
+  const path = pathToFunc("/v2/files/{file_id}")(pathParams);
 
   const headers = new Headers(compactMap({
     Accept: "application/json",
@@ -136,8 +114,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID:
-      "get_/v2/objects/{object}/records/{record_id}/attributes/{attribute}/values",
+    operationID: "delete_/v2/files/{file_id}",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -151,11 +128,10 @@ async function $do(
 
   const requestRes = client._createRequest(context, {
     security: requestSecurity,
-    method: "GET",
+    method: "DELETE",
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
-    query: query,
     body: body,
     userAgent: client._options.userAgent,
     timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,
@@ -167,7 +143,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["400", "404", "4XX", "5XX"],
+    errorCodes: ["404", "4XX", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -181,9 +157,8 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesResponse,
-    | errors.GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesValidationTypeError
-    | errors.GetV2TargetIdentifierAttributesAttributeNotFoundError
+    operations.DeleteV2FilesFileIdResponse,
+    | errors.GetV2FilesFileIdNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -193,21 +168,8 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(
-      200,
-      operations
-        .GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesResponse$inboundSchema,
-    ),
-    M.jsonErr(
-      400,
-      errors
-        .GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesValidationTypeError$inboundSchema,
-    ),
-    M.jsonErr(
-      404,
-      errors
-        .GetV2TargetIdentifierAttributesAttributeNotFoundError$inboundSchema,
-    ),
+    M.json(200, operations.DeleteV2FilesFileIdResponse$inboundSchema),
+    M.jsonErr(404, errors.GetV2FilesFileIdNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

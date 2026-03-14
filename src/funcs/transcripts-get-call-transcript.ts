@@ -4,7 +4,7 @@
 
 import * as z from "zod/v4-mini";
 import { AttioCore } from "../core.js";
-import { encodeJSON, encodeSimple } from "../lib/encodings.js";
+import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -19,7 +19,6 @@ import {
   RequestTimeoutError,
   UnexpectedClientError,
 } from "../models/errors/http-client-errors.js";
-import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/response-validation-error.js";
 import { SDKValidationError } from "../models/errors/sdk-validation-error.js";
 import * as operations from "../models/operations/index.js";
@@ -27,22 +26,23 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Assert a list entry by parent
+ * Get call transcript
  *
  * @remarks
- * Use this endpoint to create or update a list entry for a given parent record. If an entry with the specified parent record is found, that entry will be updated. If no such entry is found, a new entry will be created instead. If there are multiple entries with the same parent record, this endpoint with return the "MULTIPLE_MATCH_RESULTS" error. When writing to multi-select attributes, all values will be either created or deleted as necessary to match the list of values supplied in the request body.
+ * Get the transcript for a call recording.
  *
- * Required scopes: `list_entry:read-write`, `list_configuration:read`.
+ * This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
+ *
+ * Required scopes: `meeting:read`, `call_recording:read`.
  */
-export function entriesUpsertByParent(
+export function transcriptsGetCallTranscript(
   client: AttioCore,
-  request: operations.PutV2ListsListEntriesRequest,
+  request:
+    operations.GetV2MeetingsMeetingIdCallRecordingsCallRecordingIdTranscriptRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.PutV2ListsListEntriesResponse,
-    | errors.MultipleMatchResultsError
-    | errors.PutV2ListsListEntriesNotFoundError
+    operations.GetV2MeetingsMeetingIdCallRecordingsCallRecordingIdTranscriptResponse,
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -62,14 +62,13 @@ export function entriesUpsertByParent(
 
 async function $do(
   client: AttioCore,
-  request: operations.PutV2ListsListEntriesRequest,
+  request:
+    operations.GetV2MeetingsMeetingIdCallRecordingsCallRecordingIdTranscriptRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.PutV2ListsListEntriesResponse,
-      | errors.MultipleMatchResultsError
-      | errors.PutV2ListsListEntriesNotFoundError
+      operations.GetV2MeetingsMeetingIdCallRecordingsCallRecordingIdTranscriptResponse,
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -85,26 +84,40 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      z.parse(operations.PutV2ListsListEntriesRequest$outboundSchema, value),
+      z.parse(
+        operations
+          .GetV2MeetingsMeetingIdCallRecordingsCallRecordingIdTranscriptRequest$outboundSchema,
+        value,
+      ),
     "Input validation failed",
   );
   if (!parsed.ok) {
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = encodeJSON("body", payload.body, { explode: true });
+  const body = null;
 
   const pathParams = {
-    list: encodeSimple("list", payload.list, {
+    call_recording_id: encodeSimple(
+      "call_recording_id",
+      payload.call_recording_id,
+      { explode: false, charEncoding: "percent" },
+    ),
+    meeting_id: encodeSimple("meeting_id", payload.meeting_id, {
       explode: false,
       charEncoding: "percent",
     }),
   };
 
-  const path = pathToFunc("/v2/lists/{list}/entries")(pathParams);
+  const path = pathToFunc(
+    "/v2/meetings/{meeting_id}/call_recordings/{call_recording_id}/transcript",
+  )(pathParams);
+
+  const query = encodeFormQuery({
+    "cursor": payload.cursor,
+  });
 
   const headers = new Headers(compactMap({
-    "Content-Type": "application/json",
     Accept: "application/json",
   }));
 
@@ -115,7 +128,8 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "put_/v2/lists/{list}/entries",
+    operationID:
+      "get_/v2/meetings/{meeting_id}/call_recordings/{call_recording_id}/transcript",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -129,10 +143,11 @@ async function $do(
 
   const requestRes = client._createRequest(context, {
     security: requestSecurity,
-    method: "PUT",
+    method: "GET",
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
+    query: query,
     body: body,
     userAgent: client._options.userAgent,
     timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,
@@ -144,7 +159,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["400", "404", "4XX", "5XX"],
+    errorCodes: ["4XX", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -153,14 +168,8 @@ async function $do(
   }
   const response = doResult.value;
 
-  const responseFields = {
-    HttpMeta: { Response: response, Request: req },
-  };
-
   const [result] = await M.match<
-    operations.PutV2ListsListEntriesResponse,
-    | errors.MultipleMatchResultsError
-    | errors.PutV2ListsListEntriesNotFoundError
+    operations.GetV2MeetingsMeetingIdCallRecordingsCallRecordingIdTranscriptResponse,
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -170,12 +179,14 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.PutV2ListsListEntriesResponse$inboundSchema),
-    M.jsonErr(400, errors.MultipleMatchResultsError$inboundSchema),
-    M.jsonErr(404, errors.PutV2ListsListEntriesNotFoundError$inboundSchema),
+    M.json(
+      200,
+      operations
+        .GetV2MeetingsMeetingIdCallRecordingsCallRecordingIdTranscriptResponse$inboundSchema,
+    ),
     M.fail("4XX"),
     M.fail("5XX"),
-  )(response, req, { extraFields: responseFields });
+  )(response, req);
   if (!result.ok) {
     return [result, { status: "complete", request: req, response }];
   }

@@ -4,7 +4,11 @@
 
 import * as z from "zod/v4-mini";
 import { AttioCore } from "../core.js";
-import { encodeJSON, encodeSimple } from "../lib/encodings.js";
+import { appendForm } from "../lib/encodings.js";
+import {
+  getContentTypeFromFileName,
+  readableStreamToArrayBuffer,
+} from "../lib/files.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -19,31 +23,31 @@ import {
   RequestTimeoutError,
   UnexpectedClientError,
 } from "../models/errors/http-client-errors.js";
-import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/response-validation-error.js";
 import { SDKValidationError } from "../models/errors/sdk-validation-error.js";
 import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
+import { isBlobLike } from "../types/blobs.js";
 import { Result } from "../types/fp.js";
+import { isReadableStream } from "../types/streams.js";
 
 /**
- * Create a select option
+ * Upload a file
  *
  * @remarks
- * Adds a select option to a select attribute on an object or a list.
+ * Uploads a file to native Attio storage for a record. Send multipart/form-data with a single binary field named `file` together with the body fields `object`, `record_id`, and optional `parent_folder_id`. Maximum file size is 50 MB.
  *
- * Required scopes: `object_configuration:read-write`.
+ * This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
+ *
+ * Required scopes: `file:read-write`, `object_configuration:read`, `record_permission:read`.
  */
-export function attributesCreateOption(
+export function filesUpload(
   client: AttioCore,
-  request: operations.PostV2TargetIdentifierAttributesAttributeOptionsRequest,
+  request: operations.PostV2FilesUploadRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.PostV2TargetIdentifierAttributesAttributeOptionsResponse,
-    | errors.PostV2TargetIdentifierAttributesAttributeOptionsValidationTypeError
-    | errors.GetV2TargetIdentifierAttributesAttributeNotFoundError
-    | errors.PostV2TargetIdentifierAttributesAttributeOptionsSlugConflictError
+    operations.PostV2FilesUploadResponse,
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -63,15 +67,12 @@ export function attributesCreateOption(
 
 async function $do(
   client: AttioCore,
-  request: operations.PostV2TargetIdentifierAttributesAttributeOptionsRequest,
+  request: operations.PostV2FilesUploadRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.PostV2TargetIdentifierAttributesAttributeOptionsResponse,
-      | errors.PostV2TargetIdentifierAttributesAttributeOptionsValidationTypeError
-      | errors.GetV2TargetIdentifierAttributesAttributeNotFoundError
-      | errors.PostV2TargetIdentifierAttributesAttributeOptionsSlugConflictError
+      operations.PostV2FilesUploadResponse,
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -87,40 +88,53 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      z.parse(
-        operations
-          .PostV2TargetIdentifierAttributesAttributeOptionsRequest$outboundSchema,
-        value,
-      ),
+      z.parse(operations.PostV2FilesUploadRequest$outboundSchema, value),
     "Input validation failed",
   );
   if (!parsed.ok) {
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = encodeJSON("body", payload.body, { explode: true });
+  const body = new FormData();
 
-  const pathParams = {
-    attribute: encodeSimple("attribute", payload.attribute, {
-      explode: false,
-      charEncoding: "percent",
-    }),
-    identifier: encodeSimple("identifier", payload.identifier, {
-      explode: false,
-      charEncoding: "percent",
-    }),
-    target: encodeSimple("target", payload.target, {
-      explode: false,
-      charEncoding: "percent",
-    }),
-  };
+  if (isBlobLike(payload.file)) {
+    appendForm(body, "file", payload.file);
+  } else if (isReadableStream(payload.file.content)) {
+    const buffer = await readableStreamToArrayBuffer(payload.file.content);
+    const contentType = getContentTypeFromFileName(payload.file.fileName)
+      || "application/octet-stream";
+    const blob = new Blob([buffer], { type: contentType });
+    appendForm(body, "file", blob, payload.file.fileName);
+  } else if (payload.file.content instanceof Uint8Array) {
+    const contentType = getContentTypeFromFileName(payload.file.fileName)
+      || "application/octet-stream";
+    appendForm(
+      body,
+      "file",
+      new Blob([new Uint8Array(payload.file.content).buffer], {
+        type: contentType,
+      }),
+      payload.file.fileName,
+    );
+  } else {
+    const contentType = getContentTypeFromFileName(payload.file.fileName)
+      || "application/octet-stream";
+    appendForm(
+      body,
+      "file",
+      new Blob([payload.file.content], { type: contentType }),
+      payload.file.fileName,
+    );
+  }
+  appendForm(body, "object", payload.object);
+  appendForm(body, "record_id", payload.record_id);
+  if (payload.parent_folder_id !== undefined) {
+    appendForm(body, "parent_folder_id", payload.parent_folder_id);
+  }
 
-  const path = pathToFunc(
-    "/v2/{target}/{identifier}/attributes/{attribute}/options",
-  )(pathParams);
+  const path = pathToFunc("/v2/files/upload")();
 
   const headers = new Headers(compactMap({
-    "Content-Type": "application/json",
     Accept: "application/json",
   }));
 
@@ -131,8 +145,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID:
-      "post_/v2/{target}/{identifier}/attributes/{attribute}/options",
+    operationID: "post_/v2/files/upload",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -161,7 +174,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["400", "404", "409", "4XX", "5XX"],
+    errorCodes: ["4XX", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -170,15 +183,8 @@ async function $do(
   }
   const response = doResult.value;
 
-  const responseFields = {
-    HttpMeta: { Response: response, Request: req },
-  };
-
   const [result] = await M.match<
-    operations.PostV2TargetIdentifierAttributesAttributeOptionsResponse,
-    | errors.PostV2TargetIdentifierAttributesAttributeOptionsValidationTypeError
-    | errors.GetV2TargetIdentifierAttributesAttributeNotFoundError
-    | errors.PostV2TargetIdentifierAttributesAttributeOptionsSlugConflictError
+    operations.PostV2FilesUploadResponse,
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -188,29 +194,10 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(
-      200,
-      operations
-        .PostV2TargetIdentifierAttributesAttributeOptionsResponse$inboundSchema,
-    ),
-    M.jsonErr(
-      400,
-      errors
-        .PostV2TargetIdentifierAttributesAttributeOptionsValidationTypeError$inboundSchema,
-    ),
-    M.jsonErr(
-      404,
-      errors
-        .GetV2TargetIdentifierAttributesAttributeNotFoundError$inboundSchema,
-    ),
-    M.jsonErr(
-      409,
-      errors
-        .PostV2TargetIdentifierAttributesAttributeOptionsSlugConflictError$inboundSchema,
-    ),
+    M.json(201, operations.PostV2FilesUploadResponse$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
-  )(response, req, { extraFields: responseFields });
+  )(response, req);
   if (!result.ok) {
     return [result, { status: "complete", request: req, response }];
   }

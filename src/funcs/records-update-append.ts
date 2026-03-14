@@ -27,20 +27,20 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Update a record (overwrite multiselect values)
+ * Update a record (append multiselect values)
  *
  * @remarks
- * Use this endpoint to update people, companies, and other records by `record_id`. If the update payload includes multiselect attributes, the values supplied will overwrite/remove the list of values that already exist (if any). Use the `PATCH` endpoint to append multiselect values without removing those that already exist.
+ * Use this endpoint to update people, companies, and other records by `record_id`. If the update payload includes multiselect attributes, the values supplied will be created and prepended to the list of values that already exist (if any). Use the `PUT` endpoint to overwrite or remove multiselect attribute values.
  *
  * Required scopes: `record_permission:read-write`, `object_configuration:read`.
  */
-export function recordsUpdate(
+export function recordsUpdateAppend(
   client: AttioCore,
-  request: operations.PutV2ObjectsObjectRecordsRecordIdRequest,
+  request: operations.PatchV2ObjectsObjectRecordsRecordIdRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.PutV2ObjectsObjectRecordsRecordIdResponse,
+    operations.PatchV2ObjectsObjectRecordsRecordIdResponse,
     | errors.MissingValueError
     | errors.GetV2ObjectsObjectNotFoundError
     | AttioBaseError
@@ -62,12 +62,12 @@ export function recordsUpdate(
 
 async function $do(
   client: AttioCore,
-  request: operations.PutV2ObjectsObjectRecordsRecordIdRequest,
+  request: operations.PatchV2ObjectsObjectRecordsRecordIdRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.PutV2ObjectsObjectRecordsRecordIdResponse,
+      operations.PatchV2ObjectsObjectRecordsRecordIdResponse,
       | errors.MissingValueError
       | errors.GetV2ObjectsObjectNotFoundError
       | AttioBaseError
@@ -86,7 +86,7 @@ async function $do(
     request,
     (value) =>
       z.parse(
-        operations.PutV2ObjectsObjectRecordsRecordIdRequest$outboundSchema,
+        operations.PatchV2ObjectsObjectRecordsRecordIdRequest$outboundSchema,
         value,
       ),
     "Input validation failed",
@@ -124,7 +124,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "put_/v2/objects/{object}/records/{record_id}",
+    operationID: "patch_/v2/objects/{object}/records/{record_id}",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -138,7 +138,7 @@ async function $do(
 
   const requestRes = client._createRequest(context, {
     security: requestSecurity,
-    method: "PUT",
+    method: "PATCH",
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
@@ -167,7 +167,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.PutV2ObjectsObjectRecordsRecordIdResponse,
+    operations.PatchV2ObjectsObjectRecordsRecordIdResponse,
     | errors.MissingValueError
     | errors.GetV2ObjectsObjectNotFoundError
     | AttioBaseError
@@ -181,7 +181,7 @@ async function $do(
   >(
     M.json(
       200,
-      operations.PutV2ObjectsObjectRecordsRecordIdResponse$inboundSchema,
+      operations.PatchV2ObjectsObjectRecordsRecordIdResponse$inboundSchema,
     ),
     M.jsonErr(400, errors.MissingValueError$inboundSchema),
     M.jsonErr(404, errors.GetV2ObjectsObjectNotFoundError$inboundSchema),

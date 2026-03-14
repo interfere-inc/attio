@@ -6,18 +6,16 @@ Attributes model properties of objects and lists. Some attributes, such as the `
 
 ### Available Operations
 
-* [list](#list) - List attributes
-* [create](#create) - Create an attribute
+* [listAll](#listall) - List attributes
+* [createNew](#createnew) - Create an attribute
 * [get](#get) - Get an attribute
 * [update](#update) - Update an attribute
-* [listOptions](#listoptions) - List select options
-* [createOption](#createoption) - Create a select option
-* [updateOption](#updateoption) - Update a select option
+* [updateSelectOption](#updateselectoption) - Update a select option
 * [listStatuses](#liststatuses) - List statuses
 * [createStatus](#createstatus) - Create a status
 * [updateStatus](#updatestatus) - Update a status
 
-## list
+## listAll
 
 Lists all attributes defined on a specific object or list. Attributes are returned in the order that they are sorted by in the UI.
 
@@ -34,7 +32,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.attributes.list({
+  const result = await attio.attributes.listAll({
     target: "lists",
     identifier: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0",
     limit: 10,
@@ -54,7 +52,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { attributesList } from "@interfere/attio/funcs/attributes-list.js";
+import { attributesListAll } from "@interfere/attio/funcs/attributes-list-all.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -63,7 +61,7 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await attributesList(attio, {
+  const res = await attributesListAll(attio, {
     target: "lists",
     identifier: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0",
     limit: 10,
@@ -74,7 +72,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("attributesList failed:", res.error);
+    console.log("attributesListAll failed:", res.error);
   }
 }
 
@@ -100,7 +98,7 @@ run();
 | ----------------- | ----------------- | ----------------- |
 | errors.AttioError | 4XX, 5XX          | \*/\*             |
 
-## create
+## createNew
 
 Creates a new attribute on either an object or a list.
 
@@ -121,7 +119,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.attributes.create({
+  const result = await attio.attributes.createNew({
     target: "lists",
     identifier: "97052eb9-e65e-443f-a297-f2d9a4a7f795",
     body: {
@@ -169,7 +167,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { attributesCreate } from "@interfere/attio/funcs/attributes-create.js";
+import { attributesCreateNew } from "@interfere/attio/funcs/attributes-create-new.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -178,7 +176,7 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await attributesCreate(attio, {
+  const res = await attributesCreateNew(attio, {
     target: "lists",
     identifier: "97052eb9-e65e-443f-a297-f2d9a4a7f795",
     body: {
@@ -217,7 +215,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("attributesCreate failed:", res.error);
+    console.log("attributesCreateNew failed:", res.error);
   }
 }
 
@@ -465,181 +463,7 @@ run();
 | errors.GetV2TargetIdentifierAttributesAttributeNotFoundError | 404                                                          | application/json                                             |
 | errors.AttioError                                            | 4XX, 5XX                                                     | \*/\*                                                        |
 
-## listOptions
-
-Lists all select options for a particular attribute on either an object or a list.
-
-Required scopes: `object_configuration:read`.
-
-### Example Usage
-
-<!-- UsageSnippet language="typescript" operationID="get_/v2/{target}/{identifier}/attributes/{attribute}/options" method="get" path="/v2/{target}/{identifier}/attributes/{attribute}/options" -->
-```typescript
-import { Attio } from "@interfere/attio";
-
-const attio = new Attio({
-  oauth2: process.env["ATTIO_OAUTH2"] ?? "",
-});
-
-async function run() {
-  const result = await attio.attributes.listOptions({
-    target: "lists",
-    identifier: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0",
-    attribute: "41252299-f8c7-4b5e-99c9-4ff8321d2f96",
-    showArchived: true,
-  });
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { AttioCore } from "@interfere/attio/core.js";
-import { attributesListOptions } from "@interfere/attio/funcs/attributes-list-options.js";
-
-// Use `AttioCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const attio = new AttioCore({
-  oauth2: process.env["ATTIO_OAUTH2"] ?? "",
-});
-
-async function run() {
-  const res = await attributesListOptions(attio, {
-    target: "lists",
-    identifier: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0",
-    attribute: "41252299-f8c7-4b5e-99c9-4ff8321d2f96",
-    showArchived: true,
-  });
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("attributesListOptions failed:", res.error);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.GetV2TargetIdentifierAttributesAttributeOptionsRequest](../../models/operations/get-v2-target-identifier-attributes-attribute-options-request.md)                  | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-
-### Response
-
-**Promise\<[operations.GetV2TargetIdentifierAttributesAttributeOptionsResponse](../../models/operations/get-v2-target-identifier-attributes-attribute-options-response.md)\>**
-
-### Errors
-
-| Error Type                                                   | Status Code                                                  | Content Type                                                 |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| errors.GetV2TargetIdentifierAttributesAttributeNotFoundError | 404                                                          | application/json                                             |
-| errors.AttioError                                            | 4XX, 5XX                                                     | \*/\*                                                        |
-
-## createOption
-
-Adds a select option to a select attribute on an object or a list.
-
-Required scopes: `object_configuration:read-write`.
-
-### Example Usage
-
-<!-- UsageSnippet language="typescript" operationID="post_/v2/{target}/{identifier}/attributes/{attribute}/options" method="post" path="/v2/{target}/{identifier}/attributes/{attribute}/options" -->
-```typescript
-import { Attio } from "@interfere/attio";
-
-const attio = new Attio({
-  oauth2: process.env["ATTIO_OAUTH2"] ?? "",
-});
-
-async function run() {
-  const result = await attio.attributes.createOption({
-    target: "lists",
-    identifier: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0",
-    attribute: "41252299-f8c7-4b5e-99c9-4ff8321d2f96",
-    body: {
-      data: {
-        title: "Medium",
-      },
-    },
-  });
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { AttioCore } from "@interfere/attio/core.js";
-import { attributesCreateOption } from "@interfere/attio/funcs/attributes-create-option.js";
-
-// Use `AttioCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const attio = new AttioCore({
-  oauth2: process.env["ATTIO_OAUTH2"] ?? "",
-});
-
-async function run() {
-  const res = await attributesCreateOption(attio, {
-    target: "lists",
-    identifier: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0",
-    attribute: "41252299-f8c7-4b5e-99c9-4ff8321d2f96",
-    body: {
-      data: {
-        title: "Medium",
-      },
-    },
-  });
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("attributesCreateOption failed:", res.error);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.PostV2TargetIdentifierAttributesAttributeOptionsRequest](../../models/operations/post-v2-target-identifier-attributes-attribute-options-request.md)                | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-
-### Response
-
-**Promise\<[operations.PostV2TargetIdentifierAttributesAttributeOptionsResponse](../../models/operations/post-v2-target-identifier-attributes-attribute-options-response.md)\>**
-
-### Errors
-
-| Error Type                                                                 | Status Code                                                                | Content Type                                                               |
-| -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| errors.PostV2TargetIdentifierAttributesAttributeOptionsValidationTypeError | 400                                                                        | application/json                                                           |
-| errors.GetV2TargetIdentifierAttributesAttributeNotFoundError               | 404                                                                        | application/json                                                           |
-| errors.PostV2TargetIdentifierAttributesAttributeOptionsSlugConflictError   | 409                                                                        | application/json                                                           |
-| errors.AttioError                                                          | 4XX, 5XX                                                                   | \*/\*                                                                      |
-
-## updateOption
+## updateSelectOption
 
 Updates a select option on an attribute on either an object or a list.
 
@@ -656,7 +480,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.attributes.updateOption({
+  const result = await attio.attributes.updateSelectOption({
     target: "lists",
     identifier: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0",
     attribute: "41252299-f8c7-4b5e-99c9-4ff8321d2f96",
@@ -681,7 +505,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { attributesUpdateOption } from "@interfere/attio/funcs/attributes-update-option.js";
+import { attributesUpdateSelectOption } from "@interfere/attio/funcs/attributes-update-select-option.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -690,7 +514,7 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await attributesUpdateOption(attio, {
+  const res = await attributesUpdateSelectOption(attio, {
     target: "lists",
     identifier: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0",
     attribute: "41252299-f8c7-4b5e-99c9-4ff8321d2f96",
@@ -706,7 +530,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("attributesUpdateOption failed:", res.error);
+    console.log("attributesUpdateSelectOption failed:", res.error);
   }
 }
 

@@ -7,7 +7,7 @@ Meetings are events synced from your calendar, added manually or added from thir
 ### Available Operations
 
 * [list](#list) - List meetings
-* [createOrFind](#createorfind) - Find or create a meeting
+* [findOrCreate](#findorcreate) - Find or create a meeting
 * [get](#get) - Get a meeting
 
 ## list
@@ -83,7 +83,7 @@ run();
 | ----------------- | ----------------- | ----------------- |
 | errors.AttioError | 4XX, 5XX          | \*/\*             |
 
-## createOrFind
+## findOrCreate
 
 Finds an existing meeting or creates a new one if it doesn't yet exist. [Please see here](/rest-api/guides/syncing-meetings) for a full guide on syncing meetings to Attio.
 
@@ -102,7 +102,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.meetings.createOrFind({
+  const result = await attio.meetings.findOrCreate({
     data: {
       title: "Onboarding Session",
       description: "Getting you up to speed with the platform and answering any questions you have.",
@@ -137,7 +137,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { meetingsCreateOrFind } from "@interfere/attio/funcs/meetings-create-or-find.js";
+import { meetingsFindOrCreate } from "@interfere/attio/funcs/meetings-find-or-create.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -146,7 +146,7 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await meetingsCreateOrFind(attio, {
+  const res = await meetingsFindOrCreate(attio, {
     data: {
       title: "Onboarding Session",
       description: "Getting you up to speed with the platform and answering any questions you have.",
@@ -172,7 +172,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("meetingsCreateOrFind failed:", res.error);
+    console.log("meetingsFindOrCreate failed:", res.error);
   }
 }
 

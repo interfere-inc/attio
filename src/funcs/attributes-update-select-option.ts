@@ -4,7 +4,7 @@
 
 import * as z from "zod/v4-mini";
 import { AttioCore } from "../core.js";
-import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
+import { encodeJSON, encodeSimple } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -19,6 +19,7 @@ import {
   RequestTimeoutError,
   UnexpectedClientError,
 } from "../models/errors/http-client-errors.js";
+import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/response-validation-error.js";
 import { SDKValidationError } from "../models/errors/sdk-validation-error.js";
 import * as operations from "../models/operations/index.js";
@@ -26,22 +27,24 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * List call recordings
+ * Update a select option
  *
  * @remarks
- * List all call recordings for a meeting.
+ * Updates a select option on an attribute on either an object or a list.
  *
- * This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
- *
- * Required scopes: `meeting:read`, `call_recording:read`.
+ * Required scopes: `object_configuration:read-write`.
  */
-export function callRecordingsListByMeeting(
+export function attributesUpdateSelectOption(
   client: AttioCore,
-  request: operations.GetV2MeetingsMeetingIdCallRecordingsRequest,
+  request:
+    operations.PatchV2TargetIdentifierAttributesAttributeOptionsOptionRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.GetV2MeetingsMeetingIdCallRecordingsResponse,
+    operations.PatchV2TargetIdentifierAttributesAttributeOptionsOptionResponse,
+    | errors.PatchV2TargetIdentifierAttributesAttributeOptionsOptionValueNotFoundError
+    | errors.GetV2TargetIdentifierAttributesAttributeNotFoundError
+    | errors.PostV2TargetIdentifierAttributesAttributeOptionsSlugConflictError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -61,12 +64,16 @@ export function callRecordingsListByMeeting(
 
 async function $do(
   client: AttioCore,
-  request: operations.GetV2MeetingsMeetingIdCallRecordingsRequest,
+  request:
+    operations.PatchV2TargetIdentifierAttributesAttributeOptionsOptionRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.GetV2MeetingsMeetingIdCallRecordingsResponse,
+      operations.PatchV2TargetIdentifierAttributesAttributeOptionsOptionResponse,
+      | errors.PatchV2TargetIdentifierAttributesAttributeOptionsOptionValueNotFoundError
+      | errors.GetV2TargetIdentifierAttributesAttributeNotFoundError
+      | errors.PostV2TargetIdentifierAttributesAttributeOptionsSlugConflictError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -83,7 +90,8 @@ async function $do(
     request,
     (value) =>
       z.parse(
-        operations.GetV2MeetingsMeetingIdCallRecordingsRequest$outboundSchema,
+        operations
+          .PatchV2TargetIdentifierAttributesAttributeOptionsOptionRequest$outboundSchema,
         value,
       ),
     "Input validation failed",
@@ -92,25 +100,33 @@ async function $do(
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = null;
+  const body = encodeJSON("body", payload.body, { explode: true });
 
   const pathParams = {
-    meeting_id: encodeSimple("meeting_id", payload.meeting_id, {
+    attribute: encodeSimple("attribute", payload.attribute, {
+      explode: false,
+      charEncoding: "percent",
+    }),
+    identifier: encodeSimple("identifier", payload.identifier, {
+      explode: false,
+      charEncoding: "percent",
+    }),
+    option: encodeSimple("option", payload.option, {
+      explode: false,
+      charEncoding: "percent",
+    }),
+    target: encodeSimple("target", payload.target, {
       explode: false,
       charEncoding: "percent",
     }),
   };
 
-  const path = pathToFunc("/v2/meetings/{meeting_id}/call_recordings")(
-    pathParams,
-  );
-
-  const query = encodeFormQuery({
-    "cursor": payload.cursor,
-    "limit": payload.limit,
-  });
+  const path = pathToFunc(
+    "/v2/{target}/{identifier}/attributes/{attribute}/options/{option}",
+  )(pathParams);
 
   const headers = new Headers(compactMap({
+    "Content-Type": "application/json",
     Accept: "application/json",
   }));
 
@@ -121,7 +137,8 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "get_/v2/meetings/{meeting_id}/call_recordings",
+    operationID:
+      "patch_/v2/{target}/{identifier}/attributes/{attribute}/options/{option}",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -135,11 +152,10 @@ async function $do(
 
   const requestRes = client._createRequest(context, {
     security: requestSecurity,
-    method: "GET",
+    method: "PATCH",
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
-    query: query,
     body: body,
     userAgent: client._options.userAgent,
     timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,
@@ -151,7 +167,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["4XX", "5XX"],
+    errorCodes: ["400", "404", "409", "4XX", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -160,8 +176,15 @@ async function $do(
   }
   const response = doResult.value;
 
+  const responseFields = {
+    HttpMeta: { Response: response, Request: req },
+  };
+
   const [result] = await M.match<
-    operations.GetV2MeetingsMeetingIdCallRecordingsResponse,
+    operations.PatchV2TargetIdentifierAttributesAttributeOptionsOptionResponse,
+    | errors.PatchV2TargetIdentifierAttributesAttributeOptionsOptionValueNotFoundError
+    | errors.GetV2TargetIdentifierAttributesAttributeNotFoundError
+    | errors.PostV2TargetIdentifierAttributesAttributeOptionsSlugConflictError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -173,11 +196,27 @@ async function $do(
   >(
     M.json(
       200,
-      operations.GetV2MeetingsMeetingIdCallRecordingsResponse$inboundSchema,
+      operations
+        .PatchV2TargetIdentifierAttributesAttributeOptionsOptionResponse$inboundSchema,
+    ),
+    M.jsonErr(
+      400,
+      errors
+        .PatchV2TargetIdentifierAttributesAttributeOptionsOptionValueNotFoundError$inboundSchema,
+    ),
+    M.jsonErr(
+      404,
+      errors
+        .GetV2TargetIdentifierAttributesAttributeNotFoundError$inboundSchema,
+    ),
+    M.jsonErr(
+      409,
+      errors
+        .PostV2TargetIdentifierAttributesAttributeOptionsSlugConflictError$inboundSchema,
     ),
     M.fail("4XX"),
     M.fail("5XX"),
-  )(response, req);
+  )(response, req, { extraFields: responseFields });
   if (!result.ok) {
     return [result, { status: "complete", request: req, response }];
   }

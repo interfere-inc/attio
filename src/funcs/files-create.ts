@@ -4,7 +4,7 @@
 
 import * as z from "zod/v4-mini";
 import { AttioCore } from "../core.js";
-import { encodeJSON, encodeSimple } from "../lib/encodings.js";
+import { encodeJSON } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -19,7 +19,6 @@ import {
   RequestTimeoutError,
   UnexpectedClientError,
 } from "../models/errors/http-client-errors.js";
-import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/response-validation-error.js";
 import { SDKValidationError } from "../models/errors/sdk-validation-error.js";
 import * as operations from "../models/operations/index.js";
@@ -27,22 +26,22 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Update a record (overwrite multiselect values)
+ * Create a folder
  *
  * @remarks
- * Use this endpoint to update people, companies, and other records by `record_id`. If the update payload includes multiselect attributes, the values supplied will overwrite/remove the list of values that already exist (if any). Use the `PATCH` endpoint to append multiselect values without removing those that already exist.
+ * Creates a native folder entry or a connected file/folder entry on an object record.
  *
- * Required scopes: `record_permission:read-write`, `object_configuration:read`.
+ * This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
+ *
+ * Required scopes: `file:read-write`, `object_configuration:read`, `record_permission:read`.
  */
-export function recordsUpdate(
+export function filesCreate(
   client: AttioCore,
-  request: operations.PutV2ObjectsObjectRecordsRecordIdRequest,
+  request: operations.PostV2FilesRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.PutV2ObjectsObjectRecordsRecordIdResponse,
-    | errors.MissingValueError
-    | errors.GetV2ObjectsObjectNotFoundError
+    operations.PostV2FilesResponse,
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -62,14 +61,12 @@ export function recordsUpdate(
 
 async function $do(
   client: AttioCore,
-  request: operations.PutV2ObjectsObjectRecordsRecordIdRequest,
+  request: operations.PostV2FilesRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.PutV2ObjectsObjectRecordsRecordIdResponse,
-      | errors.MissingValueError
-      | errors.GetV2ObjectsObjectNotFoundError
+      operations.PostV2FilesResponse,
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -84,33 +81,16 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) =>
-      z.parse(
-        operations.PutV2ObjectsObjectRecordsRecordIdRequest$outboundSchema,
-        value,
-      ),
+    (value) => z.parse(operations.PostV2FilesRequest$outboundSchema, value),
     "Input validation failed",
   );
   if (!parsed.ok) {
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = encodeJSON("body", payload.body, { explode: true });
+  const body = encodeJSON("body", payload, { explode: true });
 
-  const pathParams = {
-    object: encodeSimple("object", payload.object, {
-      explode: false,
-      charEncoding: "percent",
-    }),
-    record_id: encodeSimple("record_id", payload.record_id, {
-      explode: false,
-      charEncoding: "percent",
-    }),
-  };
-
-  const path = pathToFunc("/v2/objects/{object}/records/{record_id}")(
-    pathParams,
-  );
+  const path = pathToFunc("/v2/files")();
 
   const headers = new Headers(compactMap({
     "Content-Type": "application/json",
@@ -124,7 +104,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "put_/v2/objects/{object}/records/{record_id}",
+    operationID: "post_/v2/files",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -138,7 +118,7 @@ async function $do(
 
   const requestRes = client._createRequest(context, {
     security: requestSecurity,
-    method: "PUT",
+    method: "POST",
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
@@ -153,7 +133,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["400", "404", "4XX", "5XX"],
+    errorCodes: ["4XX", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -162,14 +142,8 @@ async function $do(
   }
   const response = doResult.value;
 
-  const responseFields = {
-    HttpMeta: { Response: response, Request: req },
-  };
-
   const [result] = await M.match<
-    operations.PutV2ObjectsObjectRecordsRecordIdResponse,
-    | errors.MissingValueError
-    | errors.GetV2ObjectsObjectNotFoundError
+    operations.PostV2FilesResponse,
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -179,15 +153,10 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(
-      200,
-      operations.PutV2ObjectsObjectRecordsRecordIdResponse$inboundSchema,
-    ),
-    M.jsonErr(400, errors.MissingValueError$inboundSchema),
-    M.jsonErr(404, errors.GetV2ObjectsObjectNotFoundError$inboundSchema),
+    M.json(200, operations.PostV2FilesResponse$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
-  )(response, req, { extraFields: responseFields });
+  )(response, req);
   if (!result.ok) {
     return [result, { status: "complete", request: req, response }];
   }

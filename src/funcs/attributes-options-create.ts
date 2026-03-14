@@ -27,27 +27,23 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Create an attribute
+ * Create a select option
  *
  * @remarks
- * Creates a new attribute on either an object or a list.
+ * Adds a select option to a select attribute on an object or a list.
  *
- * For record-reference attributes, you can optionally create a bidirectional relationship by providing a `relationship` object. This will create two entangled attributes: one on the specified object and a reverse attribute on the related object.
- *
- * To create an attribute on an object, you must also have the `object_configuration:read-write` scope.
- *
- * To create an attribute on a list, you must also have the `list_configuration:read-write` scope.
+ * Required scopes: `object_configuration:read-write`.
  */
-export function attributesCreate(
+export function attributesOptionsCreate(
   client: AttioCore,
-  request: operations.PostV2TargetIdentifierAttributesRequest,
+  request: operations.PostV2TargetIdentifierAttributesAttributeOptionsRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.PostV2TargetIdentifierAttributesResponse,
-    | errors.PostV2TargetIdentifierAttributesValidationTypeError
-    | errors.PostV2TargetIdentifierAttributesNotFoundError
-    | errors.PostV2TargetIdentifierAttributesSlugConflictError
+    operations.PostV2TargetIdentifierAttributesAttributeOptionsResponse,
+    | errors.PostV2TargetIdentifierAttributesAttributeOptionsValidationTypeError
+    | errors.GetV2TargetIdentifierAttributesAttributeNotFoundError
+    | errors.PostV2TargetIdentifierAttributesAttributeOptionsSlugConflictError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -67,15 +63,15 @@ export function attributesCreate(
 
 async function $do(
   client: AttioCore,
-  request: operations.PostV2TargetIdentifierAttributesRequest,
+  request: operations.PostV2TargetIdentifierAttributesAttributeOptionsRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.PostV2TargetIdentifierAttributesResponse,
-      | errors.PostV2TargetIdentifierAttributesValidationTypeError
-      | errors.PostV2TargetIdentifierAttributesNotFoundError
-      | errors.PostV2TargetIdentifierAttributesSlugConflictError
+      operations.PostV2TargetIdentifierAttributesAttributeOptionsResponse,
+      | errors.PostV2TargetIdentifierAttributesAttributeOptionsValidationTypeError
+      | errors.GetV2TargetIdentifierAttributesAttributeNotFoundError
+      | errors.PostV2TargetIdentifierAttributesAttributeOptionsSlugConflictError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -92,7 +88,8 @@ async function $do(
     request,
     (value) =>
       z.parse(
-        operations.PostV2TargetIdentifierAttributesRequest$outboundSchema,
+        operations
+          .PostV2TargetIdentifierAttributesAttributeOptionsRequest$outboundSchema,
         value,
       ),
     "Input validation failed",
@@ -104,6 +101,10 @@ async function $do(
   const body = encodeJSON("body", payload.body, { explode: true });
 
   const pathParams = {
+    attribute: encodeSimple("attribute", payload.attribute, {
+      explode: false,
+      charEncoding: "percent",
+    }),
     identifier: encodeSimple("identifier", payload.identifier, {
       explode: false,
       charEncoding: "percent",
@@ -114,7 +115,9 @@ async function $do(
     }),
   };
 
-  const path = pathToFunc("/v2/{target}/{identifier}/attributes")(pathParams);
+  const path = pathToFunc(
+    "/v2/{target}/{identifier}/attributes/{attribute}/options",
+  )(pathParams);
 
   const headers = new Headers(compactMap({
     "Content-Type": "application/json",
@@ -128,7 +131,8 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "post_/v2/{target}/{identifier}/attributes",
+    operationID:
+      "post_/v2/{target}/{identifier}/attributes/{attribute}/options",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -171,10 +175,10 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.PostV2TargetIdentifierAttributesResponse,
-    | errors.PostV2TargetIdentifierAttributesValidationTypeError
-    | errors.PostV2TargetIdentifierAttributesNotFoundError
-    | errors.PostV2TargetIdentifierAttributesSlugConflictError
+    operations.PostV2TargetIdentifierAttributesAttributeOptionsResponse,
+    | errors.PostV2TargetIdentifierAttributesAttributeOptionsValidationTypeError
+    | errors.GetV2TargetIdentifierAttributesAttributeNotFoundError
+    | errors.PostV2TargetIdentifierAttributesAttributeOptionsSlugConflictError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -186,19 +190,23 @@ async function $do(
   >(
     M.json(
       200,
-      operations.PostV2TargetIdentifierAttributesResponse$inboundSchema,
+      operations
+        .PostV2TargetIdentifierAttributesAttributeOptionsResponse$inboundSchema,
     ),
     M.jsonErr(
       400,
-      errors.PostV2TargetIdentifierAttributesValidationTypeError$inboundSchema,
+      errors
+        .PostV2TargetIdentifierAttributesAttributeOptionsValidationTypeError$inboundSchema,
     ),
     M.jsonErr(
       404,
-      errors.PostV2TargetIdentifierAttributesNotFoundError$inboundSchema,
+      errors
+        .GetV2TargetIdentifierAttributesAttributeNotFoundError$inboundSchema,
     ),
     M.jsonErr(
       409,
-      errors.PostV2TargetIdentifierAttributesSlugConflictError$inboundSchema,
+      errors
+        .PostV2TargetIdentifierAttributesAttributeOptionsSlugConflictError$inboundSchema,
     ),
     M.fail("4XX"),
     M.fail("5XX"),

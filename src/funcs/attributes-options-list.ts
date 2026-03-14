@@ -4,7 +4,7 @@
 
 import * as z from "zod/v4-mini";
 import { AttioCore } from "../core.js";
-import { encodeJSON, encodeSimple } from "../lib/encodings.js";
+import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -27,22 +27,21 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Update a list entry (append multiselect values)
+ * List select options
  *
  * @remarks
- * Use this endpoint to update list entries by `entry_id`. If the update payload includes multiselect attributes, the values supplied will be created and prepended to the list of values that already exist (if any). Use the `PUT` endpoint to overwrite or remove multiselect attribute values.
+ * Lists all select options for a particular attribute on either an object or a list.
  *
- * Required scopes: `list_entry:read-write`, `list_configuration:read`.
+ * Required scopes: `object_configuration:read`.
  */
-export function entriesAppendUpdate(
+export function attributesOptionsList(
   client: AttioCore,
-  request: operations.PatchV2ListsListEntriesEntryIdRequest,
+  request: operations.GetV2TargetIdentifierAttributesAttributeOptionsRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.PatchV2ListsListEntriesEntryIdResponse,
-    | errors.ImmutableValueError
-    | errors.GetV2ListsListNotFoundError
+    operations.GetV2TargetIdentifierAttributesAttributeOptionsResponse,
+    | errors.GetV2TargetIdentifierAttributesAttributeNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -62,14 +61,13 @@ export function entriesAppendUpdate(
 
 async function $do(
   client: AttioCore,
-  request: operations.PatchV2ListsListEntriesEntryIdRequest,
+  request: operations.GetV2TargetIdentifierAttributesAttributeOptionsRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.PatchV2ListsListEntriesEntryIdResponse,
-      | errors.ImmutableValueError
-      | errors.GetV2ListsListNotFoundError
+      operations.GetV2TargetIdentifierAttributesAttributeOptionsResponse,
+      | errors.GetV2TargetIdentifierAttributesAttributeNotFoundError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -86,7 +84,8 @@ async function $do(
     request,
     (value) =>
       z.parse(
-        operations.PatchV2ListsListEntriesEntryIdRequest$outboundSchema,
+        operations
+          .GetV2TargetIdentifierAttributesAttributeOptionsRequest$outboundSchema,
         value,
       ),
     "Input validation failed",
@@ -95,23 +94,32 @@ async function $do(
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = encodeJSON("body", payload.body, { explode: true });
+  const body = null;
 
   const pathParams = {
-    entry_id: encodeSimple("entry_id", payload.entry_id, {
+    attribute: encodeSimple("attribute", payload.attribute, {
       explode: false,
       charEncoding: "percent",
     }),
-    list: encodeSimple("list", payload.list, {
+    identifier: encodeSimple("identifier", payload.identifier, {
+      explode: false,
+      charEncoding: "percent",
+    }),
+    target: encodeSimple("target", payload.target, {
       explode: false,
       charEncoding: "percent",
     }),
   };
 
-  const path = pathToFunc("/v2/lists/{list}/entries/{entry_id}")(pathParams);
+  const path = pathToFunc(
+    "/v2/{target}/{identifier}/attributes/{attribute}/options",
+  )(pathParams);
+
+  const query = encodeFormQuery({
+    "show_archived": payload.show_archived,
+  });
 
   const headers = new Headers(compactMap({
-    "Content-Type": "application/json",
     Accept: "application/json",
   }));
 
@@ -122,7 +130,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "patch_/v2/lists/{list}/entries/{entry_id}",
+    operationID: "get_/v2/{target}/{identifier}/attributes/{attribute}/options",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -136,10 +144,11 @@ async function $do(
 
   const requestRes = client._createRequest(context, {
     security: requestSecurity,
-    method: "PATCH",
+    method: "GET",
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
+    query: query,
     body: body,
     userAgent: client._options.userAgent,
     timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,
@@ -151,7 +160,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["400", "404", "4XX", "5XX"],
+    errorCodes: ["404", "4XX", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -165,9 +174,8 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.PatchV2ListsListEntriesEntryIdResponse,
-    | errors.ImmutableValueError
-    | errors.GetV2ListsListNotFoundError
+    operations.GetV2TargetIdentifierAttributesAttributeOptionsResponse,
+    | errors.GetV2TargetIdentifierAttributesAttributeNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -179,10 +187,14 @@ async function $do(
   >(
     M.json(
       200,
-      operations.PatchV2ListsListEntriesEntryIdResponse$inboundSchema,
+      operations
+        .GetV2TargetIdentifierAttributesAttributeOptionsResponse$inboundSchema,
     ),
-    M.jsonErr(400, errors.ImmutableValueError$inboundSchema),
-    M.jsonErr(404, errors.GetV2ListsListNotFoundError$inboundSchema),
+    M.jsonErr(
+      404,
+      errors
+        .GetV2TargetIdentifierAttributesAttributeNotFoundError$inboundSchema,
+    ),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

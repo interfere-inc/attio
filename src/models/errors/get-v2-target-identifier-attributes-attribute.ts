@@ -121,50 +121,6 @@ export class PostV2TargetIdentifierAttributesAttributeOptionsSlugConflictError
 /**
  * Bad Request
  */
-export type PostV2TargetIdentifierAttributesAttributeOptionsValidationTypeErrorData =
-  {
-    statusCode: number;
-    type:
-      operations.PostV2TargetIdentifierAttributesAttributeOptionsBadRequestType;
-    code:
-      operations.PostV2TargetIdentifierAttributesAttributeOptionsCodeValidationType;
-    message: string;
-  };
-
-/**
- * Bad Request
- */
-export class PostV2TargetIdentifierAttributesAttributeOptionsValidationTypeError
-  extends AttioBaseError
-{
-  type:
-    operations.PostV2TargetIdentifierAttributesAttributeOptionsBadRequestType;
-  code:
-    operations.PostV2TargetIdentifierAttributesAttributeOptionsCodeValidationType;
-
-  /** The original data that was passed to this error instance. */
-  data$:
-    PostV2TargetIdentifierAttributesAttributeOptionsValidationTypeErrorData;
-
-  constructor(
-    err:
-      PostV2TargetIdentifierAttributesAttributeOptionsValidationTypeErrorData,
-    httpMeta: { response: Response; request: Request; body: string },
-  ) {
-    const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
-    super(message, httpMeta);
-    this.data$ = err;
-    this.type = err.type;
-    this.code = err.code;
-
-    this.name =
-      "PostV2TargetIdentifierAttributesAttributeOptionsValidationTypeError";
-  }
-}
-
-/**
- * Bad Request
- */
 export type PatchV2TargetIdentifierAttributesAttributeOptionsOptionValueNotFoundErrorData =
   {
     statusCode: number;
@@ -339,6 +295,50 @@ export class PatchV2TargetIdentifierAttributesAttributeStatusesStatusValueNotFou
 /**
  * Bad Request
  */
+export type PostV2TargetIdentifierAttributesAttributeOptionsValidationTypeErrorData =
+  {
+    statusCode: number;
+    type:
+      operations.PostV2TargetIdentifierAttributesAttributeOptionsBadRequestType;
+    code:
+      operations.PostV2TargetIdentifierAttributesAttributeOptionsCodeValidationType;
+    message: string;
+  };
+
+/**
+ * Bad Request
+ */
+export class PostV2TargetIdentifierAttributesAttributeOptionsValidationTypeError
+  extends AttioBaseError
+{
+  type:
+    operations.PostV2TargetIdentifierAttributesAttributeOptionsBadRequestType;
+  code:
+    operations.PostV2TargetIdentifierAttributesAttributeOptionsCodeValidationType;
+
+  /** The original data that was passed to this error instance. */
+  data$:
+    PostV2TargetIdentifierAttributesAttributeOptionsValidationTypeErrorData;
+
+  constructor(
+    err:
+      PostV2TargetIdentifierAttributesAttributeOptionsValidationTypeErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    this.type = err.type;
+    this.code = err.code;
+
+    this.name =
+      "PostV2TargetIdentifierAttributesAttributeOptionsValidationTypeError";
+  }
+}
+
+/**
+ * Bad Request
+ */
 export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesValidationTypeErrorData =
   {
     statusCode: number;
@@ -470,37 +470,6 @@ export const PostV2TargetIdentifierAttributesAttributeOptionsSlugConflictError$i
   );
 
 /** @internal */
-export const PostV2TargetIdentifierAttributesAttributeOptionsValidationTypeError$inboundSchema:
-  z.ZodMiniType<
-    PostV2TargetIdentifierAttributesAttributeOptionsValidationTypeError,
-    unknown
-  > = z.pipe(
-    z.object({
-      status_code: types.number(),
-      type:
-        operations
-          .PostV2TargetIdentifierAttributesAttributeOptionsBadRequestType$inboundSchema,
-      code:
-        operations
-          .PostV2TargetIdentifierAttributesAttributeOptionsCodeValidationType$inboundSchema,
-      message: types.string(),
-      request$: z.custom<Request>(x => x instanceof Request),
-      response$: z.custom<Response>(x => x instanceof Response),
-      body$: z.string(),
-    }),
-    z.transform((v) => {
-      const remapped = remap$(v, {
-        "status_code": "statusCode",
-      });
-
-      return new PostV2TargetIdentifierAttributesAttributeOptionsValidationTypeError(
-        remapped,
-        { request: v.request$, response: v.response$, body: v.body$ },
-      );
-    }),
-  );
-
-/** @internal */
 export const PatchV2TargetIdentifierAttributesAttributeOptionsOptionValueNotFoundError$inboundSchema:
   z.ZodMiniType<
     PatchV2TargetIdentifierAttributesAttributeOptionsOptionValueNotFoundError,
@@ -618,6 +587,37 @@ export const PatchV2TargetIdentifierAttributesAttributeStatusesStatusValueNotFou
       });
 
       return new PatchV2TargetIdentifierAttributesAttributeStatusesStatusValueNotFoundError(
+        remapped,
+        { request: v.request$, response: v.response$, body: v.body$ },
+      );
+    }),
+  );
+
+/** @internal */
+export const PostV2TargetIdentifierAttributesAttributeOptionsValidationTypeError$inboundSchema:
+  z.ZodMiniType<
+    PostV2TargetIdentifierAttributesAttributeOptionsValidationTypeError,
+    unknown
+  > = z.pipe(
+    z.object({
+      status_code: types.number(),
+      type:
+        operations
+          .PostV2TargetIdentifierAttributesAttributeOptionsBadRequestType$inboundSchema,
+      code:
+        operations
+          .PostV2TargetIdentifierAttributesAttributeOptionsCodeValidationType$inboundSchema,
+      message: types.string(),
+      request$: z.custom<Request>(x => x instanceof Request),
+      response$: z.custom<Response>(x => x instanceof Response),
+      body$: z.string(),
+    }),
+    z.transform((v) => {
+      const remapped = remap$(v, {
+        "status_code": "statusCode",
+      });
+
+      return new PostV2TargetIdentifierAttributesAttributeOptionsValidationTypeError(
         remapped,
         { request: v.request$, response: v.response$, body: v.body$ },
       );

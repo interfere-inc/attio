@@ -3,7 +3,7 @@
  */
 
 import { threadsGet } from "../funcs/threads-get.js";
-import { threadsList } from "../funcs/threads-list.js";
+import { threadsListAll } from "../funcs/threads-list-all.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
@@ -21,11 +21,11 @@ export class Threads extends ClientSDK {
    *
    * Required scopes: `comment:read`.
    */
-  async list(
+  async listAll(
     request?: operations.GetV2ThreadsRequest | undefined,
     options?: RequestOptions,
   ): Promise<operations.GetV2ThreadsResponse> {
-    return unwrapAsync(threadsList(
+    return unwrapAsync(threadsListAll(
       this,
       request,
       options,

@@ -26,23 +26,22 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Get call transcript
+ * List call recordings
  *
  * @remarks
- * Get the transcript for a call recording.
+ * List all call recordings for a meeting.
  *
  * This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
  *
  * Required scopes: `meeting:read`, `call_recording:read`.
  */
-export function transcriptsGet(
+export function callRecordingsList(
   client: AttioCore,
-  request:
-    operations.GetV2MeetingsMeetingIdCallRecordingsCallRecordingIdTranscriptRequest,
+  request: operations.GetV2MeetingsMeetingIdCallRecordingsRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.GetV2MeetingsMeetingIdCallRecordingsCallRecordingIdTranscriptResponse,
+    operations.GetV2MeetingsMeetingIdCallRecordingsResponse,
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -62,13 +61,12 @@ export function transcriptsGet(
 
 async function $do(
   client: AttioCore,
-  request:
-    operations.GetV2MeetingsMeetingIdCallRecordingsCallRecordingIdTranscriptRequest,
+  request: operations.GetV2MeetingsMeetingIdCallRecordingsRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.GetV2MeetingsMeetingIdCallRecordingsCallRecordingIdTranscriptResponse,
+      operations.GetV2MeetingsMeetingIdCallRecordingsResponse,
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -85,8 +83,7 @@ async function $do(
     request,
     (value) =>
       z.parse(
-        operations
-          .GetV2MeetingsMeetingIdCallRecordingsCallRecordingIdTranscriptRequest$outboundSchema,
+        operations.GetV2MeetingsMeetingIdCallRecordingsRequest$outboundSchema,
         value,
       ),
     "Input validation failed",
@@ -98,23 +95,19 @@ async function $do(
   const body = null;
 
   const pathParams = {
-    call_recording_id: encodeSimple(
-      "call_recording_id",
-      payload.call_recording_id,
-      { explode: false, charEncoding: "percent" },
-    ),
     meeting_id: encodeSimple("meeting_id", payload.meeting_id, {
       explode: false,
       charEncoding: "percent",
     }),
   };
 
-  const path = pathToFunc(
-    "/v2/meetings/{meeting_id}/call_recordings/{call_recording_id}/transcript",
-  )(pathParams);
+  const path = pathToFunc("/v2/meetings/{meeting_id}/call_recordings")(
+    pathParams,
+  );
 
   const query = encodeFormQuery({
     "cursor": payload.cursor,
+    "limit": payload.limit,
   });
 
   const headers = new Headers(compactMap({
@@ -128,8 +121,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID:
-      "get_/v2/meetings/{meeting_id}/call_recordings/{call_recording_id}/transcript",
+    operationID: "get_/v2/meetings/{meeting_id}/call_recordings",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -169,7 +161,7 @@ async function $do(
   const response = doResult.value;
 
   const [result] = await M.match<
-    operations.GetV2MeetingsMeetingIdCallRecordingsCallRecordingIdTranscriptResponse,
+    operations.GetV2MeetingsMeetingIdCallRecordingsResponse,
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -181,8 +173,7 @@ async function $do(
   >(
     M.json(
       200,
-      operations
-        .GetV2MeetingsMeetingIdCallRecordingsCallRecordingIdTranscriptResponse$inboundSchema,
+      operations.GetV2MeetingsMeetingIdCallRecordingsResponse$inboundSchema,
     ),
     M.fail("4XX"),
     M.fail("5XX"),

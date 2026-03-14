@@ -4160,7 +4160,7 @@ paths:
                 required:
                   - "data"
                 description: "Success"
-      x-speakeasy-name-override: list
+      x-speakeasy-name-override: listAll
     post:
       summary: "Create an attribute"
       description: "Creates a new attribute on either an object or a list.\n\nFor record-reference attributes, you can optionally create a bidirectional relationship by providing a `relationship` object. This will create two entangled attributes: one on the specified object and a reverse attribute on the related object.\n\nTo create an attribute on an object, you must also have the `object_configuration:read-write` scope.\n\nTo create an attribute on a list, you must also have the `list_configuration:read-write` scope."
@@ -4503,7 +4503,7 @@ paths:
                   - "code"
                   - "message"
                 description: "Conflict"
-      x-speakeasy-name-override: create
+      x-speakeasy-name-override: createNew
   /v2/{target}/{identifier}/attributes/{attribute}:
     get:
       summary: "Get an attribute"
@@ -4931,7 +4931,8 @@ paths:
                   - "code"
                   - "message"
                 description: "Not Found"
-      x-speakeasy-name-override: listOptions
+      x-speakeasy-group: attributes.options
+      x-speakeasy-name-override: list
     post:
       summary: "Create a select option"
       description: "Adds a select option to a select attribute on an object or a list.\n\nRequired scopes: `object_configuration:read-write`."
@@ -5081,7 +5082,8 @@ paths:
                   - "code"
                   - "message"
                 description: "Conflict"
-      x-speakeasy-name-override: createOption
+      x-speakeasy-group: attributes.options
+      x-speakeasy-name-override: create
   /v2/{target}/{identifier}/attributes/{attribute}/options/{option}:
     patch:
       summary: "Update a select option"
@@ -5241,7 +5243,7 @@ paths:
                   - "code"
                   - "message"
                 description: "Conflict"
-      x-speakeasy-name-override: updateOption
+      x-speakeasy-name-override: updateSelectOption
   /v2/{target}/{identifier}/attributes/{attribute}/statuses:
     get:
       summary: "List statuses"
@@ -14320,7 +14322,7 @@ paths:
                   - "code"
                   - "message"
                 description: "Not Found"
-      x-speakeasy-name-override: update
+      x-speakeasy-name-override: updateAppend
     put:
       summary: "Update a record (overwrite multiselect values)"
       description: "Use this endpoint to update people, companies, and other records by `record_id`. If the update payload includes multiselect attributes, the values supplied will overwrite/remove the list of values that already exist (if any). Use the `PATCH` endpoint to append multiselect values without removing those that already exist.\n\nRequired scopes: `record_permission:read-write`, `object_configuration:read`."
@@ -16054,7 +16056,7 @@ paths:
                   - "code"
                   - "message"
                 description: "Not Found"
-      x-speakeasy-name-override: overwriteUpdate
+      x-speakeasy-name-override: update
     delete:
       summary: "Delete a record"
       description: "Deletes a single record (e.g. a company or person) by ID.\n\nRequired scopes: `object_configuration:read`, `record_permission:read-write`."
@@ -17814,7 +17816,7 @@ paths:
                   - "code"
                   - "message"
                 description: "Not Found"
-      x-speakeasy-name-override: getAttributeValues
+      x-speakeasy-name-override: listAttributeValues
   /v2/objects/{object}/records/{record_id}/entries:
     get:
       summary: "List record entries"
@@ -23944,7 +23946,7 @@ paths:
                   - "code"
                   - "message"
                 description: "Not Found"
-      x-speakeasy-name-override: upsertByParent
+      x-speakeasy-name-override: assert
   /v2/lists/{list}/entries/{entry_id}:
     get:
       summary: "Get a list entry"
@@ -27441,7 +27443,7 @@ paths:
                   - "code"
                   - "message"
                 description: "Not Found"
-      x-speakeasy-name-override: appendUpdate
+      x-speakeasy-name-override: updateAppending
     put:
       summary: "Update a list entry (overwrite multiselect values)"
       description: "Use this endpoint to update list entries by `entry_id`. If the update payload includes multiselect attributes, the values supplied will overwrite/remove the list of values that already exist (if any). Use the `PATCH` endpoint to add multiselect attribute values without removing those value that already exist.\n\nRequired scopes: `list_entry:read-write`, `list_configuration:read`."
@@ -32585,7 +32587,7 @@ paths:
                 required:
                   - "data"
                 description: "Success"
-      x-speakeasy-name-override: list
+      x-speakeasy-name-override: listAll
   /v2/threads/{thread_id}:
     get:
       summary: "Get a thread"
@@ -33307,7 +33309,7 @@ paths:
                   - "code"
                   - "message"
                 description: "Bad Request"
-      x-speakeasy-name-override: createOrFind
+      x-speakeasy-name-override: findOrCreate
   /v2/meetings/{meeting_id}:
     get:
       summary: "Get a meeting"
@@ -33501,7 +33503,7 @@ paths:
                   - "pagination"
                 description: "Success"
       x-speakeasy-group: callRecordings
-      x-speakeasy-name-override: listByMeeting
+      x-speakeasy-name-override: list
     post:
       summary: "Create call recording"
       description: "Create a call recording for a meeting. This endpoint is rate limited to 1 request per second.\n\nThis endpoint is in alpha and may be subject to breaking changes as we gather feedback.\n\nRequired scopes: `meeting:read`, `call_recording:read-write`."
@@ -34105,7 +34107,7 @@ paths:
                   - "data"
                   - "pagination"
                 description: "Success"
-      x-speakeasy-name-override: get
+      x-speakeasy-name-override: getCallTranscript
   /v2/files:
     get:
       summary: "List files"
@@ -34206,6 +34208,7 @@ paths:
                   - "data"
                   - "pagination"
                 description: "Success"
+      x-speakeasy-name-override: list
     post:
       summary: "Create a folder"
       description: "Creates a native folder entry or a connected file/folder entry on an object record.\n\nThis endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.\n\nRequired scopes: `file:read-write`, `object_configuration:read`, `record_permission:read`."
@@ -34369,6 +34372,7 @@ paths:
                 required:
                   - "data"
                 description: "Success"
+      x-speakeasy-name-override: create
   /v2/files/upload:
     post:
       summary: "Upload a file"
@@ -34427,6 +34431,7 @@ paths:
                 required:
                   - "data"
                 description: "Created"
+      x-speakeasy-name-override: upload
   /v2/files/{file_id}:
     get:
       summary: "Get a file"
@@ -34505,6 +34510,7 @@ paths:
                   - "code"
                   - "message"
                 description: "Not Found"
+      x-speakeasy-name-override: get
     delete:
       summary: "Delete a file"
       description: "Delete a single file by ID. Deleting a folder will delete all of its descendants.\n\nThis endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.\n\nRequired scopes: `file:read-write`, `object_configuration:read`, `record_permission:read`."
@@ -34564,6 +34570,7 @@ paths:
                   - "code"
                   - "message"
                 description: "Not Found"
+      x-speakeasy-name-override: delete
   /v2/files/{file_id}/download:
     get:
       summary: "Download a file"
@@ -34594,6 +34601,7 @@ paths:
                 type: "object"
                 properties: {}
                 description: "Redirect"
+      x-speakeasy-name-override: download
   /scim/v2/Schemas:
     get:
       summary: "List SCIM schemas"
@@ -34672,6 +34680,8 @@ paths:
                   - "itemsPerPage"
                   - "Resources"
                 description: "Success"
+      x-speakeasy-group: scimUsers
+      x-speakeasy-name-override: list
     post:
       summary: "Create SCIM user"
       description: "Creates a SCIM user in the workspace.\n\nRequired scopes: `scim_management:read-write`."
@@ -34760,6 +34770,8 @@ paths:
                   - "active"
                   - "meta"
                 description: "Created"
+      x-speakeasy-group: scimUsers
+      x-speakeasy-name-override: create
   /scim/v2/Groups:
     get:
       summary: "List SCIM groups"
@@ -34798,6 +34810,8 @@ paths:
                   - "itemsPerPage"
                   - "Resources"
                 description: "Success"
+      x-speakeasy-group: scimGroups
+      x-speakeasy-name-override: list
     post:
       summary: "Create SCIM group"
       description: "Creates a SCIM group for the workspace.\n\nRequired scopes: `scim_management:read-write`."
@@ -34857,6 +34871,8 @@ paths:
                   - "members"
                   - "meta"
                 description: "Created"
+      x-speakeasy-group: scimGroups
+      x-speakeasy-name-override: create
   /v2/webhooks:
     get:
       summary: "List webhooks"

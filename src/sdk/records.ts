@@ -5,12 +5,12 @@
 import { recordsAssert } from "../funcs/records-assert.js";
 import { recordsCreate } from "../funcs/records-create.js";
 import { recordsDelete } from "../funcs/records-delete.js";
-import { recordsGetAttributeValues } from "../funcs/records-get-attribute-values.js";
 import { recordsGet } from "../funcs/records-get.js";
+import { recordsListAttributeValues } from "../funcs/records-list-attribute-values.js";
 import { recordsListEntries } from "../funcs/records-list-entries.js";
-import { recordsOverwriteUpdate } from "../funcs/records-overwrite-update.js";
 import { recordsQuery } from "../funcs/records-query.js";
 import { recordsSearch } from "../funcs/records-search.js";
+import { recordsUpdateAppend } from "../funcs/records-update-append.js";
 import { recordsUpdate } from "../funcs/records-update.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as operations from "../models/operations/index.js";
@@ -103,11 +103,11 @@ export class Records extends ClientSDK {
    *
    * Required scopes: `record_permission:read-write`, `object_configuration:read`.
    */
-  async update(
+  async updateAppend(
     request: operations.PatchV2ObjectsObjectRecordsRecordIdRequest,
     options?: RequestOptions,
   ): Promise<operations.PatchV2ObjectsObjectRecordsRecordIdResponse> {
-    return unwrapAsync(recordsUpdate(
+    return unwrapAsync(recordsUpdateAppend(
       this,
       request,
       options,
@@ -122,11 +122,11 @@ export class Records extends ClientSDK {
    *
    * Required scopes: `record_permission:read-write`, `object_configuration:read`.
    */
-  async overwriteUpdate(
+  async update(
     request: operations.PutV2ObjectsObjectRecordsRecordIdRequest,
     options?: RequestOptions,
   ): Promise<operations.PutV2ObjectsObjectRecordsRecordIdResponse> {
-    return unwrapAsync(recordsOverwriteUpdate(
+    return unwrapAsync(recordsUpdate(
       this,
       request,
       options,
@@ -160,14 +160,14 @@ export class Records extends ClientSDK {
    *
    * Required scopes: `record_permission:read`, `object_configuration:read`.
    */
-  async getAttributeValues(
+  async listAttributeValues(
     request:
       operations.GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesRequest,
     options?: RequestOptions,
   ): Promise<
     operations.GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesResponse
   > {
-    return unwrapAsync(recordsGetAttributeValues(
+    return unwrapAsync(recordsListAttributeValues(
       this,
       request,
       options,

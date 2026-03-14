@@ -5,7 +5,7 @@
 import { callRecordingsCreate } from "../funcs/call-recordings-create.js";
 import { callRecordingsDelete } from "../funcs/call-recordings-delete.js";
 import { callRecordingsGet } from "../funcs/call-recordings-get.js";
-import { callRecordingsListByMeeting } from "../funcs/call-recordings-list-by-meeting.js";
+import { callRecordingsList } from "../funcs/call-recordings-list.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
@@ -21,11 +21,11 @@ export class CallRecordings extends ClientSDK {
    *
    * Required scopes: `meeting:read`, `call_recording:read`.
    */
-  async listByMeeting(
+  async list(
     request: operations.GetV2MeetingsMeetingIdCallRecordingsRequest,
     options?: RequestOptions,
   ): Promise<operations.GetV2MeetingsMeetingIdCallRecordingsResponse> {
-    return unwrapAsync(callRecordingsListByMeeting(
+    return unwrapAsync(callRecordingsList(
       this,
       request,
       options,

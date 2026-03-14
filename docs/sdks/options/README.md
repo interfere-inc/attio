@@ -1,27 +1,21 @@
-# Threads
+# Attributes.Options
 
 ## Overview
 
-Threads are groups of [comments](/rest-api/endpoint-reference/comments/get-a-comment) on either a record or entry.
-
 ### Available Operations
 
-* [listAll](#listall) - List threads
-* [get](#get) - Get a thread
+* [list](#list) - List select options
+* [create](#create) - Create a select option
 
-## listAll
+## list
 
-List threads of comments on a record or list entry.
+Lists all select options for a particular attribute on either an object or a list.
 
-To view threads on records, you will need the `object_configuration:read` and `record_permission:read` scopes.
-
-To view threads on list entries, you will need the `list_configuration:read` and `list_entry:read` scopes.
-
-Required scopes: `comment:read`.
+Required scopes: `object_configuration:read`.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get_/v2/threads" method="get" path="/v2/threads" -->
+<!-- UsageSnippet language="typescript" operationID="get_/v2/{target}/{identifier}/attributes/{attribute}/options" method="get" path="/v2/{target}/{identifier}/attributes/{attribute}/options" -->
 ```typescript
 import { Attio } from "@interfere/attio";
 
@@ -30,13 +24,11 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.threads.listAll({
-    recordId: "891dcbfc-9141-415d-9b2a-2238a6cc012d",
-    object: "people",
-    entryId: "2e6e29ea-c4e0-4f44-842d-78a891f8c156",
-    list: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0",
-    limit: 10,
-    offset: 5,
+  const result = await attio.attributes.options.list({
+    target: "lists",
+    identifier: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0",
+    attribute: "41252299-f8c7-4b5e-99c9-4ff8321d2f96",
+    showArchived: true,
   });
 
   console.log(result);
@@ -51,7 +43,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { threadsListAll } from "@interfere/attio/funcs/threads-list-all.js";
+import { attributesOptionsList } from "@interfere/attio/funcs/attributes-options-list.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -60,19 +52,17 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await threadsListAll(attio, {
-    recordId: "891dcbfc-9141-415d-9b2a-2238a6cc012d",
-    object: "people",
-    entryId: "2e6e29ea-c4e0-4f44-842d-78a891f8c156",
-    list: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0",
-    limit: 10,
-    offset: 5,
+  const res = await attributesOptionsList(attio, {
+    target: "lists",
+    identifier: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0",
+    attribute: "41252299-f8c7-4b5e-99c9-4ff8321d2f96",
+    showArchived: true,
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("threadsListAll failed:", res.error);
+    console.log("attributesOptionsList failed:", res.error);
   }
 }
 
@@ -83,34 +73,31 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.GetV2ThreadsRequest](../../models/operations/get-v2-threads-request.md)                                                                                            | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.GetV2TargetIdentifierAttributesAttributeOptionsRequest](../../models/operations/get-v2-target-identifier-attributes-attribute-options-request.md)                  | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.GetV2ThreadsResponse](../../models/operations/get-v2-threads-response.md)\>**
+**Promise\<[operations.GetV2TargetIdentifierAttributesAttributeOptionsResponse](../../models/operations/get-v2-target-identifier-attributes-attribute-options-response.md)\>**
 
 ### Errors
 
-| Error Type        | Status Code       | Content Type      |
-| ----------------- | ----------------- | ----------------- |
-| errors.AttioError | 4XX, 5XX          | \*/\*             |
+| Error Type                                                   | Status Code                                                  | Content Type                                                 |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| errors.GetV2TargetIdentifierAttributesAttributeNotFoundError | 404                                                          | application/json                                             |
+| errors.AttioError                                            | 4XX, 5XX                                                     | \*/\*                                                        |
 
-## get
+## create
 
-Get all comments in a thread.
+Adds a select option to a select attribute on an object or a list.
 
-To view threads on records, you will need the `object_configuration:read` and `record_permission:read` scopes.
-
-To view threads on list entries, you will need the `list_configuration:read` and `list_entry:read` scopes.
-
-Required scopes: `comment:read`.
+Required scopes: `object_configuration:read-write`.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get_/v2/threads/{thread_id}" method="get" path="/v2/threads/{thread_id}" -->
+<!-- UsageSnippet language="typescript" operationID="post_/v2/{target}/{identifier}/attributes/{attribute}/options" method="post" path="/v2/{target}/{identifier}/attributes/{attribute}/options" -->
 ```typescript
 import { Attio } from "@interfere/attio";
 
@@ -119,8 +106,15 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.threads.get({
-    threadId: "a649e4d9-435c-43fb-83ba-847b4876f27a",
+  const result = await attio.attributes.options.create({
+    target: "lists",
+    identifier: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0",
+    attribute: "41252299-f8c7-4b5e-99c9-4ff8321d2f96",
+    body: {
+      data: {
+        title: "Medium",
+      },
+    },
   });
 
   console.log(result);
@@ -135,7 +129,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { threadsGet } from "@interfere/attio/funcs/threads-get.js";
+import { attributesOptionsCreate } from "@interfere/attio/funcs/attributes-options-create.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -144,14 +138,21 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await threadsGet(attio, {
-    threadId: "a649e4d9-435c-43fb-83ba-847b4876f27a",
+  const res = await attributesOptionsCreate(attio, {
+    target: "lists",
+    identifier: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0",
+    attribute: "41252299-f8c7-4b5e-99c9-4ff8321d2f96",
+    body: {
+      data: {
+        title: "Medium",
+      },
+    },
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("threadsGet failed:", res.error);
+    console.log("attributesOptionsCreate failed:", res.error);
   }
 }
 
@@ -162,18 +163,20 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.GetV2ThreadsThreadIdRequest](../../models/operations/get-v2-threads-thread-id-request.md)                                                                          | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.PostV2TargetIdentifierAttributesAttributeOptionsRequest](../../models/operations/post-v2-target-identifier-attributes-attribute-options-request.md)                | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.GetV2ThreadsThreadIdResponse](../../models/operations/get-v2-threads-thread-id-response.md)\>**
+**Promise\<[operations.PostV2TargetIdentifierAttributesAttributeOptionsResponse](../../models/operations/post-v2-target-identifier-attributes-attribute-options-response.md)\>**
 
 ### Errors
 
-| Error Type                               | Status Code                              | Content Type                             |
-| ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
-| errors.GetV2ThreadsThreadIdNotFoundError | 404                                      | application/json                         |
-| errors.AttioError                        | 4XX, 5XX                                 | \*/\*                                    |
+| Error Type                                                                 | Status Code                                                                | Content Type                                                               |
+| -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| errors.PostV2TargetIdentifierAttributesAttributeOptionsValidationTypeError | 400                                                                        | application/json                                                           |
+| errors.GetV2TargetIdentifierAttributesAttributeNotFoundError               | 404                                                                        | application/json                                                           |
+| errors.PostV2TargetIdentifierAttributesAttributeOptionsSlugConflictError   | 409                                                                        | application/json                                                           |
+| errors.AttioError                                                          | 4XX, 5XX                                                                   | \*/\*                                                                      |

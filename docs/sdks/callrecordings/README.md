@@ -4,12 +4,12 @@
 
 ### Available Operations
 
-* [listByMeeting](#listbymeeting) - List call recordings
+* [list](#list) - List call recordings
 * [create](#create) - Create call recording
 * [get](#get) - Get call recording
 * [delete](#delete) - Delete call recording
 
-## listByMeeting
+## list
 
 List all call recordings for a meeting.
 
@@ -28,7 +28,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.callRecordings.listByMeeting({
+  const result = await attio.callRecordings.list({
     meetingId: "cb59ab17-ad15-460c-a126-0715617c0853",
     limit: 50,
     cursor: "eyJkZXNjcmlwdGlvbiI6ICJ0aGlzIGlzIGEgY3Vyc29yIn0=.eM56CGbqZ6G1NHiJchTIkH4vKDr",
@@ -46,7 +46,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { callRecordingsListByMeeting } from "@interfere/attio/funcs/call-recordings-list-by-meeting.js";
+import { callRecordingsList } from "@interfere/attio/funcs/call-recordings-list.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -55,7 +55,7 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await callRecordingsListByMeeting(attio, {
+  const res = await callRecordingsList(attio, {
     meetingId: "cb59ab17-ad15-460c-a126-0715617c0853",
     limit: 50,
     cursor: "eyJkZXNjcmlwdGlvbiI6ICJ0aGlzIGlzIGEgY3Vyc29yIn0=.eM56CGbqZ6G1NHiJchTIkH4vKDr",
@@ -64,7 +64,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("callRecordingsListByMeeting failed:", res.error);
+    console.log("callRecordingsList failed:", res.error);
   }
 }
 

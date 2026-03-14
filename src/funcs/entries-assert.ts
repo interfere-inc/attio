@@ -27,22 +27,22 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Update a record (overwrite multiselect values)
+ * Assert a list entry by parent
  *
  * @remarks
- * Use this endpoint to update people, companies, and other records by `record_id`. If the update payload includes multiselect attributes, the values supplied will overwrite/remove the list of values that already exist (if any). Use the `PATCH` endpoint to append multiselect values without removing those that already exist.
+ * Use this endpoint to create or update a list entry for a given parent record. If an entry with the specified parent record is found, that entry will be updated. If no such entry is found, a new entry will be created instead. If there are multiple entries with the same parent record, this endpoint with return the "MULTIPLE_MATCH_RESULTS" error. When writing to multi-select attributes, all values will be either created or deleted as necessary to match the list of values supplied in the request body.
  *
- * Required scopes: `record_permission:read-write`, `object_configuration:read`.
+ * Required scopes: `list_entry:read-write`, `list_configuration:read`.
  */
-export function recordsUpdate(
+export function entriesAssert(
   client: AttioCore,
-  request: operations.PutV2ObjectsObjectRecordsRecordIdRequest,
+  request: operations.PutV2ListsListEntriesRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.PutV2ObjectsObjectRecordsRecordIdResponse,
-    | errors.MissingValueError
-    | errors.GetV2ObjectsObjectNotFoundError
+    operations.PutV2ListsListEntriesResponse,
+    | errors.MultipleMatchResultsError
+    | errors.PutV2ListsListEntriesNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -62,14 +62,14 @@ export function recordsUpdate(
 
 async function $do(
   client: AttioCore,
-  request: operations.PutV2ObjectsObjectRecordsRecordIdRequest,
+  request: operations.PutV2ListsListEntriesRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.PutV2ObjectsObjectRecordsRecordIdResponse,
-      | errors.MissingValueError
-      | errors.GetV2ObjectsObjectNotFoundError
+      operations.PutV2ListsListEntriesResponse,
+      | errors.MultipleMatchResultsError
+      | errors.PutV2ListsListEntriesNotFoundError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -85,10 +85,7 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      z.parse(
-        operations.PutV2ObjectsObjectRecordsRecordIdRequest$outboundSchema,
-        value,
-      ),
+      z.parse(operations.PutV2ListsListEntriesRequest$outboundSchema, value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -98,19 +95,13 @@ async function $do(
   const body = encodeJSON("body", payload.body, { explode: true });
 
   const pathParams = {
-    object: encodeSimple("object", payload.object, {
-      explode: false,
-      charEncoding: "percent",
-    }),
-    record_id: encodeSimple("record_id", payload.record_id, {
+    list: encodeSimple("list", payload.list, {
       explode: false,
       charEncoding: "percent",
     }),
   };
 
-  const path = pathToFunc("/v2/objects/{object}/records/{record_id}")(
-    pathParams,
-  );
+  const path = pathToFunc("/v2/lists/{list}/entries")(pathParams);
 
   const headers = new Headers(compactMap({
     "Content-Type": "application/json",
@@ -124,7 +115,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "put_/v2/objects/{object}/records/{record_id}",
+    operationID: "put_/v2/lists/{list}/entries",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -167,9 +158,9 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.PutV2ObjectsObjectRecordsRecordIdResponse,
-    | errors.MissingValueError
-    | errors.GetV2ObjectsObjectNotFoundError
+    operations.PutV2ListsListEntriesResponse,
+    | errors.MultipleMatchResultsError
+    | errors.PutV2ListsListEntriesNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -179,12 +170,9 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(
-      200,
-      operations.PutV2ObjectsObjectRecordsRecordIdResponse$inboundSchema,
-    ),
-    M.jsonErr(400, errors.MissingValueError$inboundSchema),
-    M.jsonErr(404, errors.GetV2ObjectsObjectNotFoundError$inboundSchema),
+    M.json(200, operations.PutV2ListsListEntriesResponse$inboundSchema),
+    M.jsonErr(400, errors.MultipleMatchResultsError$inboundSchema),
+    M.jsonErr(404, errors.PutV2ListsListEntriesNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

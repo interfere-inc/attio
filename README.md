@@ -133,20 +133,23 @@ run();
 
 ### [Attributes](docs/sdks/attributes/README.md)
 
-* [list](docs/sdks/attributes/README.md#list) - List attributes
-* [create](docs/sdks/attributes/README.md#create) - Create an attribute
+* [listAll](docs/sdks/attributes/README.md#listall) - List attributes
+* [createNew](docs/sdks/attributes/README.md#createnew) - Create an attribute
 * [get](docs/sdks/attributes/README.md#get) - Get an attribute
 * [update](docs/sdks/attributes/README.md#update) - Update an attribute
-* [listOptions](docs/sdks/attributes/README.md#listoptions) - List select options
-* [createOption](docs/sdks/attributes/README.md#createoption) - Create a select option
-* [updateOption](docs/sdks/attributes/README.md#updateoption) - Update a select option
+* [updateSelectOption](docs/sdks/attributes/README.md#updateselectoption) - Update a select option
 * [listStatuses](docs/sdks/attributes/README.md#liststatuses) - List statuses
 * [createStatus](docs/sdks/attributes/README.md#createstatus) - Create a status
 * [updateStatus](docs/sdks/attributes/README.md#updatestatus) - Update a status
 
+### [Attributes.Options](docs/sdks/options/README.md)
+
+* [list](docs/sdks/options/README.md#list) - List select options
+* [create](docs/sdks/options/README.md#create) - Create a select option
+
 ### [CallRecordings](docs/sdks/callrecordings/README.md)
 
-* [listByMeeting](docs/sdks/callrecordings/README.md#listbymeeting) - List call recordings
+* [list](docs/sdks/callrecordings/README.md#list) - List call recordings
 * [create](docs/sdks/callrecordings/README.md#create) - Create call recording
 * [get](docs/sdks/callrecordings/README.md#get) - Get call recording
 * [delete](docs/sdks/callrecordings/README.md#delete) - Delete call recording
@@ -161,21 +164,21 @@ run();
 
 * [query](docs/sdks/entries/README.md#query) - List entries
 * [create](docs/sdks/entries/README.md#create) - Create an entry (add record to list)
-* [upsertByParent](docs/sdks/entries/README.md#upsertbyparent) - Assert a list entry by parent
+* [assert](docs/sdks/entries/README.md#assert) - Assert a list entry by parent
 * [get](docs/sdks/entries/README.md#get) - Get a list entry
-* [appendUpdate](docs/sdks/entries/README.md#appendupdate) - Update a list entry (append multiselect values)
+* [updateAppending](docs/sdks/entries/README.md#updateappending) - Update a list entry (append multiselect values)
 * [update](docs/sdks/entries/README.md#update) - Update a list entry (overwrite multiselect values)
 * [delete](docs/sdks/entries/README.md#delete) - Delete a list entry
 * [listAttributeValues](docs/sdks/entries/README.md#listattributevalues) - List attribute values for a list entry
 
 ### [Files](docs/sdks/files/README.md)
 
-* [getV2Files](docs/sdks/files/README.md#getv2files) - List files
-* [postV2Files](docs/sdks/files/README.md#postv2files) - Create a folder
-* [postV2FilesUpload](docs/sdks/files/README.md#postv2filesupload) - Upload a file
-* [getV2FilesFileId](docs/sdks/files/README.md#getv2filesfileid) - Get a file
-* [deleteV2FilesFileId](docs/sdks/files/README.md#deletev2filesfileid) - Delete a file
-* [getV2FilesFileIdDownload](docs/sdks/files/README.md#getv2filesfileiddownload) - Download a file
+* [list](docs/sdks/files/README.md#list) - List files
+* [create](docs/sdks/files/README.md#create) - Create a folder
+* [upload](docs/sdks/files/README.md#upload) - Upload a file
+* [get](docs/sdks/files/README.md#get) - Get a file
+* [delete](docs/sdks/files/README.md#delete) - Delete a file
+* [download](docs/sdks/files/README.md#download) - Download a file
 
 ### [Lists](docs/sdks/lists/README.md)
 
@@ -187,7 +190,7 @@ run();
 ### [Meetings](docs/sdks/meetings/README.md)
 
 * [list](docs/sdks/meetings/README.md#list) - List meetings
-* [createOrFind](docs/sdks/meetings/README.md#createorfind) - Find or create a meeting
+* [findOrCreate](docs/sdks/meetings/README.md#findorcreate) - Find or create a meeting
 * [get](docs/sdks/meetings/README.md#get) - Get a meeting
 
 ### [Meta](docs/sdks/meta/README.md)
@@ -214,26 +217,26 @@ run();
 * [create](docs/sdks/records/README.md#create) - Create a record
 * [assert](docs/sdks/records/README.md#assert) - Assert a record
 * [get](docs/sdks/records/README.md#get) - Get a record
-* [update](docs/sdks/records/README.md#update) - Update a record (append multiselect values)
-* [overwriteUpdate](docs/sdks/records/README.md#overwriteupdate) - Update a record (overwrite multiselect values)
+* [updateAppend](docs/sdks/records/README.md#updateappend) - Update a record (append multiselect values)
+* [update](docs/sdks/records/README.md#update) - Update a record (overwrite multiselect values)
 * [delete](docs/sdks/records/README.md#delete) - Delete a record
-* [getAttributeValues](docs/sdks/records/README.md#getattributevalues) - List record attribute values
+* [listAttributeValues](docs/sdks/records/README.md#listattributevalues) - List record attribute values
 * [listEntries](docs/sdks/records/README.md#listentries) - List record entries
 * [search](docs/sdks/records/README.md#search) - Search records
 
-### [SCIMGroups](docs/sdks/scimgroups/README.md)
+### [ScimGroups](docs/sdks/scimgroups/README.md)
 
-* [getScimV2Groups](docs/sdks/scimgroups/README.md#getscimv2groups) - List SCIM groups
-* [postScimV2Groups](docs/sdks/scimgroups/README.md#postscimv2groups) - Create SCIM group
-
-### [SCIMUsers](docs/sdks/scimusers/README.md)
-
-* [getScimV2Users](docs/sdks/scimusers/README.md#getscimv2users) - List SCIM users
-* [postScimV2Users](docs/sdks/scimusers/README.md#postscimv2users) - Create SCIM user
+* [list](docs/sdks/scimgroups/README.md#list) - List SCIM groups
+* [create](docs/sdks/scimgroups/README.md#create) - Create SCIM group
 
 ### [ScimSchemas](docs/sdks/scimschemas/README.md)
 
 * [list](docs/sdks/scimschemas/README.md#list) - List SCIM schemas
+
+### [ScimUsers](docs/sdks/scimusers/README.md)
+
+* [list](docs/sdks/scimusers/README.md#list) - List SCIM users
+* [create](docs/sdks/scimusers/README.md#create) - Create SCIM user
 
 ### [Tasks](docs/sdks/tasks/README.md)
 
@@ -245,12 +248,12 @@ run();
 
 ### [Threads](docs/sdks/threads/README.md)
 
-* [list](docs/sdks/threads/README.md#list) - List threads
+* [listAll](docs/sdks/threads/README.md#listall) - List threads
 * [get](docs/sdks/threads/README.md#get) - Get a thread
 
 ### [Transcripts](docs/sdks/transcripts/README.md)
 
-* [get](docs/sdks/transcripts/README.md#get) - Get call transcript
+* [getCallTranscript](docs/sdks/transcripts/README.md#getcalltranscript) - Get call transcript
 
 ### [Webhooks](docs/sdks/webhooks/README.md)
 
@@ -283,42 +286,42 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 
 <summary>Available standalone functions</summary>
 
-- [`attributesCreate`](docs/sdks/attributes/README.md#create) - Create an attribute
-- [`attributesCreateOption`](docs/sdks/attributes/README.md#createoption) - Create a select option
+- [`attributesCreateNew`](docs/sdks/attributes/README.md#createnew) - Create an attribute
 - [`attributesCreateStatus`](docs/sdks/attributes/README.md#createstatus) - Create a status
 - [`attributesGet`](docs/sdks/attributes/README.md#get) - Get an attribute
-- [`attributesList`](docs/sdks/attributes/README.md#list) - List attributes
-- [`attributesListOptions`](docs/sdks/attributes/README.md#listoptions) - List select options
+- [`attributesListAll`](docs/sdks/attributes/README.md#listall) - List attributes
 - [`attributesListStatuses`](docs/sdks/attributes/README.md#liststatuses) - List statuses
+- [`attributesOptionsCreate`](docs/sdks/options/README.md#create) - Create a select option
+- [`attributesOptionsList`](docs/sdks/options/README.md#list) - List select options
 - [`attributesUpdate`](docs/sdks/attributes/README.md#update) - Update an attribute
-- [`attributesUpdateOption`](docs/sdks/attributes/README.md#updateoption) - Update a select option
+- [`attributesUpdateSelectOption`](docs/sdks/attributes/README.md#updateselectoption) - Update a select option
 - [`attributesUpdateStatus`](docs/sdks/attributes/README.md#updatestatus) - Update a status
 - [`callRecordingsCreate`](docs/sdks/callrecordings/README.md#create) - Create call recording
 - [`callRecordingsDelete`](docs/sdks/callrecordings/README.md#delete) - Delete call recording
 - [`callRecordingsGet`](docs/sdks/callrecordings/README.md#get) - Get call recording
-- [`callRecordingsListByMeeting`](docs/sdks/callrecordings/README.md#listbymeeting) - List call recordings
+- [`callRecordingsList`](docs/sdks/callrecordings/README.md#list) - List call recordings
 - [`commentsCreate`](docs/sdks/comments/README.md#create) - Create a comment
 - [`commentsDelete`](docs/sdks/comments/README.md#delete) - Delete a comment
 - [`commentsGet`](docs/sdks/comments/README.md#get) - Get a comment
-- [`entriesAppendUpdate`](docs/sdks/entries/README.md#appendupdate) - Update a list entry (append multiselect values)
+- [`entriesAssert`](docs/sdks/entries/README.md#assert) - Assert a list entry by parent
 - [`entriesCreate`](docs/sdks/entries/README.md#create) - Create an entry (add record to list)
 - [`entriesDelete`](docs/sdks/entries/README.md#delete) - Delete a list entry
 - [`entriesGet`](docs/sdks/entries/README.md#get) - Get a list entry
 - [`entriesListAttributeValues`](docs/sdks/entries/README.md#listattributevalues) - List attribute values for a list entry
 - [`entriesQuery`](docs/sdks/entries/README.md#query) - List entries
 - [`entriesUpdate`](docs/sdks/entries/README.md#update) - Update a list entry (overwrite multiselect values)
-- [`entriesUpsertByParent`](docs/sdks/entries/README.md#upsertbyparent) - Assert a list entry by parent
-- [`filesDeleteV2FilesFileId`](docs/sdks/files/README.md#deletev2filesfileid) - Delete a file
-- [`filesGetV2Files`](docs/sdks/files/README.md#getv2files) - List files
-- [`filesGetV2FilesFileId`](docs/sdks/files/README.md#getv2filesfileid) - Get a file
-- [`filesGetV2FilesFileIdDownload`](docs/sdks/files/README.md#getv2filesfileiddownload) - Download a file
-- [`filesPostV2Files`](docs/sdks/files/README.md#postv2files) - Create a folder
-- [`filesPostV2FilesUpload`](docs/sdks/files/README.md#postv2filesupload) - Upload a file
+- [`entriesUpdateAppending`](docs/sdks/entries/README.md#updateappending) - Update a list entry (append multiselect values)
+- [`filesCreate`](docs/sdks/files/README.md#create) - Create a folder
+- [`filesDelete`](docs/sdks/files/README.md#delete) - Delete a file
+- [`filesDownload`](docs/sdks/files/README.md#download) - Download a file
+- [`filesGet`](docs/sdks/files/README.md#get) - Get a file
+- [`filesList`](docs/sdks/files/README.md#list) - List files
+- [`filesUpload`](docs/sdks/files/README.md#upload) - Upload a file
 - [`listsCreate`](docs/sdks/lists/README.md#create) - Create a list
 - [`listsGet`](docs/sdks/lists/README.md#get) - Get a list
 - [`listsList`](docs/sdks/lists/README.md#list) - List all lists
 - [`listsUpdate`](docs/sdks/lists/README.md#update) - Update a list
-- [`meetingsCreateOrFind`](docs/sdks/meetings/README.md#createorfind) - Find or create a meeting
+- [`meetingsFindOrCreate`](docs/sdks/meetings/README.md#findorcreate) - Find or create a meeting
 - [`meetingsGet`](docs/sdks/meetings/README.md#get) - Get a meeting
 - [`meetingsList`](docs/sdks/meetings/README.md#list) - List meetings
 - [`metaIdentify`](docs/sdks/meta/README.md#identify) - Identify
@@ -334,25 +337,25 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`recordsCreate`](docs/sdks/records/README.md#create) - Create a record
 - [`recordsDelete`](docs/sdks/records/README.md#delete) - Delete a record
 - [`recordsGet`](docs/sdks/records/README.md#get) - Get a record
-- [`recordsGetAttributeValues`](docs/sdks/records/README.md#getattributevalues) - List record attribute values
+- [`recordsListAttributeValues`](docs/sdks/records/README.md#listattributevalues) - List record attribute values
 - [`recordsListEntries`](docs/sdks/records/README.md#listentries) - List record entries
-- [`recordsOverwriteUpdate`](docs/sdks/records/README.md#overwriteupdate) - Update a record (overwrite multiselect values)
 - [`recordsQuery`](docs/sdks/records/README.md#query) - List records
 - [`recordsSearch`](docs/sdks/records/README.md#search) - Search records
-- [`recordsUpdate`](docs/sdks/records/README.md#update) - Update a record (append multiselect values)
-- [`scimGroupsGetSCIMV2Groups`](docs/sdks/scimgroups/README.md#getscimv2groups) - List SCIM groups
-- [`scimGroupsPostSCIMV2Groups`](docs/sdks/scimgroups/README.md#postscimv2groups) - Create SCIM group
+- [`recordsUpdate`](docs/sdks/records/README.md#update) - Update a record (overwrite multiselect values)
+- [`recordsUpdateAppend`](docs/sdks/records/README.md#updateappend) - Update a record (append multiselect values)
+- [`scimGroupsCreate`](docs/sdks/scimgroups/README.md#create) - Create SCIM group
+- [`scimGroupsList`](docs/sdks/scimgroups/README.md#list) - List SCIM groups
 - [`scimSchemasList`](docs/sdks/scimschemas/README.md#list) - List SCIM schemas
-- [`scimUsersGetSCIMV2Users`](docs/sdks/scimusers/README.md#getscimv2users) - List SCIM users
-- [`scimUsersPostSCIMV2Users`](docs/sdks/scimusers/README.md#postscimv2users) - Create SCIM user
+- [`scimUsersCreate`](docs/sdks/scimusers/README.md#create) - Create SCIM user
+- [`scimUsersList`](docs/sdks/scimusers/README.md#list) - List SCIM users
 - [`tasksCreate`](docs/sdks/tasks/README.md#create) - Create a task
 - [`tasksDelete`](docs/sdks/tasks/README.md#delete) - Delete a task
 - [`tasksGet`](docs/sdks/tasks/README.md#get) - Get a task
 - [`tasksList`](docs/sdks/tasks/README.md#list) - List tasks
 - [`tasksUpdate`](docs/sdks/tasks/README.md#update) - Update a task
 - [`threadsGet`](docs/sdks/threads/README.md#get) - Get a thread
-- [`threadsList`](docs/sdks/threads/README.md#list) - List threads
-- [`transcriptsGet`](docs/sdks/transcripts/README.md#get) - Get call transcript
+- [`threadsListAll`](docs/sdks/threads/README.md#listall) - List threads
+- [`transcriptsGetCallTranscript`](docs/sdks/transcripts/README.md#getcalltranscript) - Get call transcript
 - [`webhooksCreate`](docs/sdks/webhooks/README.md#create) - Create a webhook
 - [`webhooksDelete`](docs/sdks/webhooks/README.md#delete) - Delete a webhook
 - [`webhooksGet`](docs/sdks/webhooks/README.md#get) - Get a webhook
@@ -387,7 +390,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.files.postV2FilesUpload({
+  const result = await attio.files.upload({
     file: await openAsBlob("example.file"),
     object: "people",
     recordId: "bf071e1f-6035-429d-b874-d83ea64ea13b",
@@ -556,7 +559,6 @@ run();
 * [`PatchV2ObjectsObjectValidationTypeError`](./src/models/errors/patch-v2-objects-object-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 77 methods.*
 * [`PostV2TargetIdentifierAttributesValidationTypeError`](./src/models/errors/post-v2-target-identifier-attributes-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 77 methods.*
 * [`SystemEditUnauthorizedError`](./src/models/errors/system-edit-unauthorized-error.ts): Bad Request. Status code `400`. Applicable to 1 of 77 methods.*
-* [`PostV2TargetIdentifierAttributesAttributeOptionsValidationTypeError`](./src/models/errors/post-v2-target-identifier-attributes-attribute-options-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 77 methods.*
 * [`PatchV2TargetIdentifierAttributesAttributeOptionsOptionValueNotFoundError`](./src/models/errors/patch-v2-target-identifier-attributes-attribute-options-option-value-not-found-error.ts): Bad Request. Status code `400`. Applicable to 1 of 77 methods.*
 * [`PostV2TargetIdentifierAttributesAttributeStatusesValidationTypeError`](./src/models/errors/post-v2-target-identifier-attributes-attribute-statuses-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 77 methods.*
 * [`PatchV2TargetIdentifierAttributesAttributeStatusesStatusValueNotFoundError`](./src/models/errors/patch-v2-target-identifier-attributes-attribute-statuses-status-value-not-found-error.ts): Bad Request. Status code `400`. Applicable to 1 of 77 methods.*
@@ -571,6 +573,7 @@ run();
 * [`PostV2MeetingsValidationTypeError`](./src/models/errors/post-v2-meetings-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 77 methods.*
 * [`PostV2MeetingsMeetingIdCallRecordingsValidationTypeError`](./src/models/errors/post-v2-meetings-meeting-id-call-recordings-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 77 methods.*
 * [`PostV2WebhooksValidationTypeError`](./src/models/errors/post-v2-webhooks-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 77 methods.*
+* [`PostV2TargetIdentifierAttributesAttributeOptionsValidationTypeError`](./src/models/errors/post-v2-target-identifier-attributes-attribute-options-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 77 methods.*
 * [`BillingError`](./src/models/errors/billing-error.ts): Forbidden. Status code `403`. Applicable to 1 of 77 methods.*
 * [`AuthError`](./src/models/errors/auth-error.ts): Forbidden. Status code `403`. Applicable to 1 of 77 methods.*
 * [`PostV2TargetIdentifierAttributesNotFoundError`](./src/models/errors/post-v2-target-identifier-attributes-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 77 methods.*

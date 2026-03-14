@@ -1,15 +1,13 @@
-# SCIMUsers
+# ScimUsers
 
 ## Overview
 
-SCIM users represent workspace members managed through the SCIM provisioning protocol.
-
 ### Available Operations
 
-* [getScimV2Users](#getscimv2users) - List SCIM users
-* [postScimV2Users](#postscimv2users) - Create SCIM user
+* [list](#list) - List SCIM users
+* [create](#create) - Create SCIM user
 
-## getScimV2Users
+## list
 
 Lists SCIM users for the workspace.
 
@@ -26,7 +24,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.scimUsers.getScimV2Users();
+  const result = await attio.scimUsers.list();
 
   console.log(result);
 }
@@ -40,7 +38,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { scimUsersGetSCIMV2Users } from "@interfere/attio/funcs/scim-users-get-scimv2-users.js";
+import { scimUsersList } from "@interfere/attio/funcs/scim-users-list.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -49,12 +47,12 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await scimUsersGetSCIMV2Users(attio);
+  const res = await scimUsersList(attio);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("scimUsersGetSCIMV2Users failed:", res.error);
+    console.log("scimUsersList failed:", res.error);
   }
 }
 
@@ -79,7 +77,7 @@ run();
 | ----------------- | ----------------- | ----------------- |
 | errors.AttioError | 4XX, 5XX          | \*/\*             |
 
-## postScimV2Users
+## create
 
 Creates a SCIM user in the workspace.
 
@@ -96,7 +94,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.scimUsers.postScimV2Users();
+  const result = await attio.scimUsers.create();
 
   console.log(result);
 }
@@ -110,7 +108,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { scimUsersPostSCIMV2Users } from "@interfere/attio/funcs/scim-users-post-scimv2-users.js";
+import { scimUsersCreate } from "@interfere/attio/funcs/scim-users-create.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -119,12 +117,12 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await scimUsersPostSCIMV2Users(attio);
+  const res = await scimUsersCreate(attio);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("scimUsersPostSCIMV2Users failed:", res.error);
+    console.log("scimUsersCreate failed:", res.error);
   }
 }
 

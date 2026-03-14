@@ -8,9 +8,9 @@ Entries are elements in a list that reference a single parent record. Entries co
 
 * [query](#query) - List entries
 * [create](#create) - Create an entry (add record to list)
-* [upsertByParent](#upsertbyparent) - Assert a list entry by parent
+* [assert](#assert) - Assert a list entry by parent
 * [get](#get) - Get a list entry
-* [appendUpdate](#appendupdate) - Update a list entry (append multiselect values)
+* [updateAppending](#updateappending) - Update a list entry (append multiselect values)
 * [update](#update) - Update a list entry (overwrite multiselect values)
 * [delete](#delete) - Delete a list entry
 * [listAttributeValues](#listattributevalues) - List attribute values for a list entry
@@ -226,7 +226,7 @@ run();
 | errors.PostV2ListsListEntriesNotFoundError      | 404                                             | application/json                                |
 | errors.AttioError                               | 4XX, 5XX                                        | \*/\*                                           |
 
-## upsertByParent
+## assert
 
 Use this endpoint to create or update a list entry for a given parent record. If an entry with the specified parent record is found, that entry will be updated. If no such entry is found, a new entry will be created instead. If there are multiple entries with the same parent record, this endpoint with return the "MULTIPLE_MATCH_RESULTS" error. When writing to multi-select attributes, all values will be either created or deleted as necessary to match the list of values supplied in the request body.
 
@@ -243,7 +243,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.entries.upsertByParent({
+  const result = await attio.entries.assert({
     list: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0",
     body: {
       data: {
@@ -274,7 +274,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { entriesUpsertByParent } from "@interfere/attio/funcs/entries-upsert-by-parent.js";
+import { entriesAssert } from "@interfere/attio/funcs/entries-assert.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -283,7 +283,7 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await entriesUpsertByParent(attio, {
+  const res = await entriesAssert(attio, {
     list: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0",
     body: {
       data: {
@@ -305,7 +305,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("entriesUpsertByParent failed:", res.error);
+    console.log("entriesAssert failed:", res.error);
   }
 }
 
@@ -411,7 +411,7 @@ run();
 | errors.GetV2ListsListNotFoundError | 404                                | application/json                   |
 | errors.AttioError                  | 4XX, 5XX                           | \*/\*                              |
 
-## appendUpdate
+## updateAppending
 
 Use this endpoint to update list entries by `entry_id`. If the update payload includes multiselect attributes, the values supplied will be created and prepended to the list of values that already exist (if any). Use the `PUT` endpoint to overwrite or remove multiselect attribute values.
 
@@ -428,7 +428,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.entries.appendUpdate({
+  const result = await attio.entries.updateAppending({
     list: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0",
     entryId: "2e6e29ea-c4e0-4f44-842d-78a891f8c156",
     body: {
@@ -458,7 +458,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { entriesAppendUpdate } from "@interfere/attio/funcs/entries-append-update.js";
+import { entriesUpdateAppending } from "@interfere/attio/funcs/entries-update-appending.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -467,7 +467,7 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await entriesAppendUpdate(attio, {
+  const res = await entriesUpdateAppending(attio, {
     list: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0",
     entryId: "2e6e29ea-c4e0-4f44-842d-78a891f8c156",
     body: {
@@ -488,7 +488,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("entriesAppendUpdate failed:", res.error);
+    console.log("entriesUpdateAppending failed:", res.error);
   }
 }
 

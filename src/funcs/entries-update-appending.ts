@@ -4,7 +4,7 @@
 
 import * as z from "zod/v4-mini";
 import { AttioCore } from "../core.js";
-import { encodeJSON } from "../lib/encodings.js";
+import { encodeJSON, encodeSimple } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -27,23 +27,22 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Find or create a meeting
+ * Update a list entry (append multiselect values)
  *
  * @remarks
- * Finds an existing meeting or creates a new one if it doesn't yet exist. [Please see here](/rest-api/guides/syncing-meetings) for a full guide on syncing meetings to Attio.
+ * Use this endpoint to update list entries by `entry_id`. If the update payload includes multiselect attributes, the values supplied will be created and prepended to the list of values that already exist (if any). Use the `PUT` endpoint to overwrite or remove multiselect attribute values.
  *
- * This endpoint is in alpha and may be subject to breaking changes as we gather feedback.
- *
- * Required scopes: `meeting:read-write`, `record_permission:read`.
+ * Required scopes: `list_entry:read-write`, `list_configuration:read`.
  */
-export function meetingsCreateOrFind(
+export function entriesUpdateAppending(
   client: AttioCore,
-  request: operations.PostV2MeetingsRequest,
+  request: operations.PatchV2ListsListEntriesEntryIdRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.PostV2MeetingsResponse,
-    | errors.PostV2MeetingsValidationTypeError
+    operations.PatchV2ListsListEntriesEntryIdResponse,
+    | errors.ImmutableValueError
+    | errors.GetV2ListsListNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -63,13 +62,14 @@ export function meetingsCreateOrFind(
 
 async function $do(
   client: AttioCore,
-  request: operations.PostV2MeetingsRequest,
+  request: operations.PatchV2ListsListEntriesEntryIdRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.PostV2MeetingsResponse,
-      | errors.PostV2MeetingsValidationTypeError
+      operations.PatchV2ListsListEntriesEntryIdResponse,
+      | errors.ImmutableValueError
+      | errors.GetV2ListsListNotFoundError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -84,16 +84,31 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => z.parse(operations.PostV2MeetingsRequest$outboundSchema, value),
+    (value) =>
+      z.parse(
+        operations.PatchV2ListsListEntriesEntryIdRequest$outboundSchema,
+        value,
+      ),
     "Input validation failed",
   );
   if (!parsed.ok) {
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = encodeJSON("body", payload, { explode: true });
+  const body = encodeJSON("body", payload.body, { explode: true });
 
-  const path = pathToFunc("/v2/meetings")();
+  const pathParams = {
+    entry_id: encodeSimple("entry_id", payload.entry_id, {
+      explode: false,
+      charEncoding: "percent",
+    }),
+    list: encodeSimple("list", payload.list, {
+      explode: false,
+      charEncoding: "percent",
+    }),
+  };
+
+  const path = pathToFunc("/v2/lists/{list}/entries/{entry_id}")(pathParams);
 
   const headers = new Headers(compactMap({
     "Content-Type": "application/json",
@@ -107,7 +122,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "post_/v2/meetings",
+    operationID: "patch_/v2/lists/{list}/entries/{entry_id}",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -121,7 +136,7 @@ async function $do(
 
   const requestRes = client._createRequest(context, {
     security: requestSecurity,
-    method: "POST",
+    method: "PATCH",
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
@@ -136,7 +151,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["400", "4XX", "5XX"],
+    errorCodes: ["400", "404", "4XX", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -150,8 +165,9 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.PostV2MeetingsResponse,
-    | errors.PostV2MeetingsValidationTypeError
+    operations.PatchV2ListsListEntriesEntryIdResponse,
+    | errors.ImmutableValueError
+    | errors.GetV2ListsListNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -161,8 +177,12 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.PostV2MeetingsResponse$inboundSchema),
-    M.jsonErr(400, errors.PostV2MeetingsValidationTypeError$inboundSchema),
+    M.json(
+      200,
+      operations.PatchV2ListsListEntriesEntryIdResponse$inboundSchema,
+    ),
+    M.jsonErr(400, errors.ImmutableValueError$inboundSchema),
+    M.jsonErr(404, errors.GetV2ListsListNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

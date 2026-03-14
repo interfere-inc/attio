@@ -14,7 +14,7 @@ targets:
         sourceRevisionDigest: sha256:250a71cdfc58b6449e4dbe78171d5d9d6fc692d1ecaefd06f89bbd5aa56d28d7
         sourceBlobDigest: sha256:eade54ab6e448cd271b8fa3d04131445eb5c93dacdb335bc7ac0a98e8268ffe7
         codeSamplesNamespace: attio-api-typescript-code-samples
-        codeSamplesRevisionDigest: sha256:268852b0c0aeed2c9a8b523e7562138258ffc95eba5f4ba9fa723c6fe8fc08f4
+        codeSamplesRevisionDigest: sha256:89f56483c1c3696c49fc61ffea1e3bfc863ee974d888ae7369e8830a422d7804
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest

@@ -288,112 +288,6 @@ export type PatchV2TargetIdentifierAttributesAttributeResponse = {
 /**
  * Whether the attribute is on an object or a list.
  */
-export const GetV2TargetIdentifierAttributesAttributeOptionsTarget = {
-  Objects: "objects",
-  Lists: "lists",
-} as const;
-/**
- * Whether the attribute is on an object or a list.
- */
-export type GetV2TargetIdentifierAttributesAttributeOptionsTarget = ClosedEnum<
-  typeof GetV2TargetIdentifierAttributesAttributeOptionsTarget
->;
-
-export type GetV2TargetIdentifierAttributesAttributeOptionsRequest = {
-  /**
-   * Whether the attribute is on an object or a list.
-   */
-  target: GetV2TargetIdentifierAttributesAttributeOptionsTarget;
-  identifier: string;
-  attribute: string;
-  showArchived?: boolean | undefined;
-};
-
-/**
- * Success
- */
-export type GetV2TargetIdentifierAttributesAttributeOptionsResponse = {
-  data: Array<models.SelectOption>;
-};
-
-/**
- * Whether the attribute is on an object or a list.
- */
-export const PostV2TargetIdentifierAttributesAttributeOptionsTarget = {
-  Objects: "objects",
-  Lists: "lists",
-} as const;
-/**
- * Whether the attribute is on an object or a list.
- */
-export type PostV2TargetIdentifierAttributesAttributeOptionsTarget = ClosedEnum<
-  typeof PostV2TargetIdentifierAttributesAttributeOptionsTarget
->;
-
-export type PostV2TargetIdentifierAttributesAttributeOptionsData = {
-  /**
-   * The Title of the select option
-   */
-  title: string;
-};
-
-export type PostV2TargetIdentifierAttributesAttributeOptionsRequestBody = {
-  data: PostV2TargetIdentifierAttributesAttributeOptionsData;
-};
-
-export type PostV2TargetIdentifierAttributesAttributeOptionsRequest = {
-  /**
-   * Whether the attribute is on an object or a list.
-   */
-  target: PostV2TargetIdentifierAttributesAttributeOptionsTarget;
-  identifier: string;
-  attribute: string;
-  body: PostV2TargetIdentifierAttributesAttributeOptionsRequestBody;
-};
-
-export const PostV2TargetIdentifierAttributesAttributeOptionsConflictType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type PostV2TargetIdentifierAttributesAttributeOptionsConflictType =
-  ClosedEnum<
-    typeof PostV2TargetIdentifierAttributesAttributeOptionsConflictType
-  >;
-
-export const PostV2TargetIdentifierAttributesAttributeOptionsConflictCode = {
-  SlugConflict: "slug_conflict",
-} as const;
-export type PostV2TargetIdentifierAttributesAttributeOptionsConflictCode =
-  ClosedEnum<
-    typeof PostV2TargetIdentifierAttributesAttributeOptionsConflictCode
-  >;
-
-export const PostV2TargetIdentifierAttributesAttributeOptionsBadRequestType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type PostV2TargetIdentifierAttributesAttributeOptionsBadRequestType =
-  ClosedEnum<
-    typeof PostV2TargetIdentifierAttributesAttributeOptionsBadRequestType
-  >;
-
-export const PostV2TargetIdentifierAttributesAttributeOptionsCodeValidationType =
-  {
-    ValidationType: "validation_type",
-  } as const;
-export type PostV2TargetIdentifierAttributesAttributeOptionsCodeValidationType =
-  ClosedEnum<
-    typeof PostV2TargetIdentifierAttributesAttributeOptionsCodeValidationType
-  >;
-
-/**
- * Success
- */
-export type PostV2TargetIdentifierAttributesAttributeOptionsResponse = {
-  data: models.SelectOption;
-};
-
-/**
- * Whether the attribute is on an object or a list.
- */
 export const PatchV2TargetIdentifierAttributesAttributeOptionsOptionTarget = {
   Objects: "objects",
   Lists: "lists",
@@ -432,6 +326,22 @@ export type PatchV2TargetIdentifierAttributesAttributeOptionsOptionRequest = {
   option: string;
   body: PatchV2TargetIdentifierAttributesAttributeOptionsOptionRequestBody;
 };
+
+export const PostV2TargetIdentifierAttributesAttributeOptionsConflictType = {
+  InvalidRequestError: "invalid_request_error",
+} as const;
+export type PostV2TargetIdentifierAttributesAttributeOptionsConflictType =
+  ClosedEnum<
+    typeof PostV2TargetIdentifierAttributesAttributeOptionsConflictType
+  >;
+
+export const PostV2TargetIdentifierAttributesAttributeOptionsConflictCode = {
+  SlugConflict: "slug_conflict",
+} as const;
+export type PostV2TargetIdentifierAttributesAttributeOptionsConflictCode =
+  ClosedEnum<
+    typeof PostV2TargetIdentifierAttributesAttributeOptionsConflictCode
+  >;
 
 export const PatchV2TargetIdentifierAttributesAttributeOptionsOptionBadRequestType =
   {
@@ -644,6 +554,96 @@ export type PatchV2TargetIdentifierAttributesAttributeStatusesStatusCodeValueNot
  */
 export type PatchV2TargetIdentifierAttributesAttributeStatusesStatusResponse = {
   data: models.Status;
+};
+
+/**
+ * Whether the attribute is on an object or a list.
+ */
+export const GetV2TargetIdentifierAttributesAttributeOptionsTarget = {
+  Objects: "objects",
+  Lists: "lists",
+} as const;
+/**
+ * Whether the attribute is on an object or a list.
+ */
+export type GetV2TargetIdentifierAttributesAttributeOptionsTarget = ClosedEnum<
+  typeof GetV2TargetIdentifierAttributesAttributeOptionsTarget
+>;
+
+export type GetV2TargetIdentifierAttributesAttributeOptionsRequest = {
+  /**
+   * Whether the attribute is on an object or a list.
+   */
+  target: GetV2TargetIdentifierAttributesAttributeOptionsTarget;
+  identifier: string;
+  attribute: string;
+  showArchived?: boolean | undefined;
+};
+
+/**
+ * Success
+ */
+export type GetV2TargetIdentifierAttributesAttributeOptionsResponse = {
+  data: Array<models.SelectOption>;
+};
+
+/**
+ * Whether the attribute is on an object or a list.
+ */
+export const PostV2TargetIdentifierAttributesAttributeOptionsTarget = {
+  Objects: "objects",
+  Lists: "lists",
+} as const;
+/**
+ * Whether the attribute is on an object or a list.
+ */
+export type PostV2TargetIdentifierAttributesAttributeOptionsTarget = ClosedEnum<
+  typeof PostV2TargetIdentifierAttributesAttributeOptionsTarget
+>;
+
+export type PostV2TargetIdentifierAttributesAttributeOptionsData = {
+  /**
+   * The Title of the select option
+   */
+  title: string;
+};
+
+export type PostV2TargetIdentifierAttributesAttributeOptionsRequestBody = {
+  data: PostV2TargetIdentifierAttributesAttributeOptionsData;
+};
+
+export type PostV2TargetIdentifierAttributesAttributeOptionsRequest = {
+  /**
+   * Whether the attribute is on an object or a list.
+   */
+  target: PostV2TargetIdentifierAttributesAttributeOptionsTarget;
+  identifier: string;
+  attribute: string;
+  body: PostV2TargetIdentifierAttributesAttributeOptionsRequestBody;
+};
+
+export const PostV2TargetIdentifierAttributesAttributeOptionsBadRequestType = {
+  InvalidRequestError: "invalid_request_error",
+} as const;
+export type PostV2TargetIdentifierAttributesAttributeOptionsBadRequestType =
+  ClosedEnum<
+    typeof PostV2TargetIdentifierAttributesAttributeOptionsBadRequestType
+  >;
+
+export const PostV2TargetIdentifierAttributesAttributeOptionsCodeValidationType =
+  {
+    ValidationType: "validation_type",
+  } as const;
+export type PostV2TargetIdentifierAttributesAttributeOptionsCodeValidationType =
+  ClosedEnum<
+    typeof PostV2TargetIdentifierAttributesAttributeOptionsCodeValidationType
+  >;
+
+/**
+ * Success
+ */
+export type PostV2TargetIdentifierAttributesAttributeOptionsResponse = {
+  data: models.SelectOption;
 };
 
 export type GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesRequest =
@@ -2934,214 +2934,6 @@ export function patchV2TargetIdentifierAttributesAttributeResponseFromJSON(
 }
 
 /** @internal */
-export const GetV2TargetIdentifierAttributesAttributeOptionsTarget$outboundSchema:
-  z.ZodMiniEnum<typeof GetV2TargetIdentifierAttributesAttributeOptionsTarget> =
-    z.enum(GetV2TargetIdentifierAttributesAttributeOptionsTarget);
-
-/** @internal */
-export type GetV2TargetIdentifierAttributesAttributeOptionsRequest$Outbound = {
-  target: string;
-  identifier: string;
-  attribute: string;
-  show_archived?: boolean | undefined;
-};
-
-/** @internal */
-export const GetV2TargetIdentifierAttributesAttributeOptionsRequest$outboundSchema:
-  z.ZodMiniType<
-    GetV2TargetIdentifierAttributesAttributeOptionsRequest$Outbound,
-    GetV2TargetIdentifierAttributesAttributeOptionsRequest
-  > = z.pipe(
-    z.object({
-      target:
-        GetV2TargetIdentifierAttributesAttributeOptionsTarget$outboundSchema,
-      identifier: z.string(),
-      attribute: z.string(),
-      showArchived: z.optional(z.boolean()),
-    }),
-    z.transform((v) => {
-      return remap$(v, {
-        showArchived: "show_archived",
-      });
-    }),
-  );
-
-export function getV2TargetIdentifierAttributesAttributeOptionsRequestToJSON(
-  getV2TargetIdentifierAttributesAttributeOptionsRequest:
-    GetV2TargetIdentifierAttributesAttributeOptionsRequest,
-): string {
-  return JSON.stringify(
-    GetV2TargetIdentifierAttributesAttributeOptionsRequest$outboundSchema.parse(
-      getV2TargetIdentifierAttributesAttributeOptionsRequest,
-    ),
-  );
-}
-
-/** @internal */
-export const GetV2TargetIdentifierAttributesAttributeOptionsResponse$inboundSchema:
-  z.ZodMiniType<
-    GetV2TargetIdentifierAttributesAttributeOptionsResponse,
-    unknown
-  > = z.object({
-    data: z.array(models.SelectOption$inboundSchema),
-  });
-
-export function getV2TargetIdentifierAttributesAttributeOptionsResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  GetV2TargetIdentifierAttributesAttributeOptionsResponse,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      GetV2TargetIdentifierAttributesAttributeOptionsResponse$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'GetV2TargetIdentifierAttributesAttributeOptionsResponse' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostV2TargetIdentifierAttributesAttributeOptionsTarget$outboundSchema:
-  z.ZodMiniEnum<typeof PostV2TargetIdentifierAttributesAttributeOptionsTarget> =
-    z.enum(PostV2TargetIdentifierAttributesAttributeOptionsTarget);
-
-/** @internal */
-export type PostV2TargetIdentifierAttributesAttributeOptionsData$Outbound = {
-  title: string;
-};
-
-/** @internal */
-export const PostV2TargetIdentifierAttributesAttributeOptionsData$outboundSchema:
-  z.ZodMiniType<
-    PostV2TargetIdentifierAttributesAttributeOptionsData$Outbound,
-    PostV2TargetIdentifierAttributesAttributeOptionsData
-  > = z.object({
-    title: z.string(),
-  });
-
-export function postV2TargetIdentifierAttributesAttributeOptionsDataToJSON(
-  postV2TargetIdentifierAttributesAttributeOptionsData:
-    PostV2TargetIdentifierAttributesAttributeOptionsData,
-): string {
-  return JSON.stringify(
-    PostV2TargetIdentifierAttributesAttributeOptionsData$outboundSchema.parse(
-      postV2TargetIdentifierAttributesAttributeOptionsData,
-    ),
-  );
-}
-
-/** @internal */
-export type PostV2TargetIdentifierAttributesAttributeOptionsRequestBody$Outbound =
-  {
-    data: PostV2TargetIdentifierAttributesAttributeOptionsData$Outbound;
-  };
-
-/** @internal */
-export const PostV2TargetIdentifierAttributesAttributeOptionsRequestBody$outboundSchema:
-  z.ZodMiniType<
-    PostV2TargetIdentifierAttributesAttributeOptionsRequestBody$Outbound,
-    PostV2TargetIdentifierAttributesAttributeOptionsRequestBody
-  > = z.object({
-    data: z.lazy(() =>
-      PostV2TargetIdentifierAttributesAttributeOptionsData$outboundSchema
-    ),
-  });
-
-export function postV2TargetIdentifierAttributesAttributeOptionsRequestBodyToJSON(
-  postV2TargetIdentifierAttributesAttributeOptionsRequestBody:
-    PostV2TargetIdentifierAttributesAttributeOptionsRequestBody,
-): string {
-  return JSON.stringify(
-    PostV2TargetIdentifierAttributesAttributeOptionsRequestBody$outboundSchema
-      .parse(postV2TargetIdentifierAttributesAttributeOptionsRequestBody),
-  );
-}
-
-/** @internal */
-export type PostV2TargetIdentifierAttributesAttributeOptionsRequest$Outbound = {
-  target: string;
-  identifier: string;
-  attribute: string;
-  body: PostV2TargetIdentifierAttributesAttributeOptionsRequestBody$Outbound;
-};
-
-/** @internal */
-export const PostV2TargetIdentifierAttributesAttributeOptionsRequest$outboundSchema:
-  z.ZodMiniType<
-    PostV2TargetIdentifierAttributesAttributeOptionsRequest$Outbound,
-    PostV2TargetIdentifierAttributesAttributeOptionsRequest
-  > = z.object({
-    target:
-      PostV2TargetIdentifierAttributesAttributeOptionsTarget$outboundSchema,
-    identifier: z.string(),
-    attribute: z.string(),
-    body: z.lazy(() =>
-      PostV2TargetIdentifierAttributesAttributeOptionsRequestBody$outboundSchema
-    ),
-  });
-
-export function postV2TargetIdentifierAttributesAttributeOptionsRequestToJSON(
-  postV2TargetIdentifierAttributesAttributeOptionsRequest:
-    PostV2TargetIdentifierAttributesAttributeOptionsRequest,
-): string {
-  return JSON.stringify(
-    PostV2TargetIdentifierAttributesAttributeOptionsRequest$outboundSchema
-      .parse(postV2TargetIdentifierAttributesAttributeOptionsRequest),
-  );
-}
-
-/** @internal */
-export const PostV2TargetIdentifierAttributesAttributeOptionsConflictType$inboundSchema:
-  z.ZodMiniEnum<
-    typeof PostV2TargetIdentifierAttributesAttributeOptionsConflictType
-  > = z.enum(PostV2TargetIdentifierAttributesAttributeOptionsConflictType);
-
-/** @internal */
-export const PostV2TargetIdentifierAttributesAttributeOptionsConflictCode$inboundSchema:
-  z.ZodMiniEnum<
-    typeof PostV2TargetIdentifierAttributesAttributeOptionsConflictCode
-  > = z.enum(PostV2TargetIdentifierAttributesAttributeOptionsConflictCode);
-
-/** @internal */
-export const PostV2TargetIdentifierAttributesAttributeOptionsBadRequestType$inboundSchema:
-  z.ZodMiniEnum<
-    typeof PostV2TargetIdentifierAttributesAttributeOptionsBadRequestType
-  > = z.enum(PostV2TargetIdentifierAttributesAttributeOptionsBadRequestType);
-
-/** @internal */
-export const PostV2TargetIdentifierAttributesAttributeOptionsCodeValidationType$inboundSchema:
-  z.ZodMiniEnum<
-    typeof PostV2TargetIdentifierAttributesAttributeOptionsCodeValidationType
-  > = z.enum(
-    PostV2TargetIdentifierAttributesAttributeOptionsCodeValidationType,
-  );
-
-/** @internal */
-export const PostV2TargetIdentifierAttributesAttributeOptionsResponse$inboundSchema:
-  z.ZodMiniType<
-    PostV2TargetIdentifierAttributesAttributeOptionsResponse,
-    unknown
-  > = z.object({
-    data: models.SelectOption$inboundSchema,
-  });
-
-export function postV2TargetIdentifierAttributesAttributeOptionsResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  PostV2TargetIdentifierAttributesAttributeOptionsResponse,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      PostV2TargetIdentifierAttributesAttributeOptionsResponse$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'PostV2TargetIdentifierAttributesAttributeOptionsResponse' from JSON`,
-  );
-}
-
-/** @internal */
 export const PatchV2TargetIdentifierAttributesAttributeOptionsOptionTarget$outboundSchema:
   z.ZodMiniEnum<
     typeof PatchV2TargetIdentifierAttributesAttributeOptionsOptionTarget
@@ -3246,6 +3038,18 @@ export function patchV2TargetIdentifierAttributesAttributeOptionsOptionRequestTo
       .parse(patchV2TargetIdentifierAttributesAttributeOptionsOptionRequest),
   );
 }
+
+/** @internal */
+export const PostV2TargetIdentifierAttributesAttributeOptionsConflictType$inboundSchema:
+  z.ZodMiniEnum<
+    typeof PostV2TargetIdentifierAttributesAttributeOptionsConflictType
+  > = z.enum(PostV2TargetIdentifierAttributesAttributeOptionsConflictType);
+
+/** @internal */
+export const PostV2TargetIdentifierAttributesAttributeOptionsConflictCode$inboundSchema:
+  z.ZodMiniEnum<
+    typeof PostV2TargetIdentifierAttributesAttributeOptionsConflictCode
+  > = z.enum(PostV2TargetIdentifierAttributesAttributeOptionsConflictCode);
 
 /** @internal */
 export const PatchV2TargetIdentifierAttributesAttributeOptionsOptionBadRequestType$inboundSchema:
@@ -3657,6 +3461,202 @@ export function patchV2TargetIdentifierAttributesAttributeStatusesStatusResponse
       PatchV2TargetIdentifierAttributesAttributeStatusesStatusResponse$inboundSchema
         .parse(JSON.parse(x)),
     `Failed to parse 'PatchV2TargetIdentifierAttributesAttributeStatusesStatusResponse' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetV2TargetIdentifierAttributesAttributeOptionsTarget$outboundSchema:
+  z.ZodMiniEnum<typeof GetV2TargetIdentifierAttributesAttributeOptionsTarget> =
+    z.enum(GetV2TargetIdentifierAttributesAttributeOptionsTarget);
+
+/** @internal */
+export type GetV2TargetIdentifierAttributesAttributeOptionsRequest$Outbound = {
+  target: string;
+  identifier: string;
+  attribute: string;
+  show_archived?: boolean | undefined;
+};
+
+/** @internal */
+export const GetV2TargetIdentifierAttributesAttributeOptionsRequest$outboundSchema:
+  z.ZodMiniType<
+    GetV2TargetIdentifierAttributesAttributeOptionsRequest$Outbound,
+    GetV2TargetIdentifierAttributesAttributeOptionsRequest
+  > = z.pipe(
+    z.object({
+      target:
+        GetV2TargetIdentifierAttributesAttributeOptionsTarget$outboundSchema,
+      identifier: z.string(),
+      attribute: z.string(),
+      showArchived: z.optional(z.boolean()),
+    }),
+    z.transform((v) => {
+      return remap$(v, {
+        showArchived: "show_archived",
+      });
+    }),
+  );
+
+export function getV2TargetIdentifierAttributesAttributeOptionsRequestToJSON(
+  getV2TargetIdentifierAttributesAttributeOptionsRequest:
+    GetV2TargetIdentifierAttributesAttributeOptionsRequest,
+): string {
+  return JSON.stringify(
+    GetV2TargetIdentifierAttributesAttributeOptionsRequest$outboundSchema.parse(
+      getV2TargetIdentifierAttributesAttributeOptionsRequest,
+    ),
+  );
+}
+
+/** @internal */
+export const GetV2TargetIdentifierAttributesAttributeOptionsResponse$inboundSchema:
+  z.ZodMiniType<
+    GetV2TargetIdentifierAttributesAttributeOptionsResponse,
+    unknown
+  > = z.object({
+    data: z.array(models.SelectOption$inboundSchema),
+  });
+
+export function getV2TargetIdentifierAttributesAttributeOptionsResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetV2TargetIdentifierAttributesAttributeOptionsResponse,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetV2TargetIdentifierAttributesAttributeOptionsResponse$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'GetV2TargetIdentifierAttributesAttributeOptionsResponse' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostV2TargetIdentifierAttributesAttributeOptionsTarget$outboundSchema:
+  z.ZodMiniEnum<typeof PostV2TargetIdentifierAttributesAttributeOptionsTarget> =
+    z.enum(PostV2TargetIdentifierAttributesAttributeOptionsTarget);
+
+/** @internal */
+export type PostV2TargetIdentifierAttributesAttributeOptionsData$Outbound = {
+  title: string;
+};
+
+/** @internal */
+export const PostV2TargetIdentifierAttributesAttributeOptionsData$outboundSchema:
+  z.ZodMiniType<
+    PostV2TargetIdentifierAttributesAttributeOptionsData$Outbound,
+    PostV2TargetIdentifierAttributesAttributeOptionsData
+  > = z.object({
+    title: z.string(),
+  });
+
+export function postV2TargetIdentifierAttributesAttributeOptionsDataToJSON(
+  postV2TargetIdentifierAttributesAttributeOptionsData:
+    PostV2TargetIdentifierAttributesAttributeOptionsData,
+): string {
+  return JSON.stringify(
+    PostV2TargetIdentifierAttributesAttributeOptionsData$outboundSchema.parse(
+      postV2TargetIdentifierAttributesAttributeOptionsData,
+    ),
+  );
+}
+
+/** @internal */
+export type PostV2TargetIdentifierAttributesAttributeOptionsRequestBody$Outbound =
+  {
+    data: PostV2TargetIdentifierAttributesAttributeOptionsData$Outbound;
+  };
+
+/** @internal */
+export const PostV2TargetIdentifierAttributesAttributeOptionsRequestBody$outboundSchema:
+  z.ZodMiniType<
+    PostV2TargetIdentifierAttributesAttributeOptionsRequestBody$Outbound,
+    PostV2TargetIdentifierAttributesAttributeOptionsRequestBody
+  > = z.object({
+    data: z.lazy(() =>
+      PostV2TargetIdentifierAttributesAttributeOptionsData$outboundSchema
+    ),
+  });
+
+export function postV2TargetIdentifierAttributesAttributeOptionsRequestBodyToJSON(
+  postV2TargetIdentifierAttributesAttributeOptionsRequestBody:
+    PostV2TargetIdentifierAttributesAttributeOptionsRequestBody,
+): string {
+  return JSON.stringify(
+    PostV2TargetIdentifierAttributesAttributeOptionsRequestBody$outboundSchema
+      .parse(postV2TargetIdentifierAttributesAttributeOptionsRequestBody),
+  );
+}
+
+/** @internal */
+export type PostV2TargetIdentifierAttributesAttributeOptionsRequest$Outbound = {
+  target: string;
+  identifier: string;
+  attribute: string;
+  body: PostV2TargetIdentifierAttributesAttributeOptionsRequestBody$Outbound;
+};
+
+/** @internal */
+export const PostV2TargetIdentifierAttributesAttributeOptionsRequest$outboundSchema:
+  z.ZodMiniType<
+    PostV2TargetIdentifierAttributesAttributeOptionsRequest$Outbound,
+    PostV2TargetIdentifierAttributesAttributeOptionsRequest
+  > = z.object({
+    target:
+      PostV2TargetIdentifierAttributesAttributeOptionsTarget$outboundSchema,
+    identifier: z.string(),
+    attribute: z.string(),
+    body: z.lazy(() =>
+      PostV2TargetIdentifierAttributesAttributeOptionsRequestBody$outboundSchema
+    ),
+  });
+
+export function postV2TargetIdentifierAttributesAttributeOptionsRequestToJSON(
+  postV2TargetIdentifierAttributesAttributeOptionsRequest:
+    PostV2TargetIdentifierAttributesAttributeOptionsRequest,
+): string {
+  return JSON.stringify(
+    PostV2TargetIdentifierAttributesAttributeOptionsRequest$outboundSchema
+      .parse(postV2TargetIdentifierAttributesAttributeOptionsRequest),
+  );
+}
+
+/** @internal */
+export const PostV2TargetIdentifierAttributesAttributeOptionsBadRequestType$inboundSchema:
+  z.ZodMiniEnum<
+    typeof PostV2TargetIdentifierAttributesAttributeOptionsBadRequestType
+  > = z.enum(PostV2TargetIdentifierAttributesAttributeOptionsBadRequestType);
+
+/** @internal */
+export const PostV2TargetIdentifierAttributesAttributeOptionsCodeValidationType$inboundSchema:
+  z.ZodMiniEnum<
+    typeof PostV2TargetIdentifierAttributesAttributeOptionsCodeValidationType
+  > = z.enum(
+    PostV2TargetIdentifierAttributesAttributeOptionsCodeValidationType,
+  );
+
+/** @internal */
+export const PostV2TargetIdentifierAttributesAttributeOptionsResponse$inboundSchema:
+  z.ZodMiniType<
+    PostV2TargetIdentifierAttributesAttributeOptionsResponse,
+    unknown
+  > = z.object({
+    data: models.SelectOption$inboundSchema,
+  });
+
+export function postV2TargetIdentifierAttributesAttributeOptionsResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  PostV2TargetIdentifierAttributesAttributeOptionsResponse,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      PostV2TargetIdentifierAttributesAttributeOptionsResponse$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'PostV2TargetIdentifierAttributesAttributeOptionsResponse' from JSON`,
   );
 }
 

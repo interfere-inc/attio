@@ -4,7 +4,7 @@
 
 import * as z from "zod/v4-mini";
 import { AttioCore } from "../core.js";
-import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
+import { encodeFormQuery } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -19,7 +19,6 @@ import {
   RequestTimeoutError,
   UnexpectedClientError,
 } from "../models/errors/http-client-errors.js";
-import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/response-validation-error.js";
 import { SDKValidationError } from "../models/errors/sdk-validation-error.js";
 import * as operations from "../models/operations/index.js";
@@ -27,21 +26,24 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * List select options
+ * List threads
  *
  * @remarks
- * Lists all select options for a particular attribute on either an object or a list.
+ * List threads of comments on a record or list entry.
  *
- * Required scopes: `object_configuration:read`.
+ * To view threads on records, you will need the `object_configuration:read` and `record_permission:read` scopes.
+ *
+ * To view threads on list entries, you will need the `list_configuration:read` and `list_entry:read` scopes.
+ *
+ * Required scopes: `comment:read`.
  */
-export function attributesListOptions(
+export function threadsListAll(
   client: AttioCore,
-  request: operations.GetV2TargetIdentifierAttributesAttributeOptionsRequest,
+  request?: operations.GetV2ThreadsRequest | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.GetV2TargetIdentifierAttributesAttributeOptionsResponse,
-    | errors.GetV2TargetIdentifierAttributesAttributeNotFoundError
+    operations.GetV2ThreadsResponse,
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -61,13 +63,12 @@ export function attributesListOptions(
 
 async function $do(
   client: AttioCore,
-  request: operations.GetV2TargetIdentifierAttributesAttributeOptionsRequest,
+  request?: operations.GetV2ThreadsRequest | undefined,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.GetV2TargetIdentifierAttributesAttributeOptionsResponse,
-      | errors.GetV2TargetIdentifierAttributesAttributeNotFoundError
+      operations.GetV2ThreadsResponse,
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -83,11 +84,7 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      z.parse(
-        operations
-          .GetV2TargetIdentifierAttributesAttributeOptionsRequest$outboundSchema,
-        value,
-      ),
+      z.parse(z.optional(operations.GetV2ThreadsRequest$outboundSchema), value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -96,27 +93,15 @@ async function $do(
   const payload = parsed.value;
   const body = null;
 
-  const pathParams = {
-    attribute: encodeSimple("attribute", payload.attribute, {
-      explode: false,
-      charEncoding: "percent",
-    }),
-    identifier: encodeSimple("identifier", payload.identifier, {
-      explode: false,
-      charEncoding: "percent",
-    }),
-    target: encodeSimple("target", payload.target, {
-      explode: false,
-      charEncoding: "percent",
-    }),
-  };
-
-  const path = pathToFunc(
-    "/v2/{target}/{identifier}/attributes/{attribute}/options",
-  )(pathParams);
+  const path = pathToFunc("/v2/threads")();
 
   const query = encodeFormQuery({
-    "show_archived": payload.show_archived,
+    "entry_id": payload?.entry_id,
+    "limit": payload?.limit,
+    "list": payload?.list,
+    "object": payload?.object,
+    "offset": payload?.offset,
+    "record_id": payload?.record_id,
   });
 
   const headers = new Headers(compactMap({
@@ -130,7 +115,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "get_/v2/{target}/{identifier}/attributes/{attribute}/options",
+    operationID: "get_/v2/threads",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -160,7 +145,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["404", "4XX", "5XX"],
+    errorCodes: ["4XX", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -169,13 +154,8 @@ async function $do(
   }
   const response = doResult.value;
 
-  const responseFields = {
-    HttpMeta: { Response: response, Request: req },
-  };
-
   const [result] = await M.match<
-    operations.GetV2TargetIdentifierAttributesAttributeOptionsResponse,
-    | errors.GetV2TargetIdentifierAttributesAttributeNotFoundError
+    operations.GetV2ThreadsResponse,
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -185,19 +165,10 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(
-      200,
-      operations
-        .GetV2TargetIdentifierAttributesAttributeOptionsResponse$inboundSchema,
-    ),
-    M.jsonErr(
-      404,
-      errors
-        .GetV2TargetIdentifierAttributesAttributeNotFoundError$inboundSchema,
-    ),
+    M.json(200, operations.GetV2ThreadsResponse$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
-  )(response, req, { extraFields: responseFields });
+  )(response, req);
   if (!result.ok) {
     return [result, { status: "complete", request: req, response }];
   }

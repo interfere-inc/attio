@@ -1,15 +1,13 @@
-# SCIMGroups
+# ScimGroups
 
 ## Overview
 
-SCIM groups represent Attio teams managed through the SCIM provisioning protocol.
-
 ### Available Operations
 
-* [getScimV2Groups](#getscimv2groups) - List SCIM groups
-* [postScimV2Groups](#postscimv2groups) - Create SCIM group
+* [list](#list) - List SCIM groups
+* [create](#create) - Create SCIM group
 
-## getScimV2Groups
+## list
 
 Lists SCIM groups for the workspace.
 
@@ -26,7 +24,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.scimGroups.getScimV2Groups();
+  const result = await attio.scimGroups.list();
 
   console.log(result);
 }
@@ -40,7 +38,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { scimGroupsGetSCIMV2Groups } from "@interfere/attio/funcs/scim-groups-get-scimv2-groups.js";
+import { scimGroupsList } from "@interfere/attio/funcs/scim-groups-list.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -49,12 +47,12 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await scimGroupsGetSCIMV2Groups(attio);
+  const res = await scimGroupsList(attio);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("scimGroupsGetSCIMV2Groups failed:", res.error);
+    console.log("scimGroupsList failed:", res.error);
   }
 }
 
@@ -79,7 +77,7 @@ run();
 | ----------------- | ----------------- | ----------------- |
 | errors.AttioError | 4XX, 5XX          | \*/\*             |
 
-## postScimV2Groups
+## create
 
 Creates a SCIM group for the workspace.
 
@@ -96,7 +94,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.scimGroups.postScimV2Groups();
+  const result = await attio.scimGroups.create();
 
   console.log(result);
 }
@@ -110,7 +108,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { scimGroupsPostSCIMV2Groups } from "@interfere/attio/funcs/scim-groups-post-scimv2-groups.js";
+import { scimGroupsCreate } from "@interfere/attio/funcs/scim-groups-create.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -119,12 +117,12 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await scimGroupsPostSCIMV2Groups(attio);
+  const res = await scimGroupsCreate(attio);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("scimGroupsPostSCIMV2Groups failed:", res.error);
+    console.log("scimGroupsCreate failed:", res.error);
   }
 }
 

@@ -4,7 +4,7 @@
 
 import * as z from "zod/v4-mini";
 import { AttioCore } from "../core.js";
-import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
+import { encodeSimple } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -26,20 +26,22 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * List attributes
+ * Download a file
  *
  * @remarks
- * Lists all attributes defined on a specific object or list. Attributes are returned in the order that they are sorted by in the UI.
+ * Downloads a file by redirecting to a signed URL.
  *
- * Required scopes: `object_configuration:read`.
+ * This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
+ *
+ * Required scopes: `object_configuration:read`, `record_permission:read`, `file:read`.
  */
-export function attributesList(
+export function filesDownload(
   client: AttioCore,
-  request: operations.GetV2TargetIdentifierAttributesRequest,
+  request: operations.GetV2FilesFileIdDownloadRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.GetV2TargetIdentifierAttributesResponse,
+    operations.GetV2FilesFileIdDownloadResponse,
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -59,12 +61,12 @@ export function attributesList(
 
 async function $do(
   client: AttioCore,
-  request: operations.GetV2TargetIdentifierAttributesRequest,
+  request: operations.GetV2FilesFileIdDownloadRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.GetV2TargetIdentifierAttributesResponse,
+      operations.GetV2FilesFileIdDownloadResponse,
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -80,10 +82,7 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      z.parse(
-        operations.GetV2TargetIdentifierAttributesRequest$outboundSchema,
-        value,
-      ),
+      z.parse(operations.GetV2FilesFileIdDownloadRequest$outboundSchema, value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -93,23 +92,13 @@ async function $do(
   const body = null;
 
   const pathParams = {
-    identifier: encodeSimple("identifier", payload.identifier, {
-      explode: false,
-      charEncoding: "percent",
-    }),
-    target: encodeSimple("target", payload.target, {
+    file_id: encodeSimple("file_id", payload.file_id, {
       explode: false,
       charEncoding: "percent",
     }),
   };
 
-  const path = pathToFunc("/v2/{target}/{identifier}/attributes")(pathParams);
-
-  const query = encodeFormQuery({
-    "limit": payload.limit,
-    "offset": payload.offset,
-    "show_archived": payload.show_archived,
-  });
+  const path = pathToFunc("/v2/files/{file_id}/download")(pathParams);
 
   const headers = new Headers(compactMap({
     Accept: "application/json",
@@ -122,7 +111,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "get_/v2/{target}/{identifier}/attributes",
+    operationID: "get_/v2/files/{file_id}/download",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -140,7 +129,6 @@ async function $do(
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
-    query: query,
     body: body,
     userAgent: client._options.userAgent,
     timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,
@@ -162,7 +150,7 @@ async function $do(
   const response = doResult.value;
 
   const [result] = await M.match<
-    operations.GetV2TargetIdentifierAttributesResponse,
+    operations.GetV2FilesFileIdDownloadResponse,
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -172,10 +160,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(
-      200,
-      operations.GetV2TargetIdentifierAttributesResponse$inboundSchema,
-    ),
+    M.json(302, operations.GetV2FilesFileIdDownloadResponse$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req);

@@ -27,22 +27,27 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Update a record (overwrite multiselect values)
+ * Create an attribute
  *
  * @remarks
- * Use this endpoint to update people, companies, and other records by `record_id`. If the update payload includes multiselect attributes, the values supplied will overwrite/remove the list of values that already exist (if any). Use the `PATCH` endpoint to append multiselect values without removing those that already exist.
+ * Creates a new attribute on either an object or a list.
  *
- * Required scopes: `record_permission:read-write`, `object_configuration:read`.
+ * For record-reference attributes, you can optionally create a bidirectional relationship by providing a `relationship` object. This will create two entangled attributes: one on the specified object and a reverse attribute on the related object.
+ *
+ * To create an attribute on an object, you must also have the `object_configuration:read-write` scope.
+ *
+ * To create an attribute on a list, you must also have the `list_configuration:read-write` scope.
  */
-export function recordsUpdate(
+export function attributesCreateNew(
   client: AttioCore,
-  request: operations.PutV2ObjectsObjectRecordsRecordIdRequest,
+  request: operations.PostV2TargetIdentifierAttributesRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.PutV2ObjectsObjectRecordsRecordIdResponse,
-    | errors.MissingValueError
-    | errors.GetV2ObjectsObjectNotFoundError
+    operations.PostV2TargetIdentifierAttributesResponse,
+    | errors.PostV2TargetIdentifierAttributesValidationTypeError
+    | errors.PostV2TargetIdentifierAttributesNotFoundError
+    | errors.PostV2TargetIdentifierAttributesSlugConflictError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -62,14 +67,15 @@ export function recordsUpdate(
 
 async function $do(
   client: AttioCore,
-  request: operations.PutV2ObjectsObjectRecordsRecordIdRequest,
+  request: operations.PostV2TargetIdentifierAttributesRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.PutV2ObjectsObjectRecordsRecordIdResponse,
-      | errors.MissingValueError
-      | errors.GetV2ObjectsObjectNotFoundError
+      operations.PostV2TargetIdentifierAttributesResponse,
+      | errors.PostV2TargetIdentifierAttributesValidationTypeError
+      | errors.PostV2TargetIdentifierAttributesNotFoundError
+      | errors.PostV2TargetIdentifierAttributesSlugConflictError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -86,7 +92,7 @@ async function $do(
     request,
     (value) =>
       z.parse(
-        operations.PutV2ObjectsObjectRecordsRecordIdRequest$outboundSchema,
+        operations.PostV2TargetIdentifierAttributesRequest$outboundSchema,
         value,
       ),
     "Input validation failed",
@@ -98,19 +104,17 @@ async function $do(
   const body = encodeJSON("body", payload.body, { explode: true });
 
   const pathParams = {
-    object: encodeSimple("object", payload.object, {
+    identifier: encodeSimple("identifier", payload.identifier, {
       explode: false,
       charEncoding: "percent",
     }),
-    record_id: encodeSimple("record_id", payload.record_id, {
+    target: encodeSimple("target", payload.target, {
       explode: false,
       charEncoding: "percent",
     }),
   };
 
-  const path = pathToFunc("/v2/objects/{object}/records/{record_id}")(
-    pathParams,
-  );
+  const path = pathToFunc("/v2/{target}/{identifier}/attributes")(pathParams);
 
   const headers = new Headers(compactMap({
     "Content-Type": "application/json",
@@ -124,7 +128,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "put_/v2/objects/{object}/records/{record_id}",
+    operationID: "post_/v2/{target}/{identifier}/attributes",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -138,7 +142,7 @@ async function $do(
 
   const requestRes = client._createRequest(context, {
     security: requestSecurity,
-    method: "PUT",
+    method: "POST",
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
@@ -153,7 +157,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["400", "404", "4XX", "5XX"],
+    errorCodes: ["400", "404", "409", "4XX", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -167,9 +171,10 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.PutV2ObjectsObjectRecordsRecordIdResponse,
-    | errors.MissingValueError
-    | errors.GetV2ObjectsObjectNotFoundError
+    operations.PostV2TargetIdentifierAttributesResponse,
+    | errors.PostV2TargetIdentifierAttributesValidationTypeError
+    | errors.PostV2TargetIdentifierAttributesNotFoundError
+    | errors.PostV2TargetIdentifierAttributesSlugConflictError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -181,10 +186,20 @@ async function $do(
   >(
     M.json(
       200,
-      operations.PutV2ObjectsObjectRecordsRecordIdResponse$inboundSchema,
+      operations.PostV2TargetIdentifierAttributesResponse$inboundSchema,
     ),
-    M.jsonErr(400, errors.MissingValueError$inboundSchema),
-    M.jsonErr(404, errors.GetV2ObjectsObjectNotFoundError$inboundSchema),
+    M.jsonErr(
+      400,
+      errors.PostV2TargetIdentifierAttributesValidationTypeError$inboundSchema,
+    ),
+    M.jsonErr(
+      404,
+      errors.PostV2TargetIdentifierAttributesNotFoundError$inboundSchema,
+    ),
+    M.jsonErr(
+      409,
+      errors.PostV2TargetIdentifierAttributesSlugConflictError$inboundSchema,
+    ),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });
