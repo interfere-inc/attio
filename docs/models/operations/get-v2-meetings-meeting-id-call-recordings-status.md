@@ -8,11 +8,11 @@ The status of the call recording. When a call recording is first created, it wil
 import { GetV2MeetingsMeetingIdCallRecordingsStatus } from "@interfere/attio/models/operations";
 
 let value: GetV2MeetingsMeetingIdCallRecordingsStatus = "completed";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "processing" | "completed" | "failed" | Unrecognized<string>

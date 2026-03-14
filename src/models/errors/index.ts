@@ -8,6 +8,7 @@ export * from "./delete-v2-comments-comment-id.js";
 export * from "./delete-v2-meetings-meeting-id-call-recordings-call-recording-id.js";
 export * from "./delete-v2-webhooks-webhook-id.js";
 export * from "./get-v2-comments-comment-id.js";
+export * from "./get-v2-files-file-id.js";
 export * from "./get-v2-lists-list.js";
 export * from "./get-v2-meetings-meeting-id-call-recordings-call-recording-id.js";
 export * from "./get-v2-meetings-meeting-id.js";

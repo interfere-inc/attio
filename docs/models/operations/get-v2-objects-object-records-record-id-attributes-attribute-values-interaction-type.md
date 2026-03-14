@@ -10,11 +10,11 @@ import { GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesInteractionTy
 let value:
   GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesInteractionType =
     "email";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
-
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
 "calendar-event" | "call" | "chat-thread" | "email" | "in-person-meeting" | "meeting" | Unrecognized<string>

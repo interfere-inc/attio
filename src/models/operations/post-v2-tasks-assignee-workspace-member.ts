@@ -3610,6 +3610,20 @@ export type PostV2NotesRequest = {
   data: PostV2NotesData;
 };
 
+export const RequestEntityTooLargeType = {
+  InvalidRequestError: "invalid_request_error",
+} as const;
+export type RequestEntityTooLargeType = ClosedEnum<
+  typeof RequestEntityTooLargeType
+>;
+
+export const RequestEntityTooLargeCode = {
+  ValidationType: "validation_type",
+} as const;
+export type RequestEntityTooLargeCode = ClosedEnum<
+  typeof RequestEntityTooLargeCode
+>;
+
 /**
  * Success
  */
@@ -3997,37 +4011,6 @@ export type PostV2TasksAssigneeWorkspaceMember = {
    * The ID of the actor assigned to this task.
    */
   referencedActorId: string;
-};
-
-export type PostV2TasksAssigneeUnion =
-  | PostV2TasksAssigneeWorkspaceMember
-  | PostV2TasksAssignee;
-
-export type PostV2TasksData = {
-  /**
-   * The text content of the task, in the format specified by the `format` property. A max length of 2000 characters is enforced.
-   */
-  content: string;
-  /**
-   * The format of the task content to be created. Rich text formatting, links and @references are not supported.
-   */
-  format: PostV2TasksFormat;
-  /**
-   * The deadline of the task, in ISO 8601 format.
-   */
-  deadlineAt: string | null;
-  /**
-   * Whether the task has been completed.
-   */
-  isCompleted: boolean;
-  /**
-   * Records linked to the task. Creating record links within task content text is not possible via the API at present.
-   */
-  linkedRecords: Array<PostV2TasksLinkedRecord1 | PostV2TasksLinkedRecord2>;
-  /**
-   * Workspace members assigned to this task.
-   */
-  assignees: Array<PostV2TasksAssigneeWorkspaceMember | PostV2TasksAssignee>;
 };
 
 /** @internal */
@@ -7482,6 +7465,16 @@ export function postV2NotesRequestToJSON(
 }
 
 /** @internal */
+export const RequestEntityTooLargeType$inboundSchema: z.ZodMiniEnum<
+  typeof RequestEntityTooLargeType
+> = z.enum(RequestEntityTooLargeType);
+
+/** @internal */
+export const RequestEntityTooLargeCode$inboundSchema: z.ZodMiniEnum<
+  typeof RequestEntityTooLargeCode
+> = z.enum(RequestEntityTooLargeCode);
+
+/** @internal */
 export const PostV2NotesResponse$inboundSchema: z.ZodMiniType<
   PostV2NotesResponse,
   unknown
@@ -7847,76 +7840,4 @@ export function postV2TasksAssigneeWorkspaceMemberToJSON(
       postV2TasksAssigneeWorkspaceMember,
     ),
   );
-}
-
-/** @internal */
-export type PostV2TasksAssigneeUnion$Outbound =
-  | PostV2TasksAssigneeWorkspaceMember$Outbound
-  | PostV2TasksAssignee$Outbound;
-
-/** @internal */
-export const PostV2TasksAssigneeUnion$outboundSchema: z.ZodMiniType<
-  PostV2TasksAssigneeUnion$Outbound,
-  PostV2TasksAssigneeUnion
-> = smartUnion([
-  z.lazy(() => PostV2TasksAssigneeWorkspaceMember$outboundSchema),
-  z.lazy(() => PostV2TasksAssignee$outboundSchema),
-]);
-
-export function postV2TasksAssigneeUnionToJSON(
-  postV2TasksAssigneeUnion: PostV2TasksAssigneeUnion,
-): string {
-  return JSON.stringify(
-    PostV2TasksAssigneeUnion$outboundSchema.parse(postV2TasksAssigneeUnion),
-  );
-}
-
-/** @internal */
-export type PostV2TasksData$Outbound = {
-  content: string;
-  format: string;
-  deadline_at: string | null;
-  is_completed: boolean;
-  linked_records: Array<
-    PostV2TasksLinkedRecord1$Outbound | PostV2TasksLinkedRecord2$Outbound
-  >;
-  assignees: Array<
-    PostV2TasksAssigneeWorkspaceMember$Outbound | PostV2TasksAssignee$Outbound
-  >;
-};
-
-/** @internal */
-export const PostV2TasksData$outboundSchema: z.ZodMiniType<
-  PostV2TasksData$Outbound,
-  PostV2TasksData
-> = z.pipe(
-  z.object({
-    content: z.string(),
-    format: PostV2TasksFormat$outboundSchema,
-    deadlineAt: z.nullable(z.string()),
-    isCompleted: z.boolean(),
-    linkedRecords: z.array(smartUnion([
-      z.lazy(() => PostV2TasksLinkedRecord1$outboundSchema),
-      z.lazy(() => PostV2TasksLinkedRecord2$outboundSchema),
-    ])),
-    assignees: z.array(smartUnion([
-      z.lazy(() => PostV2TasksAssigneeWorkspaceMember$outboundSchema),
-      z.lazy(() =>
-        PostV2TasksAssignee$outboundSchema
-      ),
-    ])),
-  }),
-  z.transform((v) => {
-    return remap$(v, {
-      deadlineAt: "deadline_at",
-      isCompleted: "is_completed",
-      linkedRecords: "linked_records",
-    });
-  }),
-);
-
-export function postV2TasksDataToJSON(
-  postV2TasksData: PostV2TasksData,
-): string {
-  return JSON.stringify(PostV2TasksData$outboundSchema.parse(postV2TasksData));
 }

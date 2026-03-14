@@ -93,7 +93,7 @@ export type AttioCom = {
 };
 
 export type ResponseBody = {
-  active: boolean;
+  active: false;
 };
 
 /**
@@ -153,7 +153,7 @@ export function attioComFromJSON(
 /** @internal */
 export const ResponseBody$inboundSchema: z.ZodMiniType<ResponseBody, unknown> =
   z.object({
-    active: types.boolean(),
+    active: types.literal(false),
   });
 
 export function responseBodyFromJSON(
