@@ -14,4 +14,4 @@ let value: ResponseBody = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `active`           | *boolean*          | :heavy_check_mark: | N/A                |
+| `active`           | *false*            | :heavy_check_mark: | N/A                |

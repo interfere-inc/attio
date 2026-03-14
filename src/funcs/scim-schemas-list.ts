@@ -28,7 +28,7 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Lists the SCIM schemas supported by this service provider.
  *
- * Required scopes: `scim_management:read-write`.
+ * Required scopes: `scim_management:read`.
  */
 export function scimSchemasList(
   client: AttioCore,

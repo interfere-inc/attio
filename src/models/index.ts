@@ -4,6 +4,10 @@
 
 export * from "./attribute.js";
 export * from "./comment.js";
+export * from "./connected-file.js";
+export * from "./connected-folder.js";
+export * from "./file.js";
+export * from "./folder.js";
 export * from "./input-value-union.js";
 export * from "./list.js";
 export * from "./meeting.js";

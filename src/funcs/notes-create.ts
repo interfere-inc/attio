@@ -42,6 +42,7 @@ export function notesCreate(
   Result<
     operations.PostV2NotesResponse,
     | errors.GetV2ObjectsObjectNotFoundError
+    | errors.PostV2NotesValidationTypeError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -68,6 +69,7 @@ async function $do(
     Result<
       operations.PostV2NotesResponse,
       | errors.GetV2ObjectsObjectNotFoundError
+      | errors.PostV2NotesValidationTypeError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -134,7 +136,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["404", "4XX", "5XX"],
+    errorCodes: ["404", "413", "4XX", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -150,6 +152,7 @@ async function $do(
   const [result] = await M.match<
     operations.PostV2NotesResponse,
     | errors.GetV2ObjectsObjectNotFoundError
+    | errors.PostV2NotesValidationTypeError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -161,6 +164,7 @@ async function $do(
   >(
     M.json(200, operations.PostV2NotesResponse$inboundSchema),
     M.jsonErr(404, errors.GetV2ObjectsObjectNotFoundError$inboundSchema),
+    M.jsonErr(413, errors.PostV2NotesValidationTypeError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

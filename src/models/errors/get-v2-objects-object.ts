@@ -217,6 +217,40 @@ export class MissingValueError extends AttioBaseError {
 }
 
 /**
+ * Content Too Large
+ */
+export type PostV2NotesValidationTypeErrorData = {
+  statusCode: number;
+  type: operations.RequestEntityTooLargeType;
+  code: operations.RequestEntityTooLargeCode;
+  message: string;
+};
+
+/**
+ * Content Too Large
+ */
+export class PostV2NotesValidationTypeError extends AttioBaseError {
+  type: operations.RequestEntityTooLargeType;
+  code: operations.RequestEntityTooLargeCode;
+
+  /** The original data that was passed to this error instance. */
+  data$: PostV2NotesValidationTypeErrorData;
+
+  constructor(
+    err: PostV2NotesValidationTypeErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    this.type = err.type;
+    this.code = err.code;
+
+    this.name = "PostV2NotesValidationTypeError";
+  }
+}
+
+/**
  * Bad Request
  */
 export type PostV2TasksValidationTypeErrorData = {
@@ -438,6 +472,33 @@ export const MissingValueError$inboundSchema: z.ZodMiniType<
     });
 
     return new MissingValueError(remapped, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
+  }),
+);
+
+/** @internal */
+export const PostV2NotesValidationTypeError$inboundSchema: z.ZodMiniType<
+  PostV2NotesValidationTypeError,
+  unknown
+> = z.pipe(
+  z.object({
+    status_code: types.number(),
+    type: operations.RequestEntityTooLargeType$inboundSchema,
+    code: operations.RequestEntityTooLargeCode$inboundSchema,
+    message: types.string(),
+    request$: z.custom<Request>(x => x instanceof Request),
+    response$: z.custom<Response>(x => x instanceof Response),
+    body$: z.string(),
+  }),
+  z.transform((v) => {
+    const remapped = remap$(v, {
+      "status_code": "statusCode",
+    });
+
+    return new PostV2NotesValidationTypeError(remapped, {
       request: v.request$,
       response: v.response$,
       body: v.body$,
