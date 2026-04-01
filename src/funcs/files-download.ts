@@ -37,11 +37,11 @@ import { Result } from "../types/fp.js";
  */
 export function filesDownload(
   client: AttioCore,
-  request: operations.GetV2FilesFileIdDownloadRequest,
+  request: operations.DownloadFileRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.GetV2FilesFileIdDownloadResponse,
+    operations.DownloadFileResponse,
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -61,12 +61,12 @@ export function filesDownload(
 
 async function $do(
   client: AttioCore,
-  request: operations.GetV2FilesFileIdDownloadRequest,
+  request: operations.DownloadFileRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.GetV2FilesFileIdDownloadResponse,
+      operations.DownloadFileResponse,
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -81,8 +81,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) =>
-      z.parse(operations.GetV2FilesFileIdDownloadRequest$outboundSchema, value),
+    (value) => z.parse(operations.DownloadFileRequest$outboundSchema, value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -97,7 +96,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/v2/files/{file_id}/download")(pathParams);
 
   const headers = new Headers(compactMap({
@@ -111,7 +109,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "get_/v2/files/{file_id}/download",
+    operationID: "downloadFile",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -150,7 +148,7 @@ async function $do(
   const response = doResult.value;
 
   const [result] = await M.match<
-    operations.GetV2FilesFileIdDownloadResponse,
+    operations.DownloadFileResponse,
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -160,7 +158,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(302, operations.GetV2FilesFileIdDownloadResponse$inboundSchema),
+    M.json(302, operations.DownloadFileResponse$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req);

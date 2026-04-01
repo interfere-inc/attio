@@ -20,9 +20,9 @@ export class Notes extends ClientSDK {
    * Required scopes: `note:read`, `object_configuration:read`, `record_permission:read`.
    */
   async list(
-    request?: operations.GetV2NotesRequest | undefined,
+    request?: operations.ListNotesRequest | undefined,
     options?: RequestOptions,
-  ): Promise<operations.GetV2NotesResponse> {
+  ): Promise<operations.ListNotesResponse> {
     return unwrapAsync(notesList(
       this,
       request,
@@ -39,9 +39,9 @@ export class Notes extends ClientSDK {
    * Required scopes: `note:read-write`, `object_configuration:read`, `record_permission:read`.
    */
   async create(
-    request: operations.PostV2NotesRequest,
+    request: operations.CreateNoteRequest,
     options?: RequestOptions,
-  ): Promise<operations.PostV2NotesResponse> {
+  ): Promise<operations.CreateNoteResponse> {
     return unwrapAsync(notesCreate(
       this,
       request,
@@ -58,9 +58,9 @@ export class Notes extends ClientSDK {
    * Required scopes: `note:read`, `object_configuration:read`, `record_permission:read`.
    */
   async get(
-    request: operations.GetV2NotesNoteIdRequest,
+    request: operations.GetNoteRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetV2NotesNoteIdResponse> {
+  ): Promise<operations.GetNoteResponse> {
     return unwrapAsync(notesGet(
       this,
       request,
@@ -77,9 +77,9 @@ export class Notes extends ClientSDK {
    * Required scopes: `note:read-write`.
    */
   async delete(
-    request: operations.DeleteV2NotesNoteIdRequest,
+    request: operations.DeleteNoteRequest,
     options?: RequestOptions,
-  ): Promise<operations.DeleteV2NotesNoteIdResponse> {
+  ): Promise<operations.DeleteNoteResponse> {
     return unwrapAsync(notesDelete(
       this,
       request,

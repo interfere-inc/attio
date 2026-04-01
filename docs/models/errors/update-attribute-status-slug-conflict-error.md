@@ -1,0 +1,20 @@
+# UpdateAttributeStatusSlugConflictError
+
+Conflict
+
+## Example Usage
+
+```typescript
+import { UpdateAttributeStatusSlugConflictError } from "@interfere/attio/models/errors";
+
+// No examples available for this model
+```
+
+## Fields
+
+| Field                                                                                                                         | Type                                                                                                                          | Required                                                                                                                      | Description                                                                                                                   | Example                                                                                                                       |
+| ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `statusCode`                                                                                                                  | [operations.UpdateAttributeStatusConflictStatusCode](../../models/operations/update-attribute-status-conflict-status-code.md) | :heavy_check_mark:                                                                                                            | N/A                                                                                                                           |                                                                                                                               |
+| `type`                                                                                                                        | [operations.UpdateAttributeStatusConflictType](../../models/operations/update-attribute-status-conflict-type.md)              | :heavy_check_mark:                                                                                                            | N/A                                                                                                                           |                                                                                                                               |
+| `code`                                                                                                                        | [operations.UpdateAttributeStatusConflictCode](../../models/operations/update-attribute-status-conflict-code.md)              | :heavy_check_mark:                                                                                                            | N/A                                                                                                                           |                                                                                                                               |
+| `message`                                                                                                                     | *string*                                                                                                                      | :heavy_check_mark:                                                                                                            | N/A                                                                                                                           | There is already another status with the title "In Progress".                                                                 |

@@ -16,7 +16,7 @@ export class Meta extends ClientSDK {
    */
   async identify(
     options?: RequestOptions,
-  ): Promise<operations.GetV2SelfResponse> {
+  ): Promise<operations.IdentifyResponse> {
     return unwrapAsync(metaIdentify(
       this,
       options,

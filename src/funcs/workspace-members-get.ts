@@ -36,12 +36,12 @@ import { Result } from "../types/fp.js";
  */
 export function workspaceMembersGet(
   client: AttioCore,
-  request: operations.GetV2WorkspaceMembersWorkspaceMemberIdRequest,
+  request: operations.GetWorkspaceMemberRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.GetV2WorkspaceMembersWorkspaceMemberIdResponse,
-    | errors.GetV2WorkspaceMembersWorkspaceMemberIdNotFoundError
+    operations.GetWorkspaceMemberResponse,
+    | errors.GetWorkspaceMemberNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -61,13 +61,13 @@ export function workspaceMembersGet(
 
 async function $do(
   client: AttioCore,
-  request: operations.GetV2WorkspaceMembersWorkspaceMemberIdRequest,
+  request: operations.GetWorkspaceMemberRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.GetV2WorkspaceMembersWorkspaceMemberIdResponse,
-      | errors.GetV2WorkspaceMembersWorkspaceMemberIdNotFoundError
+      operations.GetWorkspaceMemberResponse,
+      | errors.GetWorkspaceMemberNotFoundError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -83,10 +83,7 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      z.parse(
-        operations.GetV2WorkspaceMembersWorkspaceMemberIdRequest$outboundSchema,
-        value,
-      ),
+      z.parse(operations.GetWorkspaceMemberRequest$outboundSchema, value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -102,7 +99,6 @@ async function $do(
       { explode: false, charEncoding: "percent" },
     ),
   };
-
   const path = pathToFunc("/v2/workspace_members/{workspace_member_id}")(
     pathParams,
   );
@@ -118,7 +114,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "get_/v2/workspace_members/{workspace_member_id}",
+    operationID: "getWorkspaceMember",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -161,8 +157,8 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.GetV2WorkspaceMembersWorkspaceMemberIdResponse,
-    | errors.GetV2WorkspaceMembersWorkspaceMemberIdNotFoundError
+    operations.GetWorkspaceMemberResponse,
+    | errors.GetWorkspaceMemberNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -172,14 +168,8 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(
-      200,
-      operations.GetV2WorkspaceMembersWorkspaceMemberIdResponse$inboundSchema,
-    ),
-    M.jsonErr(
-      404,
-      errors.GetV2WorkspaceMembersWorkspaceMemberIdNotFoundError$inboundSchema,
-    ),
+    M.json(200, operations.GetWorkspaceMemberResponse$inboundSchema),
+    M.jsonErr(404, errors.GetWorkspaceMemberNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

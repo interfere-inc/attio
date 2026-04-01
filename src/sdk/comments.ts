@@ -23,9 +23,9 @@ export class Comments extends ClientSDK {
    * Required scopes: `comment:read-write`.
    */
   async create(
-    request: operations.PostV2CommentsRequest,
+    request: operations.CreateCommentRequest,
     options?: RequestOptions,
-  ): Promise<operations.PostV2CommentsResponse> {
+  ): Promise<operations.CreateCommentResponse> {
     return unwrapAsync(commentsCreate(
       this,
       request,
@@ -46,9 +46,9 @@ export class Comments extends ClientSDK {
    * Required scopes: `comment:read`.
    */
   async get(
-    request: operations.GetV2CommentsCommentIdRequest,
+    request: operations.GetCommentRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetV2CommentsCommentIdResponse> {
+  ): Promise<operations.GetCommentResponse> {
     return unwrapAsync(commentsGet(
       this,
       request,
@@ -65,9 +65,9 @@ export class Comments extends ClientSDK {
    * Required scopes: `comment:read-write`.
    */
   async delete(
-    request: operations.DeleteV2CommentsCommentIdRequest,
+    request: operations.DeleteCommentRequest,
     options?: RequestOptions,
-  ): Promise<operations.DeleteV2CommentsCommentIdResponse> {
+  ): Promise<operations.DeleteCommentResponse> {
     return unwrapAsync(commentsDelete(
       this,
       request,

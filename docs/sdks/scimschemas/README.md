@@ -14,7 +14,7 @@ Required scopes: `scim_management:read`.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get_/scim/v2/Schemas" method="get" path="/scim/v2/Schemas" -->
+<!-- UsageSnippet language="typescript" operationID="listScimSchemas" method="get" path="/scim/v2/Schemas" -->
 ```typescript
 import { Attio } from "@interfere/attio";
 
@@ -68,7 +68,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetScimV2SchemasResponse](../../models/operations/get-scim-v2-schemas-response.md)\>**
+**Promise\<[operations.ListScimSchemasResponse](../../models/operations/list-scim-schemas-response.md)\>**
 
 ### Errors
 

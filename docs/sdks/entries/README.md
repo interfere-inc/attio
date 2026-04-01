@@ -21,9 +21,9 @@ Lists entries in a given list, with the option to filter and sort results.
 
 Required scopes: `list_entry:read`, `list_configuration:read`.
 
-### Example Usage
+### Example Usage: Filter by attribute
 
-<!-- UsageSnippet language="typescript" operationID="post_/v2/lists/{list}/entries/query" method="post" path="/v2/lists/{list}/entries/query" -->
+<!-- UsageSnippet language="typescript" operationID="queryEntries" method="post" path="/v2/lists/{list}/entries/query" example="Filter by attribute" -->
 ```typescript
 import { Attio } from "@interfere/attio";
 
@@ -98,26 +98,99 @@ async function run() {
 
 run();
 ```
+### Example Usage: Filter by view
+
+<!-- UsageSnippet language="typescript" operationID="queryEntries" method="post" path="/v2/lists/{list}/entries/query" example="Filter by view" -->
+```typescript
+import { Attio } from "@interfere/attio";
+
+const attio = new Attio({
+  oauth2: process.env["ATTIO_OAUTH2"] ?? "",
+});
+
+async function run() {
+  const result = await attio.entries.query({
+    list: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0",
+    body: {
+      filterViewId: "cf7aaeb5-7507-4a84-9c26-9d36e34d7b70",
+      sorts: [
+        {
+          direction: "asc",
+          attribute: "name",
+          field: "last_name",
+        },
+      ],
+      limit: 500,
+      offset: 0,
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { AttioCore } from "@interfere/attio/core.js";
+import { entriesQuery } from "@interfere/attio/funcs/entries-query.js";
+
+// Use `AttioCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const attio = new AttioCore({
+  oauth2: process.env["ATTIO_OAUTH2"] ?? "",
+});
+
+async function run() {
+  const res = await entriesQuery(attio, {
+    list: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0",
+    body: {
+      filterViewId: "cf7aaeb5-7507-4a84-9c26-9d36e34d7b70",
+      sorts: [
+        {
+          direction: "asc",
+          attribute: "name",
+          field: "last_name",
+        },
+      ],
+      limit: 500,
+      offset: 0,
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("entriesQuery failed:", res.error);
+  }
+}
+
+run();
+```
 
 ### Parameters
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.PostV2ListsListEntriesQueryRequest](../../models/operations/post-v2-lists-list-entries-query-request.md)                                                           | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.QueryEntriesRequest](../../models/operations/query-entries-request.md)                                                                                             | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.PostV2ListsListEntriesQueryResponse](../../models/operations/post-v2-lists-list-entries-query-response.md)\>**
+**Promise\<[operations.QueryEntriesResponse](../../models/operations/query-entries-response.md)\>**
 
 ### Errors
 
-| Error Type                         | Status Code                        | Content Type                       |
-| ---------------------------------- | ---------------------------------- | ---------------------------------- |
-| errors.GetV2ListsListNotFoundError | 404                                | application/json                   |
-| errors.AttioError                  | 4XX, 5XX                           | \*/\*                              |
+| Error Type                       | Status Code                      | Content Type                     |
+| -------------------------------- | -------------------------------- | -------------------------------- |
+| errors.QueryEntriesNotFoundError | 404                              | application/json                 |
+| errors.AttioError                | 4XX, 5XX                         | \*/\*                            |
 
 ## create
 
@@ -127,7 +200,7 @@ Required scopes: `list_entry:read-write`, `list_configuration:read`.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="post_/v2/lists/{list}/entries" method="post" path="/v2/lists/{list}/entries" -->
+<!-- UsageSnippet language="typescript" operationID="createEntry" method="post" path="/v2/lists/{list}/entries" -->
 ```typescript
 import { Attio } from "@interfere/attio";
 
@@ -209,22 +282,22 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.PostV2ListsListEntriesRequest](../../models/operations/post-v2-lists-list-entries-request.md)                                                                      | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.CreateEntryRequest](../../models/operations/create-entry-request.md)                                                                                               | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.PostV2ListsListEntriesResponse](../../models/operations/post-v2-lists-list-entries-response.md)\>**
+**Promise\<[operations.CreateEntryResponse](../../models/operations/create-entry-response.md)\>**
 
 ### Errors
 
-| Error Type                                      | Status Code                                     | Content Type                                    |
-| ----------------------------------------------- | ----------------------------------------------- | ----------------------------------------------- |
-| errors.PostV2ListsListEntriesValueNotFoundError | 400                                             | application/json                                |
-| errors.PostV2ListsListEntriesNotFoundError      | 404                                             | application/json                                |
-| errors.AttioError                               | 4XX, 5XX                                        | \*/\*                                           |
+| Error Type                           | Status Code                          | Content Type                         |
+| ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.CreateEntryValueNotFoundError | 400                                  | application/json                     |
+| errors.CreateEntryNotFoundError      | 404                                  | application/json                     |
+| errors.AttioError                    | 4XX, 5XX                             | \*/\*                                |
 
 ## assert
 
@@ -234,7 +307,7 @@ Required scopes: `list_entry:read-write`, `list_configuration:read`.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="put_/v2/lists/{list}/entries" method="put" path="/v2/lists/{list}/entries" -->
+<!-- UsageSnippet language="typescript" operationID="assertEntry" method="put" path="/v2/lists/{list}/entries" -->
 ```typescript
 import { Attio } from "@interfere/attio";
 
@@ -316,22 +389,22 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.PutV2ListsListEntriesRequest](../../models/operations/put-v2-lists-list-entries-request.md)                                                                        | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.AssertEntryRequest](../../models/operations/assert-entry-request.md)                                                                                               | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.PutV2ListsListEntriesResponse](../../models/operations/put-v2-lists-list-entries-response.md)\>**
+**Promise\<[operations.AssertEntryResponse](../../models/operations/assert-entry-response.md)\>**
 
 ### Errors
 
-| Error Type                                | Status Code                               | Content Type                              |
-| ----------------------------------------- | ----------------------------------------- | ----------------------------------------- |
-| errors.MultipleMatchResultsError          | 400                                       | application/json                          |
-| errors.PutV2ListsListEntriesNotFoundError | 404                                       | application/json                          |
-| errors.AttioError                         | 4XX, 5XX                                  | \*/\*                                     |
+| Error Type                       | Status Code                      | Content Type                     |
+| -------------------------------- | -------------------------------- | -------------------------------- |
+| errors.MultipleMatchResultsError | 400                              | application/json                 |
+| errors.AssertEntryNotFoundError  | 404                              | application/json                 |
+| errors.AttioError                | 4XX, 5XX                         | \*/\*                            |
 
 ## get
 
@@ -341,7 +414,7 @@ Required scopes: `list_entry:read`, `list_configuration:read`.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get_/v2/lists/{list}/entries/{entry_id}" method="get" path="/v2/lists/{list}/entries/{entry_id}" -->
+<!-- UsageSnippet language="typescript" operationID="getEntry" method="get" path="/v2/lists/{list}/entries/{entry_id}" -->
 ```typescript
 import { Attio } from "@interfere/attio";
 
@@ -395,21 +468,21 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.GetV2ListsListEntriesEntryIdRequest](../../models/operations/get-v2-lists-list-entries-entry-id-request.md)                                                        | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.GetEntryRequest](../../models/operations/get-entry-request.md)                                                                                                     | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.GetV2ListsListEntriesEntryIdResponse](../../models/operations/get-v2-lists-list-entries-entry-id-response.md)\>**
+**Promise\<[operations.GetEntryResponse](../../models/operations/get-entry-response.md)\>**
 
 ### Errors
 
-| Error Type                         | Status Code                        | Content Type                       |
-| ---------------------------------- | ---------------------------------- | ---------------------------------- |
-| errors.GetV2ListsListNotFoundError | 404                                | application/json                   |
-| errors.AttioError                  | 4XX, 5XX                           | \*/\*                              |
+| Error Type                   | Status Code                  | Content Type                 |
+| ---------------------------- | ---------------------------- | ---------------------------- |
+| errors.GetEntryNotFoundError | 404                          | application/json             |
+| errors.AttioError            | 4XX, 5XX                     | \*/\*                        |
 
 ## updateAppending
 
@@ -419,7 +492,7 @@ Required scopes: `list_entry:read-write`, `list_configuration:read`.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="patch_/v2/lists/{list}/entries/{entry_id}" method="patch" path="/v2/lists/{list}/entries/{entry_id}" -->
+<!-- UsageSnippet language="typescript" operationID="updateAppendingEntry" method="patch" path="/v2/lists/{list}/entries/{entry_id}" -->
 ```typescript
 import { Attio } from "@interfere/attio";
 
@@ -499,22 +572,22 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.PatchV2ListsListEntriesEntryIdRequest](../../models/operations/patch-v2-lists-list-entries-entry-id-request.md)                                                    | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.UpdateAppendingEntryRequest](../../models/operations/update-appending-entry-request.md)                                                                            | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.PatchV2ListsListEntriesEntryIdResponse](../../models/operations/patch-v2-lists-list-entries-entry-id-response.md)\>**
+**Promise\<[operations.UpdateAppendingEntryResponse](../../models/operations/update-appending-entry-response.md)\>**
 
 ### Errors
 
-| Error Type                         | Status Code                        | Content Type                       |
-| ---------------------------------- | ---------------------------------- | ---------------------------------- |
-| errors.ImmutableValueError         | 400                                | application/json                   |
-| errors.GetV2ListsListNotFoundError | 404                                | application/json                   |
-| errors.AttioError                  | 4XX, 5XX                           | \*/\*                              |
+| Error Type                                     | Status Code                                    | Content Type                                   |
+| ---------------------------------------------- | ---------------------------------------------- | ---------------------------------------------- |
+| errors.UpdateAppendingEntryImmutableValueError | 400                                            | application/json                               |
+| errors.UpdateAppendingEntryNotFoundError       | 404                                            | application/json                               |
+| errors.AttioError                              | 4XX, 5XX                                       | \*/\*                                          |
 
 ## update
 
@@ -524,7 +597,7 @@ Required scopes: `list_entry:read-write`, `list_configuration:read`.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="put_/v2/lists/{list}/entries/{entry_id}" method="put" path="/v2/lists/{list}/entries/{entry_id}" -->
+<!-- UsageSnippet language="typescript" operationID="updateEntry" method="put" path="/v2/lists/{list}/entries/{entry_id}" -->
 ```typescript
 import { Attio } from "@interfere/attio";
 
@@ -604,22 +677,22 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.PutV2ListsListEntriesEntryIdRequest](../../models/operations/put-v2-lists-list-entries-entry-id-request.md)                                                        | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.UpdateEntryRequest](../../models/operations/update-entry-request.md)                                                                                               | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.PutV2ListsListEntriesEntryIdResponse](../../models/operations/put-v2-lists-list-entries-entry-id-response.md)\>**
+**Promise\<[operations.UpdateEntryResponse](../../models/operations/update-entry-response.md)\>**
 
 ### Errors
 
-| Error Type                         | Status Code                        | Content Type                       |
-| ---------------------------------- | ---------------------------------- | ---------------------------------- |
-| errors.ImmutableValueError         | 400                                | application/json                   |
-| errors.GetV2ListsListNotFoundError | 404                                | application/json                   |
-| errors.AttioError                  | 4XX, 5XX                           | \*/\*                              |
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| errors.UpdateEntryImmutableValueError | 400                                   | application/json                      |
+| errors.UpdateEntryNotFoundError       | 404                                   | application/json                      |
+| errors.AttioError                     | 4XX, 5XX                              | \*/\*                                 |
 
 ## delete
 
@@ -629,7 +702,7 @@ Required scopes: `list_entry:read-write`, `list_configuration:read`.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="delete_/v2/lists/{list}/entries/{entry_id}" method="delete" path="/v2/lists/{list}/entries/{entry_id}" -->
+<!-- UsageSnippet language="typescript" operationID="deleteEntry" method="delete" path="/v2/lists/{list}/entries/{entry_id}" -->
 ```typescript
 import { Attio } from "@interfere/attio";
 
@@ -683,21 +756,21 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.DeleteV2ListsListEntriesEntryIdRequest](../../models/operations/delete-v2-lists-list-entries-entry-id-request.md)                                                  | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.DeleteEntryRequest](../../models/operations/delete-entry-request.md)                                                                                               | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.DeleteV2ListsListEntriesEntryIdResponse](../../models/operations/delete-v2-lists-list-entries-entry-id-response.md)\>**
+**Promise\<[operations.DeleteEntryResponse](../../models/operations/delete-entry-response.md)\>**
 
 ### Errors
 
-| Error Type                         | Status Code                        | Content Type                       |
-| ---------------------------------- | ---------------------------------- | ---------------------------------- |
-| errors.GetV2ListsListNotFoundError | 404                                | application/json                   |
-| errors.AttioError                  | 4XX, 5XX                           | \*/\*                              |
+| Error Type                      | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| errors.DeleteEntryNotFoundError | 404                             | application/json                |
+| errors.AttioError               | 4XX, 5XX                        | \*/\*                           |
 
 ## listAttributeValues
 
@@ -707,7 +780,7 @@ Required scopes: `list_entry:read`, `list_configuration:read`.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get_/v2/lists/{list}/entries/{entry_id}/attributes/{attribute}/values" method="get" path="/v2/lists/{list}/entries/{entry_id}/attributes/{attribute}/values" -->
+<!-- UsageSnippet language="typescript" operationID="listEntryAttributeValues" method="get" path="/v2/lists/{list}/entries/{entry_id}/attributes/{attribute}/values" -->
 ```typescript
 import { Attio } from "@interfere/attio";
 
@@ -769,18 +842,18 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.GetV2ListsListEntriesEntryIdAttributesAttributeValuesRequest](../../models/operations/get-v2-lists-list-entries-entry-id-attributes-attribute-values-request.md)   | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.ListEntryAttributeValuesRequest](../../models/operations/list-entry-attribute-values-request.md)                                                                   | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.GetV2ListsListEntriesEntryIdAttributesAttributeValuesResponse](../../models/operations/get-v2-lists-list-entries-entry-id-attributes-attribute-values-response.md)\>**
+**Promise\<[operations.ListEntryAttributeValuesResponse](../../models/operations/list-entry-attribute-values-response.md)\>**
 
 ### Errors
 
-| Error Type                         | Status Code                        | Content Type                       |
-| ---------------------------------- | ---------------------------------- | ---------------------------------- |
-| errors.GetV2ListsListNotFoundError | 404                                | application/json                   |
-| errors.AttioError                  | 4XX, 5XX                           | \*/\*                              |
+| Error Type                                   | Status Code                                  | Content Type                                 |
+| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
+| errors.ListEntryAttributeValuesNotFoundError | 404                                          | application/json                             |
+| errors.AttioError                            | 4XX, 5XX                                     | \*/\*                                        |

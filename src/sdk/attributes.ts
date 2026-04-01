@@ -27,12 +27,12 @@ export class Attributes extends ClientSDK {
    * @remarks
    * Lists all attributes defined on a specific object or list. Attributes are returned in the order that they are sorted by in the UI.
    *
-   * Required scopes: `object_configuration:read`.
+   * When `target` is `objects`, the required scopes are `object_configuration:read`. When `target` is `lists`, the required scopes are `list_configuration:read`.
    */
   async listAll(
-    request: operations.GetV2TargetIdentifierAttributesRequest,
+    request: operations.ListAllAttributesRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetV2TargetIdentifierAttributesResponse> {
+  ): Promise<operations.ListAllAttributesResponse> {
     return unwrapAsync(attributesListAll(
       this,
       request,
@@ -53,9 +53,9 @@ export class Attributes extends ClientSDK {
    * To create an attribute on a list, you must also have the `list_configuration:read-write` scope.
    */
   async createNew(
-    request: operations.PostV2TargetIdentifierAttributesRequest,
+    request: operations.CreateNewAttributeRequest,
     options?: RequestOptions,
-  ): Promise<operations.PostV2TargetIdentifierAttributesResponse> {
+  ): Promise<operations.CreateNewAttributeResponse> {
     return unwrapAsync(attributesCreateNew(
       this,
       request,
@@ -69,12 +69,12 @@ export class Attributes extends ClientSDK {
    * @remarks
    * Gets information about a single attribute on either an object or a list.
    *
-   * Required scopes: `object_configuration:read`.
+   * When `target` is `objects`, the required scopes are `object_configuration:read`. When `target` is `lists`, the required scopes are `list_configuration:read`.
    */
   async get(
-    request: operations.GetV2TargetIdentifierAttributesAttributeRequest,
+    request: operations.GetAttributeRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetV2TargetIdentifierAttributesAttributeResponse> {
+  ): Promise<operations.GetAttributeResponse> {
     return unwrapAsync(attributesGet(
       this,
       request,
@@ -88,12 +88,12 @@ export class Attributes extends ClientSDK {
    * @remarks
    * Updates a single attribute on a given object or list.
    *
-   * Required scopes: `object_configuration:read-write`.
+   * When `target` is `objects`, the required scopes are `object_configuration:read-write`. When `target` is `lists`, the required scopes are `list_configuration:read-write`.
    */
   async update(
-    request: operations.PatchV2TargetIdentifierAttributesAttributeRequest,
+    request: operations.UpdateAttributeRequest,
     options?: RequestOptions,
-  ): Promise<operations.PatchV2TargetIdentifierAttributesAttributeResponse> {
+  ): Promise<operations.UpdateAttributeResponse> {
     return unwrapAsync(attributesUpdate(
       this,
       request,
@@ -107,15 +107,12 @@ export class Attributes extends ClientSDK {
    * @remarks
    * Updates a select option on an attribute on either an object or a list.
    *
-   * Required scopes: `object_configuration:read-write`.
+   * When `target` is `objects`, the required scopes are `object_configuration:read-write`. When `target` is `lists`, the required scopes are `list_configuration:read-write`.
    */
   async updateSelectOption(
-    request:
-      operations.PatchV2TargetIdentifierAttributesAttributeOptionsOptionRequest,
+    request: operations.UpdateAttributeSelectOptionRequest,
     options?: RequestOptions,
-  ): Promise<
-    operations.PatchV2TargetIdentifierAttributesAttributeOptionsOptionResponse
-  > {
+  ): Promise<operations.UpdateAttributeSelectOptionResponse> {
     return unwrapAsync(attributesUpdateSelectOption(
       this,
       request,
@@ -129,14 +126,12 @@ export class Attributes extends ClientSDK {
    * @remarks
    * Lists all statuses for a particular status attribute on either an object or a list.
    *
-   * Required scopes: `object_configuration:read`.
+   * When `target` is `objects`, the required scopes are `object_configuration:read`. When `target` is `lists`, the required scopes are `list_configuration:read`.
    */
   async listStatuses(
-    request: operations.GetV2TargetIdentifierAttributesAttributeStatusesRequest,
+    request: operations.ListAttributeStatusesRequest,
     options?: RequestOptions,
-  ): Promise<
-    operations.GetV2TargetIdentifierAttributesAttributeStatusesResponse
-  > {
+  ): Promise<operations.ListAttributeStatusesResponse> {
     return unwrapAsync(attributesListStatuses(
       this,
       request,
@@ -150,15 +145,12 @@ export class Attributes extends ClientSDK {
    * @remarks
    * Add a new status to a status attribute on either an object or a list.
    *
-   * Required scopes: `object_configuration:read-write`.
+   * When `target` is `objects`, the required scopes are `object_configuration:read-write`. When `target` is `lists`, the required scopes are `list_configuration:read-write`.
    */
   async createStatus(
-    request:
-      operations.PostV2TargetIdentifierAttributesAttributeStatusesRequest,
+    request: operations.CreateAttributeStatusRequest,
     options?: RequestOptions,
-  ): Promise<
-    operations.PostV2TargetIdentifierAttributesAttributeStatusesResponse
-  > {
+  ): Promise<operations.CreateAttributeStatusResponse> {
     return unwrapAsync(attributesCreateStatus(
       this,
       request,
@@ -172,15 +164,12 @@ export class Attributes extends ClientSDK {
    * @remarks
    * Update a status on an status attribute on either an object or a list.
    *
-   * Required scopes: `object_configuration:read-write`.
+   * When `target` is `objects`, the required scopes are `object_configuration:read-write`. When `target` is `lists`, the required scopes are `list_configuration:read-write`.
    */
   async updateStatus(
-    request:
-      operations.PatchV2TargetIdentifierAttributesAttributeStatusesStatusRequest,
+    request: operations.UpdateAttributeStatusRequest,
     options?: RequestOptions,
-  ): Promise<
-    operations.PatchV2TargetIdentifierAttributesAttributeStatusesStatusResponse
-  > {
+  ): Promise<operations.UpdateAttributeStatusResponse> {
     return unwrapAsync(attributesUpdateStatus(
       this,
       request,

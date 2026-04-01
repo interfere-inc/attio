@@ -37,12 +37,11 @@ import { Result } from "../types/fp.js";
  */
 export function transcriptsGetCallTranscript(
   client: AttioCore,
-  request:
-    operations.GetV2MeetingsMeetingIdCallRecordingsCallRecordingIdTranscriptRequest,
+  request: operations.GetCallTranscriptRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.GetV2MeetingsMeetingIdCallRecordingsCallRecordingIdTranscriptResponse,
+    operations.GetCallTranscriptResponse,
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -62,13 +61,12 @@ export function transcriptsGetCallTranscript(
 
 async function $do(
   client: AttioCore,
-  request:
-    operations.GetV2MeetingsMeetingIdCallRecordingsCallRecordingIdTranscriptRequest,
+  request: operations.GetCallTranscriptRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.GetV2MeetingsMeetingIdCallRecordingsCallRecordingIdTranscriptResponse,
+      operations.GetCallTranscriptResponse,
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -84,11 +82,7 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      z.parse(
-        operations
-          .GetV2MeetingsMeetingIdCallRecordingsCallRecordingIdTranscriptRequest$outboundSchema,
-        value,
-      ),
+      z.parse(operations.GetCallTranscriptRequest$outboundSchema, value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -108,7 +102,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc(
     "/v2/meetings/{meeting_id}/call_recordings/{call_recording_id}/transcript",
   )(pathParams);
@@ -128,8 +121,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID:
-      "get_/v2/meetings/{meeting_id}/call_recordings/{call_recording_id}/transcript",
+    operationID: "getCallTranscript",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -169,7 +161,7 @@ async function $do(
   const response = doResult.value;
 
   const [result] = await M.match<
-    operations.GetV2MeetingsMeetingIdCallRecordingsCallRecordingIdTranscriptResponse,
+    operations.GetCallTranscriptResponse,
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -179,11 +171,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(
-      200,
-      operations
-        .GetV2MeetingsMeetingIdCallRecordingsCallRecordingIdTranscriptResponse$inboundSchema,
-    ),
+    M.json(200, operations.GetCallTranscriptResponse$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req);

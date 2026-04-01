@@ -32,18 +32,18 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Adds a select option to a select attribute on an object or a list.
  *
- * Required scopes: `object_configuration:read-write`.
+ * When `target` is `objects`, the required scopes are `object_configuration:read-write`. When `target` is `lists`, the required scopes are `list_configuration:read-write`.
  */
 export function attributesOptionsCreate(
   client: AttioCore,
-  request: operations.PostV2TargetIdentifierAttributesAttributeOptionsRequest,
+  request: operations.CreateAttributeOptionRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.PostV2TargetIdentifierAttributesAttributeOptionsResponse,
-    | errors.PostV2TargetIdentifierAttributesAttributeOptionsValidationTypeError
-    | errors.GetV2TargetIdentifierAttributesAttributeNotFoundError
-    | errors.PostV2TargetIdentifierAttributesAttributeOptionsSlugConflictError
+    operations.CreateAttributeOptionResponse,
+    | errors.CreateAttributeOptionValidationTypeError
+    | errors.CreateAttributeOptionNotFoundError
+    | errors.CreateAttributeOptionSlugConflictError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -63,15 +63,15 @@ export function attributesOptionsCreate(
 
 async function $do(
   client: AttioCore,
-  request: operations.PostV2TargetIdentifierAttributesAttributeOptionsRequest,
+  request: operations.CreateAttributeOptionRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.PostV2TargetIdentifierAttributesAttributeOptionsResponse,
-      | errors.PostV2TargetIdentifierAttributesAttributeOptionsValidationTypeError
-      | errors.GetV2TargetIdentifierAttributesAttributeNotFoundError
-      | errors.PostV2TargetIdentifierAttributesAttributeOptionsSlugConflictError
+      operations.CreateAttributeOptionResponse,
+      | errors.CreateAttributeOptionValidationTypeError
+      | errors.CreateAttributeOptionNotFoundError
+      | errors.CreateAttributeOptionSlugConflictError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -87,11 +87,7 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      z.parse(
-        operations
-          .PostV2TargetIdentifierAttributesAttributeOptionsRequest$outboundSchema,
-        value,
-      ),
+      z.parse(operations.CreateAttributeOptionRequest$outboundSchema, value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -114,7 +110,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc(
     "/v2/{target}/{identifier}/attributes/{attribute}/options",
   )(pathParams);
@@ -131,8 +126,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID:
-      "post_/v2/{target}/{identifier}/attributes/{attribute}/options",
+    operationID: "createAttributeOption",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -175,10 +169,10 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.PostV2TargetIdentifierAttributesAttributeOptionsResponse,
-    | errors.PostV2TargetIdentifierAttributesAttributeOptionsValidationTypeError
-    | errors.GetV2TargetIdentifierAttributesAttributeNotFoundError
-    | errors.PostV2TargetIdentifierAttributesAttributeOptionsSlugConflictError
+    operations.CreateAttributeOptionResponse,
+    | errors.CreateAttributeOptionValidationTypeError
+    | errors.CreateAttributeOptionNotFoundError
+    | errors.CreateAttributeOptionSlugConflictError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -188,26 +182,13 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(
-      200,
-      operations
-        .PostV2TargetIdentifierAttributesAttributeOptionsResponse$inboundSchema,
-    ),
+    M.json(200, operations.CreateAttributeOptionResponse$inboundSchema),
     M.jsonErr(
       400,
-      errors
-        .PostV2TargetIdentifierAttributesAttributeOptionsValidationTypeError$inboundSchema,
+      errors.CreateAttributeOptionValidationTypeError$inboundSchema,
     ),
-    M.jsonErr(
-      404,
-      errors
-        .GetV2TargetIdentifierAttributesAttributeNotFoundError$inboundSchema,
-    ),
-    M.jsonErr(
-      409,
-      errors
-        .PostV2TargetIdentifierAttributesAttributeOptionsSlugConflictError$inboundSchema,
-    ),
+    M.jsonErr(404, errors.CreateAttributeOptionNotFoundError$inboundSchema),
+    M.jsonErr(409, errors.CreateAttributeOptionSlugConflictError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

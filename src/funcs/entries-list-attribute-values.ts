@@ -36,13 +36,12 @@ import { Result } from "../types/fp.js";
  */
 export function entriesListAttributeValues(
   client: AttioCore,
-  request:
-    operations.GetV2ListsListEntriesEntryIdAttributesAttributeValuesRequest,
+  request: operations.ListEntryAttributeValuesRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.GetV2ListsListEntriesEntryIdAttributesAttributeValuesResponse,
-    | errors.GetV2ListsListNotFoundError
+    operations.ListEntryAttributeValuesResponse,
+    | errors.ListEntryAttributeValuesNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -62,14 +61,13 @@ export function entriesListAttributeValues(
 
 async function $do(
   client: AttioCore,
-  request:
-    operations.GetV2ListsListEntriesEntryIdAttributesAttributeValuesRequest,
+  request: operations.ListEntryAttributeValuesRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.GetV2ListsListEntriesEntryIdAttributesAttributeValuesResponse,
-      | errors.GetV2ListsListNotFoundError
+      operations.ListEntryAttributeValuesResponse,
+      | errors.ListEntryAttributeValuesNotFoundError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -85,11 +83,7 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      z.parse(
-        operations
-          .GetV2ListsListEntriesEntryIdAttributesAttributeValuesRequest$outboundSchema,
-        value,
-      ),
+      z.parse(operations.ListEntryAttributeValuesRequest$outboundSchema, value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -112,7 +106,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc(
     "/v2/lists/{list}/entries/{entry_id}/attributes/{attribute}/values",
   )(pathParams);
@@ -134,8 +127,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID:
-      "get_/v2/lists/{list}/entries/{entry_id}/attributes/{attribute}/values",
+    operationID: "listEntryAttributeValues",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -179,8 +171,8 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.GetV2ListsListEntriesEntryIdAttributesAttributeValuesResponse,
-    | errors.GetV2ListsListNotFoundError
+    operations.ListEntryAttributeValuesResponse,
+    | errors.ListEntryAttributeValuesNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -190,12 +182,8 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(
-      200,
-      operations
-        .GetV2ListsListEntriesEntryIdAttributesAttributeValuesResponse$inboundSchema,
-    ),
-    M.jsonErr(404, errors.GetV2ListsListNotFoundError$inboundSchema),
+    M.json(200, operations.ListEntryAttributeValuesResponse$inboundSchema),
+    M.jsonErr(404, errors.ListEntryAttributeValuesNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

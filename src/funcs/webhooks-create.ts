@@ -36,12 +36,12 @@ import { Result } from "../types/fp.js";
  */
 export function webhooksCreate(
   client: AttioCore,
-  request: operations.PostV2WebhooksRequest,
+  request: operations.CreateWebhookRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.PostV2WebhooksResponse,
-    | errors.PostV2WebhooksValidationTypeError
+    operations.CreateWebhookResponse,
+    | errors.CreateWebhookValidationTypeError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -61,13 +61,13 @@ export function webhooksCreate(
 
 async function $do(
   client: AttioCore,
-  request: operations.PostV2WebhooksRequest,
+  request: operations.CreateWebhookRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.PostV2WebhooksResponse,
-      | errors.PostV2WebhooksValidationTypeError
+      operations.CreateWebhookResponse,
+      | errors.CreateWebhookValidationTypeError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -82,7 +82,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => z.parse(operations.PostV2WebhooksRequest$outboundSchema, value),
+    (value) => z.parse(operations.CreateWebhookRequest$outboundSchema, value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -105,7 +105,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "post_/v2/webhooks",
+    operationID: "createWebhook",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -148,8 +148,8 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.PostV2WebhooksResponse,
-    | errors.PostV2WebhooksValidationTypeError
+    operations.CreateWebhookResponse,
+    | errors.CreateWebhookValidationTypeError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -159,8 +159,8 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.PostV2WebhooksResponse$inboundSchema),
-    M.jsonErr(400, errors.PostV2WebhooksValidationTypeError$inboundSchema),
+    M.json(200, operations.CreateWebhookResponse$inboundSchema),
+    M.jsonErr(400, errors.CreateWebhookValidationTypeError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

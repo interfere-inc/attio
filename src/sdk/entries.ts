@@ -24,9 +24,9 @@ export class Entries extends ClientSDK {
    * Required scopes: `list_entry:read`, `list_configuration:read`.
    */
   async query(
-    request: operations.PostV2ListsListEntriesQueryRequest,
+    request: operations.QueryEntriesRequest,
     options?: RequestOptions,
-  ): Promise<operations.PostV2ListsListEntriesQueryResponse> {
+  ): Promise<operations.QueryEntriesResponse> {
     return unwrapAsync(entriesQuery(
       this,
       request,
@@ -43,9 +43,9 @@ export class Entries extends ClientSDK {
    * Required scopes: `list_entry:read-write`, `list_configuration:read`.
    */
   async create(
-    request: operations.PostV2ListsListEntriesRequest,
+    request: operations.CreateEntryRequest,
     options?: RequestOptions,
-  ): Promise<operations.PostV2ListsListEntriesResponse> {
+  ): Promise<operations.CreateEntryResponse> {
     return unwrapAsync(entriesCreate(
       this,
       request,
@@ -62,9 +62,9 @@ export class Entries extends ClientSDK {
    * Required scopes: `list_entry:read-write`, `list_configuration:read`.
    */
   async assert(
-    request: operations.PutV2ListsListEntriesRequest,
+    request: operations.AssertEntryRequest,
     options?: RequestOptions,
-  ): Promise<operations.PutV2ListsListEntriesResponse> {
+  ): Promise<operations.AssertEntryResponse> {
     return unwrapAsync(entriesAssert(
       this,
       request,
@@ -81,9 +81,9 @@ export class Entries extends ClientSDK {
    * Required scopes: `list_entry:read`, `list_configuration:read`.
    */
   async get(
-    request: operations.GetV2ListsListEntriesEntryIdRequest,
+    request: operations.GetEntryRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetV2ListsListEntriesEntryIdResponse> {
+  ): Promise<operations.GetEntryResponse> {
     return unwrapAsync(entriesGet(
       this,
       request,
@@ -100,9 +100,9 @@ export class Entries extends ClientSDK {
    * Required scopes: `list_entry:read-write`, `list_configuration:read`.
    */
   async updateAppending(
-    request: operations.PatchV2ListsListEntriesEntryIdRequest,
+    request: operations.UpdateAppendingEntryRequest,
     options?: RequestOptions,
-  ): Promise<operations.PatchV2ListsListEntriesEntryIdResponse> {
+  ): Promise<operations.UpdateAppendingEntryResponse> {
     return unwrapAsync(entriesUpdateAppending(
       this,
       request,
@@ -119,9 +119,9 @@ export class Entries extends ClientSDK {
    * Required scopes: `list_entry:read-write`, `list_configuration:read`.
    */
   async update(
-    request: operations.PutV2ListsListEntriesEntryIdRequest,
+    request: operations.UpdateEntryRequest,
     options?: RequestOptions,
-  ): Promise<operations.PutV2ListsListEntriesEntryIdResponse> {
+  ): Promise<operations.UpdateEntryResponse> {
     return unwrapAsync(entriesUpdate(
       this,
       request,
@@ -138,9 +138,9 @@ export class Entries extends ClientSDK {
    * Required scopes: `list_entry:read-write`, `list_configuration:read`.
    */
   async delete(
-    request: operations.DeleteV2ListsListEntriesEntryIdRequest,
+    request: operations.DeleteEntryRequest,
     options?: RequestOptions,
-  ): Promise<operations.DeleteV2ListsListEntriesEntryIdResponse> {
+  ): Promise<operations.DeleteEntryResponse> {
     return unwrapAsync(entriesDelete(
       this,
       request,
@@ -157,12 +157,9 @@ export class Entries extends ClientSDK {
    * Required scopes: `list_entry:read`, `list_configuration:read`.
    */
   async listAttributeValues(
-    request:
-      operations.GetV2ListsListEntriesEntryIdAttributesAttributeValuesRequest,
+    request: operations.ListEntryAttributeValuesRequest,
     options?: RequestOptions,
-  ): Promise<
-    operations.GetV2ListsListEntriesEntryIdAttributesAttributeValuesResponse
-  > {
+  ): Promise<operations.ListEntryAttributeValuesResponse> {
     return unwrapAsync(entriesListAttributeValues(
       this,
       request,

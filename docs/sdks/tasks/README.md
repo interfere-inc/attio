@@ -20,7 +20,7 @@ Required scopes: `task:read`, `object_configuration:read`, `record_permission:re
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get_/v2/tasks" method="get" path="/v2/tasks" -->
+<!-- UsageSnippet language="typescript" operationID="listTasks" method="get" path="/v2/tasks" -->
 ```typescript
 import { Attio } from "@interfere/attio";
 
@@ -84,14 +84,14 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.GetV2TasksRequest](../../models/operations/get-v2-tasks-request.md)                                                                                                | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.ListTasksRequest](../../models/operations/list-tasks-request.md)                                                                                                   | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.GetV2TasksResponse](../../models/operations/get-v2-tasks-response.md)\>**
+**Promise\<[operations.ListTasksResponse](../../models/operations/list-tasks-response.md)\>**
 
 ### Errors
 
@@ -109,7 +109,7 @@ Required scopes: `task:read-write`, `object_configuration:read`, `record_permiss
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="post_/v2/tasks" method="post" path="/v2/tasks" -->
+<!-- UsageSnippet language="typescript" operationID="createTask" method="post" path="/v2/tasks" -->
 ```typescript
 import { Attio } from "@interfere/attio";
 
@@ -124,8 +124,22 @@ async function run() {
       format: "plaintext",
       deadlineAt: "2023-01-01T15:00:00.000000000Z",
       isCompleted: false,
-      linkedRecords: [],
-      assignees: [],
+      linkedRecords: [
+        {
+          targetObject: "people",
+          slugOrIdOfMatchingAttribute: [
+            {
+              originalPhoneNumber: "07234172834",
+              countryCode: "GB",
+            },
+          ],
+        },
+      ],
+      assignees: [
+        {
+          workspaceMemberEmailAddress: "alice@attio.com",
+        },
+      ],
     },
   });
 
@@ -156,8 +170,22 @@ async function run() {
       format: "plaintext",
       deadlineAt: "2023-01-01T15:00:00.000000000Z",
       isCompleted: false,
-      linkedRecords: [],
-      assignees: [],
+      linkedRecords: [
+        {
+          targetObject: "people",
+          slugOrIdOfMatchingAttribute: [
+            {
+              originalPhoneNumber: "07234172834",
+              countryCode: "GB",
+            },
+          ],
+        },
+      ],
+      assignees: [
+        {
+          workspaceMemberEmailAddress: "alice@attio.com",
+        },
+      ],
     },
   });
   if (res.ok) {
@@ -175,22 +203,22 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.PostV2TasksRequest](../../models/operations/post-v2-tasks-request.md)                                                                                              | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.CreateTaskRequest](../../models/operations/create-task-request.md)                                                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.PostV2TasksResponse](../../models/operations/post-v2-tasks-response.md)\>**
+**Promise\<[operations.CreateTaskResponse](../../models/operations/create-task-response.md)\>**
 
 ### Errors
 
-| Error Type                             | Status Code                            | Content Type                           |
-| -------------------------------------- | -------------------------------------- | -------------------------------------- |
-| errors.PostV2TasksValidationTypeError  | 400                                    | application/json                       |
-| errors.GetV2ObjectsObjectNotFoundError | 404                                    | application/json                       |
-| errors.AttioError                      | 4XX, 5XX                               | \*/\*                                  |
+| Error Type                           | Status Code                          | Content Type                         |
+| ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.CreateTaskValidationTypeError | 400                                  | application/json                     |
+| errors.CreateTaskNotFoundError       | 404                                  | application/json                     |
+| errors.AttioError                    | 4XX, 5XX                             | \*/\*                                |
 
 ## get
 
@@ -200,7 +228,7 @@ Required scopes: `task:read`, `object_configuration:read`, `record_permission:re
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get_/v2/tasks/{task_id}" method="get" path="/v2/tasks/{task_id}" -->
+<!-- UsageSnippet language="typescript" operationID="getTask" method="get" path="/v2/tasks/{task_id}" -->
 ```typescript
 import { Attio } from "@interfere/attio";
 
@@ -252,21 +280,21 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.GetV2TasksTaskIdRequest](../../models/operations/get-v2-tasks-task-id-request.md)                                                                                  | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.GetTaskRequest](../../models/operations/get-task-request.md)                                                                                                       | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.GetV2TasksTaskIdResponse](../../models/operations/get-v2-tasks-task-id-response.md)\>**
+**Promise\<[operations.GetTaskResponse](../../models/operations/get-task-response.md)\>**
 
 ### Errors
 
-| Error Type                           | Status Code                          | Content Type                         |
-| ------------------------------------ | ------------------------------------ | ------------------------------------ |
-| errors.GetV2TasksTaskIdNotFoundError | 404                                  | application/json                     |
-| errors.AttioError                    | 4XX, 5XX                             | \*/\*                                |
+| Error Type                  | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| errors.GetTaskNotFoundError | 404                         | application/json            |
+| errors.AttioError           | 4XX, 5XX                    | \*/\*                       |
 
 ## update
 
@@ -276,7 +304,7 @@ Required scopes: `task:read-write`, `object_configuration:read`, `record_permiss
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="patch_/v2/tasks/{task_id}" method="patch" path="/v2/tasks/{task_id}" -->
+<!-- UsageSnippet language="typescript" operationID="updateTask" method="patch" path="/v2/tasks/{task_id}" -->
 ```typescript
 import { Attio } from "@interfere/attio";
 
@@ -294,12 +322,13 @@ async function run() {
         linkedRecords: [
           {
             targetObject: "people",
-            slugOrIdOfMatchingAttribute: [],
+            targetRecordId: "891dcbfc-9141-415d-9b2a-2238a6cc012d",
           },
         ],
         assignees: [
           {
-            workspaceMemberEmailAddress: "alice@attio.com",
+            referencedActorType: "workspace-member",
+            referencedActorId: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
           },
         ],
       },
@@ -336,12 +365,13 @@ async function run() {
         linkedRecords: [
           {
             targetObject: "people",
-            slugOrIdOfMatchingAttribute: [],
+            targetRecordId: "891dcbfc-9141-415d-9b2a-2238a6cc012d",
           },
         ],
         assignees: [
           {
-            workspaceMemberEmailAddress: "alice@attio.com",
+            referencedActorType: "workspace-member",
+            referencedActorId: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
           },
         ],
       },
@@ -362,22 +392,22 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.PatchV2TasksTaskIdRequest](../../models/operations/patch-v2-tasks-task-id-request.md)                                                                              | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.UpdateTaskRequest](../../models/operations/update-task-request.md)                                                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.PatchV2TasksTaskIdResponse](../../models/operations/patch-v2-tasks-task-id-response.md)\>**
+**Promise\<[operations.UpdateTaskResponse](../../models/operations/update-task-response.md)\>**
 
 ### Errors
 
-| Error Type                             | Status Code                            | Content Type                           |
-| -------------------------------------- | -------------------------------------- | -------------------------------------- |
-| errors.PostV2TasksValidationTypeError  | 400                                    | application/json                       |
-| errors.PatchV2TasksTaskIdNotFoundError | 404                                    | application/json                       |
-| errors.AttioError                      | 4XX, 5XX                               | \*/\*                                  |
+| Error Type                           | Status Code                          | Content Type                         |
+| ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.UpdateTaskValidationTypeError | 400                                  | application/json                     |
+| errors.UpdateTaskNotFoundError       | 404                                  | application/json                     |
+| errors.AttioError                    | 4XX, 5XX                             | \*/\*                                |
 
 ## delete
 
@@ -387,7 +417,7 @@ Required scopes: `task:read-write`.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="delete_/v2/tasks/{task_id}" method="delete" path="/v2/tasks/{task_id}" -->
+<!-- UsageSnippet language="typescript" operationID="deleteTask" method="delete" path="/v2/tasks/{task_id}" -->
 ```typescript
 import { Attio } from "@interfere/attio";
 
@@ -439,18 +469,18 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.DeleteV2TasksTaskIdRequest](../../models/operations/delete-v2-tasks-task-id-request.md)                                                                            | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.DeleteTaskRequest](../../models/operations/delete-task-request.md)                                                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.DeleteV2TasksTaskIdResponse](../../models/operations/delete-v2-tasks-task-id-response.md)\>**
+**Promise\<[operations.DeleteTaskResponse](../../models/operations/delete-task-response.md)\>**
 
 ### Errors
 
-| Error Type                           | Status Code                          | Content Type                         |
-| ------------------------------------ | ------------------------------------ | ------------------------------------ |
-| errors.GetV2TasksTaskIdNotFoundError | 404                                  | application/json                     |
-| errors.AttioError                    | 4XX, 5XX                             | \*/\*                                |
+| Error Type                     | Status Code                    | Content Type                   |
+| ------------------------------ | ------------------------------ | ------------------------------ |
+| errors.DeleteTaskNotFoundError | 404                            | application/json               |
+| errors.AttioError              | 4XX, 5XX                       | \*/\*                          |

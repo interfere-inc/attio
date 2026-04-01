@@ -36,12 +36,12 @@ import { Result } from "../types/fp.js";
  */
 export function webhooksGet(
   client: AttioCore,
-  request: operations.GetV2WebhooksWebhookIdRequest,
+  request: operations.GetWebhookRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.GetV2WebhooksWebhookIdResponse,
-    | errors.GetV2WebhooksWebhookIdNotFoundError
+    operations.GetWebhookResponse,
+    | errors.GetWebhookNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -61,13 +61,13 @@ export function webhooksGet(
 
 async function $do(
   client: AttioCore,
-  request: operations.GetV2WebhooksWebhookIdRequest,
+  request: operations.GetWebhookRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.GetV2WebhooksWebhookIdResponse,
-      | errors.GetV2WebhooksWebhookIdNotFoundError
+      operations.GetWebhookResponse,
+      | errors.GetWebhookNotFoundError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -82,8 +82,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) =>
-      z.parse(operations.GetV2WebhooksWebhookIdRequest$outboundSchema, value),
+    (value) => z.parse(operations.GetWebhookRequest$outboundSchema, value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -98,7 +97,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/v2/webhooks/{webhook_id}")(pathParams);
 
   const headers = new Headers(compactMap({
@@ -112,7 +110,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "get_/v2/webhooks/{webhook_id}",
+    operationID: "getWebhook",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -155,8 +153,8 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.GetV2WebhooksWebhookIdResponse,
-    | errors.GetV2WebhooksWebhookIdNotFoundError
+    operations.GetWebhookResponse,
+    | errors.GetWebhookNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -166,8 +164,8 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.GetV2WebhooksWebhookIdResponse$inboundSchema),
-    M.jsonErr(404, errors.GetV2WebhooksWebhookIdNotFoundError$inboundSchema),
+    M.json(200, operations.GetWebhookResponse$inboundSchema),
+    M.jsonErr(404, errors.GetWebhookNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

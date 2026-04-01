@@ -38,14 +38,14 @@ import { Result } from "../types/fp.js";
  */
 export function callRecordingsCreate(
   client: AttioCore,
-  request: operations.PostV2MeetingsMeetingIdCallRecordingsRequest,
+  request: operations.CreateCallRecordingRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.PostV2MeetingsMeetingIdCallRecordingsResponse,
-    | errors.PostV2MeetingsMeetingIdCallRecordingsValidationTypeError
+    operations.CreateCallRecordingResponse,
+    | errors.CreateCallRecordingValidationTypeError
     | errors.AuthError
-    | errors.PostV2MeetingsMeetingIdCallRecordingsNotFoundError
+    | errors.CreateCallRecordingNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -65,15 +65,15 @@ export function callRecordingsCreate(
 
 async function $do(
   client: AttioCore,
-  request: operations.PostV2MeetingsMeetingIdCallRecordingsRequest,
+  request: operations.CreateCallRecordingRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.PostV2MeetingsMeetingIdCallRecordingsResponse,
-      | errors.PostV2MeetingsMeetingIdCallRecordingsValidationTypeError
+      operations.CreateCallRecordingResponse,
+      | errors.CreateCallRecordingValidationTypeError
       | errors.AuthError
-      | errors.PostV2MeetingsMeetingIdCallRecordingsNotFoundError
+      | errors.CreateCallRecordingNotFoundError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -89,10 +89,7 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      z.parse(
-        operations.PostV2MeetingsMeetingIdCallRecordingsRequest$outboundSchema,
-        value,
-      ),
+      z.parse(operations.CreateCallRecordingRequest$outboundSchema, value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -107,7 +104,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/v2/meetings/{meeting_id}/call_recordings")(
     pathParams,
   );
@@ -124,7 +120,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "post_/v2/meetings/{meeting_id}/call_recordings",
+    operationID: "createCallRecording",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -167,10 +163,10 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.PostV2MeetingsMeetingIdCallRecordingsResponse,
-    | errors.PostV2MeetingsMeetingIdCallRecordingsValidationTypeError
+    operations.CreateCallRecordingResponse,
+    | errors.CreateCallRecordingValidationTypeError
     | errors.AuthError
-    | errors.PostV2MeetingsMeetingIdCallRecordingsNotFoundError
+    | errors.CreateCallRecordingNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -180,20 +176,10 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(
-      200,
-      operations.PostV2MeetingsMeetingIdCallRecordingsResponse$inboundSchema,
-    ),
-    M.jsonErr(
-      400,
-      errors
-        .PostV2MeetingsMeetingIdCallRecordingsValidationTypeError$inboundSchema,
-    ),
+    M.json(200, operations.CreateCallRecordingResponse$inboundSchema),
+    M.jsonErr(400, errors.CreateCallRecordingValidationTypeError$inboundSchema),
     M.jsonErr(403, errors.AuthError$inboundSchema),
-    M.jsonErr(
-      404,
-      errors.PostV2MeetingsMeetingIdCallRecordingsNotFoundError$inboundSchema,
-    ),
+    M.jsonErr(404, errors.CreateCallRecordingNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

@@ -19,7 +19,7 @@ Required scopes: `note:read`, `object_configuration:read`, `record_permission:re
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get_/v2/notes" method="get" path="/v2/notes" -->
+<!-- UsageSnippet language="typescript" operationID="listNotes" method="get" path="/v2/notes" -->
 ```typescript
 import { Attio } from "@interfere/attio";
 
@@ -77,21 +77,21 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.GetV2NotesRequest](../../models/operations/get-v2-notes-request.md)                                                                                                | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.ListNotesRequest](../../models/operations/list-notes-request.md)                                                                                                   | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.GetV2NotesResponse](../../models/operations/get-v2-notes-response.md)\>**
+**Promise\<[operations.ListNotesResponse](../../models/operations/list-notes-response.md)\>**
 
 ### Errors
 
-| Error Type                             | Status Code                            | Content Type                           |
-| -------------------------------------- | -------------------------------------- | -------------------------------------- |
-| errors.GetV2ObjectsObjectNotFoundError | 404                                    | application/json                       |
-| errors.AttioError                      | 4XX, 5XX                               | \*/\*                                  |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.ListNotesNotFoundError | 404                           | application/json              |
+| errors.AttioError             | 4XX, 5XX                      | \*/\*                         |
 
 ## create
 
@@ -101,7 +101,7 @@ Required scopes: `note:read-write`, `object_configuration:read`, `record_permiss
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="post_/v2/notes" method="post" path="/v2/notes" -->
+<!-- UsageSnippet language="typescript" operationID="createNote" method="post" path="/v2/notes" -->
 ```typescript
 import { Attio } from "@interfere/attio";
 
@@ -115,7 +115,7 @@ async function run() {
       parentObject: "people",
       parentRecordId: "891dcbfc-9141-415d-9b2a-2238a6cc012d",
       title: "Initial Prospecting Call Summary",
-      format: "plaintext",
+      format: "markdown",
       content: "# Meeting Recap: Q4 Planning\n\n**Date:** 2023-10-26\n**Attendees:** Alex, Jamie, Casey\n\n## Key Discussion Points\n\n- Reviewed Q3 performance metrics.\n- Brainstormed key initiatives for Q4.\n- Discussed budget allocation for ==Project Phoenix==.\n\n## Action Items\n\n1. Alex to finalize Q4 roadmap by EOD Friday.\n2. Jamie to schedule follow-up with [Marketing Team](https://app.attio.com/teams/marketing).\n3. Casey to draft initial budget for ~~Project Chimera~~ (now deferred).\n\n*Next steps: Review draft roadmap next week.*",
       createdAt: "2023-01-01T15:00:00.000000000Z",
       meetingId: "14beef7a-99f7-4534-a87e-70b564330a4c",
@@ -148,7 +148,7 @@ async function run() {
       parentObject: "people",
       parentRecordId: "891dcbfc-9141-415d-9b2a-2238a6cc012d",
       title: "Initial Prospecting Call Summary",
-      format: "plaintext",
+      format: "markdown",
       content: "# Meeting Recap: Q4 Planning\n\n**Date:** 2023-10-26\n**Attendees:** Alex, Jamie, Casey\n\n## Key Discussion Points\n\n- Reviewed Q3 performance metrics.\n- Brainstormed key initiatives for Q4.\n- Discussed budget allocation for ==Project Phoenix==.\n\n## Action Items\n\n1. Alex to finalize Q4 roadmap by EOD Friday.\n2. Jamie to schedule follow-up with [Marketing Team](https://app.attio.com/teams/marketing).\n3. Casey to draft initial budget for ~~Project Chimera~~ (now deferred).\n\n*Next steps: Review draft roadmap next week.*",
       createdAt: "2023-01-01T15:00:00.000000000Z",
       meetingId: "14beef7a-99f7-4534-a87e-70b564330a4c",
@@ -169,22 +169,22 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.PostV2NotesRequest](../../models/operations/post-v2-notes-request.md)                                                                                              | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.CreateNoteRequest](../../models/operations/create-note-request.md)                                                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.PostV2NotesResponse](../../models/operations/post-v2-notes-response.md)\>**
+**Promise\<[operations.CreateNoteResponse](../../models/operations/create-note-response.md)\>**
 
 ### Errors
 
-| Error Type                             | Status Code                            | Content Type                           |
-| -------------------------------------- | -------------------------------------- | -------------------------------------- |
-| errors.GetV2ObjectsObjectNotFoundError | 404                                    | application/json                       |
-| errors.PostV2NotesValidationTypeError  | 413                                    | application/json                       |
-| errors.AttioError                      | 4XX, 5XX                               | \*/\*                                  |
+| Error Type                           | Status Code                          | Content Type                         |
+| ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.CreateNoteNotFoundError       | 404                                  | application/json                     |
+| errors.CreateNoteValidationTypeError | 413                                  | application/json                     |
+| errors.AttioError                    | 4XX, 5XX                             | \*/\*                                |
 
 ## get
 
@@ -194,7 +194,7 @@ Required scopes: `note:read`, `object_configuration:read`, `record_permission:re
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get_/v2/notes/{note_id}" method="get" path="/v2/notes/{note_id}" -->
+<!-- UsageSnippet language="typescript" operationID="getNote" method="get" path="/v2/notes/{note_id}" -->
 ```typescript
 import { Attio } from "@interfere/attio";
 
@@ -246,21 +246,21 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.GetV2NotesNoteIdRequest](../../models/operations/get-v2-notes-note-id-request.md)                                                                                  | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.GetNoteRequest](../../models/operations/get-note-request.md)                                                                                                       | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.GetV2NotesNoteIdResponse](../../models/operations/get-v2-notes-note-id-response.md)\>**
+**Promise\<[operations.GetNoteResponse](../../models/operations/get-note-response.md)\>**
 
 ### Errors
 
-| Error Type                           | Status Code                          | Content Type                         |
-| ------------------------------------ | ------------------------------------ | ------------------------------------ |
-| errors.GetV2NotesNoteIdNotFoundError | 404                                  | application/json                     |
-| errors.AttioError                    | 4XX, 5XX                             | \*/\*                                |
+| Error Type                  | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| errors.GetNoteNotFoundError | 404                         | application/json            |
+| errors.AttioError           | 4XX, 5XX                    | \*/\*                       |
 
 ## delete
 
@@ -270,7 +270,7 @@ Required scopes: `note:read-write`.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="delete_/v2/notes/{note_id}" method="delete" path="/v2/notes/{note_id}" -->
+<!-- UsageSnippet language="typescript" operationID="deleteNote" method="delete" path="/v2/notes/{note_id}" -->
 ```typescript
 import { Attio } from "@interfere/attio";
 
@@ -322,18 +322,18 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.DeleteV2NotesNoteIdRequest](../../models/operations/delete-v2-notes-note-id-request.md)                                                                            | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.DeleteNoteRequest](../../models/operations/delete-note-request.md)                                                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.DeleteV2NotesNoteIdResponse](../../models/operations/delete-v2-notes-note-id-response.md)\>**
+**Promise\<[operations.DeleteNoteResponse](../../models/operations/delete-note-response.md)\>**
 
 ### Errors
 
-| Error Type                           | Status Code                          | Content Type                         |
-| ------------------------------------ | ------------------------------------ | ------------------------------------ |
-| errors.GetV2NotesNoteIdNotFoundError | 404                                  | application/json                     |
-| errors.AttioError                    | 4XX, 5XX                             | \*/\*                                |
+| Error Type                     | Status Code                    | Content Type                   |
+| ------------------------------ | ------------------------------ | ------------------------------ |
+| errors.DeleteNoteNotFoundError | 404                            | application/json               |
+| errors.AttioError              | 4XX, 5XX                       | \*/\*                          |

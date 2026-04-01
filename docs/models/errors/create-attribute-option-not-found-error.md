@@ -1,0 +1,20 @@
+# CreateAttributeOptionNotFoundError
+
+Not Found
+
+## Example Usage
+
+```typescript
+import { CreateAttributeOptionNotFoundError } from "@interfere/attio/models/errors";
+
+// No examples available for this model
+```
+
+## Fields
+
+| Field                                                                                                                          | Type                                                                                                                           | Required                                                                                                                       | Description                                                                                                                    | Example                                                                                                                        |
+| ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
+| `statusCode`                                                                                                                   | [operations.CreateAttributeOptionNotFoundStatusCode](../../models/operations/create-attribute-option-not-found-status-code.md) | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |                                                                                                                                |
+| `type`                                                                                                                         | [operations.CreateAttributeOptionNotFoundType](../../models/operations/create-attribute-option-not-found-type.md)              | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |                                                                                                                                |
+| `code`                                                                                                                         | [operations.CreateAttributeOptionNotFoundCode](../../models/operations/create-attribute-option-not-found-code.md)              | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |                                                                                                                                |
+| `message`                                                                                                                      | *string*                                                                                                                       | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            | Attribute with slug/ID "my-attribute" not found.                                                                               |

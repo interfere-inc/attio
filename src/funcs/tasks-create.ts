@@ -38,13 +38,13 @@ import { Result } from "../types/fp.js";
  */
 export function tasksCreate(
   client: AttioCore,
-  request: operations.PostV2TasksRequest,
+  request: operations.CreateTaskRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.PostV2TasksResponse,
-    | errors.PostV2TasksValidationTypeError
-    | errors.GetV2ObjectsObjectNotFoundError
+    operations.CreateTaskResponse,
+    | errors.CreateTaskValidationTypeError
+    | errors.CreateTaskNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -64,14 +64,14 @@ export function tasksCreate(
 
 async function $do(
   client: AttioCore,
-  request: operations.PostV2TasksRequest,
+  request: operations.CreateTaskRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.PostV2TasksResponse,
-      | errors.PostV2TasksValidationTypeError
-      | errors.GetV2ObjectsObjectNotFoundError
+      operations.CreateTaskResponse,
+      | errors.CreateTaskValidationTypeError
+      | errors.CreateTaskNotFoundError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -86,7 +86,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => z.parse(operations.PostV2TasksRequest$outboundSchema, value),
+    (value) => z.parse(operations.CreateTaskRequest$outboundSchema, value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -109,7 +109,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "post_/v2/tasks",
+    operationID: "createTask",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -152,9 +152,9 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.PostV2TasksResponse,
-    | errors.PostV2TasksValidationTypeError
-    | errors.GetV2ObjectsObjectNotFoundError
+    operations.CreateTaskResponse,
+    | errors.CreateTaskValidationTypeError
+    | errors.CreateTaskNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -164,9 +164,9 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.PostV2TasksResponse$inboundSchema),
-    M.jsonErr(400, errors.PostV2TasksValidationTypeError$inboundSchema),
-    M.jsonErr(404, errors.GetV2ObjectsObjectNotFoundError$inboundSchema),
+    M.json(200, operations.CreateTaskResponse$inboundSchema),
+    M.jsonErr(400, errors.CreateTaskValidationTypeError$inboundSchema),
+    M.jsonErr(404, errors.CreateTaskNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

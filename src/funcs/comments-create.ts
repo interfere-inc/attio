@@ -40,12 +40,12 @@ import { Result } from "../types/fp.js";
  */
 export function commentsCreate(
   client: AttioCore,
-  request: operations.PostV2CommentsRequest,
+  request: operations.CreateCommentRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.PostV2CommentsResponse,
-    | errors.PostV2CommentsValueNotFoundError
+    operations.CreateCommentResponse,
+    | errors.CreateCommentValueNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -65,13 +65,13 @@ export function commentsCreate(
 
 async function $do(
   client: AttioCore,
-  request: operations.PostV2CommentsRequest,
+  request: operations.CreateCommentRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.PostV2CommentsResponse,
-      | errors.PostV2CommentsValueNotFoundError
+      operations.CreateCommentResponse,
+      | errors.CreateCommentValueNotFoundError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -86,7 +86,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => z.parse(operations.PostV2CommentsRequest$outboundSchema, value),
+    (value) => z.parse(operations.CreateCommentRequest$outboundSchema, value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -109,7 +109,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "post_/v2/comments",
+    operationID: "createComment",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -152,8 +152,8 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.PostV2CommentsResponse,
-    | errors.PostV2CommentsValueNotFoundError
+    operations.CreateCommentResponse,
+    | errors.CreateCommentValueNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -163,8 +163,8 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.PostV2CommentsResponse$inboundSchema),
-    M.jsonErr(400, errors.PostV2CommentsValueNotFoundError$inboundSchema),
+    M.json(200, operations.CreateCommentResponse$inboundSchema),
+    M.jsonErr(400, errors.CreateCommentValueNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

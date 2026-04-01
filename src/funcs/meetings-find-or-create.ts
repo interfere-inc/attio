@@ -38,12 +38,12 @@ import { Result } from "../types/fp.js";
  */
 export function meetingsFindOrCreate(
   client: AttioCore,
-  request: operations.PostV2MeetingsRequest,
+  request: operations.FindOrCreateMeetingRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.PostV2MeetingsResponse,
-    | errors.PostV2MeetingsValidationTypeError
+    operations.FindOrCreateMeetingResponse,
+    | errors.FindOrCreateMeetingValidationTypeError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -63,13 +63,13 @@ export function meetingsFindOrCreate(
 
 async function $do(
   client: AttioCore,
-  request: operations.PostV2MeetingsRequest,
+  request: operations.FindOrCreateMeetingRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.PostV2MeetingsResponse,
-      | errors.PostV2MeetingsValidationTypeError
+      operations.FindOrCreateMeetingResponse,
+      | errors.FindOrCreateMeetingValidationTypeError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -84,7 +84,8 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => z.parse(operations.PostV2MeetingsRequest$outboundSchema, value),
+    (value) =>
+      z.parse(operations.FindOrCreateMeetingRequest$outboundSchema, value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -107,7 +108,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "post_/v2/meetings",
+    operationID: "findOrCreateMeeting",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -150,8 +151,8 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.PostV2MeetingsResponse,
-    | errors.PostV2MeetingsValidationTypeError
+    operations.FindOrCreateMeetingResponse,
+    | errors.FindOrCreateMeetingValidationTypeError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -161,8 +162,8 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.PostV2MeetingsResponse$inboundSchema),
-    M.jsonErr(400, errors.PostV2MeetingsValidationTypeError$inboundSchema),
+    M.json(200, operations.FindOrCreateMeetingResponse$inboundSchema),
+    M.jsonErr(400, errors.FindOrCreateMeetingValidationTypeError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

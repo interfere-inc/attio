@@ -3,11 +3,10 @@
 
 ## Supported Types
 
-### `operations.PostV2MeetingsMeetingIdCallRecordingsCodeBillingError`
+### `operations.CreateCallRecordingCodeBillingError`
 
 ```typescript
-const value: operations.PostV2MeetingsMeetingIdCallRecordingsCodeBillingError =
-  "billing_error";
+const value: operations.CreateCallRecordingCodeBillingError = "billing_error";
 ```
 
 ### `operations.CodeQuotaExceeded`

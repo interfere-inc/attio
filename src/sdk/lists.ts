@@ -3,6 +3,7 @@
  */
 
 import { listsCreate } from "../funcs/lists-create.js";
+import { listsGetViews } from "../funcs/lists-get-views.js";
 import { listsGet } from "../funcs/lists-get.js";
 import { listsList } from "../funcs/lists-list.js";
 import { listsUpdate } from "../funcs/lists-update.js";
@@ -21,7 +22,7 @@ export class Lists extends ClientSDK {
    */
   async list(
     options?: RequestOptions,
-  ): Promise<operations.GetV2ListsResponse> {
+  ): Promise<operations.ListListsResponse> {
     return unwrapAsync(listsList(
       this,
       options,
@@ -43,9 +44,9 @@ export class Lists extends ClientSDK {
    * Required scopes: `list_configuration:read-write`.
    */
   async create(
-    request: operations.PostV2ListsRequest,
+    request: operations.CreateListRequest,
     options?: RequestOptions,
-  ): Promise<operations.PostV2ListsResponse> {
+  ): Promise<operations.CreateListResponse> {
     return unwrapAsync(listsCreate(
       this,
       request,
@@ -62,9 +63,9 @@ export class Lists extends ClientSDK {
    * Required scopes: `list_configuration:read`.
    */
   async get(
-    request: operations.GetV2ListsListRequest,
+    request: operations.GetListRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetV2ListsListResponse> {
+  ): Promise<operations.GetListResponse> {
     return unwrapAsync(listsGet(
       this,
       request,
@@ -81,10 +82,29 @@ export class Lists extends ClientSDK {
    * Required scopes: `list_configuration:read-write`.
    */
   async update(
-    request: operations.PatchV2ListsListRequest,
+    request: operations.UpdateListRequest,
     options?: RequestOptions,
-  ): Promise<operations.PatchV2ListsListResponse> {
+  ): Promise<operations.UpdateListResponse> {
     return unwrapAsync(listsUpdate(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * List views for list
+   *
+   * @remarks
+   * Lists saved views for a list. Results are ordered by view ID (`id.view_id` ascending).
+   *
+   * Required scopes: `list_configuration:read`.
+   */
+  async getViews(
+    request: operations.GetListViewsRequest,
+    options?: RequestOptions,
+  ): Promise<operations.GetListViewsResponse> {
+    return unwrapAsync(listsGetViews(
       this,
       request,
       options,

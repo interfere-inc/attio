@@ -1,0 +1,20 @@
+# CreateCallRecordingValidationTypeError
+
+Bad Request
+
+## Example Usage
+
+```typescript
+import { CreateCallRecordingValidationTypeError } from "@interfere/attio/models/errors";
+
+// No examples available for this model
+```
+
+## Fields
+
+| Field                                                                                                                          | Type                                                                                                                           | Required                                                                                                                       | Description                                                                                                                    | Example                                                                                                                        |
+| ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
+| `statusCode`                                                                                                                   | [operations.CreateCallRecordingBadRequestStatusCode](../../models/operations/create-call-recording-bad-request-status-code.md) | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |                                                                                                                                |
+| `type`                                                                                                                         | [operations.CreateCallRecordingBadRequestType](../../models/operations/create-call-recording-bad-request-type.md)              | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |                                                                                                                                |
+| `code`                                                                                                                         | [operations.CreateCallRecordingCodeValidationType](../../models/operations/create-call-recording-code-validation-type.md)      | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |                                                                                                                                |
+| `message`                                                                                                                      | *string*                                                                                                                       | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            | Invalid video URL protocol. Only https is supported                                                                            |

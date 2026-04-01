@@ -36,13 +36,13 @@ import { Result } from "../types/fp.js";
  */
 export function recordsQuery(
   client: AttioCore,
-  request: operations.PostV2ObjectsObjectRecordsQueryRequest,
+  request: operations.QueryRecordsRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.PostV2ObjectsObjectRecordsQueryResponse,
+    operations.QueryRecordsResponse,
     | errors.FilterError
-    | errors.PostV2ObjectsObjectRecordsQueryNotFoundError
+    | errors.QueryRecordsNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -62,14 +62,14 @@ export function recordsQuery(
 
 async function $do(
   client: AttioCore,
-  request: operations.PostV2ObjectsObjectRecordsQueryRequest,
+  request: operations.QueryRecordsRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.PostV2ObjectsObjectRecordsQueryResponse,
+      operations.QueryRecordsResponse,
       | errors.FilterError
-      | errors.PostV2ObjectsObjectRecordsQueryNotFoundError
+      | errors.QueryRecordsNotFoundError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -84,11 +84,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) =>
-      z.parse(
-        operations.PostV2ObjectsObjectRecordsQueryRequest$outboundSchema,
-        value,
-      ),
+    (value) => z.parse(operations.QueryRecordsRequest$outboundSchema, value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -103,7 +99,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/v2/objects/{object}/records/query")(pathParams);
 
   const headers = new Headers(compactMap({
@@ -118,7 +113,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "post_/v2/objects/{object}/records/query",
+    operationID: "queryRecords",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -161,9 +156,9 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.PostV2ObjectsObjectRecordsQueryResponse,
+    operations.QueryRecordsResponse,
     | errors.FilterError
-    | errors.PostV2ObjectsObjectRecordsQueryNotFoundError
+    | errors.QueryRecordsNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -173,15 +168,9 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(
-      200,
-      operations.PostV2ObjectsObjectRecordsQueryResponse$inboundSchema,
-    ),
+    M.json(200, operations.QueryRecordsResponse$inboundSchema),
     M.jsonErr(400, errors.FilterError$inboundSchema),
-    M.jsonErr(
-      404,
-      errors.PostV2ObjectsObjectRecordsQueryNotFoundError$inboundSchema,
-    ),
+    M.jsonErr(404, errors.QueryRecordsNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

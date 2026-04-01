@@ -4,6 +4,8 @@
 
 import { scimGroupsCreate } from "../funcs/scim-groups-create.js";
 import { scimGroupsList } from "../funcs/scim-groups-list.js";
+import { scimGroupsPatch } from "../funcs/scim-groups-patch.js";
+import { scimGroupsUpdate } from "../funcs/scim-groups-update.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
@@ -19,7 +21,7 @@ export class ScimGroups extends ClientSDK {
    */
   async list(
     options?: RequestOptions,
-  ): Promise<operations.GetScimV2GroupsResponse> {
+  ): Promise<operations.ListScimGroupsResponse> {
     return unwrapAsync(scimGroupsList(
       this,
       options,
@@ -36,9 +38,47 @@ export class ScimGroups extends ClientSDK {
    */
   async create(
     options?: RequestOptions,
-  ): Promise<operations.PostScimV2GroupsResponse> {
+  ): Promise<operations.CreateScimGroupResponse> {
     return unwrapAsync(scimGroupsCreate(
       this,
+      options,
+    ));
+  }
+
+  /**
+   * Patch SCIM group
+   *
+   * @remarks
+   * Patches a SCIM group in the workspace.
+   *
+   * Required scopes: `scim_management:read-write`.
+   */
+  async patch(
+    request: operations.PatchScimGroupRequest,
+    options?: RequestOptions,
+  ): Promise<operations.PatchScimGroupResponse> {
+    return unwrapAsync(scimGroupsPatch(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Update SCIM group
+   *
+   * @remarks
+   * Updates a SCIM group in the workspace.
+   *
+   * Required scopes: `scim_management:read-write`.
+   */
+  async update(
+    request: operations.UpdateScimGroupRequest,
+    options?: RequestOptions,
+  ): Promise<operations.UpdateScimGroupResponse> {
+    return unwrapAsync(scimGroupsUpdate(
+      this,
+      request,
       options,
     ));
   }

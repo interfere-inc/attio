@@ -36,13 +36,13 @@ import { Result } from "../types/fp.js";
  */
 export function tasksUpdate(
   client: AttioCore,
-  request: operations.PatchV2TasksTaskIdRequest,
+  request: operations.UpdateTaskRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.PatchV2TasksTaskIdResponse,
-    | errors.PostV2TasksValidationTypeError
-    | errors.PatchV2TasksTaskIdNotFoundError
+    operations.UpdateTaskResponse,
+    | errors.UpdateTaskValidationTypeError
+    | errors.UpdateTaskNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -62,14 +62,14 @@ export function tasksUpdate(
 
 async function $do(
   client: AttioCore,
-  request: operations.PatchV2TasksTaskIdRequest,
+  request: operations.UpdateTaskRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.PatchV2TasksTaskIdResponse,
-      | errors.PostV2TasksValidationTypeError
-      | errors.PatchV2TasksTaskIdNotFoundError
+      operations.UpdateTaskResponse,
+      | errors.UpdateTaskValidationTypeError
+      | errors.UpdateTaskNotFoundError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -84,8 +84,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) =>
-      z.parse(operations.PatchV2TasksTaskIdRequest$outboundSchema, value),
+    (value) => z.parse(operations.UpdateTaskRequest$outboundSchema, value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -100,7 +99,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/v2/tasks/{task_id}")(pathParams);
 
   const headers = new Headers(compactMap({
@@ -115,7 +113,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "patch_/v2/tasks/{task_id}",
+    operationID: "updateTask",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -158,9 +156,9 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.PatchV2TasksTaskIdResponse,
-    | errors.PostV2TasksValidationTypeError
-    | errors.PatchV2TasksTaskIdNotFoundError
+    operations.UpdateTaskResponse,
+    | errors.UpdateTaskValidationTypeError
+    | errors.UpdateTaskNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -170,9 +168,9 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.PatchV2TasksTaskIdResponse$inboundSchema),
-    M.jsonErr(400, errors.PostV2TasksValidationTypeError$inboundSchema),
-    M.jsonErr(404, errors.PatchV2TasksTaskIdNotFoundError$inboundSchema),
+    M.json(200, operations.UpdateTaskResponse$inboundSchema),
+    M.jsonErr(400, errors.UpdateTaskValidationTypeError$inboundSchema),
+    M.jsonErr(404, errors.UpdateTaskNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

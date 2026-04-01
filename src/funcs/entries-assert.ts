@@ -36,13 +36,13 @@ import { Result } from "../types/fp.js";
  */
 export function entriesAssert(
   client: AttioCore,
-  request: operations.PutV2ListsListEntriesRequest,
+  request: operations.AssertEntryRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.PutV2ListsListEntriesResponse,
+    operations.AssertEntryResponse,
     | errors.MultipleMatchResultsError
-    | errors.PutV2ListsListEntriesNotFoundError
+    | errors.AssertEntryNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -62,14 +62,14 @@ export function entriesAssert(
 
 async function $do(
   client: AttioCore,
-  request: operations.PutV2ListsListEntriesRequest,
+  request: operations.AssertEntryRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.PutV2ListsListEntriesResponse,
+      operations.AssertEntryResponse,
       | errors.MultipleMatchResultsError
-      | errors.PutV2ListsListEntriesNotFoundError
+      | errors.AssertEntryNotFoundError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -84,8 +84,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) =>
-      z.parse(operations.PutV2ListsListEntriesRequest$outboundSchema, value),
+    (value) => z.parse(operations.AssertEntryRequest$outboundSchema, value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -100,7 +99,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/v2/lists/{list}/entries")(pathParams);
 
   const headers = new Headers(compactMap({
@@ -115,7 +113,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "put_/v2/lists/{list}/entries",
+    operationID: "assertEntry",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -158,9 +156,9 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.PutV2ListsListEntriesResponse,
+    operations.AssertEntryResponse,
     | errors.MultipleMatchResultsError
-    | errors.PutV2ListsListEntriesNotFoundError
+    | errors.AssertEntryNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -170,9 +168,9 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.PutV2ListsListEntriesResponse$inboundSchema),
+    M.json(200, operations.AssertEntryResponse$inboundSchema),
     M.jsonErr(400, errors.MultipleMatchResultsError$inboundSchema),
-    M.jsonErr(404, errors.PutV2ListsListEntriesNotFoundError$inboundSchema),
+    M.jsonErr(404, errors.AssertEntryNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

@@ -1,0 +1,43 @@
+overlay: 1.0.0
+x-speakeasy-jsonpath: rfc9535
+info:
+  title: OpenAPI Fixes
+  version: 0.0.2
+actions:
+  - target: $..[?(@.enum && @.type[1] == "null")]
+    description: >
+      Convert nullable enums from OpenAPI 3.1 type array style
+      (type: ["string", "null"]) to OpenAPI 3.0 nullable style
+      (type: "string" + nullable: true). Speakeasy only supports
+      string/integer enum types; the array form is treated as a
+      non-enum base type, losing type safety in the generated SDK.
+    update:
+      type: "string"
+      nullable: true
+  - target: $..[?(@.enum && @.type == "number")]
+    description: >
+      Convert number enums to integer enums. Speakeasy only supports
+      string and integer enum types; number enums (used for HTTP
+      status codes in error responses) are treated as base types.
+      Since all values are whole numbers, integer is semantically
+      correct.
+    update:
+      type: "integer"
+  - target: $["paths"]["/scim/v2/Users/{user_id}"]
+    description: Add missing user_id path parameter for SCIM user endpoints.
+    update:
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: string
+  - target: $["paths"]["/scim/v2/Groups/{workspace_team_id}"]
+    description: Add missing workspace_team_id path parameter for SCIM group endpoints.
+    update:
+      parameters:
+        - name: workspace_team_id
+          in: path
+          required: true
+          schema:
+            type: string

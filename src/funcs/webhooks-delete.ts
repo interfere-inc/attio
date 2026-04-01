@@ -36,12 +36,12 @@ import { Result } from "../types/fp.js";
  */
 export function webhooksDelete(
   client: AttioCore,
-  request: operations.DeleteV2WebhooksWebhookIdRequest,
+  request: operations.DeleteWebhookRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.DeleteV2WebhooksWebhookIdResponse,
-    | errors.DeleteV2WebhooksWebhookIdNotFoundError
+    operations.DeleteWebhookResponse,
+    | errors.DeleteWebhookNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -61,13 +61,13 @@ export function webhooksDelete(
 
 async function $do(
   client: AttioCore,
-  request: operations.DeleteV2WebhooksWebhookIdRequest,
+  request: operations.DeleteWebhookRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.DeleteV2WebhooksWebhookIdResponse,
-      | errors.DeleteV2WebhooksWebhookIdNotFoundError
+      operations.DeleteWebhookResponse,
+      | errors.DeleteWebhookNotFoundError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -82,11 +82,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) =>
-      z.parse(
-        operations.DeleteV2WebhooksWebhookIdRequest$outboundSchema,
-        value,
-      ),
+    (value) => z.parse(operations.DeleteWebhookRequest$outboundSchema, value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -101,7 +97,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/v2/webhooks/{webhook_id}")(pathParams);
 
   const headers = new Headers(compactMap({
@@ -115,7 +110,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "delete_/v2/webhooks/{webhook_id}",
+    operationID: "deleteWebhook",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -158,8 +153,8 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.DeleteV2WebhooksWebhookIdResponse,
-    | errors.DeleteV2WebhooksWebhookIdNotFoundError
+    operations.DeleteWebhookResponse,
+    | errors.DeleteWebhookNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -169,8 +164,8 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.DeleteV2WebhooksWebhookIdResponse$inboundSchema),
-    M.jsonErr(404, errors.DeleteV2WebhooksWebhookIdNotFoundError$inboundSchema),
+    M.json(200, operations.DeleteWebhookResponse$inboundSchema),
+    M.jsonErr(404, errors.DeleteWebhookNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

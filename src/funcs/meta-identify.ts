@@ -33,7 +33,7 @@ export function metaIdentify(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.GetV2SelfResponse,
+    operations.IdentifyResponse,
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -56,7 +56,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      operations.GetV2SelfResponse,
+      operations.IdentifyResponse,
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -82,7 +82,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "get_/v2/self",
+    operationID: "identify",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -120,7 +120,7 @@ async function $do(
   const response = doResult.value;
 
   const [result] = await M.match<
-    operations.GetV2SelfResponse,
+    operations.IdentifyResponse,
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -130,7 +130,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.GetV2SelfResponse$inboundSchema),
+    M.json(200, operations.IdentifyResponse$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req);

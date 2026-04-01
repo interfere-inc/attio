@@ -32,19 +32,18 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Update a status on an status attribute on either an object or a list.
  *
- * Required scopes: `object_configuration:read-write`.
+ * When `target` is `objects`, the required scopes are `object_configuration:read-write`. When `target` is `lists`, the required scopes are `list_configuration:read-write`.
  */
 export function attributesUpdateStatus(
   client: AttioCore,
-  request:
-    operations.PatchV2TargetIdentifierAttributesAttributeStatusesStatusRequest,
+  request: operations.UpdateAttributeStatusRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.PatchV2TargetIdentifierAttributesAttributeStatusesStatusResponse,
-    | errors.PatchV2TargetIdentifierAttributesAttributeStatusesStatusValueNotFoundError
-    | errors.GetV2TargetIdentifierAttributesAttributeNotFoundError
-    | errors.PostV2TargetIdentifierAttributesAttributeStatusesSlugConflictError
+    operations.UpdateAttributeStatusResponse,
+    | errors.UpdateAttributeStatusValueNotFoundError
+    | errors.UpdateAttributeStatusNotFoundError
+    | errors.UpdateAttributeStatusSlugConflictError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -64,16 +63,15 @@ export function attributesUpdateStatus(
 
 async function $do(
   client: AttioCore,
-  request:
-    operations.PatchV2TargetIdentifierAttributesAttributeStatusesStatusRequest,
+  request: operations.UpdateAttributeStatusRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.PatchV2TargetIdentifierAttributesAttributeStatusesStatusResponse,
-      | errors.PatchV2TargetIdentifierAttributesAttributeStatusesStatusValueNotFoundError
-      | errors.GetV2TargetIdentifierAttributesAttributeNotFoundError
-      | errors.PostV2TargetIdentifierAttributesAttributeStatusesSlugConflictError
+      operations.UpdateAttributeStatusResponse,
+      | errors.UpdateAttributeStatusValueNotFoundError
+      | errors.UpdateAttributeStatusNotFoundError
+      | errors.UpdateAttributeStatusSlugConflictError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -89,11 +87,7 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      z.parse(
-        operations
-          .PatchV2TargetIdentifierAttributesAttributeStatusesStatusRequest$outboundSchema,
-        value,
-      ),
+      z.parse(operations.UpdateAttributeStatusRequest$outboundSchema, value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -120,7 +114,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc(
     "/v2/{target}/{identifier}/attributes/{attribute}/statuses/{status}",
   )(pathParams);
@@ -137,8 +130,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID:
-      "patch_/v2/{target}/{identifier}/attributes/{attribute}/statuses/{status}",
+    operationID: "updateAttributeStatus",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -181,10 +173,10 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.PatchV2TargetIdentifierAttributesAttributeStatusesStatusResponse,
-    | errors.PatchV2TargetIdentifierAttributesAttributeStatusesStatusValueNotFoundError
-    | errors.GetV2TargetIdentifierAttributesAttributeNotFoundError
-    | errors.PostV2TargetIdentifierAttributesAttributeStatusesSlugConflictError
+    operations.UpdateAttributeStatusResponse,
+    | errors.UpdateAttributeStatusValueNotFoundError
+    | errors.UpdateAttributeStatusNotFoundError
+    | errors.UpdateAttributeStatusSlugConflictError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -194,26 +186,13 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(
-      200,
-      operations
-        .PatchV2TargetIdentifierAttributesAttributeStatusesStatusResponse$inboundSchema,
-    ),
+    M.json(200, operations.UpdateAttributeStatusResponse$inboundSchema),
     M.jsonErr(
       400,
-      errors
-        .PatchV2TargetIdentifierAttributesAttributeStatusesStatusValueNotFoundError$inboundSchema,
+      errors.UpdateAttributeStatusValueNotFoundError$inboundSchema,
     ),
-    M.jsonErr(
-      404,
-      errors
-        .GetV2TargetIdentifierAttributesAttributeNotFoundError$inboundSchema,
-    ),
-    M.jsonErr(
-      409,
-      errors
-        .PostV2TargetIdentifierAttributesAttributeStatusesSlugConflictError$inboundSchema,
-    ),
+    M.jsonErr(404, errors.UpdateAttributeStatusNotFoundError$inboundSchema),
+    M.jsonErr(409, errors.UpdateAttributeStatusSlugConflictError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

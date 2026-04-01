@@ -1,0 +1,20 @@
+# CreateNewAttributeValidationTypeError
+
+Bad Request
+
+## Example Usage
+
+```typescript
+import { CreateNewAttributeValidationTypeError } from "@interfere/attio/models/errors";
+
+// No examples available for this model
+```
+
+## Fields
+
+| Field                                                                                                                        | Type                                                                                                                         | Required                                                                                                                     | Description                                                                                                                  | Example                                                                                                                      |
+| ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `statusCode`                                                                                                                 | [operations.CreateNewAttributeBadRequestStatusCode](../../models/operations/create-new-attribute-bad-request-status-code.md) | :heavy_check_mark:                                                                                                           | N/A                                                                                                                          |                                                                                                                              |
+| `type`                                                                                                                       | [operations.CreateNewAttributeBadRequestType](../../models/operations/create-new-attribute-bad-request-type.md)              | :heavy_check_mark:                                                                                                           | N/A                                                                                                                          |                                                                                                                              |
+| `code`                                                                                                                       | [operations.CreateNewAttributeCodeValidationType](../../models/operations/create-new-attribute-code-validation-type.md)      | :heavy_check_mark:                                                                                                           | N/A                                                                                                                          |                                                                                                                              |
+| `message`                                                                                                                    | *string*                                                                                                                     | :heavy_check_mark:                                                                                                           | N/A                                                                                                                          | Could not find an object with slug "people" for default value.                                                               |

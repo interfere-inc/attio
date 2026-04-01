@@ -1,0 +1,20 @@
+# CreateNewAttributeSlugConflictError
+
+Conflict
+
+## Example Usage
+
+```typescript
+import { CreateNewAttributeSlugConflictError } from "@interfere/attio/models/errors";
+
+// No examples available for this model
+```
+
+## Fields
+
+| Field                                                                                                                   | Type                                                                                                                    | Required                                                                                                                | Description                                                                                                             | Example                                                                                                                 |
+| ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `statusCode`                                                                                                            | [operations.CreateNewAttributeConflictStatusCode](../../models/operations/create-new-attribute-conflict-status-code.md) | :heavy_check_mark:                                                                                                      | N/A                                                                                                                     |                                                                                                                         |
+| `type`                                                                                                                  | [operations.CreateNewAttributeConflictType](../../models/operations/create-new-attribute-conflict-type.md)              | :heavy_check_mark:                                                                                                      | N/A                                                                                                                     |                                                                                                                         |
+| `code`                                                                                                                  | [operations.CreateNewAttributeConflictCode](../../models/operations/create-new-attribute-conflict-code.md)              | :heavy_check_mark:                                                                                                      | N/A                                                                                                                     |                                                                                                                         |
+| `message`                                                                                                               | *string*                                                                                                                | :heavy_check_mark:                                                                                                      | N/A                                                                                                                     | An attribute with the same API slug already exists on this list. Please choose a different API slug.                    |

@@ -22,9 +22,9 @@ export class Threads extends ClientSDK {
    * Required scopes: `comment:read`.
    */
   async listAll(
-    request?: operations.GetV2ThreadsRequest | undefined,
+    request?: operations.ListAllThreadsRequest | undefined,
     options?: RequestOptions,
-  ): Promise<operations.GetV2ThreadsResponse> {
+  ): Promise<operations.ListAllThreadsResponse> {
     return unwrapAsync(threadsListAll(
       this,
       request,
@@ -45,9 +45,9 @@ export class Threads extends ClientSDK {
    * Required scopes: `comment:read`.
    */
   async get(
-    request: operations.GetV2ThreadsThreadIdRequest,
+    request: operations.GetThreadRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetV2ThreadsThreadIdResponse> {
+  ): Promise<operations.GetThreadResponse> {
     return unwrapAsync(threadsGet(
       this,
       request,

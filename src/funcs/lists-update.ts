@@ -36,13 +36,13 @@ import { Result } from "../types/fp.js";
  */
 export function listsUpdate(
   client: AttioCore,
-  request: operations.PatchV2ListsListRequest,
+  request: operations.UpdateListRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.PatchV2ListsListResponse,
-    | errors.PostV2ListsValueNotFoundError
-    | errors.GetV2ListsListNotFoundError
+    operations.UpdateListResponse,
+    | errors.UpdateListValueNotFoundError
+    | errors.UpdateListNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -62,14 +62,14 @@ export function listsUpdate(
 
 async function $do(
   client: AttioCore,
-  request: operations.PatchV2ListsListRequest,
+  request: operations.UpdateListRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.PatchV2ListsListResponse,
-      | errors.PostV2ListsValueNotFoundError
-      | errors.GetV2ListsListNotFoundError
+      operations.UpdateListResponse,
+      | errors.UpdateListValueNotFoundError
+      | errors.UpdateListNotFoundError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -84,8 +84,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) =>
-      z.parse(operations.PatchV2ListsListRequest$outboundSchema, value),
+    (value) => z.parse(operations.UpdateListRequest$outboundSchema, value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -100,7 +99,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/v2/lists/{list}")(pathParams);
 
   const headers = new Headers(compactMap({
@@ -115,7 +113,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "patch_/v2/lists/{list}",
+    operationID: "updateList",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -158,9 +156,9 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.PatchV2ListsListResponse,
-    | errors.PostV2ListsValueNotFoundError
-    | errors.GetV2ListsListNotFoundError
+    operations.UpdateListResponse,
+    | errors.UpdateListValueNotFoundError
+    | errors.UpdateListNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -170,9 +168,9 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.PatchV2ListsListResponse$inboundSchema),
-    M.jsonErr(400, errors.PostV2ListsValueNotFoundError$inboundSchema),
-    M.jsonErr(404, errors.GetV2ListsListNotFoundError$inboundSchema),
+    M.json(200, operations.UpdateListResponse$inboundSchema),
+    M.jsonErr(400, errors.UpdateListValueNotFoundError$inboundSchema),
+    M.jsonErr(404, errors.UpdateListNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

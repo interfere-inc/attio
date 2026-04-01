@@ -37,11 +37,11 @@ import { Result } from "../types/fp.js";
  */
 export function callRecordingsList(
   client: AttioCore,
-  request: operations.GetV2MeetingsMeetingIdCallRecordingsRequest,
+  request: operations.ListCallRecordingsRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.GetV2MeetingsMeetingIdCallRecordingsResponse,
+    operations.ListCallRecordingsResponse,
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -61,12 +61,12 @@ export function callRecordingsList(
 
 async function $do(
   client: AttioCore,
-  request: operations.GetV2MeetingsMeetingIdCallRecordingsRequest,
+  request: operations.ListCallRecordingsRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.GetV2MeetingsMeetingIdCallRecordingsResponse,
+      operations.ListCallRecordingsResponse,
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -82,10 +82,7 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      z.parse(
-        operations.GetV2MeetingsMeetingIdCallRecordingsRequest$outboundSchema,
-        value,
-      ),
+      z.parse(operations.ListCallRecordingsRequest$outboundSchema, value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -100,7 +97,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/v2/meetings/{meeting_id}/call_recordings")(
     pathParams,
   );
@@ -121,7 +117,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "get_/v2/meetings/{meeting_id}/call_recordings",
+    operationID: "listCallRecordings",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -161,7 +157,7 @@ async function $do(
   const response = doResult.value;
 
   const [result] = await M.match<
-    operations.GetV2MeetingsMeetingIdCallRecordingsResponse,
+    operations.ListCallRecordingsResponse,
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -171,10 +167,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(
-      200,
-      operations.GetV2MeetingsMeetingIdCallRecordingsResponse$inboundSchema,
-    ),
+    M.json(200, operations.ListCallRecordingsResponse$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req);

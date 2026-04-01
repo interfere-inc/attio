@@ -18,7 +18,7 @@ export class ScimSchemas extends ClientSDK {
    */
   async list(
     options?: RequestOptions,
-  ): Promise<operations.GetScimV2SchemasResponse> {
+  ): Promise<operations.ListScimSchemasResponse> {
     return unwrapAsync(scimSchemasList(
       this,
       options,

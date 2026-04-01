@@ -32,19 +32,18 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Updates a select option on an attribute on either an object or a list.
  *
- * Required scopes: `object_configuration:read-write`.
+ * When `target` is `objects`, the required scopes are `object_configuration:read-write`. When `target` is `lists`, the required scopes are `list_configuration:read-write`.
  */
 export function attributesUpdateSelectOption(
   client: AttioCore,
-  request:
-    operations.PatchV2TargetIdentifierAttributesAttributeOptionsOptionRequest,
+  request: operations.UpdateAttributeSelectOptionRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.PatchV2TargetIdentifierAttributesAttributeOptionsOptionResponse,
-    | errors.PatchV2TargetIdentifierAttributesAttributeOptionsOptionValueNotFoundError
-    | errors.GetV2TargetIdentifierAttributesAttributeNotFoundError
-    | errors.PostV2TargetIdentifierAttributesAttributeOptionsSlugConflictError
+    operations.UpdateAttributeSelectOptionResponse,
+    | errors.UpdateAttributeSelectOptionValueNotFoundError
+    | errors.UpdateAttributeSelectOptionNotFoundError
+    | errors.UpdateAttributeSelectOptionSlugConflictError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -64,16 +63,15 @@ export function attributesUpdateSelectOption(
 
 async function $do(
   client: AttioCore,
-  request:
-    operations.PatchV2TargetIdentifierAttributesAttributeOptionsOptionRequest,
+  request: operations.UpdateAttributeSelectOptionRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.PatchV2TargetIdentifierAttributesAttributeOptionsOptionResponse,
-      | errors.PatchV2TargetIdentifierAttributesAttributeOptionsOptionValueNotFoundError
-      | errors.GetV2TargetIdentifierAttributesAttributeNotFoundError
-      | errors.PostV2TargetIdentifierAttributesAttributeOptionsSlugConflictError
+      operations.UpdateAttributeSelectOptionResponse,
+      | errors.UpdateAttributeSelectOptionValueNotFoundError
+      | errors.UpdateAttributeSelectOptionNotFoundError
+      | errors.UpdateAttributeSelectOptionSlugConflictError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -90,8 +88,7 @@ async function $do(
     request,
     (value) =>
       z.parse(
-        operations
-          .PatchV2TargetIdentifierAttributesAttributeOptionsOptionRequest$outboundSchema,
+        operations.UpdateAttributeSelectOptionRequest$outboundSchema,
         value,
       ),
     "Input validation failed",
@@ -120,7 +117,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc(
     "/v2/{target}/{identifier}/attributes/{attribute}/options/{option}",
   )(pathParams);
@@ -137,8 +133,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID:
-      "patch_/v2/{target}/{identifier}/attributes/{attribute}/options/{option}",
+    operationID: "updateAttributeSelectOption",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -181,10 +176,10 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.PatchV2TargetIdentifierAttributesAttributeOptionsOptionResponse,
-    | errors.PatchV2TargetIdentifierAttributesAttributeOptionsOptionValueNotFoundError
-    | errors.GetV2TargetIdentifierAttributesAttributeNotFoundError
-    | errors.PostV2TargetIdentifierAttributesAttributeOptionsSlugConflictError
+    operations.UpdateAttributeSelectOptionResponse,
+    | errors.UpdateAttributeSelectOptionValueNotFoundError
+    | errors.UpdateAttributeSelectOptionNotFoundError
+    | errors.UpdateAttributeSelectOptionSlugConflictError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -194,25 +189,18 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(
-      200,
-      operations
-        .PatchV2TargetIdentifierAttributesAttributeOptionsOptionResponse$inboundSchema,
-    ),
+    M.json(200, operations.UpdateAttributeSelectOptionResponse$inboundSchema),
     M.jsonErr(
       400,
-      errors
-        .PatchV2TargetIdentifierAttributesAttributeOptionsOptionValueNotFoundError$inboundSchema,
+      errors.UpdateAttributeSelectOptionValueNotFoundError$inboundSchema,
     ),
     M.jsonErr(
       404,
-      errors
-        .GetV2TargetIdentifierAttributesAttributeNotFoundError$inboundSchema,
+      errors.UpdateAttributeSelectOptionNotFoundError$inboundSchema,
     ),
     M.jsonErr(
       409,
-      errors
-        .PostV2TargetIdentifierAttributesAttributeOptionsSlugConflictError$inboundSchema,
+      errors.UpdateAttributeSelectOptionSlugConflictError$inboundSchema,
     ),
     M.fail("4XX"),
     M.fail("5XX"),

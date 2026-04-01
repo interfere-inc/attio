@@ -22,9 +22,9 @@ export class CallRecordings extends ClientSDK {
    * Required scopes: `meeting:read`, `call_recording:read`.
    */
   async list(
-    request: operations.GetV2MeetingsMeetingIdCallRecordingsRequest,
+    request: operations.ListCallRecordingsRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetV2MeetingsMeetingIdCallRecordingsResponse> {
+  ): Promise<operations.ListCallRecordingsResponse> {
     return unwrapAsync(callRecordingsList(
       this,
       request,
@@ -43,9 +43,9 @@ export class CallRecordings extends ClientSDK {
    * Required scopes: `meeting:read`, `call_recording:read-write`.
    */
   async create(
-    request: operations.PostV2MeetingsMeetingIdCallRecordingsRequest,
+    request: operations.CreateCallRecordingRequest,
     options?: RequestOptions,
-  ): Promise<operations.PostV2MeetingsMeetingIdCallRecordingsResponse> {
+  ): Promise<operations.CreateCallRecordingResponse> {
     return unwrapAsync(callRecordingsCreate(
       this,
       request,
@@ -64,12 +64,9 @@ export class CallRecordings extends ClientSDK {
    * Required scopes: `meeting:read`, `call_recording:read`.
    */
   async get(
-    request:
-      operations.GetV2MeetingsMeetingIdCallRecordingsCallRecordingIdRequest,
+    request: operations.GetCallRecordingRequest,
     options?: RequestOptions,
-  ): Promise<
-    operations.GetV2MeetingsMeetingIdCallRecordingsCallRecordingIdResponse
-  > {
+  ): Promise<operations.GetCallRecordingResponse> {
     return unwrapAsync(callRecordingsGet(
       this,
       request,
@@ -88,12 +85,9 @@ export class CallRecordings extends ClientSDK {
    * Required scopes: `meeting:read`, `call_recording:read-write`.
    */
   async delete(
-    request:
-      operations.DeleteV2MeetingsMeetingIdCallRecordingsCallRecordingIdRequest,
+    request: operations.DeleteCallRecordingRequest,
     options?: RequestOptions,
-  ): Promise<
-    operations.DeleteV2MeetingsMeetingIdCallRecordingsCallRecordingIdResponse
-  > {
+  ): Promise<operations.DeleteCallRecordingResponse> {
     return unwrapAsync(callRecordingsDelete(
       this,
       request,

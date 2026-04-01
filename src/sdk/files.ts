@@ -24,9 +24,9 @@ export class Files extends ClientSDK {
    * Required scopes: `object_configuration:read`, `record_permission:read`, `file:read`.
    */
   async list(
-    request: operations.GetV2FilesRequest,
+    request: operations.ListFilesRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetV2FilesResponse> {
+  ): Promise<operations.ListFilesResponse> {
     return unwrapAsync(filesList(
       this,
       request,
@@ -45,9 +45,9 @@ export class Files extends ClientSDK {
    * Required scopes: `file:read-write`, `object_configuration:read`, `record_permission:read`.
    */
   async create(
-    request: operations.PostV2FilesRequest,
+    request: operations.CreateFileRequest,
     options?: RequestOptions,
-  ): Promise<operations.PostV2FilesResponse> {
+  ): Promise<operations.CreateFileResponse> {
     return unwrapAsync(filesCreate(
       this,
       request,
@@ -66,9 +66,9 @@ export class Files extends ClientSDK {
    * Required scopes: `file:read-write`, `object_configuration:read`, `record_permission:read`.
    */
   async upload(
-    request: operations.PostV2FilesUploadRequest,
+    request: operations.UploadFileRequest,
     options?: RequestOptions,
-  ): Promise<operations.PostV2FilesUploadResponse> {
+  ): Promise<operations.UploadFileResponse> {
     return unwrapAsync(filesUpload(
       this,
       request,
@@ -87,9 +87,9 @@ export class Files extends ClientSDK {
    * Required scopes: `file:read`, `object_configuration:read`, `record_permission:read`.
    */
   async get(
-    request: operations.GetV2FilesFileIdRequest,
+    request: operations.GetFileRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetV2FilesFileIdResponse> {
+  ): Promise<operations.GetFileResponse> {
     return unwrapAsync(filesGet(
       this,
       request,
@@ -108,9 +108,9 @@ export class Files extends ClientSDK {
    * Required scopes: `file:read-write`, `object_configuration:read`, `record_permission:read`.
    */
   async delete(
-    request: operations.DeleteV2FilesFileIdRequest,
+    request: operations.DeleteFileRequest,
     options?: RequestOptions,
-  ): Promise<operations.DeleteV2FilesFileIdResponse> {
+  ): Promise<operations.DeleteFileResponse> {
     return unwrapAsync(filesDelete(
       this,
       request,
@@ -129,9 +129,9 @@ export class Files extends ClientSDK {
    * Required scopes: `object_configuration:read`, `record_permission:read`, `file:read`.
    */
   async download(
-    request: operations.GetV2FilesFileIdDownloadRequest,
+    request: operations.DownloadFileRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetV2FilesFileIdDownloadResponse> {
+  ): Promise<operations.DownloadFileResponse> {
     return unwrapAsync(filesDownload(
       this,
       request,

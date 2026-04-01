@@ -1,0 +1,23 @@
+# ListAttributeStatusesRequest
+
+## Example Usage
+
+```typescript
+import { ListAttributeStatusesRequest } from "@interfere/attio/models/operations";
+
+let value: ListAttributeStatusesRequest = {
+  target: "lists",
+  identifier: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0",
+  attribute: "41252299-f8c7-4b5e-99c9-4ff8321d2f96",
+  showArchived: true,
+};
+```
+
+## Fields
+
+| Field                                                                                                                                           | Type                                                                                                                                            | Required                                                                                                                                        | Description                                                                                                                                     | Example                                                                                                                                         |
+| ----------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| `target`                                                                                                                                        | [operations.ListAttributeStatusesTarget](../../models/operations/list-attribute-statuses-target.md)                                             | :heavy_check_mark:                                                                                                                              | Whether the attribute is on an object or a list. Please note that the company and people objects do not support status attributes at this time. | lists                                                                                                                                           |
+| `identifier`                                                                                                                                    | *string*                                                                                                                                        | :heavy_check_mark:                                                                                                                              | N/A                                                                                                                                             | 33ebdbe9-e529-47c9-b894-0ba25e9c15c0                                                                                                            |
+| `attribute`                                                                                                                                     | *string*                                                                                                                                        | :heavy_check_mark:                                                                                                                              | N/A                                                                                                                                             | 41252299-f8c7-4b5e-99c9-4ff8321d2f96                                                                                                            |
+| `showArchived`                                                                                                                                  | *boolean*                                                                                                                                       | :heavy_minus_sign:                                                                                                                              | N/A                                                                                                                                             | true                                                                                                                                            |

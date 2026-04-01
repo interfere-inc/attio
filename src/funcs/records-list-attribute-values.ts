@@ -36,14 +36,13 @@ import { Result } from "../types/fp.js";
  */
 export function recordsListAttributeValues(
   client: AttioCore,
-  request:
-    operations.GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesRequest,
+  request: operations.ListRecordAttributeValuesRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesResponse,
-    | errors.GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesValidationTypeError
-    | errors.GetV2TargetIdentifierAttributesAttributeNotFoundError
+    operations.ListRecordAttributeValuesResponse,
+    | errors.ListRecordAttributeValuesValidationTypeError
+    | errors.ListRecordAttributeValuesNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -63,15 +62,14 @@ export function recordsListAttributeValues(
 
 async function $do(
   client: AttioCore,
-  request:
-    operations.GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesRequest,
+  request: operations.ListRecordAttributeValuesRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesResponse,
-      | errors.GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesValidationTypeError
-      | errors.GetV2TargetIdentifierAttributesAttributeNotFoundError
+      operations.ListRecordAttributeValuesResponse,
+      | errors.ListRecordAttributeValuesValidationTypeError
+      | errors.ListRecordAttributeValuesNotFoundError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -88,8 +86,7 @@ async function $do(
     request,
     (value) =>
       z.parse(
-        operations
-          .GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesRequest$outboundSchema,
+        operations.ListRecordAttributeValuesRequest$outboundSchema,
         value,
       ),
     "Input validation failed",
@@ -114,7 +111,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc(
     "/v2/objects/{object}/records/{record_id}/attributes/{attribute}/values",
   )(pathParams);
@@ -136,8 +132,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID:
-      "get_/v2/objects/{object}/records/{record_id}/attributes/{attribute}/values",
+    operationID: "listRecordAttributeValues",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -181,9 +176,9 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesResponse,
-    | errors.GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesValidationTypeError
-    | errors.GetV2TargetIdentifierAttributesAttributeNotFoundError
+    operations.ListRecordAttributeValuesResponse,
+    | errors.ListRecordAttributeValuesValidationTypeError
+    | errors.ListRecordAttributeValuesNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -193,21 +188,12 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(
-      200,
-      operations
-        .GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesResponse$inboundSchema,
-    ),
+    M.json(200, operations.ListRecordAttributeValuesResponse$inboundSchema),
     M.jsonErr(
       400,
-      errors
-        .GetV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesValidationTypeError$inboundSchema,
+      errors.ListRecordAttributeValuesValidationTypeError$inboundSchema,
     ),
-    M.jsonErr(
-      404,
-      errors
-        .GetV2TargetIdentifierAttributesAttributeNotFoundError$inboundSchema,
-    ),
+    M.jsonErr(404, errors.ListRecordAttributeValuesNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

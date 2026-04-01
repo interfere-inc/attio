@@ -20,7 +20,7 @@ Required scopes: `webhook:read`.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get_/v2/webhooks" method="get" path="/v2/webhooks" -->
+<!-- UsageSnippet language="typescript" operationID="listWebhooks" method="get" path="/v2/webhooks" -->
 ```typescript
 import { Attio } from "@interfere/attio";
 
@@ -74,14 +74,14 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.GetV2WebhooksRequest](../../models/operations/get-v2-webhooks-request.md)                                                                                          | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.ListWebhooksRequest](../../models/operations/list-webhooks-request.md)                                                                                             | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.GetV2WebhooksResponse](../../models/operations/get-v2-webhooks-response.md)\>**
+**Promise\<[operations.ListWebhooksResponse](../../models/operations/list-webhooks-response.md)\>**
 
 ### Errors
 
@@ -97,7 +97,7 @@ Required scopes: `webhook:read-write`.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="post_/v2/webhooks" method="post" path="/v2/webhooks" -->
+<!-- UsageSnippet language="typescript" operationID="createWebhook" method="post" path="/v2/webhooks" -->
 ```typescript
 import { Attio } from "@interfere/attio";
 
@@ -155,21 +155,21 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.PostV2WebhooksRequest](../../models/operations/post-v2-webhooks-request.md)                                                                                        | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.CreateWebhookRequest](../../models/operations/create-webhook-request.md)                                                                                           | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.PostV2WebhooksResponse](../../models/operations/post-v2-webhooks-response.md)\>**
+**Promise\<[operations.CreateWebhookResponse](../../models/operations/create-webhook-response.md)\>**
 
 ### Errors
 
-| Error Type                               | Status Code                              | Content Type                             |
-| ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
-| errors.PostV2WebhooksValidationTypeError | 400                                      | application/json                         |
-| errors.AttioError                        | 4XX, 5XX                                 | \*/\*                                    |
+| Error Type                              | Status Code                             | Content Type                            |
+| --------------------------------------- | --------------------------------------- | --------------------------------------- |
+| errors.CreateWebhookValidationTypeError | 400                                     | application/json                        |
+| errors.AttioError                       | 4XX, 5XX                                | \*/\*                                   |
 
 ## get
 
@@ -179,7 +179,7 @@ Required scopes: `webhook:read`.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get_/v2/webhooks/{webhook_id}" method="get" path="/v2/webhooks/{webhook_id}" -->
+<!-- UsageSnippet language="typescript" operationID="getWebhook" method="get" path="/v2/webhooks/{webhook_id}" -->
 ```typescript
 import { Attio } from "@interfere/attio";
 
@@ -231,21 +231,21 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.GetV2WebhooksWebhookIdRequest](../../models/operations/get-v2-webhooks-webhook-id-request.md)                                                                      | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.GetWebhookRequest](../../models/operations/get-webhook-request.md)                                                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.GetV2WebhooksWebhookIdResponse](../../models/operations/get-v2-webhooks-webhook-id-response.md)\>**
+**Promise\<[operations.GetWebhookResponse](../../models/operations/get-webhook-response.md)\>**
 
 ### Errors
 
-| Error Type                                 | Status Code                                | Content Type                               |
-| ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
-| errors.GetV2WebhooksWebhookIdNotFoundError | 404                                        | application/json                           |
-| errors.AttioError                          | 4XX, 5XX                                   | \*/\*                                      |
+| Error Type                     | Status Code                    | Content Type                   |
+| ------------------------------ | ------------------------------ | ------------------------------ |
+| errors.GetWebhookNotFoundError | 404                            | application/json               |
+| errors.AttioError              | 4XX, 5XX                       | \*/\*                          |
 
 ## update
 
@@ -255,7 +255,7 @@ Required scopes: `webhook:read-write`.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="patch_/v2/webhooks/{webhook_id}" method="patch" path="/v2/webhooks/{webhook_id}" -->
+<!-- UsageSnippet language="typescript" operationID="updateWebhook" method="patch" path="/v2/webhooks/{webhook_id}" -->
 ```typescript
 import { Attio } from "@interfere/attio";
 
@@ -345,21 +345,21 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.PatchV2WebhooksWebhookIdRequest](../../models/operations/patch-v2-webhooks-webhook-id-request.md)                                                                  | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.UpdateWebhookRequest](../../models/operations/update-webhook-request.md)                                                                                           | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.PatchV2WebhooksWebhookIdResponse](../../models/operations/patch-v2-webhooks-webhook-id-response.md)\>**
+**Promise\<[operations.UpdateWebhookResponse](../../models/operations/update-webhook-response.md)\>**
 
 ### Errors
 
-| Error Type                                 | Status Code                                | Content Type                               |
-| ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
-| errors.GetV2WebhooksWebhookIdNotFoundError | 404                                        | application/json                           |
-| errors.AttioError                          | 4XX, 5XX                                   | \*/\*                                      |
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| errors.UpdateWebhookNotFoundError | 404                               | application/json                  |
+| errors.AttioError                 | 4XX, 5XX                          | \*/\*                             |
 
 ## delete
 
@@ -369,7 +369,7 @@ Required scopes: `webhook:read-write`.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="delete_/v2/webhooks/{webhook_id}" method="delete" path="/v2/webhooks/{webhook_id}" -->
+<!-- UsageSnippet language="typescript" operationID="deleteWebhook" method="delete" path="/v2/webhooks/{webhook_id}" -->
 ```typescript
 import { Attio } from "@interfere/attio";
 
@@ -421,18 +421,18 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.DeleteV2WebhooksWebhookIdRequest](../../models/operations/delete-v2-webhooks-webhook-id-request.md)                                                                | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.DeleteWebhookRequest](../../models/operations/delete-webhook-request.md)                                                                                           | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.DeleteV2WebhooksWebhookIdResponse](../../models/operations/delete-v2-webhooks-webhook-id-response.md)\>**
+**Promise\<[operations.DeleteWebhookResponse](../../models/operations/delete-webhook-response.md)\>**
 
 ### Errors
 
-| Error Type                                    | Status Code                                   | Content Type                                  |
-| --------------------------------------------- | --------------------------------------------- | --------------------------------------------- |
-| errors.DeleteV2WebhooksWebhookIdNotFoundError | 404                                           | application/json                              |
-| errors.AttioError                             | 4XX, 5XX                                      | \*/\*                                         |
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| errors.DeleteWebhookNotFoundError | 404                               | application/json                  |
+| errors.AttioError                 | 4XX, 5XX                          | \*/\*                             |

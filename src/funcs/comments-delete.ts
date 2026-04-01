@@ -36,12 +36,12 @@ import { Result } from "../types/fp.js";
  */
 export function commentsDelete(
   client: AttioCore,
-  request: operations.DeleteV2CommentsCommentIdRequest,
+  request: operations.DeleteCommentRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.DeleteV2CommentsCommentIdResponse,
-    | errors.DeleteV2CommentsCommentIdNotFoundError
+    operations.DeleteCommentResponse,
+    | errors.DeleteCommentNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -61,13 +61,13 @@ export function commentsDelete(
 
 async function $do(
   client: AttioCore,
-  request: operations.DeleteV2CommentsCommentIdRequest,
+  request: operations.DeleteCommentRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.DeleteV2CommentsCommentIdResponse,
-      | errors.DeleteV2CommentsCommentIdNotFoundError
+      operations.DeleteCommentResponse,
+      | errors.DeleteCommentNotFoundError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -82,11 +82,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) =>
-      z.parse(
-        operations.DeleteV2CommentsCommentIdRequest$outboundSchema,
-        value,
-      ),
+    (value) => z.parse(operations.DeleteCommentRequest$outboundSchema, value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -101,7 +97,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/v2/comments/{comment_id}")(pathParams);
 
   const headers = new Headers(compactMap({
@@ -115,7 +110,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "delete_/v2/comments/{comment_id}",
+    operationID: "deleteComment",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -158,8 +153,8 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.DeleteV2CommentsCommentIdResponse,
-    | errors.DeleteV2CommentsCommentIdNotFoundError
+    operations.DeleteCommentResponse,
+    | errors.DeleteCommentNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -169,8 +164,8 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.DeleteV2CommentsCommentIdResponse$inboundSchema),
-    M.jsonErr(404, errors.DeleteV2CommentsCommentIdNotFoundError$inboundSchema),
+    M.json(200, operations.DeleteCommentResponse$inboundSchema),
+    M.jsonErr(404, errors.DeleteCommentNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

@@ -36,13 +36,13 @@ import { Result } from "../types/fp.js";
  */
 export function recordsCreate(
   client: AttioCore,
-  request: operations.PostV2ObjectsObjectRecordsRequest,
+  request: operations.CreateRecordRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.PostV2ObjectsObjectRecordsResponse,
-    | errors.PostV2ObjectsObjectRecordsValueNotFoundError
-    | errors.GetV2ObjectsObjectNotFoundError
+    operations.CreateRecordResponse,
+    | errors.CreateRecordValueNotFoundError
+    | errors.CreateRecordNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -62,14 +62,14 @@ export function recordsCreate(
 
 async function $do(
   client: AttioCore,
-  request: operations.PostV2ObjectsObjectRecordsRequest,
+  request: operations.CreateRecordRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.PostV2ObjectsObjectRecordsResponse,
-      | errors.PostV2ObjectsObjectRecordsValueNotFoundError
-      | errors.GetV2ObjectsObjectNotFoundError
+      operations.CreateRecordResponse,
+      | errors.CreateRecordValueNotFoundError
+      | errors.CreateRecordNotFoundError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -84,11 +84,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) =>
-      z.parse(
-        operations.PostV2ObjectsObjectRecordsRequest$outboundSchema,
-        value,
-      ),
+    (value) => z.parse(operations.CreateRecordRequest$outboundSchema, value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -103,7 +99,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/v2/objects/{object}/records")(pathParams);
 
   const headers = new Headers(compactMap({
@@ -118,7 +113,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "post_/v2/objects/{object}/records",
+    operationID: "createRecord",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -161,9 +156,9 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.PostV2ObjectsObjectRecordsResponse,
-    | errors.PostV2ObjectsObjectRecordsValueNotFoundError
-    | errors.GetV2ObjectsObjectNotFoundError
+    operations.CreateRecordResponse,
+    | errors.CreateRecordValueNotFoundError
+    | errors.CreateRecordNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -173,12 +168,9 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.PostV2ObjectsObjectRecordsResponse$inboundSchema),
-    M.jsonErr(
-      400,
-      errors.PostV2ObjectsObjectRecordsValueNotFoundError$inboundSchema,
-    ),
-    M.jsonErr(404, errors.GetV2ObjectsObjectNotFoundError$inboundSchema),
+    M.json(200, operations.CreateRecordResponse$inboundSchema),
+    M.jsonErr(400, errors.CreateRecordValueNotFoundError$inboundSchema),
+    M.jsonErr(404, errors.CreateRecordNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

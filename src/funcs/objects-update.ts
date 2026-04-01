@@ -36,14 +36,14 @@ import { Result } from "../types/fp.js";
  */
 export function objectsUpdate(
   client: AttioCore,
-  request: operations.PatchV2ObjectsObjectRequest,
+  request: operations.UpdateObjectRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.PatchV2ObjectsObjectResponse,
-    | errors.PatchV2ObjectsObjectValidationTypeError
-    | errors.GetV2ObjectsObjectNotFoundError
-    | errors.PatchV2ObjectsObjectSlugConflictError
+    operations.UpdateObjectResponse,
+    | errors.UpdateObjectValidationTypeError
+    | errors.UpdateObjectNotFoundError
+    | errors.UpdateObjectSlugConflictError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -63,15 +63,15 @@ export function objectsUpdate(
 
 async function $do(
   client: AttioCore,
-  request: operations.PatchV2ObjectsObjectRequest,
+  request: operations.UpdateObjectRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.PatchV2ObjectsObjectResponse,
-      | errors.PatchV2ObjectsObjectValidationTypeError
-      | errors.GetV2ObjectsObjectNotFoundError
-      | errors.PatchV2ObjectsObjectSlugConflictError
+      operations.UpdateObjectResponse,
+      | errors.UpdateObjectValidationTypeError
+      | errors.UpdateObjectNotFoundError
+      | errors.UpdateObjectSlugConflictError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -86,8 +86,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) =>
-      z.parse(operations.PatchV2ObjectsObjectRequest$outboundSchema, value),
+    (value) => z.parse(operations.UpdateObjectRequest$outboundSchema, value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -102,7 +101,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/v2/objects/{object}")(pathParams);
 
   const headers = new Headers(compactMap({
@@ -117,7 +115,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "patch_/v2/objects/{object}",
+    operationID: "updateObject",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -160,10 +158,10 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.PatchV2ObjectsObjectResponse,
-    | errors.PatchV2ObjectsObjectValidationTypeError
-    | errors.GetV2ObjectsObjectNotFoundError
-    | errors.PatchV2ObjectsObjectSlugConflictError
+    operations.UpdateObjectResponse,
+    | errors.UpdateObjectValidationTypeError
+    | errors.UpdateObjectNotFoundError
+    | errors.UpdateObjectSlugConflictError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -173,13 +171,10 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.PatchV2ObjectsObjectResponse$inboundSchema),
-    M.jsonErr(
-      400,
-      errors.PatchV2ObjectsObjectValidationTypeError$inboundSchema,
-    ),
-    M.jsonErr(404, errors.GetV2ObjectsObjectNotFoundError$inboundSchema),
-    M.jsonErr(409, errors.PatchV2ObjectsObjectSlugConflictError$inboundSchema),
+    M.json(200, operations.UpdateObjectResponse$inboundSchema),
+    M.jsonErr(400, errors.UpdateObjectValidationTypeError$inboundSchema),
+    M.jsonErr(404, errors.UpdateObjectNotFoundError$inboundSchema),
+    M.jsonErr(409, errors.UpdateObjectSlugConflictError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

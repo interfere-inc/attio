@@ -40,12 +40,12 @@ import { Result } from "../types/fp.js";
  */
 export function recordsSearch(
   client: AttioCore,
-  request: operations.PostV2ObjectsRecordsSearchRequest,
+  request: operations.SearchRecordsRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.PostV2ObjectsRecordsSearchResponse,
-    | errors.PostV2ObjectsRecordsSearchValueNotFoundError
+    operations.SearchRecordsResponse,
+    | errors.SearchRecordsValueNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -65,13 +65,13 @@ export function recordsSearch(
 
 async function $do(
   client: AttioCore,
-  request: operations.PostV2ObjectsRecordsSearchRequest,
+  request: operations.SearchRecordsRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.PostV2ObjectsRecordsSearchResponse,
-      | errors.PostV2ObjectsRecordsSearchValueNotFoundError
+      operations.SearchRecordsResponse,
+      | errors.SearchRecordsValueNotFoundError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -86,11 +86,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) =>
-      z.parse(
-        operations.PostV2ObjectsRecordsSearchRequest$outboundSchema,
-        value,
-      ),
+    (value) => z.parse(operations.SearchRecordsRequest$outboundSchema, value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -113,7 +109,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "post_/v2/objects/records/search",
+    operationID: "searchRecords",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -156,8 +152,8 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.PostV2ObjectsRecordsSearchResponse,
-    | errors.PostV2ObjectsRecordsSearchValueNotFoundError
+    operations.SearchRecordsResponse,
+    | errors.SearchRecordsValueNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -167,11 +163,8 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.PostV2ObjectsRecordsSearchResponse$inboundSchema),
-    M.jsonErr(
-      400,
-      errors.PostV2ObjectsRecordsSearchValueNotFoundError$inboundSchema,
-    ),
+    M.json(200, operations.SearchRecordsResponse$inboundSchema),
+    M.jsonErr(400, errors.SearchRecordsValueNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

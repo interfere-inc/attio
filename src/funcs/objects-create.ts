@@ -36,12 +36,12 @@ import { Result } from "../types/fp.js";
  */
 export function objectsCreate(
   client: AttioCore,
-  request: operations.PostV2ObjectsRequest,
+  request: operations.CreateObjectRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.PostV2ObjectsResponse,
-    | errors.PostV2ObjectsSlugConflictError
+    operations.CreateObjectResponse,
+    | errors.CreateObjectSlugConflictError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -61,13 +61,13 @@ export function objectsCreate(
 
 async function $do(
   client: AttioCore,
-  request: operations.PostV2ObjectsRequest,
+  request: operations.CreateObjectRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.PostV2ObjectsResponse,
-      | errors.PostV2ObjectsSlugConflictError
+      operations.CreateObjectResponse,
+      | errors.CreateObjectSlugConflictError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -82,7 +82,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => z.parse(operations.PostV2ObjectsRequest$outboundSchema, value),
+    (value) => z.parse(operations.CreateObjectRequest$outboundSchema, value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -105,7 +105,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "post_/v2/objects",
+    operationID: "createObject",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -148,8 +148,8 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.PostV2ObjectsResponse,
-    | errors.PostV2ObjectsSlugConflictError
+    operations.CreateObjectResponse,
+    | errors.CreateObjectSlugConflictError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -159,8 +159,8 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.PostV2ObjectsResponse$inboundSchema),
-    M.jsonErr(409, errors.PostV2ObjectsSlugConflictError$inboundSchema),
+    M.json(200, operations.CreateObjectResponse$inboundSchema),
+    M.jsonErr(409, errors.CreateObjectSlugConflictError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

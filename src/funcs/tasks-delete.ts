@@ -36,12 +36,12 @@ import { Result } from "../types/fp.js";
  */
 export function tasksDelete(
   client: AttioCore,
-  request: operations.DeleteV2TasksTaskIdRequest,
+  request: operations.DeleteTaskRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.DeleteV2TasksTaskIdResponse,
-    | errors.GetV2TasksTaskIdNotFoundError
+    operations.DeleteTaskResponse,
+    | errors.DeleteTaskNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -61,13 +61,13 @@ export function tasksDelete(
 
 async function $do(
   client: AttioCore,
-  request: operations.DeleteV2TasksTaskIdRequest,
+  request: operations.DeleteTaskRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.DeleteV2TasksTaskIdResponse,
-      | errors.GetV2TasksTaskIdNotFoundError
+      operations.DeleteTaskResponse,
+      | errors.DeleteTaskNotFoundError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -82,8 +82,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) =>
-      z.parse(operations.DeleteV2TasksTaskIdRequest$outboundSchema, value),
+    (value) => z.parse(operations.DeleteTaskRequest$outboundSchema, value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -98,7 +97,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/v2/tasks/{task_id}")(pathParams);
 
   const headers = new Headers(compactMap({
@@ -112,7 +110,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "delete_/v2/tasks/{task_id}",
+    operationID: "deleteTask",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -155,8 +153,8 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.DeleteV2TasksTaskIdResponse,
-    | errors.GetV2TasksTaskIdNotFoundError
+    operations.DeleteTaskResponse,
+    | errors.DeleteTaskNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -166,8 +164,8 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.DeleteV2TasksTaskIdResponse$inboundSchema),
-    M.jsonErr(404, errors.GetV2TasksTaskIdNotFoundError$inboundSchema),
+    M.json(200, operations.DeleteTaskResponse$inboundSchema),
+    M.jsonErr(404, errors.DeleteTaskNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

@@ -20,7 +20,7 @@ Required scopes: `meeting:read`, `record_permission:read`.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get_/v2/meetings" method="get" path="/v2/meetings" -->
+<!-- UsageSnippet language="typescript" operationID="listMeetings" method="get" path="/v2/meetings" -->
 ```typescript
 import { Attio } from "@interfere/attio";
 
@@ -68,14 +68,14 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.GetV2MeetingsRequest](../../models/operations/get-v2-meetings-request.md)                                                                                          | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.ListMeetingsRequest](../../models/operations/list-meetings-request.md)                                                                                             | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.GetV2MeetingsResponse](../../models/operations/get-v2-meetings-response.md)\>**
+**Promise\<[operations.ListMeetingsResponse](../../models/operations/list-meetings-response.md)\>**
 
 ### Errors
 
@@ -93,7 +93,7 @@ Required scopes: `meeting:read-write`, `record_permission:read`.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="post_/v2/meetings" method="post" path="/v2/meetings" -->
+<!-- UsageSnippet language="typescript" operationID="findOrCreateMeeting" method="post" path="/v2/meetings" -->
 ```typescript
 import { Attio } from "@interfere/attio";
 
@@ -107,14 +107,20 @@ async function run() {
       title: "Onboarding Session",
       description: "Getting you up to speed with the platform and answering any questions you have.",
       start: {
-        date: "2027-11-27",
-      },
-      end: {
-        datetime: new Date("2027-11-27T15:00:00Z"),
+        datetime: new Date("2027-11-27T14:00:00Z"),
         timezone: "America/New_York",
       },
+      end: {
+        date: "2027-11-28",
+      },
       isAllDay: false,
-      participants: [],
+      participants: [
+        {
+          emailAddress: "person@company.com",
+          isOrganizer: true,
+          status: "accepted",
+        },
+      ],
       linkedRecords: [
         {
           object: "people",
@@ -151,14 +157,20 @@ async function run() {
       title: "Onboarding Session",
       description: "Getting you up to speed with the platform and answering any questions you have.",
       start: {
-        date: "2027-11-27",
-      },
-      end: {
-        datetime: new Date("2027-11-27T15:00:00Z"),
+        datetime: new Date("2027-11-27T14:00:00Z"),
         timezone: "America/New_York",
       },
+      end: {
+        date: "2027-11-28",
+      },
       isAllDay: false,
-      participants: [],
+      participants: [
+        {
+          emailAddress: "person@company.com",
+          isOrganizer: true,
+          status: "accepted",
+        },
+      ],
       linkedRecords: [
         {
           object: "people",
@@ -183,21 +195,21 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.PostV2MeetingsRequest](../../models/operations/post-v2-meetings-request.md)                                                                                        | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.FindOrCreateMeetingRequest](../../models/operations/find-or-create-meeting-request.md)                                                                             | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.PostV2MeetingsResponse](../../models/operations/post-v2-meetings-response.md)\>**
+**Promise\<[operations.FindOrCreateMeetingResponse](../../models/operations/find-or-create-meeting-response.md)\>**
 
 ### Errors
 
-| Error Type                               | Status Code                              | Content Type                             |
-| ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
-| errors.PostV2MeetingsValidationTypeError | 400                                      | application/json                         |
-| errors.AttioError                        | 4XX, 5XX                                 | \*/\*                                    |
+| Error Type                                    | Status Code                                   | Content Type                                  |
+| --------------------------------------------- | --------------------------------------------- | --------------------------------------------- |
+| errors.FindOrCreateMeetingValidationTypeError | 400                                           | application/json                              |
+| errors.AttioError                             | 4XX, 5XX                                      | \*/\*                                         |
 
 ## get
 
@@ -209,7 +221,7 @@ Required scopes: `meeting:read`, `record_permission:read`.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get_/v2/meetings/{meeting_id}" method="get" path="/v2/meetings/{meeting_id}" -->
+<!-- UsageSnippet language="typescript" operationID="getMeeting" method="get" path="/v2/meetings/{meeting_id}" -->
 ```typescript
 import { Attio } from "@interfere/attio";
 
@@ -261,18 +273,18 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.GetV2MeetingsMeetingIdRequest](../../models/operations/get-v2-meetings-meeting-id-request.md)                                                                      | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.GetMeetingRequest](../../models/operations/get-meeting-request.md)                                                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.GetV2MeetingsMeetingIdResponse](../../models/operations/get-v2-meetings-meeting-id-response.md)\>**
+**Promise\<[operations.GetMeetingResponse](../../models/operations/get-meeting-response.md)\>**
 
 ### Errors
 
-| Error Type                                 | Status Code                                | Content Type                               |
-| ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
-| errors.GetV2MeetingsMeetingIdNotFoundError | 404                                        | application/json                           |
-| errors.AttioError                          | 4XX, 5XX                                   | \*/\*                                      |
+| Error Type                     | Status Code                    | Content Type                   |
+| ------------------------------ | ------------------------------ | ------------------------------ |
+| errors.GetMeetingNotFoundError | 404                            | application/json               |
+| errors.AttioError              | 4XX, 5XX                       | \*/\*                          |

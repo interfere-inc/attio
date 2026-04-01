@@ -19,7 +19,7 @@ export class WorkspaceMembers extends ClientSDK {
    */
   async list(
     options?: RequestOptions,
-  ): Promise<operations.GetV2WorkspaceMembersResponse> {
+  ): Promise<operations.ListWorkspaceMembersResponse> {
     return unwrapAsync(workspaceMembersList(
       this,
       options,
@@ -35,9 +35,9 @@ export class WorkspaceMembers extends ClientSDK {
    * Required scopes: `user_management:read`.
    */
   async get(
-    request: operations.GetV2WorkspaceMembersWorkspaceMemberIdRequest,
+    request: operations.GetWorkspaceMemberRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetV2WorkspaceMembersWorkspaceMemberIdResponse> {
+  ): Promise<operations.GetWorkspaceMemberResponse> {
     return unwrapAsync(workspaceMembersGet(
       this,
       request,

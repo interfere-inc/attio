@@ -36,12 +36,12 @@ import { Result } from "../types/fp.js";
  */
 export function entriesDelete(
   client: AttioCore,
-  request: operations.DeleteV2ListsListEntriesEntryIdRequest,
+  request: operations.DeleteEntryRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.DeleteV2ListsListEntriesEntryIdResponse,
-    | errors.GetV2ListsListNotFoundError
+    operations.DeleteEntryResponse,
+    | errors.DeleteEntryNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -61,13 +61,13 @@ export function entriesDelete(
 
 async function $do(
   client: AttioCore,
-  request: operations.DeleteV2ListsListEntriesEntryIdRequest,
+  request: operations.DeleteEntryRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.DeleteV2ListsListEntriesEntryIdResponse,
-      | errors.GetV2ListsListNotFoundError
+      operations.DeleteEntryResponse,
+      | errors.DeleteEntryNotFoundError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -82,11 +82,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) =>
-      z.parse(
-        operations.DeleteV2ListsListEntriesEntryIdRequest$outboundSchema,
-        value,
-      ),
+    (value) => z.parse(operations.DeleteEntryRequest$outboundSchema, value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -105,7 +101,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/v2/lists/{list}/entries/{entry_id}")(pathParams);
 
   const headers = new Headers(compactMap({
@@ -119,7 +114,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "delete_/v2/lists/{list}/entries/{entry_id}",
+    operationID: "deleteEntry",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -162,8 +157,8 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.DeleteV2ListsListEntriesEntryIdResponse,
-    | errors.GetV2ListsListNotFoundError
+    operations.DeleteEntryResponse,
+    | errors.DeleteEntryNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -173,11 +168,8 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(
-      200,
-      operations.DeleteV2ListsListEntriesEntryIdResponse$inboundSchema,
-    ),
-    M.jsonErr(404, errors.GetV2ListsListNotFoundError$inboundSchema),
+    M.json(200, operations.DeleteEntryResponse$inboundSchema),
+    M.jsonErr(404, errors.DeleteEntryNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

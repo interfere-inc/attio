@@ -1,0 +1,23 @@
+# ListMeetingsRequest
+
+## Example Usage
+
+```typescript
+import { ListMeetingsRequest } from "@interfere/attio/models/operations";
+
+let value: ListMeetingsRequest = {};
+```
+
+## Fields
+
+| Field                                                                        | Type                                                                         | Required                                                                     | Description                                                                  | Example                                                                      |
+| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `limit`                                                                      | *number*                                                                     | :heavy_minus_sign:                                                           | N/A                                                                          | 50                                                                           |
+| `cursor`                                                                     | *string*                                                                     | :heavy_minus_sign:                                                           | N/A                                                                          |                                                                              |
+| `linkedObject`                                                               | *string*                                                                     | :heavy_minus_sign:                                                           | N/A                                                                          |                                                                              |
+| `linkedRecordId`                                                             | *string*                                                                     | :heavy_minus_sign:                                                           | N/A                                                                          |                                                                              |
+| `participants`                                                               | *string*                                                                     | :heavy_minus_sign:                                                           | N/A                                                                          |                                                                              |
+| `sort`                                                                       | [operations.ListMeetingsSort](../../models/operations/list-meetings-sort.md) | :heavy_minus_sign:                                                           | The order in which to sort the meetings. Defaults to start_asc.              |                                                                              |
+| `endsFrom`                                                                   | *string*                                                                     | :heavy_minus_sign:                                                           | N/A                                                                          |                                                                              |
+| `startsBefore`                                                               | *string*                                                                     | :heavy_minus_sign:                                                           | N/A                                                                          |                                                                              |
+| `timezone`                                                                   | *string*                                                                     | :heavy_minus_sign:                                                           | N/A                                                                          |                                                                              |

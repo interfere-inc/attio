@@ -38,13 +38,12 @@ import { Result } from "../types/fp.js";
  */
 export function callRecordingsDelete(
   client: AttioCore,
-  request:
-    operations.DeleteV2MeetingsMeetingIdCallRecordingsCallRecordingIdRequest,
+  request: operations.DeleteCallRecordingRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.DeleteV2MeetingsMeetingIdCallRecordingsCallRecordingIdResponse,
-    | errors.DeleteV2MeetingsMeetingIdCallRecordingsCallRecordingIdNotFoundError
+    operations.DeleteCallRecordingResponse,
+    | errors.DeleteCallRecordingNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -64,14 +63,13 @@ export function callRecordingsDelete(
 
 async function $do(
   client: AttioCore,
-  request:
-    operations.DeleteV2MeetingsMeetingIdCallRecordingsCallRecordingIdRequest,
+  request: operations.DeleteCallRecordingRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.DeleteV2MeetingsMeetingIdCallRecordingsCallRecordingIdResponse,
-      | errors.DeleteV2MeetingsMeetingIdCallRecordingsCallRecordingIdNotFoundError
+      operations.DeleteCallRecordingResponse,
+      | errors.DeleteCallRecordingNotFoundError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -87,11 +85,7 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      z.parse(
-        operations
-          .DeleteV2MeetingsMeetingIdCallRecordingsCallRecordingIdRequest$outboundSchema,
-        value,
-      ),
+      z.parse(operations.DeleteCallRecordingRequest$outboundSchema, value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -111,7 +105,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc(
     "/v2/meetings/{meeting_id}/call_recordings/{call_recording_id}",
   )(pathParams);
@@ -127,8 +120,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID:
-      "delete_/v2/meetings/{meeting_id}/call_recordings/{call_recording_id}",
+    operationID: "deleteCallRecording",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -171,8 +163,8 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.DeleteV2MeetingsMeetingIdCallRecordingsCallRecordingIdResponse,
-    | errors.DeleteV2MeetingsMeetingIdCallRecordingsCallRecordingIdNotFoundError
+    operations.DeleteCallRecordingResponse,
+    | errors.DeleteCallRecordingNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -182,16 +174,8 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(
-      204,
-      operations
-        .DeleteV2MeetingsMeetingIdCallRecordingsCallRecordingIdResponse$inboundSchema,
-    ),
-    M.jsonErr(
-      404,
-      errors
-        .DeleteV2MeetingsMeetingIdCallRecordingsCallRecordingIdNotFoundError$inboundSchema,
-    ),
+    M.json(204, operations.DeleteCallRecordingResponse$inboundSchema),
+    M.jsonErr(404, errors.DeleteCallRecordingNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

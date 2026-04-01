@@ -36,12 +36,12 @@ import { Result } from "../types/fp.js";
  */
 export function recordsDelete(
   client: AttioCore,
-  request: operations.DeleteV2ObjectsObjectRecordsRecordIdRequest,
+  request: operations.DeleteRecordRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.DeleteV2ObjectsObjectRecordsRecordIdResponse,
-    | errors.GetV2ObjectsObjectRecordsRecordIdNotFoundError
+    operations.DeleteRecordResponse,
+    | errors.DeleteRecordNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -61,13 +61,13 @@ export function recordsDelete(
 
 async function $do(
   client: AttioCore,
-  request: operations.DeleteV2ObjectsObjectRecordsRecordIdRequest,
+  request: operations.DeleteRecordRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.DeleteV2ObjectsObjectRecordsRecordIdResponse,
-      | errors.GetV2ObjectsObjectRecordsRecordIdNotFoundError
+      operations.DeleteRecordResponse,
+      | errors.DeleteRecordNotFoundError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -82,11 +82,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) =>
-      z.parse(
-        operations.DeleteV2ObjectsObjectRecordsRecordIdRequest$outboundSchema,
-        value,
-      ),
+    (value) => z.parse(operations.DeleteRecordRequest$outboundSchema, value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -105,7 +101,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/v2/objects/{object}/records/{record_id}")(
     pathParams,
   );
@@ -121,7 +116,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "delete_/v2/objects/{object}/records/{record_id}",
+    operationID: "deleteRecord",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -164,8 +159,8 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.DeleteV2ObjectsObjectRecordsRecordIdResponse,
-    | errors.GetV2ObjectsObjectRecordsRecordIdNotFoundError
+    operations.DeleteRecordResponse,
+    | errors.DeleteRecordNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -175,14 +170,8 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(
-      200,
-      operations.DeleteV2ObjectsObjectRecordsRecordIdResponse$inboundSchema,
-    ),
-    M.jsonErr(
-      404,
-      errors.GetV2ObjectsObjectRecordsRecordIdNotFoundError$inboundSchema,
-    ),
+    M.json(200, operations.DeleteRecordResponse$inboundSchema),
+    M.jsonErr(404, errors.DeleteRecordNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

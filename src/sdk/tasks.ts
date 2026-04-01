@@ -21,9 +21,9 @@ export class Tasks extends ClientSDK {
    * Required scopes: `task:read`, `object_configuration:read`, `record_permission:read`, `user_management:read`.
    */
   async list(
-    request?: operations.GetV2TasksRequest | undefined,
+    request?: operations.ListTasksRequest | undefined,
     options?: RequestOptions,
-  ): Promise<operations.GetV2TasksResponse> {
+  ): Promise<operations.ListTasksResponse> {
     return unwrapAsync(tasksList(
       this,
       request,
@@ -42,9 +42,9 @@ export class Tasks extends ClientSDK {
    * Required scopes: `task:read-write`, `object_configuration:read`, `record_permission:read`, `user_management:read`.
    */
   async create(
-    request: operations.PostV2TasksRequest,
+    request: operations.CreateTaskRequest,
     options?: RequestOptions,
-  ): Promise<operations.PostV2TasksResponse> {
+  ): Promise<operations.CreateTaskResponse> {
     return unwrapAsync(tasksCreate(
       this,
       request,
@@ -61,9 +61,9 @@ export class Tasks extends ClientSDK {
    * Required scopes: `task:read`, `object_configuration:read`, `record_permission:read`, `user_management:read`.
    */
   async get(
-    request: operations.GetV2TasksTaskIdRequest,
+    request: operations.GetTaskRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetV2TasksTaskIdResponse> {
+  ): Promise<operations.GetTaskResponse> {
     return unwrapAsync(tasksGet(
       this,
       request,
@@ -80,9 +80,9 @@ export class Tasks extends ClientSDK {
    * Required scopes: `task:read-write`, `object_configuration:read`, `record_permission:read`, `user_management:read`.
    */
   async update(
-    request: operations.PatchV2TasksTaskIdRequest,
+    request: operations.UpdateTaskRequest,
     options?: RequestOptions,
-  ): Promise<operations.PatchV2TasksTaskIdResponse> {
+  ): Promise<operations.UpdateTaskResponse> {
     return unwrapAsync(tasksUpdate(
       this,
       request,
@@ -99,9 +99,9 @@ export class Tasks extends ClientSDK {
    * Required scopes: `task:read-write`.
    */
   async delete(
-    request: operations.DeleteV2TasksTaskIdRequest,
+    request: operations.DeleteTaskRequest,
     options?: RequestOptions,
-  ): Promise<operations.DeleteV2TasksTaskIdResponse> {
+  ): Promise<operations.DeleteTaskResponse> {
     return unwrapAsync(tasksDelete(
       this,
       request,

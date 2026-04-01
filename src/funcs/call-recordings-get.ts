@@ -38,13 +38,12 @@ import { Result } from "../types/fp.js";
  */
 export function callRecordingsGet(
   client: AttioCore,
-  request:
-    operations.GetV2MeetingsMeetingIdCallRecordingsCallRecordingIdRequest,
+  request: operations.GetCallRecordingRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.GetV2MeetingsMeetingIdCallRecordingsCallRecordingIdResponse,
-    | errors.GetV2MeetingsMeetingIdCallRecordingsCallRecordingIdNotFoundError
+    operations.GetCallRecordingResponse,
+    | errors.GetCallRecordingNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -64,14 +63,13 @@ export function callRecordingsGet(
 
 async function $do(
   client: AttioCore,
-  request:
-    operations.GetV2MeetingsMeetingIdCallRecordingsCallRecordingIdRequest,
+  request: operations.GetCallRecordingRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.GetV2MeetingsMeetingIdCallRecordingsCallRecordingIdResponse,
-      | errors.GetV2MeetingsMeetingIdCallRecordingsCallRecordingIdNotFoundError
+      operations.GetCallRecordingResponse,
+      | errors.GetCallRecordingNotFoundError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -87,11 +85,7 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      z.parse(
-        operations
-          .GetV2MeetingsMeetingIdCallRecordingsCallRecordingIdRequest$outboundSchema,
-        value,
-      ),
+      z.parse(operations.GetCallRecordingRequest$outboundSchema, value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -111,7 +105,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc(
     "/v2/meetings/{meeting_id}/call_recordings/{call_recording_id}",
   )(pathParams);
@@ -127,8 +120,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID:
-      "get_/v2/meetings/{meeting_id}/call_recordings/{call_recording_id}",
+    operationID: "getCallRecording",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -171,8 +163,8 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.GetV2MeetingsMeetingIdCallRecordingsCallRecordingIdResponse,
-    | errors.GetV2MeetingsMeetingIdCallRecordingsCallRecordingIdNotFoundError
+    operations.GetCallRecordingResponse,
+    | errors.GetCallRecordingNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -182,16 +174,8 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(
-      200,
-      operations
-        .GetV2MeetingsMeetingIdCallRecordingsCallRecordingIdResponse$inboundSchema,
-    ),
-    M.jsonErr(
-      404,
-      errors
-        .GetV2MeetingsMeetingIdCallRecordingsCallRecordingIdNotFoundError$inboundSchema,
-    ),
+    M.json(200, operations.GetCallRecordingResponse$inboundSchema),
+    M.jsonErr(404, errors.GetCallRecordingNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

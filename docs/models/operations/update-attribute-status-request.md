@@ -1,0 +1,32 @@
+# UpdateAttributeStatusRequest
+
+## Example Usage
+
+```typescript
+import { UpdateAttributeStatusRequest } from "@interfere/attio/models/operations";
+
+let value: UpdateAttributeStatusRequest = {
+  target: "lists",
+  identifier: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0",
+  attribute: "41252299-f8c7-4b5e-99c9-4ff8321d2f96",
+  status: "In Progress",
+  body: {
+    data: {
+      title: "In Progress",
+      celebrationEnabled: true,
+      targetTimeInStatus: "P0Y0M1DT0H0M0S",
+      isArchived: false,
+    },
+  },
+};
+```
+
+## Fields
+
+| Field                                                                                                                                       | Type                                                                                                                                        | Required                                                                                                                                    | Description                                                                                                                                 | Example                                                                                                                                     |
+| ------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `target`                                                                                                                                    | [operations.UpdateAttributeStatusTarget](../../models/operations/update-attribute-status-target.md)                                         | :heavy_check_mark:                                                                                                                          | Whether the attribute is on an object or a list. Please note that company and person objects do not support status attributes at this time. | lists                                                                                                                                       |
+| `identifier`                                                                                                                                | *string*                                                                                                                                    | :heavy_check_mark:                                                                                                                          | N/A                                                                                                                                         | 33ebdbe9-e529-47c9-b894-0ba25e9c15c0                                                                                                        |
+| `attribute`                                                                                                                                 | *string*                                                                                                                                    | :heavy_check_mark:                                                                                                                          | N/A                                                                                                                                         | 41252299-f8c7-4b5e-99c9-4ff8321d2f96                                                                                                        |
+| `status`                                                                                                                                    | *string*                                                                                                                                    | :heavy_check_mark:                                                                                                                          | N/A                                                                                                                                         | In Progress                                                                                                                                 |
+| `body`                                                                                                                                      | [operations.UpdateAttributeStatusRequestBody](../../models/operations/update-attribute-status-request-body.md)                              | :heavy_check_mark:                                                                                                                          | N/A                                                                                                                                         |                                                                                                                                             |

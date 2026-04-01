@@ -1,0 +1,13 @@
+lintVersion: 2.0.0
+defaultRuleset: attioRuleset
+rulesets:
+  attioRuleset:
+    rulesets:
+      - speakeasy-recommended
+    rules:
+      - id: generator-validate-enums
+        match: "enum is nullable but does not contain a `null` value"
+        disabled: true
+      - id: generator-validate-enums
+        match: "only enum types of string or integer supported"
+        severity: hint

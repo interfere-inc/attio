@@ -15,14 +15,12 @@ export class Options extends ClientSDK {
    * @remarks
    * Lists all select options for a particular attribute on either an object or a list.
    *
-   * Required scopes: `object_configuration:read`.
+   * When `target` is `objects`, the required scopes are `object_configuration:read`. When `target` is `lists`, the required scopes are `list_configuration:read`.
    */
   async list(
-    request: operations.GetV2TargetIdentifierAttributesAttributeOptionsRequest,
+    request: operations.ListAttributeOptionsRequest,
     options?: RequestOptions,
-  ): Promise<
-    operations.GetV2TargetIdentifierAttributesAttributeOptionsResponse
-  > {
+  ): Promise<operations.ListAttributeOptionsResponse> {
     return unwrapAsync(attributesOptionsList(
       this,
       request,
@@ -36,14 +34,12 @@ export class Options extends ClientSDK {
    * @remarks
    * Adds a select option to a select attribute on an object or a list.
    *
-   * Required scopes: `object_configuration:read-write`.
+   * When `target` is `objects`, the required scopes are `object_configuration:read-write`. When `target` is `lists`, the required scopes are `list_configuration:read-write`.
    */
   async create(
-    request: operations.PostV2TargetIdentifierAttributesAttributeOptionsRequest,
+    request: operations.CreateAttributeOptionRequest,
     options?: RequestOptions,
-  ): Promise<
-    operations.PostV2TargetIdentifierAttributesAttributeOptionsResponse
-  > {
+  ): Promise<operations.CreateAttributeOptionResponse> {
     return unwrapAsync(attributesOptionsCreate(
       this,
       request,

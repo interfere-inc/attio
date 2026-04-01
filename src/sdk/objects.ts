@@ -3,6 +3,7 @@
  */
 
 import { objectsCreate } from "../funcs/objects-create.js";
+import { objectsGetViews } from "../funcs/objects-get-views.js";
 import { objectsGet } from "../funcs/objects-get.js";
 import { objectsList } from "../funcs/objects-list.js";
 import { objectsUpdate } from "../funcs/objects-update.js";
@@ -21,7 +22,7 @@ export class Objects extends ClientSDK {
    */
   async list(
     options?: RequestOptions,
-  ): Promise<operations.GetV2ObjectsResponse> {
+  ): Promise<operations.ListObjectsResponse> {
     return unwrapAsync(objectsList(
       this,
       options,
@@ -37,9 +38,9 @@ export class Objects extends ClientSDK {
    * Required scopes: `object_configuration:read-write`.
    */
   async create(
-    request: operations.PostV2ObjectsRequest,
+    request: operations.CreateObjectRequest,
     options?: RequestOptions,
-  ): Promise<operations.PostV2ObjectsResponse> {
+  ): Promise<operations.CreateObjectResponse> {
     return unwrapAsync(objectsCreate(
       this,
       request,
@@ -56,9 +57,9 @@ export class Objects extends ClientSDK {
    * Required scopes: `object_configuration:read`.
    */
   async get(
-    request: operations.GetV2ObjectsObjectRequest,
+    request: operations.GetObjectRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetV2ObjectsObjectResponse> {
+  ): Promise<operations.GetObjectResponse> {
     return unwrapAsync(objectsGet(
       this,
       request,
@@ -75,10 +76,29 @@ export class Objects extends ClientSDK {
    * Required scopes: `object_configuration:read-write`.
    */
   async update(
-    request: operations.PatchV2ObjectsObjectRequest,
+    request: operations.UpdateObjectRequest,
     options?: RequestOptions,
-  ): Promise<operations.PatchV2ObjectsObjectResponse> {
+  ): Promise<operations.UpdateObjectResponse> {
     return unwrapAsync(objectsUpdate(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * List views for object
+   *
+   * @remarks
+   * Lists saved views for an object. Results are ordered by view ID (`id.view_id` ascending).
+   *
+   * Required scopes: `object_configuration:read`.
+   */
+  async getViews(
+    request: operations.GetObjectViewsRequest,
+    options?: RequestOptions,
+  ): Promise<operations.GetObjectViewsResponse> {
+    return unwrapAsync(objectsGetViews(
       this,
       request,
       options,

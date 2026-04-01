@@ -36,13 +36,13 @@ import { Result } from "../types/fp.js";
  */
 export function notesCreate(
   client: AttioCore,
-  request: operations.PostV2NotesRequest,
+  request: operations.CreateNoteRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.PostV2NotesResponse,
-    | errors.GetV2ObjectsObjectNotFoundError
-    | errors.PostV2NotesValidationTypeError
+    operations.CreateNoteResponse,
+    | errors.CreateNoteNotFoundError
+    | errors.CreateNoteValidationTypeError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -62,14 +62,14 @@ export function notesCreate(
 
 async function $do(
   client: AttioCore,
-  request: operations.PostV2NotesRequest,
+  request: operations.CreateNoteRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.PostV2NotesResponse,
-      | errors.GetV2ObjectsObjectNotFoundError
-      | errors.PostV2NotesValidationTypeError
+      operations.CreateNoteResponse,
+      | errors.CreateNoteNotFoundError
+      | errors.CreateNoteValidationTypeError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -84,7 +84,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => z.parse(operations.PostV2NotesRequest$outboundSchema, value),
+    (value) => z.parse(operations.CreateNoteRequest$outboundSchema, value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -107,7 +107,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "post_/v2/notes",
+    operationID: "createNote",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -150,9 +150,9 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.PostV2NotesResponse,
-    | errors.GetV2ObjectsObjectNotFoundError
-    | errors.PostV2NotesValidationTypeError
+    operations.CreateNoteResponse,
+    | errors.CreateNoteNotFoundError
+    | errors.CreateNoteValidationTypeError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -162,9 +162,9 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.PostV2NotesResponse$inboundSchema),
-    M.jsonErr(404, errors.GetV2ObjectsObjectNotFoundError$inboundSchema),
-    M.jsonErr(413, errors.PostV2NotesValidationTypeError$inboundSchema),
+    M.json(200, operations.CreateNoteResponse$inboundSchema),
+    M.jsonErr(404, errors.CreateNoteNotFoundError$inboundSchema),
+    M.jsonErr(413, errors.CreateNoteValidationTypeError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

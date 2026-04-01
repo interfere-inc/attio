@@ -19,12 +19,9 @@ export class Transcripts extends ClientSDK {
    * Required scopes: `meeting:read`, `call_recording:read`.
    */
   async getCallTranscript(
-    request:
-      operations.GetV2MeetingsMeetingIdCallRecordingsCallRecordingIdTranscriptRequest,
+    request: operations.GetCallTranscriptRequest,
     options?: RequestOptions,
-  ): Promise<
-    operations.GetV2MeetingsMeetingIdCallRecordingsCallRecordingIdTranscriptResponse
-  > {
+  ): Promise<operations.GetCallTranscriptResponse> {
     return unwrapAsync(transcriptsGetCallTranscript(
       this,
       request,

@@ -1,0 +1,21 @@
+# UpdateRecordCreatedByActor9
+
+The actor that created this value.
+
+## Example Usage
+
+```typescript
+import { UpdateRecordCreatedByActor9 } from "@interfere/attio/models/operations";
+
+let value: UpdateRecordCreatedByActor9 = {
+  id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
+  type: "workspace-member",
+};
+```
+
+## Fields
+
+| Field                                                                                                         | Type                                                                                                          | Required                                                                                                      | Description                                                                                                   |
+| ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `id`                                                                                                          | *string*                                                                                                      | :heavy_minus_sign:                                                                                            | An ID to identify the actor.                                                                                  |
+| `type`                                                                                                        | [operations.UpdateRecordCreatedByActorType9](../../models/operations/update-record-created-by-actor-type9.md) | :heavy_minus_sign:                                                                                            | The type of actor. [Read more information on actor types here](/docs/actors).                                 |

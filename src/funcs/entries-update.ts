@@ -36,13 +36,13 @@ import { Result } from "../types/fp.js";
  */
 export function entriesUpdate(
   client: AttioCore,
-  request: operations.PutV2ListsListEntriesEntryIdRequest,
+  request: operations.UpdateEntryRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.PutV2ListsListEntriesEntryIdResponse,
-    | errors.ImmutableValueError
-    | errors.GetV2ListsListNotFoundError
+    operations.UpdateEntryResponse,
+    | errors.UpdateEntryImmutableValueError
+    | errors.UpdateEntryNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -62,14 +62,14 @@ export function entriesUpdate(
 
 async function $do(
   client: AttioCore,
-  request: operations.PutV2ListsListEntriesEntryIdRequest,
+  request: operations.UpdateEntryRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.PutV2ListsListEntriesEntryIdResponse,
-      | errors.ImmutableValueError
-      | errors.GetV2ListsListNotFoundError
+      operations.UpdateEntryResponse,
+      | errors.UpdateEntryImmutableValueError
+      | errors.UpdateEntryNotFoundError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -84,11 +84,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) =>
-      z.parse(
-        operations.PutV2ListsListEntriesEntryIdRequest$outboundSchema,
-        value,
-      ),
+    (value) => z.parse(operations.UpdateEntryRequest$outboundSchema, value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -107,7 +103,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/v2/lists/{list}/entries/{entry_id}")(pathParams);
 
   const headers = new Headers(compactMap({
@@ -122,7 +117,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "put_/v2/lists/{list}/entries/{entry_id}",
+    operationID: "updateEntry",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -165,9 +160,9 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.PutV2ListsListEntriesEntryIdResponse,
-    | errors.ImmutableValueError
-    | errors.GetV2ListsListNotFoundError
+    operations.UpdateEntryResponse,
+    | errors.UpdateEntryImmutableValueError
+    | errors.UpdateEntryNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -177,9 +172,9 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.PutV2ListsListEntriesEntryIdResponse$inboundSchema),
-    M.jsonErr(400, errors.ImmutableValueError$inboundSchema),
-    M.jsonErr(404, errors.GetV2ListsListNotFoundError$inboundSchema),
+    M.json(200, operations.UpdateEntryResponse$inboundSchema),
+    M.jsonErr(400, errors.UpdateEntryImmutableValueError$inboundSchema),
+    M.jsonErr(404, errors.UpdateEntryNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

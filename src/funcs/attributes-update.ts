@@ -32,17 +32,17 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Updates a single attribute on a given object or list.
  *
- * Required scopes: `object_configuration:read-write`.
+ * When `target` is `objects`, the required scopes are `object_configuration:read-write`. When `target` is `lists`, the required scopes are `list_configuration:read-write`.
  */
 export function attributesUpdate(
   client: AttioCore,
-  request: operations.PatchV2TargetIdentifierAttributesAttributeRequest,
+  request: operations.UpdateAttributeRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.PatchV2TargetIdentifierAttributesAttributeResponse,
+    operations.UpdateAttributeResponse,
     | errors.SystemEditUnauthorizedError
-    | errors.GetV2TargetIdentifierAttributesAttributeNotFoundError
+    | errors.UpdateAttributeNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -62,14 +62,14 @@ export function attributesUpdate(
 
 async function $do(
   client: AttioCore,
-  request: operations.PatchV2TargetIdentifierAttributesAttributeRequest,
+  request: operations.UpdateAttributeRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.PatchV2TargetIdentifierAttributesAttributeResponse,
+      operations.UpdateAttributeResponse,
       | errors.SystemEditUnauthorizedError
-      | errors.GetV2TargetIdentifierAttributesAttributeNotFoundError
+      | errors.UpdateAttributeNotFoundError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -84,12 +84,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) =>
-      z.parse(
-        operations
-          .PatchV2TargetIdentifierAttributesAttributeRequest$outboundSchema,
-        value,
-      ),
+    (value) => z.parse(operations.UpdateAttributeRequest$outboundSchema, value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -112,7 +107,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/v2/{target}/{identifier}/attributes/{attribute}")(
     pathParams,
   );
@@ -129,7 +123,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "patch_/v2/{target}/{identifier}/attributes/{attribute}",
+    operationID: "updateAttribute",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -172,9 +166,9 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.PatchV2TargetIdentifierAttributesAttributeResponse,
+    operations.UpdateAttributeResponse,
     | errors.SystemEditUnauthorizedError
-    | errors.GetV2TargetIdentifierAttributesAttributeNotFoundError
+    | errors.UpdateAttributeNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -184,17 +178,9 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(
-      200,
-      operations
-        .PatchV2TargetIdentifierAttributesAttributeResponse$inboundSchema,
-    ),
+    M.json(200, operations.UpdateAttributeResponse$inboundSchema),
     M.jsonErr(400, errors.SystemEditUnauthorizedError$inboundSchema),
-    M.jsonErr(
-      404,
-      errors
-        .GetV2TargetIdentifierAttributesAttributeNotFoundError$inboundSchema,
-    ),
+    M.jsonErr(404, errors.UpdateAttributeNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

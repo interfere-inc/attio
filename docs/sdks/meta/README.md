@@ -14,7 +14,7 @@ Identify the current access token, the workspace it is linked to, and any permis
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get_/v2/self" method="get" path="/v2/self" -->
+<!-- UsageSnippet language="typescript" operationID="identify" method="get" path="/v2/self" -->
 ```typescript
 import { Attio } from "@interfere/attio";
 
@@ -68,7 +68,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetV2SelfResponse](../../models/operations/get-v2-self-response.md)\>**
+**Promise\<[operations.IdentifyResponse](../../models/operations/identify-response.md)\>**
 
 ### Errors
 

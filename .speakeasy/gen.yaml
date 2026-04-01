@@ -5,7 +5,6 @@ generation:
     schemaPath: .speakeasy/out.openapi.yaml
   sdkClassName: Attio
   maintainOpenAPIOrder: true
-  deduplicateErrors: true
   usageSnippets:
     optionalPropertyRendering: withExample
     sdkInitStyle: constructor
@@ -18,7 +17,7 @@ generation:
     securityFeb2025: true
     sharedErrorComponentsApr2025: true
     sharedNestedComponentsJan2026: true
-    nameOverrideFeb2026: false
+    nameOverrideFeb2026: true
   auth:
     oAuth2ClientCredentialsEnabled: true
     oAuth2PasswordEnabled: true
@@ -36,7 +35,7 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: false
 typescript:
-  version: 0.2.2
+  version: 0.2.9
   acceptHeaderEnum: false
   additionalDependencies:
     dependencies: {}
@@ -60,6 +59,7 @@ typescript:
   enumFormat: union
   envVarPrefix: ATTIO
   exportZodModelNamespace: false
+  fixEnumNameSanitization: false
   flatAdditionalProperties: true
   flattenGlobalSecurity: true
   flatteningOrder: parameters-first

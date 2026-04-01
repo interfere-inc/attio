@@ -38,13 +38,13 @@ import { Result } from "../types/fp.js";
  */
 export function recordsAssert(
   client: AttioCore,
-  request: operations.PutV2ObjectsObjectRecordsRequest,
+  request: operations.AssertRecordRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.PutV2ObjectsObjectRecordsResponse,
-    | errors.PutV2ObjectsObjectRecordsValueNotFoundError
-    | errors.GetV2ObjectsObjectNotFoundError
+    operations.AssertRecordResponse,
+    | errors.AssertRecordValueNotFoundError
+    | errors.AssertRecordNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -64,14 +64,14 @@ export function recordsAssert(
 
 async function $do(
   client: AttioCore,
-  request: operations.PutV2ObjectsObjectRecordsRequest,
+  request: operations.AssertRecordRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.PutV2ObjectsObjectRecordsResponse,
-      | errors.PutV2ObjectsObjectRecordsValueNotFoundError
-      | errors.GetV2ObjectsObjectNotFoundError
+      operations.AssertRecordResponse,
+      | errors.AssertRecordValueNotFoundError
+      | errors.AssertRecordNotFoundError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -86,11 +86,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) =>
-      z.parse(
-        operations.PutV2ObjectsObjectRecordsRequest$outboundSchema,
-        value,
-      ),
+    (value) => z.parse(operations.AssertRecordRequest$outboundSchema, value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -105,7 +101,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/v2/objects/{object}/records")(pathParams);
 
   const query = encodeFormQuery({
@@ -124,7 +119,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "put_/v2/objects/{object}/records",
+    operationID: "assertRecord",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -168,9 +163,9 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.PutV2ObjectsObjectRecordsResponse,
-    | errors.PutV2ObjectsObjectRecordsValueNotFoundError
-    | errors.GetV2ObjectsObjectNotFoundError
+    operations.AssertRecordResponse,
+    | errors.AssertRecordValueNotFoundError
+    | errors.AssertRecordNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -180,12 +175,9 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.PutV2ObjectsObjectRecordsResponse$inboundSchema),
-    M.jsonErr(
-      400,
-      errors.PutV2ObjectsObjectRecordsValueNotFoundError$inboundSchema,
-    ),
-    M.jsonErr(404, errors.GetV2ObjectsObjectNotFoundError$inboundSchema),
+    M.json(200, operations.AssertRecordResponse$inboundSchema),
+    M.jsonErr(400, errors.AssertRecordValueNotFoundError$inboundSchema),
+    M.jsonErr(404, errors.AssertRecordNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

@@ -10,6 +10,7 @@ Objects are the core data models inside of Attio. They contain standard objects,
 * [create](#create) - Create an object
 * [get](#get) - Get an object
 * [update](#update) - Update an object
+* [getViews](#getviews) - List views for object
 
 ## list
 
@@ -19,7 +20,7 @@ Required scopes: `object_configuration:read`.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get_/v2/objects" method="get" path="/v2/objects" -->
+<!-- UsageSnippet language="typescript" operationID="listObjects" method="get" path="/v2/objects" -->
 ```typescript
 import { Attio } from "@interfere/attio";
 
@@ -73,7 +74,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetV2ObjectsResponse](../../models/operations/get-v2-objects-response.md)\>**
+**Promise\<[operations.ListObjectsResponse](../../models/operations/list-objects-response.md)\>**
 
 ### Errors
 
@@ -89,7 +90,7 @@ Required scopes: `object_configuration:read-write`.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="post_/v2/objects" method="post" path="/v2/objects" -->
+<!-- UsageSnippet language="typescript" operationID="createObject" method="post" path="/v2/objects" -->
 ```typescript
 import { Attio } from "@interfere/attio";
 
@@ -149,21 +150,21 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.PostV2ObjectsRequest](../../models/operations/post-v2-objects-request.md)                                                                                          | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.CreateObjectRequest](../../models/operations/create-object-request.md)                                                                                             | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.PostV2ObjectsResponse](../../models/operations/post-v2-objects-response.md)\>**
+**Promise\<[operations.CreateObjectResponse](../../models/operations/create-object-response.md)\>**
 
 ### Errors
 
-| Error Type                            | Status Code                           | Content Type                          |
-| ------------------------------------- | ------------------------------------- | ------------------------------------- |
-| errors.PostV2ObjectsSlugConflictError | 409                                   | application/json                      |
-| errors.AttioError                     | 4XX, 5XX                              | \*/\*                                 |
+| Error Type                           | Status Code                          | Content Type                         |
+| ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.CreateObjectSlugConflictError | 409                                  | application/json                     |
+| errors.AttioError                    | 4XX, 5XX                             | \*/\*                                |
 
 ## get
 
@@ -173,7 +174,7 @@ Required scopes: `object_configuration:read`.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get_/v2/objects/{object}" method="get" path="/v2/objects/{object}" -->
+<!-- UsageSnippet language="typescript" operationID="getObject" method="get" path="/v2/objects/{object}" -->
 ```typescript
 import { Attio } from "@interfere/attio";
 
@@ -225,21 +226,21 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.GetV2ObjectsObjectRequest](../../models/operations/get-v2-objects-object-request.md)                                                                               | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.GetObjectRequest](../../models/operations/get-object-request.md)                                                                                                   | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.GetV2ObjectsObjectResponse](../../models/operations/get-v2-objects-object-response.md)\>**
+**Promise\<[operations.GetObjectResponse](../../models/operations/get-object-response.md)\>**
 
 ### Errors
 
-| Error Type                             | Status Code                            | Content Type                           |
-| -------------------------------------- | -------------------------------------- | -------------------------------------- |
-| errors.GetV2ObjectsObjectNotFoundError | 404                                    | application/json                       |
-| errors.AttioError                      | 4XX, 5XX                               | \*/\*                                  |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.GetObjectNotFoundError | 404                           | application/json              |
+| errors.AttioError             | 4XX, 5XX                      | \*/\*                         |
 
 ## update
 
@@ -249,7 +250,7 @@ Required scopes: `object_configuration:read-write`.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="patch_/v2/objects/{object}" method="patch" path="/v2/objects/{object}" -->
+<!-- UsageSnippet language="typescript" operationID="updateObject" method="patch" path="/v2/objects/{object}" -->
 ```typescript
 import { Attio } from "@interfere/attio";
 
@@ -315,20 +316,98 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.PatchV2ObjectsObjectRequest](../../models/operations/patch-v2-objects-object-request.md)                                                                           | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.UpdateObjectRequest](../../models/operations/update-object-request.md)                                                                                             | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.PatchV2ObjectsObjectResponse](../../models/operations/patch-v2-objects-object-response.md)\>**
+**Promise\<[operations.UpdateObjectResponse](../../models/operations/update-object-response.md)\>**
 
 ### Errors
 
-| Error Type                                     | Status Code                                    | Content Type                                   |
-| ---------------------------------------------- | ---------------------------------------------- | ---------------------------------------------- |
-| errors.PatchV2ObjectsObjectValidationTypeError | 400                                            | application/json                               |
-| errors.GetV2ObjectsObjectNotFoundError         | 404                                            | application/json                               |
-| errors.PatchV2ObjectsObjectSlugConflictError   | 409                                            | application/json                               |
-| errors.AttioError                              | 4XX, 5XX                                       | \*/\*                                          |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.UpdateObjectValidationTypeError | 400                                    | application/json                       |
+| errors.UpdateObjectNotFoundError       | 404                                    | application/json                       |
+| errors.UpdateObjectSlugConflictError   | 409                                    | application/json                       |
+| errors.AttioError                      | 4XX, 5XX                               | \*/\*                                  |
+
+## getViews
+
+Lists saved views for an object. Results are ordered by view ID (`id.view_id` ascending).
+
+Required scopes: `object_configuration:read`.
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="getObjectViews" method="get" path="/v2/objects/{object}/views" -->
+```typescript
+import { Attio } from "@interfere/attio";
+
+const attio = new Attio({
+  oauth2: process.env["ATTIO_OAUTH2"] ?? "",
+});
+
+async function run() {
+  const result = await attio.objects.getViews({
+    object: "people",
+    cursor: "eyJkZXNjcmlwdGlvbiI6ICJ0aGlzIGlzIGEgY3Vyc29yIn0=.eM56CGbqZ6G1NHiJchTIkH4vKDr",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { AttioCore } from "@interfere/attio/core.js";
+import { objectsGetViews } from "@interfere/attio/funcs/objects-get-views.js";
+
+// Use `AttioCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const attio = new AttioCore({
+  oauth2: process.env["ATTIO_OAUTH2"] ?? "",
+});
+
+async function run() {
+  const res = await objectsGetViews(attio, {
+    object: "people",
+    cursor: "eyJkZXNjcmlwdGlvbiI6ICJ0aGlzIGlzIGEgY3Vyc29yIn0=.eM56CGbqZ6G1NHiJchTIkH4vKDr",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("objectsGetViews failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.GetObjectViewsRequest](../../models/operations/get-object-views-request.md)                                                                                        | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.GetObjectViewsResponse](../../models/operations/get-object-views-response.md)\>**
+
+### Errors
+
+| Error Type                         | Status Code                        | Content Type                       |
+| ---------------------------------- | ---------------------------------- | ---------------------------------- |
+| errors.GetObjectViewsNotFoundError | 404                                | application/json                   |
+| errors.AttioError                  | 4XX, 5XX                           | \*/\*                              |

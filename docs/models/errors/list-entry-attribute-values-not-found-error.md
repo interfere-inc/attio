@@ -1,0 +1,20 @@
+# ListEntryAttributeValuesNotFoundError
+
+Not Found
+
+## Example Usage
+
+```typescript
+import { ListEntryAttributeValuesNotFoundError } from "@interfere/attio/models/errors";
+
+// No examples available for this model
+```
+
+## Fields
+
+| Field                                                                                                                    | Type                                                                                                                     | Required                                                                                                                 | Description                                                                                                              | Example                                                                                                                  |
+| ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
+| `statusCode`                                                                                                             | [operations.ListEntryAttributeValuesStatusCode](../../models/operations/list-entry-attribute-values-status-code.md)      | :heavy_check_mark:                                                                                                       | N/A                                                                                                                      |                                                                                                                          |
+| `type`                                                                                                                   | [operations.ListEntryAttributeValuesNotFoundType](../../models/operations/list-entry-attribute-values-not-found-type.md) | :heavy_check_mark:                                                                                                       | N/A                                                                                                                      |                                                                                                                          |
+| `code`                                                                                                                   | [operations.ListEntryAttributeValuesCode](../../models/operations/list-entry-attribute-values-code.md)                   | :heavy_check_mark:                                                                                                       | N/A                                                                                                                      |                                                                                                                          |
+| `message`                                                                                                                | *string*                                                                                                                 | :heavy_check_mark:                                                                                                       | N/A                                                                                                                      | List with slug/ID "enterprise_sales" not found.                                                                          |

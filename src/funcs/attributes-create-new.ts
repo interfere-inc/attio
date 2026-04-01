@@ -40,14 +40,14 @@ import { Result } from "../types/fp.js";
  */
 export function attributesCreateNew(
   client: AttioCore,
-  request: operations.PostV2TargetIdentifierAttributesRequest,
+  request: operations.CreateNewAttributeRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.PostV2TargetIdentifierAttributesResponse,
-    | errors.PostV2TargetIdentifierAttributesValidationTypeError
-    | errors.PostV2TargetIdentifierAttributesNotFoundError
-    | errors.PostV2TargetIdentifierAttributesSlugConflictError
+    operations.CreateNewAttributeResponse,
+    | errors.CreateNewAttributeValidationTypeError
+    | errors.CreateNewAttributeNotFoundError
+    | errors.CreateNewAttributeSlugConflictError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -67,15 +67,15 @@ export function attributesCreateNew(
 
 async function $do(
   client: AttioCore,
-  request: operations.PostV2TargetIdentifierAttributesRequest,
+  request: operations.CreateNewAttributeRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.PostV2TargetIdentifierAttributesResponse,
-      | errors.PostV2TargetIdentifierAttributesValidationTypeError
-      | errors.PostV2TargetIdentifierAttributesNotFoundError
-      | errors.PostV2TargetIdentifierAttributesSlugConflictError
+      operations.CreateNewAttributeResponse,
+      | errors.CreateNewAttributeValidationTypeError
+      | errors.CreateNewAttributeNotFoundError
+      | errors.CreateNewAttributeSlugConflictError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -91,10 +91,7 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      z.parse(
-        operations.PostV2TargetIdentifierAttributesRequest$outboundSchema,
-        value,
-      ),
+      z.parse(operations.CreateNewAttributeRequest$outboundSchema, value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -113,7 +110,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/v2/{target}/{identifier}/attributes")(pathParams);
 
   const headers = new Headers(compactMap({
@@ -128,7 +124,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "post_/v2/{target}/{identifier}/attributes",
+    operationID: "createNewAttribute",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -171,10 +167,10 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.PostV2TargetIdentifierAttributesResponse,
-    | errors.PostV2TargetIdentifierAttributesValidationTypeError
-    | errors.PostV2TargetIdentifierAttributesNotFoundError
-    | errors.PostV2TargetIdentifierAttributesSlugConflictError
+    operations.CreateNewAttributeResponse,
+    | errors.CreateNewAttributeValidationTypeError
+    | errors.CreateNewAttributeNotFoundError
+    | errors.CreateNewAttributeSlugConflictError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -184,22 +180,10 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(
-      200,
-      operations.PostV2TargetIdentifierAttributesResponse$inboundSchema,
-    ),
-    M.jsonErr(
-      400,
-      errors.PostV2TargetIdentifierAttributesValidationTypeError$inboundSchema,
-    ),
-    M.jsonErr(
-      404,
-      errors.PostV2TargetIdentifierAttributesNotFoundError$inboundSchema,
-    ),
-    M.jsonErr(
-      409,
-      errors.PostV2TargetIdentifierAttributesSlugConflictError$inboundSchema,
-    ),
+    M.json(200, operations.CreateNewAttributeResponse$inboundSchema),
+    M.jsonErr(400, errors.CreateNewAttributeValidationTypeError$inboundSchema),
+    M.jsonErr(404, errors.CreateNewAttributeNotFoundError$inboundSchema),
+    M.jsonErr(409, errors.CreateNewAttributeSlugConflictError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

@@ -36,12 +36,12 @@ import { Result } from "../types/fp.js";
  */
 export function entriesQuery(
   client: AttioCore,
-  request: operations.PostV2ListsListEntriesQueryRequest,
+  request: operations.QueryEntriesRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.PostV2ListsListEntriesQueryResponse,
-    | errors.GetV2ListsListNotFoundError
+    operations.QueryEntriesResponse,
+    | errors.QueryEntriesNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -61,13 +61,13 @@ export function entriesQuery(
 
 async function $do(
   client: AttioCore,
-  request: operations.PostV2ListsListEntriesQueryRequest,
+  request: operations.QueryEntriesRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.PostV2ListsListEntriesQueryResponse,
-      | errors.GetV2ListsListNotFoundError
+      operations.QueryEntriesResponse,
+      | errors.QueryEntriesNotFoundError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -82,11 +82,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) =>
-      z.parse(
-        operations.PostV2ListsListEntriesQueryRequest$outboundSchema,
-        value,
-      ),
+    (value) => z.parse(operations.QueryEntriesRequest$outboundSchema, value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -101,7 +97,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/v2/lists/{list}/entries/query")(pathParams);
 
   const headers = new Headers(compactMap({
@@ -116,7 +111,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "post_/v2/lists/{list}/entries/query",
+    operationID: "queryEntries",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -159,8 +154,8 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.PostV2ListsListEntriesQueryResponse,
-    | errors.GetV2ListsListNotFoundError
+    operations.QueryEntriesResponse,
+    | errors.QueryEntriesNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -170,8 +165,8 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.PostV2ListsListEntriesQueryResponse$inboundSchema),
-    M.jsonErr(404, errors.GetV2ListsListNotFoundError$inboundSchema),
+    M.json(200, operations.QueryEntriesResponse$inboundSchema),
+    M.jsonErr(404, errors.QueryEntriesNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

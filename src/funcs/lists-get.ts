@@ -36,12 +36,12 @@ import { Result } from "../types/fp.js";
  */
 export function listsGet(
   client: AttioCore,
-  request: operations.GetV2ListsListRequest,
+  request: operations.GetListRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.GetV2ListsListResponse,
-    | errors.GetV2ListsListNotFoundError
+    operations.GetListResponse,
+    | errors.GetListNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -61,13 +61,13 @@ export function listsGet(
 
 async function $do(
   client: AttioCore,
-  request: operations.GetV2ListsListRequest,
+  request: operations.GetListRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.GetV2ListsListResponse,
-      | errors.GetV2ListsListNotFoundError
+      operations.GetListResponse,
+      | errors.GetListNotFoundError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -82,7 +82,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => z.parse(operations.GetV2ListsListRequest$outboundSchema, value),
+    (value) => z.parse(operations.GetListRequest$outboundSchema, value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -97,7 +97,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/v2/lists/{list}")(pathParams);
 
   const headers = new Headers(compactMap({
@@ -111,7 +110,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "get_/v2/lists/{list}",
+    operationID: "getList",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -154,8 +153,8 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.GetV2ListsListResponse,
-    | errors.GetV2ListsListNotFoundError
+    operations.GetListResponse,
+    | errors.GetListNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -165,8 +164,8 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.GetV2ListsListResponse$inboundSchema),
-    M.jsonErr(404, errors.GetV2ListsListNotFoundError$inboundSchema),
+    M.json(200, operations.GetListResponse$inboundSchema),
+    M.jsonErr(404, errors.GetListNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

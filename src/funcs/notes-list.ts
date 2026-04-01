@@ -36,12 +36,12 @@ import { Result } from "../types/fp.js";
  */
 export function notesList(
   client: AttioCore,
-  request?: operations.GetV2NotesRequest | undefined,
+  request?: operations.ListNotesRequest | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.GetV2NotesResponse,
-    | errors.GetV2ObjectsObjectNotFoundError
+    operations.ListNotesResponse,
+    | errors.ListNotesNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -61,13 +61,13 @@ export function notesList(
 
 async function $do(
   client: AttioCore,
-  request?: operations.GetV2NotesRequest | undefined,
+  request?: operations.ListNotesRequest | undefined,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.GetV2NotesResponse,
-      | errors.GetV2ObjectsObjectNotFoundError
+      operations.ListNotesResponse,
+      | errors.ListNotesNotFoundError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -83,7 +83,7 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      z.parse(z.optional(operations.GetV2NotesRequest$outboundSchema), value),
+      z.parse(z.optional(operations.ListNotesRequest$outboundSchema), value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -112,7 +112,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "get_/v2/notes",
+    operationID: "listNotes",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -156,8 +156,8 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.GetV2NotesResponse,
-    | errors.GetV2ObjectsObjectNotFoundError
+    operations.ListNotesResponse,
+    | errors.ListNotesNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -167,8 +167,8 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.GetV2NotesResponse$inboundSchema),
-    M.jsonErr(404, errors.GetV2ObjectsObjectNotFoundError$inboundSchema),
+    M.json(200, operations.ListNotesResponse$inboundSchema),
+    M.jsonErr(404, errors.ListNotesNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

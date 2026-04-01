@@ -23,7 +23,7 @@ Required scopes: `object_configuration:read`, `record_permission:read`, `file:re
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get_/v2/files" method="get" path="/v2/files" -->
+<!-- UsageSnippet language="typescript" operationID="listFiles" method="get" path="/v2/files" -->
 ```typescript
 import { Attio } from "@interfere/attio";
 
@@ -34,7 +34,7 @@ const attio = new Attio({
 async function run() {
   const result = await attio.files.list({
     object: "<value>",
-    recordId: "7e76e3c7-d094-4620-b8c3-0ec424086010",
+    recordId: "d1133bf2-4853-4436-9a03-23739895ab98",
   });
 
   console.log(result);
@@ -60,7 +60,7 @@ const attio = new AttioCore({
 async function run() {
   const res = await filesList(attio, {
     object: "<value>",
-    recordId: "7e76e3c7-d094-4620-b8c3-0ec424086010",
+    recordId: "d1133bf2-4853-4436-9a03-23739895ab98",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -77,14 +77,14 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.GetV2FilesRequest](../../models/operations/get-v2-files-request.md)                                                                                                | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.ListFilesRequest](../../models/operations/list-files-request.md)                                                                                                   | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.GetV2FilesResponse](../../models/operations/get-v2-files-response.md)\>**
+**Promise\<[operations.ListFilesResponse](../../models/operations/list-files-response.md)\>**
 
 ### Errors
 
@@ -102,7 +102,7 @@ Required scopes: `file:read-write`, `object_configuration:read`, `record_permiss
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="post_/v2/files" method="post" path="/v2/files" -->
+<!-- UsageSnippet language="typescript" operationID="createFile" method="post" path="/v2/files" -->
 ```typescript
 import { Attio } from "@interfere/attio";
 
@@ -116,7 +116,7 @@ async function run() {
     recordId: "bf071e1f-6035-429d-b874-d83ea64ea13b",
     storageProvider: "google-drive",
     externalProviderFileId: "01ISGXZ5BRAMVD7SEPXNCYS4XGKT3YTOKQ",
-    fileType: "connected-file",
+    fileType: "connected-folder",
   });
 
   console.log(result);
@@ -145,7 +145,7 @@ async function run() {
     recordId: "bf071e1f-6035-429d-b874-d83ea64ea13b",
     storageProvider: "google-drive",
     externalProviderFileId: "01ISGXZ5BRAMVD7SEPXNCYS4XGKT3YTOKQ",
-    fileType: "connected-file",
+    fileType: "connected-folder",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -162,14 +162,14 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.PostV2FilesRequest](../../models/operations/post-v2-files-request.md)                                                                                              | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.CreateFileRequest](../../models/operations/create-file-request.md)                                                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.PostV2FilesResponse](../../models/operations/post-v2-files-response.md)\>**
+**Promise\<[operations.CreateFileResponse](../../models/operations/create-file-response.md)\>**
 
 ### Errors
 
@@ -187,7 +187,7 @@ Required scopes: `file:read-write`, `object_configuration:read`, `record_permiss
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="post_/v2/files/upload" method="post" path="/v2/files/upload" -->
+<!-- UsageSnippet language="typescript" operationID="uploadFile" method="post" path="/v2/files/upload" -->
 ```typescript
 import { Attio } from "@interfere/attio";
 import { openAsBlob } from "node:fs";
@@ -247,14 +247,14 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.PostV2FilesUploadRequest](../../models/operations/post-v2-files-upload-request.md)                                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.UploadFileRequest](../../models/operations/upload-file-request.md)                                                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.PostV2FilesUploadResponse](../../models/operations/post-v2-files-upload-response.md)\>**
+**Promise\<[operations.UploadFileResponse](../../models/operations/upload-file-response.md)\>**
 
 ### Errors
 
@@ -272,7 +272,7 @@ Required scopes: `file:read`, `object_configuration:read`, `record_permission:re
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get_/v2/files/{file_id}" method="get" path="/v2/files/{file_id}" -->
+<!-- UsageSnippet language="typescript" operationID="getFile" method="get" path="/v2/files/{file_id}" -->
 ```typescript
 import { Attio } from "@interfere/attio";
 
@@ -324,21 +324,21 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.GetV2FilesFileIdRequest](../../models/operations/get-v2-files-file-id-request.md)                                                                                  | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.GetFileRequest](../../models/operations/get-file-request.md)                                                                                                       | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.GetV2FilesFileIdResponse](../../models/operations/get-v2-files-file-id-response.md)\>**
+**Promise\<[operations.GetFileResponse](../../models/operations/get-file-response.md)\>**
 
 ### Errors
 
-| Error Type                           | Status Code                          | Content Type                         |
-| ------------------------------------ | ------------------------------------ | ------------------------------------ |
-| errors.GetV2FilesFileIdNotFoundError | 404                                  | application/json                     |
-| errors.AttioError                    | 4XX, 5XX                             | \*/\*                                |
+| Error Type                  | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| errors.GetFileNotFoundError | 404                         | application/json            |
+| errors.AttioError           | 4XX, 5XX                    | \*/\*                       |
 
 ## delete
 
@@ -350,7 +350,7 @@ Required scopes: `file:read-write`, `object_configuration:read`, `record_permiss
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="delete_/v2/files/{file_id}" method="delete" path="/v2/files/{file_id}" -->
+<!-- UsageSnippet language="typescript" operationID="deleteFile" method="delete" path="/v2/files/{file_id}" -->
 ```typescript
 import { Attio } from "@interfere/attio";
 
@@ -402,21 +402,21 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.DeleteV2FilesFileIdRequest](../../models/operations/delete-v2-files-file-id-request.md)                                                                            | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.DeleteFileRequest](../../models/operations/delete-file-request.md)                                                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.DeleteV2FilesFileIdResponse](../../models/operations/delete-v2-files-file-id-response.md)\>**
+**Promise\<[operations.DeleteFileResponse](../../models/operations/delete-file-response.md)\>**
 
 ### Errors
 
-| Error Type                           | Status Code                          | Content Type                         |
-| ------------------------------------ | ------------------------------------ | ------------------------------------ |
-| errors.GetV2FilesFileIdNotFoundError | 404                                  | application/json                     |
-| errors.AttioError                    | 4XX, 5XX                             | \*/\*                                |
+| Error Type                     | Status Code                    | Content Type                   |
+| ------------------------------ | ------------------------------ | ------------------------------ |
+| errors.DeleteFileNotFoundError | 404                            | application/json               |
+| errors.AttioError              | 4XX, 5XX                       | \*/\*                          |
 
 ## download
 
@@ -428,7 +428,7 @@ Required scopes: `object_configuration:read`, `record_permission:read`, `file:re
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get_/v2/files/{file_id}/download" method="get" path="/v2/files/{file_id}/download" -->
+<!-- UsageSnippet language="typescript" operationID="downloadFile" method="get" path="/v2/files/{file_id}/download" -->
 ```typescript
 import { Attio } from "@interfere/attio";
 
@@ -438,7 +438,7 @@ const attio = new Attio({
 
 async function run() {
   const result = await attio.files.download({
-    fileId: "97de9380-4280-4233-9bf3-e41cc1bc2101",
+    fileId: "341216b9-3af1-46ca-ac0d-3fac7f3f07aa",
   });
 
   console.log(result);
@@ -463,7 +463,7 @@ const attio = new AttioCore({
 
 async function run() {
   const res = await filesDownload(attio, {
-    fileId: "97de9380-4280-4233-9bf3-e41cc1bc2101",
+    fileId: "341216b9-3af1-46ca-ac0d-3fac7f3f07aa",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -480,14 +480,14 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.GetV2FilesFileIdDownloadRequest](../../models/operations/get-v2-files-file-id-download-request.md)                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.DownloadFileRequest](../../models/operations/download-file-request.md)                                                                                             | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.GetV2FilesFileIdDownloadResponse](../../models/operations/get-v2-files-file-id-download-response.md)\>**
+**Promise\<[operations.DownloadFileResponse](../../models/operations/download-file-response.md)\>**
 
 ### Errors
 

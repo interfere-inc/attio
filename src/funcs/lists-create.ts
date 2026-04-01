@@ -42,15 +42,15 @@ import { Result } from "../types/fp.js";
  */
 export function listsCreate(
   client: AttioCore,
-  request: operations.PostV2ListsRequest,
+  request: operations.CreateListRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.PostV2ListsResponse,
-    | errors.PostV2ListsValueNotFoundError
+    operations.CreateListResponse,
+    | errors.CreateListValueNotFoundError
     | errors.BillingError
-    | errors.PostV2ListsNotFoundError
-    | errors.PostV2ListsSlugConflictError
+    | errors.CreateListNotFoundError
+    | errors.CreateListSlugConflictError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -70,16 +70,16 @@ export function listsCreate(
 
 async function $do(
   client: AttioCore,
-  request: operations.PostV2ListsRequest,
+  request: operations.CreateListRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.PostV2ListsResponse,
-      | errors.PostV2ListsValueNotFoundError
+      operations.CreateListResponse,
+      | errors.CreateListValueNotFoundError
       | errors.BillingError
-      | errors.PostV2ListsNotFoundError
-      | errors.PostV2ListsSlugConflictError
+      | errors.CreateListNotFoundError
+      | errors.CreateListSlugConflictError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -94,7 +94,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => z.parse(operations.PostV2ListsRequest$outboundSchema, value),
+    (value) => z.parse(operations.CreateListRequest$outboundSchema, value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -117,7 +117,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "post_/v2/lists",
+    operationID: "createList",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -160,11 +160,11 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.PostV2ListsResponse,
-    | errors.PostV2ListsValueNotFoundError
+    operations.CreateListResponse,
+    | errors.CreateListValueNotFoundError
     | errors.BillingError
-    | errors.PostV2ListsNotFoundError
-    | errors.PostV2ListsSlugConflictError
+    | errors.CreateListNotFoundError
+    | errors.CreateListSlugConflictError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -174,11 +174,11 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.PostV2ListsResponse$inboundSchema),
-    M.jsonErr(400, errors.PostV2ListsValueNotFoundError$inboundSchema),
+    M.json(200, operations.CreateListResponse$inboundSchema),
+    M.jsonErr(400, errors.CreateListValueNotFoundError$inboundSchema),
     M.jsonErr(403, errors.BillingError$inboundSchema),
-    M.jsonErr(404, errors.PostV2ListsNotFoundError$inboundSchema),
-    M.jsonErr(409, errors.PostV2ListsSlugConflictError$inboundSchema),
+    M.jsonErr(404, errors.CreateListNotFoundError$inboundSchema),
+    M.jsonErr(409, errors.CreateListSlugConflictError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

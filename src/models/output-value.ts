@@ -1015,6 +1015,7 @@ export const CurrencyCode = {
   Czk: "CZK",
   Dkk: "DKK",
   Eur: "EUR",
+  Fjd: "FJD",
   Hkd: "HKD",
   Huf: "HUF",
   Isk: "ISK",

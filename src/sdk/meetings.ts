@@ -21,9 +21,9 @@ export class Meetings extends ClientSDK {
    * Required scopes: `meeting:read`, `record_permission:read`.
    */
   async list(
-    request?: operations.GetV2MeetingsRequest | undefined,
+    request?: operations.ListMeetingsRequest | undefined,
     options?: RequestOptions,
-  ): Promise<operations.GetV2MeetingsResponse> {
+  ): Promise<operations.ListMeetingsResponse> {
     return unwrapAsync(meetingsList(
       this,
       request,
@@ -42,9 +42,9 @@ export class Meetings extends ClientSDK {
    * Required scopes: `meeting:read-write`, `record_permission:read`.
    */
   async findOrCreate(
-    request: operations.PostV2MeetingsRequest,
+    request: operations.FindOrCreateMeetingRequest,
     options?: RequestOptions,
-  ): Promise<operations.PostV2MeetingsResponse> {
+  ): Promise<operations.FindOrCreateMeetingResponse> {
     return unwrapAsync(meetingsFindOrCreate(
       this,
       request,
@@ -63,9 +63,9 @@ export class Meetings extends ClientSDK {
    * Required scopes: `meeting:read`, `record_permission:read`.
    */
   async get(
-    request: operations.GetV2MeetingsMeetingIdRequest,
+    request: operations.GetMeetingRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetV2MeetingsMeetingIdResponse> {
+  ): Promise<operations.GetMeetingResponse> {
     return unwrapAsync(meetingsGet(
       this,
       request,

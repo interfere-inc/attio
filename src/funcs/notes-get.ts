@@ -36,12 +36,12 @@ import { Result } from "../types/fp.js";
  */
 export function notesGet(
   client: AttioCore,
-  request: operations.GetV2NotesNoteIdRequest,
+  request: operations.GetNoteRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.GetV2NotesNoteIdResponse,
-    | errors.GetV2NotesNoteIdNotFoundError
+    operations.GetNoteResponse,
+    | errors.GetNoteNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -61,13 +61,13 @@ export function notesGet(
 
 async function $do(
   client: AttioCore,
-  request: operations.GetV2NotesNoteIdRequest,
+  request: operations.GetNoteRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.GetV2NotesNoteIdResponse,
-      | errors.GetV2NotesNoteIdNotFoundError
+      operations.GetNoteResponse,
+      | errors.GetNoteNotFoundError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -82,8 +82,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) =>
-      z.parse(operations.GetV2NotesNoteIdRequest$outboundSchema, value),
+    (value) => z.parse(operations.GetNoteRequest$outboundSchema, value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -98,7 +97,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/v2/notes/{note_id}")(pathParams);
 
   const headers = new Headers(compactMap({
@@ -112,7 +110,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "get_/v2/notes/{note_id}",
+    operationID: "getNote",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -155,8 +153,8 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.GetV2NotesNoteIdResponse,
-    | errors.GetV2NotesNoteIdNotFoundError
+    operations.GetNoteResponse,
+    | errors.GetNoteNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -166,8 +164,8 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.GetV2NotesNoteIdResponse$inboundSchema),
-    M.jsonErr(404, errors.GetV2NotesNoteIdNotFoundError$inboundSchema),
+    M.json(200, operations.GetNoteResponse$inboundSchema),
+    M.jsonErr(404, errors.GetNoteNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

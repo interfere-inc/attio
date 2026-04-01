@@ -35,11 +35,11 @@ import { Result } from "../types/fp.js";
  */
 export function tasksList(
   client: AttioCore,
-  request?: operations.GetV2TasksRequest | undefined,
+  request?: operations.ListTasksRequest | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.GetV2TasksResponse,
+    operations.ListTasksResponse,
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -59,12 +59,12 @@ export function tasksList(
 
 async function $do(
   client: AttioCore,
-  request?: operations.GetV2TasksRequest | undefined,
+  request?: operations.ListTasksRequest | undefined,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.GetV2TasksResponse,
+      operations.ListTasksResponse,
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -80,7 +80,7 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      z.parse(z.optional(operations.GetV2TasksRequest$outboundSchema), value),
+      z.parse(z.optional(operations.ListTasksRequest$outboundSchema), value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -112,7 +112,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "get_/v2/tasks",
+    operationID: "listTasks",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -152,7 +152,7 @@ async function $do(
   const response = doResult.value;
 
   const [result] = await M.match<
-    operations.GetV2TasksResponse,
+    operations.ListTasksResponse,
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -162,7 +162,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.GetV2TasksResponse$inboundSchema),
+    M.json(200, operations.ListTasksResponse$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req);

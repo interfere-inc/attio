@@ -6,6 +6,7 @@ import * as z from "zod/v4-mini";
 import { AttioCore } from "../core.js";
 import { appendForm } from "../lib/encodings.js";
 import {
+  bytesToBlob,
   getContentTypeFromFileName,
   readableStreamToArrayBuffer,
 } from "../lib/files.js";
@@ -43,11 +44,11 @@ import { isReadableStream } from "../types/streams.js";
  */
 export function filesUpload(
   client: AttioCore,
-  request: operations.PostV2FilesUploadRequest,
+  request: operations.UploadFileRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.PostV2FilesUploadResponse,
+    operations.UploadFileResponse,
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -67,12 +68,12 @@ export function filesUpload(
 
 async function $do(
   client: AttioCore,
-  request: operations.PostV2FilesUploadRequest,
+  request: operations.UploadFileRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.PostV2FilesUploadResponse,
+      operations.UploadFileResponse,
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -87,8 +88,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) =>
-      z.parse(operations.PostV2FilesUploadRequest$outboundSchema, value),
+    (value) => z.parse(operations.UploadFileRequest$outboundSchema, value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -98,22 +98,17 @@ async function $do(
   const body = new FormData();
 
   if (isBlobLike(payload.file)) {
-    appendForm(body, "file", payload.file);
+    const blob = payload.file;
+    const name = "name" in blob ? (blob.name as string) : undefined;
+    appendForm(body, "file", blob, name);
   } else if (isReadableStream(payload.file.content)) {
     const buffer = await readableStreamToArrayBuffer(payload.file.content);
-    const contentType = getContentTypeFromFileName(payload.file.fileName)
-      || "application/octet-stream";
-    const blob = new Blob([buffer], { type: contentType });
-    appendForm(body, "file", blob, payload.file.fileName);
-  } else if (payload.file.content instanceof Uint8Array) {
     const contentType = getContentTypeFromFileName(payload.file.fileName)
       || "application/octet-stream";
     appendForm(
       body,
       "file",
-      new Blob([new Uint8Array(payload.file.content).buffer], {
-        type: contentType,
-      }),
+      bytesToBlob(buffer, contentType),
       payload.file.fileName,
     );
   } else {
@@ -122,7 +117,7 @@ async function $do(
     appendForm(
       body,
       "file",
-      new Blob([payload.file.content], { type: contentType }),
+      bytesToBlob(payload.file.content, contentType),
       payload.file.fileName,
     );
   }
@@ -145,7 +140,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "post_/v2/files/upload",
+    operationID: "uploadFile",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -184,7 +179,7 @@ async function $do(
   const response = doResult.value;
 
   const [result] = await M.match<
-    operations.PostV2FilesUploadResponse,
+    operations.UploadFileResponse,
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -194,7 +189,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(201, operations.PostV2FilesUploadResponse$inboundSchema),
+    M.json(201, operations.UploadFileResponse$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req);

@@ -36,13 +36,13 @@ import { Result } from "../types/fp.js";
  */
 export function entriesUpdateAppending(
   client: AttioCore,
-  request: operations.PatchV2ListsListEntriesEntryIdRequest,
+  request: operations.UpdateAppendingEntryRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.PatchV2ListsListEntriesEntryIdResponse,
-    | errors.ImmutableValueError
-    | errors.GetV2ListsListNotFoundError
+    operations.UpdateAppendingEntryResponse,
+    | errors.UpdateAppendingEntryImmutableValueError
+    | errors.UpdateAppendingEntryNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -62,14 +62,14 @@ export function entriesUpdateAppending(
 
 async function $do(
   client: AttioCore,
-  request: operations.PatchV2ListsListEntriesEntryIdRequest,
+  request: operations.UpdateAppendingEntryRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.PatchV2ListsListEntriesEntryIdResponse,
-      | errors.ImmutableValueError
-      | errors.GetV2ListsListNotFoundError
+      operations.UpdateAppendingEntryResponse,
+      | errors.UpdateAppendingEntryImmutableValueError
+      | errors.UpdateAppendingEntryNotFoundError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -85,10 +85,7 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      z.parse(
-        operations.PatchV2ListsListEntriesEntryIdRequest$outboundSchema,
-        value,
-      ),
+      z.parse(operations.UpdateAppendingEntryRequest$outboundSchema, value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -107,7 +104,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/v2/lists/{list}/entries/{entry_id}")(pathParams);
 
   const headers = new Headers(compactMap({
@@ -122,7 +118,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "patch_/v2/lists/{list}/entries/{entry_id}",
+    operationID: "updateAppendingEntry",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -165,9 +161,9 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.PatchV2ListsListEntriesEntryIdResponse,
-    | errors.ImmutableValueError
-    | errors.GetV2ListsListNotFoundError
+    operations.UpdateAppendingEntryResponse,
+    | errors.UpdateAppendingEntryImmutableValueError
+    | errors.UpdateAppendingEntryNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -177,12 +173,12 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(
-      200,
-      operations.PatchV2ListsListEntriesEntryIdResponse$inboundSchema,
+    M.json(200, operations.UpdateAppendingEntryResponse$inboundSchema),
+    M.jsonErr(
+      400,
+      errors.UpdateAppendingEntryImmutableValueError$inboundSchema,
     ),
-    M.jsonErr(400, errors.ImmutableValueError$inboundSchema),
-    M.jsonErr(404, errors.GetV2ListsListNotFoundError$inboundSchema),
+    M.jsonErr(404, errors.UpdateAppendingEntryNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

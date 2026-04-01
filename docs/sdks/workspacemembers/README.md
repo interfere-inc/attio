@@ -15,7 +15,7 @@ Required scopes: `user_management:read`.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get_/v2/workspace_members" method="get" path="/v2/workspace_members" -->
+<!-- UsageSnippet language="typescript" operationID="listWorkspaceMembers" method="get" path="/v2/workspace_members" -->
 ```typescript
 import { Attio } from "@interfere/attio";
 
@@ -69,7 +69,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetV2WorkspaceMembersResponse](../../models/operations/get-v2-workspace-members-response.md)\>**
+**Promise\<[operations.ListWorkspaceMembersResponse](../../models/operations/list-workspace-members-response.md)\>**
 
 ### Errors
 
@@ -85,7 +85,7 @@ Required scopes: `user_management:read`.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get_/v2/workspace_members/{workspace_member_id}" method="get" path="/v2/workspace_members/{workspace_member_id}" -->
+<!-- UsageSnippet language="typescript" operationID="getWorkspaceMember" method="get" path="/v2/workspace_members/{workspace_member_id}" -->
 ```typescript
 import { Attio } from "@interfere/attio";
 
@@ -137,18 +137,18 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.GetV2WorkspaceMembersWorkspaceMemberIdRequest](../../models/operations/get-v2-workspace-members-workspace-member-id-request.md)                                    | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.GetWorkspaceMemberRequest](../../models/operations/get-workspace-member-request.md)                                                                                | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.GetV2WorkspaceMembersWorkspaceMemberIdResponse](../../models/operations/get-v2-workspace-members-workspace-member-id-response.md)\>**
+**Promise\<[operations.GetWorkspaceMemberResponse](../../models/operations/get-workspace-member-response.md)\>**
 
 ### Errors
 
-| Error Type                                                 | Status Code                                                | Content Type                                               |
-| ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- |
-| errors.GetV2WorkspaceMembersWorkspaceMemberIdNotFoundError | 404                                                        | application/json                                           |
-| errors.AttioError                                          | 4XX, 5XX                                                   | \*/\*                                                      |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.GetWorkspaceMemberNotFoundError | 404                                    | application/json                       |
+| errors.AttioError                      | 4XX, 5XX                               | \*/\*                                  |

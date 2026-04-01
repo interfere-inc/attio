@@ -35,11 +35,11 @@ import { Result } from "../types/fp.js";
  */
 export function recordsListEntries(
   client: AttioCore,
-  request: operations.GetV2ObjectsObjectRecordsRecordIdEntriesRequest,
+  request: operations.ListRecordEntriesRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.GetV2ObjectsObjectRecordsRecordIdEntriesResponse,
+    operations.ListRecordEntriesResponse,
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -59,12 +59,12 @@ export function recordsListEntries(
 
 async function $do(
   client: AttioCore,
-  request: operations.GetV2ObjectsObjectRecordsRecordIdEntriesRequest,
+  request: operations.ListRecordEntriesRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.GetV2ObjectsObjectRecordsRecordIdEntriesResponse,
+      operations.ListRecordEntriesResponse,
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -80,11 +80,7 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      z.parse(
-        operations
-          .GetV2ObjectsObjectRecordsRecordIdEntriesRequest$outboundSchema,
-        value,
-      ),
+      z.parse(operations.ListRecordEntriesRequest$outboundSchema, value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -103,7 +99,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/v2/objects/{object}/records/{record_id}/entries")(
     pathParams,
   );
@@ -124,7 +119,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "get_/v2/objects/{object}/records/{record_id}/entries",
+    operationID: "listRecordEntries",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -164,7 +159,7 @@ async function $do(
   const response = doResult.value;
 
   const [result] = await M.match<
-    operations.GetV2ObjectsObjectRecordsRecordIdEntriesResponse,
+    operations.ListRecordEntriesResponse,
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -174,10 +169,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(
-      200,
-      operations.GetV2ObjectsObjectRecordsRecordIdEntriesResponse$inboundSchema,
-    ),
+    M.json(200, operations.ListRecordEntriesResponse$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req);

@@ -38,12 +38,12 @@ import { Result } from "../types/fp.js";
  */
 export function filesDelete(
   client: AttioCore,
-  request: operations.DeleteV2FilesFileIdRequest,
+  request: operations.DeleteFileRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.DeleteV2FilesFileIdResponse,
-    | errors.GetV2FilesFileIdNotFoundError
+    operations.DeleteFileResponse,
+    | errors.DeleteFileNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -63,13 +63,13 @@ export function filesDelete(
 
 async function $do(
   client: AttioCore,
-  request: operations.DeleteV2FilesFileIdRequest,
+  request: operations.DeleteFileRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.DeleteV2FilesFileIdResponse,
-      | errors.GetV2FilesFileIdNotFoundError
+      operations.DeleteFileResponse,
+      | errors.DeleteFileNotFoundError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -84,8 +84,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) =>
-      z.parse(operations.DeleteV2FilesFileIdRequest$outboundSchema, value),
+    (value) => z.parse(operations.DeleteFileRequest$outboundSchema, value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -100,7 +99,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/v2/files/{file_id}")(pathParams);
 
   const headers = new Headers(compactMap({
@@ -114,7 +112,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "delete_/v2/files/{file_id}",
+    operationID: "deleteFile",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -157,8 +155,8 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.DeleteV2FilesFileIdResponse,
-    | errors.GetV2FilesFileIdNotFoundError
+    operations.DeleteFileResponse,
+    | errors.DeleteFileNotFoundError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -168,8 +166,8 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.DeleteV2FilesFileIdResponse$inboundSchema),
-    M.jsonErr(404, errors.GetV2FilesFileIdNotFoundError$inboundSchema),
+    M.json(200, operations.DeleteFileResponse$inboundSchema),
+    M.jsonErr(404, errors.DeleteFileNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

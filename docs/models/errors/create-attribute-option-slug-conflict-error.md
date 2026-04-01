@@ -1,0 +1,20 @@
+# CreateAttributeOptionSlugConflictError
+
+Conflict
+
+## Example Usage
+
+```typescript
+import { CreateAttributeOptionSlugConflictError } from "@interfere/attio/models/errors";
+
+// No examples available for this model
+```
+
+## Fields
+
+| Field                                                                                                                         | Type                                                                                                                          | Required                                                                                                                      | Description                                                                                                                   | Example                                                                                                                       |
+| ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `statusCode`                                                                                                                  | [operations.CreateAttributeOptionConflictStatusCode](../../models/operations/create-attribute-option-conflict-status-code.md) | :heavy_check_mark:                                                                                                            | N/A                                                                                                                           |                                                                                                                               |
+| `type`                                                                                                                        | [operations.CreateAttributeOptionConflictType](../../models/operations/create-attribute-option-conflict-type.md)              | :heavy_check_mark:                                                                                                            | N/A                                                                                                                           |                                                                                                                               |
+| `code`                                                                                                                        | [operations.CreateAttributeOptionConflictCode](../../models/operations/create-attribute-option-conflict-code.md)              | :heavy_check_mark:                                                                                                            | N/A                                                                                                                           |                                                                                                                               |
+| `message`                                                                                                                     | *string*                                                                                                                      | :heavy_check_mark:                                                                                                            | N/A                                                                                                                           | There is already another select option with the title "Medium".                                                               |

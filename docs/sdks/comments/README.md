@@ -22,7 +22,7 @@ Required scopes: `comment:read-write`.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="post_/v2/comments" method="post" path="/v2/comments" -->
+<!-- UsageSnippet language="typescript" operationID="createComment" method="post" path="/v2/comments" -->
 ```typescript
 import { Attio } from "@interfere/attio";
 
@@ -40,10 +40,7 @@ async function run() {
         id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
       },
       createdAt: "2023-01-01T15:00:00.000000000Z",
-      record: {
-        object: "97052eb9-e65e-443f-a297-f2d9a4a7f795",
-        recordId: "bf071e1f-6035-429d-b874-d83ea64ea13b",
-      },
+      threadId: "aa1dc1d9-93ac-4c6c-987e-16b6eea9aab2",
     },
   });
 
@@ -77,10 +74,7 @@ async function run() {
         id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
       },
       createdAt: "2023-01-01T15:00:00.000000000Z",
-      record: {
-        object: "97052eb9-e65e-443f-a297-f2d9a4a7f795",
-        recordId: "bf071e1f-6035-429d-b874-d83ea64ea13b",
-      },
+      threadId: "aa1dc1d9-93ac-4c6c-987e-16b6eea9aab2",
     },
   });
   if (res.ok) {
@@ -98,21 +92,21 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.PostV2CommentsRequest](../../models/operations/post-v2-comments-request.md)                                                                                        | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.CreateCommentRequest](../../models/operations/create-comment-request.md)                                                                                           | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.PostV2CommentsResponse](../../models/operations/post-v2-comments-response.md)\>**
+**Promise\<[operations.CreateCommentResponse](../../models/operations/create-comment-response.md)\>**
 
 ### Errors
 
-| Error Type                              | Status Code                             | Content Type                            |
-| --------------------------------------- | --------------------------------------- | --------------------------------------- |
-| errors.PostV2CommentsValueNotFoundError | 400                                     | application/json                        |
-| errors.AttioError                       | 4XX, 5XX                                | \*/\*                                   |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.CreateCommentValueNotFoundError | 400                                    | application/json                       |
+| errors.AttioError                      | 4XX, 5XX                               | \*/\*                                  |
 
 ## get
 
@@ -126,7 +120,7 @@ Required scopes: `comment:read`.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get_/v2/comments/{comment_id}" method="get" path="/v2/comments/{comment_id}" -->
+<!-- UsageSnippet language="typescript" operationID="getComment" method="get" path="/v2/comments/{comment_id}" -->
 ```typescript
 import { Attio } from "@interfere/attio";
 
@@ -178,21 +172,21 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.GetV2CommentsCommentIdRequest](../../models/operations/get-v2-comments-comment-id-request.md)                                                                      | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.GetCommentRequest](../../models/operations/get-comment-request.md)                                                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.GetV2CommentsCommentIdResponse](../../models/operations/get-v2-comments-comment-id-response.md)\>**
+**Promise\<[operations.GetCommentResponse](../../models/operations/get-comment-response.md)\>**
 
 ### Errors
 
-| Error Type                                 | Status Code                                | Content Type                               |
-| ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
-| errors.GetV2CommentsCommentIdNotFoundError | 404                                        | application/json                           |
-| errors.AttioError                          | 4XX, 5XX                                   | \*/\*                                      |
+| Error Type                     | Status Code                    | Content Type                   |
+| ------------------------------ | ------------------------------ | ------------------------------ |
+| errors.GetCommentNotFoundError | 404                            | application/json               |
+| errors.AttioError              | 4XX, 5XX                       | \*/\*                          |
 
 ## delete
 
@@ -202,7 +196,7 @@ Required scopes: `comment:read-write`.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="delete_/v2/comments/{comment_id}" method="delete" path="/v2/comments/{comment_id}" -->
+<!-- UsageSnippet language="typescript" operationID="deleteComment" method="delete" path="/v2/comments/{comment_id}" -->
 ```typescript
 import { Attio } from "@interfere/attio";
 
@@ -254,18 +248,18 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.DeleteV2CommentsCommentIdRequest](../../models/operations/delete-v2-comments-comment-id-request.md)                                                                | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.DeleteCommentRequest](../../models/operations/delete-comment-request.md)                                                                                           | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.DeleteV2CommentsCommentIdResponse](../../models/operations/delete-v2-comments-comment-id-response.md)\>**
+**Promise\<[operations.DeleteCommentResponse](../../models/operations/delete-comment-response.md)\>**
 
 ### Errors
 
-| Error Type                                    | Status Code                                   | Content Type                                  |
-| --------------------------------------------- | --------------------------------------------- | --------------------------------------------- |
-| errors.DeleteV2CommentsCommentIdNotFoundError | 404                                           | application/json                              |
-| errors.AttioError                             | 4XX, 5XX                                      | \*/\*                                         |
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| errors.DeleteCommentNotFoundError | 404                               | application/json                  |
+| errors.AttioError                 | 4XX, 5XX                          | \*/\*                             |

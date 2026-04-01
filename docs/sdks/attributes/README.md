@@ -19,11 +19,11 @@ Attributes model properties of objects and lists. Some attributes, such as the `
 
 Lists all attributes defined on a specific object or list. Attributes are returned in the order that they are sorted by in the UI.
 
-Required scopes: `object_configuration:read`.
+When `target` is `objects`, the required scopes are `object_configuration:read`. When `target` is `lists`, the required scopes are `list_configuration:read`.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get_/v2/{target}/{identifier}/attributes" method="get" path="/v2/{target}/{identifier}/attributes" -->
+<!-- UsageSnippet language="typescript" operationID="listAllAttributes" method="get" path="/v2/{target}/{identifier}/attributes" -->
 ```typescript
 import { Attio } from "@interfere/attio";
 
@@ -83,14 +83,14 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.GetV2TargetIdentifierAttributesRequest](../../models/operations/get-v2-target-identifier-attributes-request.md)                                                    | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.ListAllAttributesRequest](../../models/operations/list-all-attributes-request.md)                                                                                  | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.GetV2TargetIdentifierAttributesResponse](../../models/operations/get-v2-target-identifier-attributes-response.md)\>**
+**Promise\<[operations.ListAllAttributesResponse](../../models/operations/list-all-attributes-response.md)\>**
 
 ### Errors
 
@@ -110,7 +110,7 @@ To create an attribute on a list, you must also have the `list_configuration:rea
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="post_/v2/{target}/{identifier}/attributes" method="post" path="/v2/{target}/{identifier}/attributes" -->
+<!-- UsageSnippet language="typescript" operationID="createNewAttribute" method="post" path="/v2/{target}/{identifier}/attributes" -->
 ```typescript
 import { Attio } from "@interfere/attio";
 
@@ -139,7 +139,12 @@ async function run() {
             },
           ],
         },
-        relationship: null,
+        relationship: {
+          object: "companies",
+          title: "Team members",
+          apiSlug: "team_members",
+          isMultiselect: false,
+        },
         config: {
           currency: {
             defaultCurrencyCode: "USD",
@@ -196,7 +201,12 @@ async function run() {
             },
           ],
         },
-        relationship: null,
+        relationship: {
+          object: "companies",
+          title: "Team members",
+          apiSlug: "team_members",
+          isMultiselect: false,
+        },
         config: {
           currency: {
             defaultCurrencyCode: "USD",
@@ -226,33 +236,33 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.PostV2TargetIdentifierAttributesRequest](../../models/operations/post-v2-target-identifier-attributes-request.md)                                                  | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.CreateNewAttributeRequest](../../models/operations/create-new-attribute-request.md)                                                                                | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.PostV2TargetIdentifierAttributesResponse](../../models/operations/post-v2-target-identifier-attributes-response.md)\>**
+**Promise\<[operations.CreateNewAttributeResponse](../../models/operations/create-new-attribute-response.md)\>**
 
 ### Errors
 
-| Error Type                                                 | Status Code                                                | Content Type                                               |
-| ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- |
-| errors.PostV2TargetIdentifierAttributesValidationTypeError | 400                                                        | application/json                                           |
-| errors.PostV2TargetIdentifierAttributesNotFoundError       | 404                                                        | application/json                                           |
-| errors.PostV2TargetIdentifierAttributesSlugConflictError   | 409                                                        | application/json                                           |
-| errors.AttioError                                          | 4XX, 5XX                                                   | \*/\*                                                      |
+| Error Type                                   | Status Code                                  | Content Type                                 |
+| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
+| errors.CreateNewAttributeValidationTypeError | 400                                          | application/json                             |
+| errors.CreateNewAttributeNotFoundError       | 404                                          | application/json                             |
+| errors.CreateNewAttributeSlugConflictError   | 409                                          | application/json                             |
+| errors.AttioError                            | 4XX, 5XX                                     | \*/\*                                        |
 
 ## get
 
 Gets information about a single attribute on either an object or a list.
 
-Required scopes: `object_configuration:read`.
+When `target` is `objects`, the required scopes are `object_configuration:read`. When `target` is `lists`, the required scopes are `list_configuration:read`.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get_/v2/{target}/{identifier}/attributes/{attribute}" method="get" path="/v2/{target}/{identifier}/attributes/{attribute}" -->
+<!-- UsageSnippet language="typescript" operationID="getAttribute" method="get" path="/v2/{target}/{identifier}/attributes/{attribute}" -->
 ```typescript
 import { Attio } from "@interfere/attio";
 
@@ -308,31 +318,31 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.GetV2TargetIdentifierAttributesAttributeRequest](../../models/operations/get-v2-target-identifier-attributes-attribute-request.md)                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.GetAttributeRequest](../../models/operations/get-attribute-request.md)                                                                                             | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.GetV2TargetIdentifierAttributesAttributeResponse](../../models/operations/get-v2-target-identifier-attributes-attribute-response.md)\>**
+**Promise\<[operations.GetAttributeResponse](../../models/operations/get-attribute-response.md)\>**
 
 ### Errors
 
-| Error Type                                                   | Status Code                                                  | Content Type                                                 |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| errors.GetV2TargetIdentifierAttributesAttributeNotFoundError | 404                                                          | application/json                                             |
-| errors.AttioError                                            | 4XX, 5XX                                                     | \*/\*                                                        |
+| Error Type                       | Status Code                      | Content Type                     |
+| -------------------------------- | -------------------------------- | -------------------------------- |
+| errors.GetAttributeNotFoundError | 404                              | application/json                 |
+| errors.AttioError                | 4XX, 5XX                         | \*/\*                            |
 
 ## update
 
 Updates a single attribute on a given object or list.
 
-Required scopes: `object_configuration:read-write`.
+When `target` is `objects`, the required scopes are `object_configuration:read-write`. When `target` is `lists`, the required scopes are `list_configuration:read-write`.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="patch_/v2/{target}/{identifier}/attributes/{attribute}" method="patch" path="/v2/{target}/{identifier}/attributes/{attribute}" -->
+<!-- UsageSnippet language="typescript" operationID="updateAttribute" method="patch" path="/v2/{target}/{identifier}/attributes/{attribute}" -->
 ```typescript
 import { Attio } from "@interfere/attio";
 
@@ -446,32 +456,32 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.PatchV2TargetIdentifierAttributesAttributeRequest](../../models/operations/patch-v2-target-identifier-attributes-attribute-request.md)                             | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.UpdateAttributeRequest](../../models/operations/update-attribute-request.md)                                                                                       | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.PatchV2TargetIdentifierAttributesAttributeResponse](../../models/operations/patch-v2-target-identifier-attributes-attribute-response.md)\>**
+**Promise\<[operations.UpdateAttributeResponse](../../models/operations/update-attribute-response.md)\>**
 
 ### Errors
 
-| Error Type                                                   | Status Code                                                  | Content Type                                                 |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| errors.SystemEditUnauthorizedError                           | 400                                                          | application/json                                             |
-| errors.GetV2TargetIdentifierAttributesAttributeNotFoundError | 404                                                          | application/json                                             |
-| errors.AttioError                                            | 4XX, 5XX                                                     | \*/\*                                                        |
+| Error Type                          | Status Code                         | Content Type                        |
+| ----------------------------------- | ----------------------------------- | ----------------------------------- |
+| errors.SystemEditUnauthorizedError  | 400                                 | application/json                    |
+| errors.UpdateAttributeNotFoundError | 404                                 | application/json                    |
+| errors.AttioError                   | 4XX, 5XX                            | \*/\*                               |
 
 ## updateSelectOption
 
 Updates a select option on an attribute on either an object or a list.
 
-Required scopes: `object_configuration:read-write`.
+When `target` is `objects`, the required scopes are `object_configuration:read-write`. When `target` is `lists`, the required scopes are `list_configuration:read-write`.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="patch_/v2/{target}/{identifier}/attributes/{attribute}/options/{option}" method="patch" path="/v2/{target}/{identifier}/attributes/{attribute}/options/{option}" -->
+<!-- UsageSnippet language="typescript" operationID="updateAttributeSelectOption" method="patch" path="/v2/{target}/{identifier}/attributes/{attribute}/options/{option}" -->
 ```typescript
 import { Attio } from "@interfere/attio";
 
@@ -541,33 +551,33 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.PatchV2TargetIdentifierAttributesAttributeOptionsOptionRequest](../../models/operations/patch-v2-target-identifier-attributes-attribute-options-option-request.md) | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.UpdateAttributeSelectOptionRequest](../../models/operations/update-attribute-select-option-request.md)                                                             | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.PatchV2TargetIdentifierAttributesAttributeOptionsOptionResponse](../../models/operations/patch-v2-target-identifier-attributes-attribute-options-option-response.md)\>**
+**Promise\<[operations.UpdateAttributeSelectOptionResponse](../../models/operations/update-attribute-select-option-response.md)\>**
 
 ### Errors
 
-| Error Type                                                                       | Status Code                                                                      | Content Type                                                                     |
-| -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
-| errors.PatchV2TargetIdentifierAttributesAttributeOptionsOptionValueNotFoundError | 400                                                                              | application/json                                                                 |
-| errors.GetV2TargetIdentifierAttributesAttributeNotFoundError                     | 404                                                                              | application/json                                                                 |
-| errors.PostV2TargetIdentifierAttributesAttributeOptionsSlugConflictError         | 409                                                                              | application/json                                                                 |
-| errors.AttioError                                                                | 4XX, 5XX                                                                         | \*/\*                                                                            |
+| Error Type                                           | Status Code                                          | Content Type                                         |
+| ---------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------- |
+| errors.UpdateAttributeSelectOptionValueNotFoundError | 400                                                  | application/json                                     |
+| errors.UpdateAttributeSelectOptionNotFoundError      | 404                                                  | application/json                                     |
+| errors.UpdateAttributeSelectOptionSlugConflictError  | 409                                                  | application/json                                     |
+| errors.AttioError                                    | 4XX, 5XX                                             | \*/\*                                                |
 
 ## listStatuses
 
 Lists all statuses for a particular status attribute on either an object or a list.
 
-Required scopes: `object_configuration:read`.
+When `target` is `objects`, the required scopes are `object_configuration:read`. When `target` is `lists`, the required scopes are `list_configuration:read`.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get_/v2/{target}/{identifier}/attributes/{attribute}/statuses" method="get" path="/v2/{target}/{identifier}/attributes/{attribute}/statuses" -->
+<!-- UsageSnippet language="typescript" operationID="listAttributeStatuses" method="get" path="/v2/{target}/{identifier}/attributes/{attribute}/statuses" -->
 ```typescript
 import { Attio } from "@interfere/attio";
 
@@ -625,31 +635,31 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.GetV2TargetIdentifierAttributesAttributeStatusesRequest](../../models/operations/get-v2-target-identifier-attributes-attribute-statuses-request.md)                | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.ListAttributeStatusesRequest](../../models/operations/list-attribute-statuses-request.md)                                                                          | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.GetV2TargetIdentifierAttributesAttributeStatusesResponse](../../models/operations/get-v2-target-identifier-attributes-attribute-statuses-response.md)\>**
+**Promise\<[operations.ListAttributeStatusesResponse](../../models/operations/list-attribute-statuses-response.md)\>**
 
 ### Errors
 
-| Error Type                                                   | Status Code                                                  | Content Type                                                 |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| errors.GetV2TargetIdentifierAttributesAttributeNotFoundError | 404                                                          | application/json                                             |
-| errors.AttioError                                            | 4XX, 5XX                                                     | \*/\*                                                        |
+| Error Type                                | Status Code                               | Content Type                              |
+| ----------------------------------------- | ----------------------------------------- | ----------------------------------------- |
+| errors.ListAttributeStatusesNotFoundError | 404                                       | application/json                          |
+| errors.AttioError                         | 4XX, 5XX                                  | \*/\*                                     |
 
 ## createStatus
 
 Add a new status to a status attribute on either an object or a list.
 
-Required scopes: `object_configuration:read-write`.
+When `target` is `objects`, the required scopes are `object_configuration:read-write`. When `target` is `lists`, the required scopes are `list_configuration:read-write`.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="post_/v2/{target}/{identifier}/attributes/{attribute}/statuses" method="post" path="/v2/{target}/{identifier}/attributes/{attribute}/statuses" -->
+<!-- UsageSnippet language="typescript" operationID="createAttributeStatus" method="post" path="/v2/{target}/{identifier}/attributes/{attribute}/statuses" -->
 ```typescript
 import { Attio } from "@interfere/attio";
 
@@ -719,33 +729,33 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.PostV2TargetIdentifierAttributesAttributeStatusesRequest](../../models/operations/post-v2-target-identifier-attributes-attribute-statuses-request.md)              | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.CreateAttributeStatusRequest](../../models/operations/create-attribute-status-request.md)                                                                          | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.PostV2TargetIdentifierAttributesAttributeStatusesResponse](../../models/operations/post-v2-target-identifier-attributes-attribute-statuses-response.md)\>**
+**Promise\<[operations.CreateAttributeStatusResponse](../../models/operations/create-attribute-status-response.md)\>**
 
 ### Errors
 
-| Error Type                                                                  | Status Code                                                                 | Content Type                                                                |
-| --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| errors.PostV2TargetIdentifierAttributesAttributeStatusesValidationTypeError | 400                                                                         | application/json                                                            |
-| errors.GetV2TargetIdentifierAttributesAttributeNotFoundError                | 404                                                                         | application/json                                                            |
-| errors.PostV2TargetIdentifierAttributesAttributeStatusesSlugConflictError   | 409                                                                         | application/json                                                            |
-| errors.AttioError                                                           | 4XX, 5XX                                                                    | \*/\*                                                                       |
+| Error Type                                      | Status Code                                     | Content Type                                    |
+| ----------------------------------------------- | ----------------------------------------------- | ----------------------------------------------- |
+| errors.CreateAttributeStatusValidationTypeError | 400                                             | application/json                                |
+| errors.CreateAttributeStatusNotFoundError       | 404                                             | application/json                                |
+| errors.CreateAttributeStatusSlugConflictError   | 409                                             | application/json                                |
+| errors.AttioError                               | 4XX, 5XX                                        | \*/\*                                           |
 
 ## updateStatus
 
 Update a status on an status attribute on either an object or a list.
 
-Required scopes: `object_configuration:read-write`.
+When `target` is `objects`, the required scopes are `object_configuration:read-write`. When `target` is `lists`, the required scopes are `list_configuration:read-write`.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="patch_/v2/{target}/{identifier}/attributes/{attribute}/statuses/{status}" method="patch" path="/v2/{target}/{identifier}/attributes/{attribute}/statuses/{status}" -->
+<!-- UsageSnippet language="typescript" operationID="updateAttributeStatus" method="patch" path="/v2/{target}/{identifier}/attributes/{attribute}/statuses/{status}" -->
 ```typescript
 import { Attio } from "@interfere/attio";
 
@@ -817,22 +827,22 @@ run();
 
 ### Parameters
 
-| Parameter                                                                                                                                                                        | Type                                                                                                                                                                             | Required                                                                                                                                                                         | Description                                                                                                                                                                      |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                                                                        | [operations.PatchV2TargetIdentifierAttributesAttributeStatusesStatusRequest](../../models/operations/patch-v2-target-identifier-attributes-attribute-statuses-status-request.md) | :heavy_check_mark:                                                                                                                                                               | The request object to use for the request.                                                                                                                                       |
-| `options`                                                                                                                                                                        | RequestOptions                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                               | Used to set various options for making HTTP requests.                                                                                                                            |
-| `options.fetchOptions`                                                                                                                                                           | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                          | :heavy_minus_sign:                                                                                                                                                               | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed.   |
-| `options.retries`                                                                                                                                                                | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                               | Enables retrying HTTP requests under certain failure conditions.                                                                                                                 |
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.UpdateAttributeStatusRequest](../../models/operations/update-attribute-status-request.md)                                                                          | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.PatchV2TargetIdentifierAttributesAttributeStatusesStatusResponse](../../models/operations/patch-v2-target-identifier-attributes-attribute-statuses-status-response.md)\>**
+**Promise\<[operations.UpdateAttributeStatusResponse](../../models/operations/update-attribute-status-response.md)\>**
 
 ### Errors
 
-| Error Type                                                                        | Status Code                                                                       | Content Type                                                                      |
-| --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
-| errors.PatchV2TargetIdentifierAttributesAttributeStatusesStatusValueNotFoundError | 400                                                                               | application/json                                                                  |
-| errors.GetV2TargetIdentifierAttributesAttributeNotFoundError                      | 404                                                                               | application/json                                                                  |
-| errors.PostV2TargetIdentifierAttributesAttributeStatusesSlugConflictError         | 409                                                                               | application/json                                                                  |
-| errors.AttioError                                                                 | 4XX, 5XX                                                                          | \*/\*                                                                             |
+| Error Type                                     | Status Code                                    | Content Type                                   |
+| ---------------------------------------------- | ---------------------------------------------- | ---------------------------------------------- |
+| errors.UpdateAttributeStatusValueNotFoundError | 400                                            | application/json                               |
+| errors.UpdateAttributeStatusNotFoundError      | 404                                            | application/json                               |
+| errors.UpdateAttributeStatusSlugConflictError  | 409                                            | application/json                               |
+| errors.AttioError                              | 4XX, 5XX                                       | \*/\*                                          |

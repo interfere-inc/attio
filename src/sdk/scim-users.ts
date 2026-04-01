@@ -4,6 +4,8 @@
 
 import { scimUsersCreate } from "../funcs/scim-users-create.js";
 import { scimUsersList } from "../funcs/scim-users-list.js";
+import { scimUsersPatch } from "../funcs/scim-users-patch.js";
+import { scimUsersUpdate } from "../funcs/scim-users-update.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
@@ -19,7 +21,7 @@ export class ScimUsers extends ClientSDK {
    */
   async list(
     options?: RequestOptions,
-  ): Promise<operations.GetScimV2UsersResponse> {
+  ): Promise<operations.ListScimUsersResponse> {
     return unwrapAsync(scimUsersList(
       this,
       options,
@@ -36,9 +38,47 @@ export class ScimUsers extends ClientSDK {
    */
   async create(
     options?: RequestOptions,
-  ): Promise<operations.PostScimV2UsersResponse> {
+  ): Promise<operations.CreateScimUserResponse> {
     return unwrapAsync(scimUsersCreate(
       this,
+      options,
+    ));
+  }
+
+  /**
+   * Patch SCIM user
+   *
+   * @remarks
+   * Patches a SCIM user in the workspace.
+   *
+   * Required scopes: `scim_management:read-write`.
+   */
+  async patch(
+    request: operations.PatchScimUserRequest,
+    options?: RequestOptions,
+  ): Promise<operations.PatchScimUserResponse> {
+    return unwrapAsync(scimUsersPatch(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Update SCIM user
+   *
+   * @remarks
+   * Updates a SCIM user in the workspace.
+   *
+   * Required scopes: `scim_management:read-write`.
+   */
+  async update(
+    request: operations.UpdateScimUserRequest,
+    options?: RequestOptions,
+  ): Promise<operations.UpdateScimUserResponse> {
+    return unwrapAsync(scimUsersUpdate(
+      this,
+      request,
       options,
     ));
   }

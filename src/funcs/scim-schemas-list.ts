@@ -35,7 +35,7 @@ export function scimSchemasList(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.GetScimV2SchemasResponse,
+    operations.ListScimSchemasResponse,
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -58,7 +58,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      operations.GetScimV2SchemasResponse,
+      operations.ListScimSchemasResponse,
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -84,7 +84,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "get_/scim/v2/Schemas",
+    operationID: "listScimSchemas",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -122,7 +122,7 @@ async function $do(
   const response = doResult.value;
 
   const [result] = await M.match<
-    operations.GetScimV2SchemasResponse,
+    operations.ListScimSchemasResponse,
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -132,7 +132,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.GetScimV2SchemasResponse$inboundSchema),
+    M.json(200, operations.ListScimSchemasResponse$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req);

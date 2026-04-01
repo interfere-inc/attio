@@ -21,9 +21,9 @@ export class Webhooks extends ClientSDK {
    * Required scopes: `webhook:read`.
    */
   async list(
-    request?: operations.GetV2WebhooksRequest | undefined,
+    request?: operations.ListWebhooksRequest | undefined,
     options?: RequestOptions,
-  ): Promise<operations.GetV2WebhooksResponse> {
+  ): Promise<operations.ListWebhooksResponse> {
     return unwrapAsync(webhooksList(
       this,
       request,
@@ -40,9 +40,9 @@ export class Webhooks extends ClientSDK {
    * Required scopes: `webhook:read-write`.
    */
   async create(
-    request: operations.PostV2WebhooksRequest,
+    request: operations.CreateWebhookRequest,
     options?: RequestOptions,
-  ): Promise<operations.PostV2WebhooksResponse> {
+  ): Promise<operations.CreateWebhookResponse> {
     return unwrapAsync(webhooksCreate(
       this,
       request,
@@ -59,9 +59,9 @@ export class Webhooks extends ClientSDK {
    * Required scopes: `webhook:read`.
    */
   async get(
-    request: operations.GetV2WebhooksWebhookIdRequest,
+    request: operations.GetWebhookRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetV2WebhooksWebhookIdResponse> {
+  ): Promise<operations.GetWebhookResponse> {
     return unwrapAsync(webhooksGet(
       this,
       request,
@@ -78,9 +78,9 @@ export class Webhooks extends ClientSDK {
    * Required scopes: `webhook:read-write`.
    */
   async update(
-    request: operations.PatchV2WebhooksWebhookIdRequest,
+    request: operations.UpdateWebhookRequest,
     options?: RequestOptions,
-  ): Promise<operations.PatchV2WebhooksWebhookIdResponse> {
+  ): Promise<operations.UpdateWebhookResponse> {
     return unwrapAsync(webhooksUpdate(
       this,
       request,
@@ -97,9 +97,9 @@ export class Webhooks extends ClientSDK {
    * Required scopes: `webhook:read-write`.
    */
   async delete(
-    request: operations.DeleteV2WebhooksWebhookIdRequest,
+    request: operations.DeleteWebhookRequest,
     options?: RequestOptions,
-  ): Promise<operations.DeleteV2WebhooksWebhookIdResponse> {
+  ): Promise<operations.DeleteWebhookResponse> {
     return unwrapAsync(webhooksDelete(
       this,
       request,

@@ -37,11 +37,11 @@ import { Result } from "../types/fp.js";
  */
 export function filesList(
   client: AttioCore,
-  request: operations.GetV2FilesRequest,
+  request: operations.ListFilesRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.GetV2FilesResponse,
+    operations.ListFilesResponse,
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -61,12 +61,12 @@ export function filesList(
 
 async function $do(
   client: AttioCore,
-  request: operations.GetV2FilesRequest,
+  request: operations.ListFilesRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.GetV2FilesResponse,
+      operations.ListFilesResponse,
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -81,7 +81,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => z.parse(operations.GetV2FilesRequest$outboundSchema, value),
+    (value) => z.parse(operations.ListFilesRequest$outboundSchema, value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -112,7 +112,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "get_/v2/files",
+    operationID: "listFiles",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -152,7 +152,7 @@ async function $do(
   const response = doResult.value;
 
   const [result] = await M.match<
-    operations.GetV2FilesResponse,
+    operations.ListFilesResponse,
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -162,7 +162,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.GetV2FilesResponse$inboundSchema),
+    M.json(200, operations.ListFilesResponse$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req);
