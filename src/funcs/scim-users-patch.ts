@@ -159,6 +159,7 @@ async function $do(
     | SDKValidationError
   >(
     M.json(200, operations.PatchScimUserResponse$inboundSchema),
+    M.json(204, operations.PatchScimUserResponse$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req);

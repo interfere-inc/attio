@@ -5,28 +5,12 @@
 import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
 
 export type DeleteNoteRequest = {
   noteId: string;
 };
-
-export const DeleteNoteStatusCode = {
-  FourHundredAndFour: 404,
-} as const;
-export type DeleteNoteStatusCode = ClosedEnum<typeof DeleteNoteStatusCode>;
-
-export const DeleteNoteType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type DeleteNoteType = ClosedEnum<typeof DeleteNoteType>;
-
-export const DeleteNoteCode = {
-  NotFound: "not_found",
-} as const;
-export type DeleteNoteCode = ClosedEnum<typeof DeleteNoteCode>;
 
 /**
  * Success
@@ -60,21 +44,6 @@ export function deleteNoteRequestToJSON(
     DeleteNoteRequest$outboundSchema.parse(deleteNoteRequest),
   );
 }
-
-/** @internal */
-export const DeleteNoteStatusCode$inboundSchema: z.ZodMiniEnum<
-  typeof DeleteNoteStatusCode
-> = z.enum(DeleteNoteStatusCode);
-
-/** @internal */
-export const DeleteNoteType$inboundSchema: z.ZodMiniEnum<
-  typeof DeleteNoteType
-> = z.enum(DeleteNoteType);
-
-/** @internal */
-export const DeleteNoteCode$inboundSchema: z.ZodMiniEnum<
-  typeof DeleteNoteCode
-> = z.enum(DeleteNoteCode);
 
 /** @internal */
 export const DeleteNoteResponse$inboundSchema: z.ZodMiniType<

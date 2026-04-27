@@ -24,25 +24,12 @@ export type UpdateAttributeTarget = ClosedEnum<typeof UpdateAttributeTarget>;
 
 export type UpdateAttributeDefaultValueStatic = {
   type: "static";
-  template: Array<models.InputValueUnion>;
+  template: Array<models.InputValue>;
 };
-
-/**
- * For actor reference attributes, you may pass a dynamic value of `"current-user"`. When creating new records or entries, this will cause the actor reference value to be populated with either the workspace member or API token that created the record/entry.
- */
-export const UpdateAttributeTemplate = {
-  CurrentUser: "current-user",
-} as const;
-/**
- * For actor reference attributes, you may pass a dynamic value of `"current-user"`. When creating new records or entries, this will cause the actor reference value to be populated with either the workspace member or API token that created the record/entry.
- */
-export type UpdateAttributeTemplate = ClosedEnum<
-  typeof UpdateAttributeTemplate
->;
 
 export type UpdateAttributeDefaultValueDynamic = {
   type: "dynamic";
-  template: any;
+  template: "current-user";
 };
 
 /**
@@ -212,48 +199,6 @@ export type UpdateAttributeRequest = {
   body: UpdateAttributeRequestBody;
 };
 
-export const UpdateAttributeNotFoundStatusCode = {
-  FourHundredAndFour: 404,
-} as const;
-export type UpdateAttributeNotFoundStatusCode = ClosedEnum<
-  typeof UpdateAttributeNotFoundStatusCode
->;
-
-export const UpdateAttributeNotFoundType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type UpdateAttributeNotFoundType = ClosedEnum<
-  typeof UpdateAttributeNotFoundType
->;
-
-export const UpdateAttributeNotFoundCode = {
-  NotFound: "not_found",
-} as const;
-export type UpdateAttributeNotFoundCode = ClosedEnum<
-  typeof UpdateAttributeNotFoundCode
->;
-
-export const UpdateAttributeBadRequestStatusCode = {
-  FourHundred: 400,
-} as const;
-export type UpdateAttributeBadRequestStatusCode = ClosedEnum<
-  typeof UpdateAttributeBadRequestStatusCode
->;
-
-export const UpdateAttributeBadRequestType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type UpdateAttributeBadRequestType = ClosedEnum<
-  typeof UpdateAttributeBadRequestType
->;
-
-export const CodeSystemEditUnauthorized = {
-  SystemEditUnauthorized: "system_edit_unauthorized",
-} as const;
-export type CodeSystemEditUnauthorized = ClosedEnum<
-  typeof CodeSystemEditUnauthorized
->;
-
 /**
  * Success
  */
@@ -269,7 +214,7 @@ export const UpdateAttributeTarget$outboundSchema: z.ZodMiniEnum<
 /** @internal */
 export type UpdateAttributeDefaultValueStatic$Outbound = {
   type: "static";
-  template: Array<models.InputValueUnion$Outbound>;
+  template: Array<models.InputValue$Outbound>;
 };
 
 /** @internal */
@@ -278,7 +223,7 @@ export const UpdateAttributeDefaultValueStatic$outboundSchema: z.ZodMiniType<
   UpdateAttributeDefaultValueStatic
 > = z.object({
   type: z.literal("static"),
-  template: z.array(models.InputValueUnion$outboundSchema),
+  template: z.array(models.InputValue$outboundSchema),
 });
 
 export function updateAttributeDefaultValueStaticToJSON(
@@ -292,14 +237,9 @@ export function updateAttributeDefaultValueStaticToJSON(
 }
 
 /** @internal */
-export const UpdateAttributeTemplate$outboundSchema: z.ZodMiniEnum<
-  typeof UpdateAttributeTemplate
-> = z.enum(UpdateAttributeTemplate);
-
-/** @internal */
 export type UpdateAttributeDefaultValueDynamic$Outbound = {
   type: "dynamic";
-  template: any;
+  template: "current-user";
 };
 
 /** @internal */
@@ -308,7 +248,7 @@ export const UpdateAttributeDefaultValueDynamic$outboundSchema: z.ZodMiniType<
   UpdateAttributeDefaultValueDynamic
 > = z.object({
   type: z.literal("dynamic"),
-  template: z.any(),
+  template: z.literal("current-user"),
 });
 
 export function updateAttributeDefaultValueDynamicToJSON(
@@ -552,36 +492,6 @@ export function updateAttributeRequestToJSON(
     UpdateAttributeRequest$outboundSchema.parse(updateAttributeRequest),
   );
 }
-
-/** @internal */
-export const UpdateAttributeNotFoundStatusCode$inboundSchema: z.ZodMiniEnum<
-  typeof UpdateAttributeNotFoundStatusCode
-> = z.enum(UpdateAttributeNotFoundStatusCode);
-
-/** @internal */
-export const UpdateAttributeNotFoundType$inboundSchema: z.ZodMiniEnum<
-  typeof UpdateAttributeNotFoundType
-> = z.enum(UpdateAttributeNotFoundType);
-
-/** @internal */
-export const UpdateAttributeNotFoundCode$inboundSchema: z.ZodMiniEnum<
-  typeof UpdateAttributeNotFoundCode
-> = z.enum(UpdateAttributeNotFoundCode);
-
-/** @internal */
-export const UpdateAttributeBadRequestStatusCode$inboundSchema: z.ZodMiniEnum<
-  typeof UpdateAttributeBadRequestStatusCode
-> = z.enum(UpdateAttributeBadRequestStatusCode);
-
-/** @internal */
-export const UpdateAttributeBadRequestType$inboundSchema: z.ZodMiniEnum<
-  typeof UpdateAttributeBadRequestType
-> = z.enum(UpdateAttributeBadRequestType);
-
-/** @internal */
-export const CodeSystemEditUnauthorized$inboundSchema: z.ZodMiniEnum<
-  typeof CodeSystemEditUnauthorized
-> = z.enum(CodeSystemEditUnauthorized);
 
 /** @internal */
 export const UpdateAttributeResponse$inboundSchema: z.ZodMiniType<

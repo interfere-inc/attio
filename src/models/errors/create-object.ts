@@ -5,16 +5,15 @@
 import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import * as types from "../../types/primitives.js";
-import * as operations from "../operations/index.js";
 import { AttioBaseError } from "./attio-base-error.js";
 
 /**
  * Conflict
  */
 export type CreateObjectSlugConflictErrorData = {
-  statusCode: operations.CreateObjectStatusCode;
-  type: operations.CreateObjectType;
-  code: operations.CreateObjectCode;
+  type: "invalid_request_error";
+  statusCode: 409;
+  code: "slug_conflict";
   message: string;
 };
 
@@ -22,8 +21,8 @@ export type CreateObjectSlugConflictErrorData = {
  * Conflict
  */
 export class CreateObjectSlugConflictError extends AttioBaseError {
-  type: operations.CreateObjectType;
-  code: operations.CreateObjectCode;
+  type: "invalid_request_error";
+  code: "slug_conflict";
 
   /** The original data that was passed to this error instance. */
   data$: CreateObjectSlugConflictErrorData;
@@ -48,9 +47,9 @@ export const CreateObjectSlugConflictError$inboundSchema: z.ZodMiniType<
   unknown
 > = z.pipe(
   z.object({
-    status_code: operations.CreateObjectStatusCode$inboundSchema,
-    type: operations.CreateObjectType$inboundSchema,
-    code: operations.CreateObjectCode$inboundSchema,
+    type: types.literal("invalid_request_error"),
+    status_code: types.literal(409),
+    code: types.literal("slug_conflict"),
     message: types.string(),
     request$: z.custom<Request>(x => x instanceof Request),
     response$: z.custom<Response>(x => x instanceof Response),

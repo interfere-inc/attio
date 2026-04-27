@@ -77,13 +77,13 @@ export type TaskType = OpenEnum<typeof TaskType>;
  */
 export type TaskCreatedByActor = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: TaskType | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type Task = {
@@ -212,8 +212,8 @@ export const TaskCreatedByActor$inboundSchema: z.ZodMiniType<
   TaskCreatedByActor,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(z.nullable(TaskType$inboundSchema)),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function taskCreatedByActorFromJSON(

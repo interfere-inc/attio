@@ -10,8 +10,8 @@ const value: operations.GetEntryEntryValueActorReference = {
   activeFrom: new Date("2023-01-01T15:00:00.000000000Z"),
   activeUntil: new Date("2023-01-01T15:00:00.000000000Z"),
   createdByActor: {
-    id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
     type: "workspace-member",
+    id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
   },
   referencedActorType: "workspace-member",
   referencedActorId: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
@@ -26,8 +26,8 @@ const value: operations.GetEntryEntryValueCheckbox = {
   activeFrom: new Date("2023-01-01T15:00:00.000000000Z"),
   activeUntil: new Date("2023-01-01T15:00:00.000000000Z"),
   createdByActor: {
-    id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
     type: "workspace-member",
+    id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
   },
   value: true,
   attributeType: "checkbox",
@@ -41,8 +41,8 @@ const value: operations.GetEntryEntryValueCurrency = {
   activeFrom: new Date("2023-01-01T15:00:00.000000000Z"),
   activeUntil: new Date("2023-01-01T15:00:00.000000000Z"),
   createdByActor: {
-    id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
     type: "workspace-member",
+    id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
   },
   currencyValue: 99,
   currencyCode: "USD",
@@ -57,8 +57,8 @@ const value: operations.GetEntryEntryValueDate = {
   activeFrom: new Date("2023-01-01T15:00:00.000000000Z"),
   activeUntil: new Date("2023-01-01T15:00:00.000000000Z"),
   createdByActor: {
-    id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
     type: "workspace-member",
+    id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
   },
   attributeType: "date",
   value: "2023-01-01",
@@ -72,8 +72,8 @@ const value: operations.GetEntryEntryValueDomain = {
   activeFrom: new Date("2023-01-01T15:00:00.000000000Z"),
   activeUntil: new Date("2023-01-01T15:00:00.000000000Z"),
   createdByActor: {
-    id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
     type: "workspace-member",
+    id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
   },
   domain: "app.attio.com",
   rootDomain: "attio.com",
@@ -88,8 +88,8 @@ const value: operations.GetEntryEntryValueEmailAddress = {
   activeFrom: new Date("2023-01-01T15:00:00.000000000Z"),
   activeUntil: new Date("2023-01-01T15:00:00.000000000Z"),
   createdByActor: {
-    id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
     type: "workspace-member",
+    id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
   },
   originalEmailAddress: "alice@app.attio.com",
   emailAddress: "alice@app.attio.com",
@@ -107,8 +107,8 @@ const value: operations.GetEntryEntryValueRecordReference = {
   activeFrom: new Date("2023-01-01T15:00:00.000000000Z"),
   activeUntil: new Date("2023-01-01T15:00:00.000000000Z"),
   createdByActor: {
-    id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
     type: "workspace-member",
+    id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
   },
   targetObject: "people",
   targetRecordId: "891dcbfc-9141-415d-9b2a-2238a6cc012d",
@@ -123,14 +123,14 @@ const value: operations.GetEntryEntryValueInteraction = {
   activeFrom: new Date("2023-01-01T15:00:00.000000000Z"),
   activeUntil: new Date("2023-01-01T15:00:00.000000000Z"),
   createdByActor: {
-    id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
     type: "workspace-member",
+    id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
   },
   interactionType: "email",
   interactedAt: new Date("2023-01-01T15:00:00.000000000Z"),
   ownerActor: {
-    id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
     type: "workspace-member",
+    id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
   },
   attributeType: "interaction",
 };
@@ -143,8 +143,8 @@ const value: operations.GetEntryEntryValueLocation = {
   activeFrom: new Date("2023-01-01T15:00:00.000000000Z"),
   activeUntil: new Date("2023-01-01T15:00:00.000000000Z"),
   createdByActor: {
-    id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
     type: "workspace-member",
+    id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
   },
   line1: "1 Infinite Loop",
   line2: "Block 1",
@@ -167,8 +167,8 @@ const value: operations.GetEntryEntryValueNumber = {
   activeFrom: new Date("2023-01-01T15:00:00.000000000Z"),
   activeUntil: new Date("2023-01-01T15:00:00.000000000Z"),
   createdByActor: {
-    id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
     type: "workspace-member",
+    id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
   },
   value: 42,
   attributeType: "number",
@@ -182,8 +182,8 @@ const value: operations.GetEntryEntryValuePersonalName = {
   activeFrom: new Date("2023-01-01T15:00:00.000000000Z"),
   activeUntil: new Date("2023-01-01T15:00:00.000000000Z"),
   createdByActor: {
-    id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
     type: "workspace-member",
+    id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
   },
   firstName: "Ada",
   lastName: "Lovelace",
@@ -199,8 +199,8 @@ const value: operations.GetEntryEntryValuePhoneNumber = {
   activeFrom: new Date("2023-01-01T15:00:00.000000000Z"),
   activeUntil: new Date("2023-01-01T15:00:00.000000000Z"),
   createdByActor: {
-    id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
     type: "workspace-member",
+    id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
   },
   originalPhoneNumber: "5558675309",
   countryCode: "US",
@@ -216,17 +216,17 @@ const value: operations.GetEntryEntryValueStatus = {
   activeFrom: new Date("2023-01-01T15:00:00.000000000Z"),
   activeUntil: new Date("2023-01-01T15:00:00.000000000Z"),
   createdByActor: {
-    id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
     type: "workspace-member",
+    id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
   },
   status: {
+    title: "In Progress",
     id: {
       workspaceId: "14beef7a-99f7-4534-a87e-70b564330a4c",
       objectId: "97052eb9-e65e-443f-a297-f2d9a4a7f795",
       attributeId: "41252299-f8c7-4b5e-99c9-4ff8321d2f96",
       statusId: "11f07f01-c10f-4e05-a522-33e050bc52ee",
     },
-    title: "In Progress",
     isArchived: false,
     celebrationEnabled: false,
     targetTimeInStatus: "P0Y0M1DT0H0M0S",
@@ -242,8 +242,8 @@ const value: operations.GetEntryEntryValueRating = {
   activeFrom: new Date("2023-01-01T15:00:00.000000000Z"),
   activeUntil: new Date("2023-01-01T15:00:00.000000000Z"),
   createdByActor: {
-    id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
     type: "workspace-member",
+    id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
   },
   value: 3,
   attributeType: "rating",
@@ -257,17 +257,17 @@ const value: operations.GetEntryEntryValueSelect = {
   activeFrom: new Date("2023-01-01T15:00:00.000000000Z"),
   activeUntil: new Date("2023-01-01T15:00:00.000000000Z"),
   createdByActor: {
-    id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
     type: "workspace-member",
+    id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
   },
   option: {
+    title: "Medium",
     id: {
       workspaceId: "14beef7a-99f7-4534-a87e-70b564330a4c",
       objectId: "97052eb9-e65e-443f-a297-f2d9a4a7f795",
       attributeId: "41252299-f8c7-4b5e-99c9-4ff8321d2f96",
       optionId: "08c2c59a-c18e-40c6-8dc4-95415313b2ea",
     },
-    title: "Medium",
     isArchived: false,
   },
   attributeType: "select",
@@ -281,8 +281,8 @@ const value: operations.GetEntryEntryValueText = {
   activeFrom: new Date("2023-01-01T15:00:00.000000000Z"),
   activeUntil: new Date("2023-01-01T15:00:00.000000000Z"),
   createdByActor: {
-    id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
     type: "workspace-member",
+    id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
   },
   value:
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
@@ -297,8 +297,8 @@ const value: operations.GetEntryEntryValueTimestamp = {
   activeFrom: new Date("2023-01-01T15:00:00.000000000Z"),
   activeUntil: new Date("2023-01-01T15:00:00.000000000Z"),
   createdByActor: {
-    id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
     type: "workspace-member",
+    id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
   },
   attributeType: "timestamp",
   value: new Date("2023-01-01T15:00:00.000000000Z"),

@@ -8,7 +8,7 @@ import { safeParse } from "../../lib/schemas.js";
 import * as discriminatedUnionTypes from "../../types/discriminated-union.js";
 import { discriminatedUnion } from "../../types/discriminated-union.js";
 import * as openEnums from "../../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../../types/enums.js";
+import { OpenEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import * as types from "../../types/primitives.js";
 import { smartUnion } from "../../types/smart-union.js";
@@ -17,21 +17,6 @@ import { SDKValidationError } from "../errors/sdk-validation-error.js";
 export type GetWebhookRequest = {
   webhookId: string;
 };
-
-export const GetWebhookStatusCode = {
-  FourHundredAndFour: 404,
-} as const;
-export type GetWebhookStatusCode = ClosedEnum<typeof GetWebhookStatusCode>;
-
-export const GetWebhookType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type GetWebhookType = ClosedEnum<typeof GetWebhookType>;
-
-export const GetWebhookCode = {
-  NotFound: "not_found",
-} as const;
-export type GetWebhookCode = ClosedEnum<typeof GetWebhookCode>;
 
 /**
  * Type of event the webhook is subscribed to.
@@ -214,21 +199,6 @@ export function getWebhookRequestToJSON(
     GetWebhookRequest$outboundSchema.parse(getWebhookRequest),
   );
 }
-
-/** @internal */
-export const GetWebhookStatusCode$inboundSchema: z.ZodMiniEnum<
-  typeof GetWebhookStatusCode
-> = z.enum(GetWebhookStatusCode);
-
-/** @internal */
-export const GetWebhookType$inboundSchema: z.ZodMiniEnum<
-  typeof GetWebhookType
-> = z.enum(GetWebhookType);
-
-/** @internal */
-export const GetWebhookCode$inboundSchema: z.ZodMiniEnum<
-  typeof GetWebhookCode
-> = z.enum(GetWebhookCode);
 
 /** @internal */
 export const GetWebhookEventType$inboundSchema: z.ZodMiniType<

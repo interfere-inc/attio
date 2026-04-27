@@ -5,16 +5,15 @@
 import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import * as types from "../../types/primitives.js";
-import * as operations from "../operations/index.js";
 import { AttioBaseError } from "./attio-base-error.js";
 
 /**
  * Bad Request
  */
 export type SearchRecordsValueNotFoundErrorData = {
-  statusCode: operations.SearchRecordsStatusCode;
-  type: operations.SearchRecordsBadRequestType;
-  code: operations.SearchRecordsCode;
+  type: "invalid_request_error";
+  statusCode: 400;
+  code: "value_not_found";
   message: string;
 };
 
@@ -22,8 +21,8 @@ export type SearchRecordsValueNotFoundErrorData = {
  * Bad Request
  */
 export class SearchRecordsValueNotFoundError extends AttioBaseError {
-  type: operations.SearchRecordsBadRequestType;
-  code: operations.SearchRecordsCode;
+  type: "invalid_request_error";
+  code: "value_not_found";
 
   /** The original data that was passed to this error instance. */
   data$: SearchRecordsValueNotFoundErrorData;
@@ -48,9 +47,9 @@ export const SearchRecordsValueNotFoundError$inboundSchema: z.ZodMiniType<
   unknown
 > = z.pipe(
   z.object({
-    status_code: operations.SearchRecordsStatusCode$inboundSchema,
-    type: operations.SearchRecordsBadRequestType$inboundSchema,
-    code: operations.SearchRecordsCode$inboundSchema,
+    type: types.literal("invalid_request_error"),
+    status_code: types.literal(400),
+    code: types.literal("value_not_found"),
     message: types.string(),
     request$: z.custom<Request>(x => x instanceof Request),
     response$: z.custom<Response>(x => x instanceof Response),

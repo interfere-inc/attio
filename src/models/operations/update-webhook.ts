@@ -135,23 +135,6 @@ export type UpdateWebhookRequest = {
   body: UpdateWebhookRequestBody;
 };
 
-export const UpdateWebhookStatusCode = {
-  FourHundredAndFour: 404,
-} as const;
-export type UpdateWebhookStatusCode = ClosedEnum<
-  typeof UpdateWebhookStatusCode
->;
-
-export const UpdateWebhookType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type UpdateWebhookType = ClosedEnum<typeof UpdateWebhookType>;
-
-export const UpdateWebhookCode = {
-  NotFound: "not_found",
-} as const;
-export type UpdateWebhookCode = ClosedEnum<typeof UpdateWebhookCode>;
-
 /**
  * Type of event the webhook is subscribed to.
  */
@@ -690,21 +673,6 @@ export function updateWebhookRequestToJSON(
     UpdateWebhookRequest$outboundSchema.parse(updateWebhookRequest),
   );
 }
-
-/** @internal */
-export const UpdateWebhookStatusCode$inboundSchema: z.ZodMiniEnum<
-  typeof UpdateWebhookStatusCode
-> = z.enum(UpdateWebhookStatusCode);
-
-/** @internal */
-export const UpdateWebhookType$inboundSchema: z.ZodMiniEnum<
-  typeof UpdateWebhookType
-> = z.enum(UpdateWebhookType);
-
-/** @internal */
-export const UpdateWebhookCode$inboundSchema: z.ZodMiniEnum<
-  typeof UpdateWebhookCode
-> = z.enum(UpdateWebhookCode);
 
 /** @internal */
 export const UpdateWebhookEventTypeResponse$inboundSchema: z.ZodMiniType<

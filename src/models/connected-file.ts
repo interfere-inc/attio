@@ -58,13 +58,13 @@ export type ConnectedFileType = OpenEnum<typeof ConnectedFileType>;
  */
 export type ConnectedFileCreatedByActor = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: ConnectedFileType | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type ConnectedFile = {
@@ -151,8 +151,8 @@ export const ConnectedFileCreatedByActor$inboundSchema: z.ZodMiniType<
   ConnectedFileCreatedByActor,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(z.nullable(ConnectedFileType$inboundSchema)),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function connectedFileCreatedByActorFromJSON(

@@ -17,7 +17,7 @@ let value: CreateNewAttributeDefaultValueStatic = {
 
 ## Fields
 
-| Field                      | Type                       | Required                   | Description                | Example                    |
-| -------------------------- | -------------------------- | -------------------------- | -------------------------- | -------------------------- |
-| `type`                     | *"static"*                 | :heavy_check_mark:         | N/A                        | static                     |
-| `template`                 | *models.InputValueUnion*[] | :heavy_check_mark:         | N/A                        | [<br/>{<br/>"value": 5<br/>}<br/>] |
+| Field                 | Type                  | Required              | Description           | Example               |
+| --------------------- | --------------------- | --------------------- | --------------------- | --------------------- |
+| `type`                | *"static"*            | :heavy_check_mark:    | N/A                   | static                |
+| `template`            | *models.InputValue*[] | :heavy_check_mark:    | N/A                   | [<br/>{<br/>"value": 5<br/>}<br/>] |

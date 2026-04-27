@@ -1,3 +1,6 @@
+/.eslintcache
+/.tshy
+/.tshy-*
 /models
 /models/errors
 /types
@@ -16,9 +19,7 @@
 /esm
 /dist
 /.tsbuildinfo
-/.eslintcache
-/.tshy
-/.tshy-*
+/.oxlintcache
 /__tests__
 .DS_Store
 **/.speakeasy/temp/

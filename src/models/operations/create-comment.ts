@@ -5,35 +5,16 @@
 import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { smartUnion } from "../../types/smart-union.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
 import * as models from "../index.js";
 
 /**
- * The format that the comment content is provided in. The `plaintext` format uses the line feed character `\n` to create new lines within the note content. Rich text formatting and links are not supported.
- */
-export const CreateCommentFormat3 = {
-  Plaintext: "plaintext",
-} as const;
-/**
- * The format that the comment content is provided in. The `plaintext` format uses the line feed character `\n` to create new lines within the note content. Rich text formatting and links are not supported.
- */
-export type CreateCommentFormat3 = ClosedEnum<typeof CreateCommentFormat3>;
-
-export const CreateCommentTypeWorkspaceMember3 = {
-  WorkspaceMember: "workspace-member",
-} as const;
-export type CreateCommentTypeWorkspaceMember3 = ClosedEnum<
-  typeof CreateCommentTypeWorkspaceMember3
->;
-
-/**
  * The workspace member who wrote this comment. Note that other types of actors are not currently supported.
  */
 export type Author3 = {
-  type: CreateCommentTypeWorkspaceMember3;
+  type: "workspace-member";
   id: string;
 };
 
@@ -52,7 +33,7 @@ export type CreateCommentDataPlaintext3 = {
   /**
    * The format that the comment content is provided in. The `plaintext` format uses the line feed character `\n` to create new lines within the note content. Rich text formatting and links are not supported.
    */
-  format: CreateCommentFormat3;
+  format: "plaintext";
   /**
    * The content of the comment itself. Workspace members can be mentioned using their email address, otherwise email addresses will be presented to users as clickable mailto links.
    */
@@ -69,28 +50,10 @@ export type CreateCommentDataPlaintext3 = {
 };
 
 /**
- * The format that the comment content is provided in. The `plaintext` format uses the line feed character `\n` to create new lines within the note content. Rich text formatting and links are not supported.
- */
-export const CreateCommentFormat2 = {
-  Plaintext: "plaintext",
-} as const;
-/**
- * The format that the comment content is provided in. The `plaintext` format uses the line feed character `\n` to create new lines within the note content. Rich text formatting and links are not supported.
- */
-export type CreateCommentFormat2 = ClosedEnum<typeof CreateCommentFormat2>;
-
-export const CreateCommentTypeWorkspaceMember2 = {
-  WorkspaceMember: "workspace-member",
-} as const;
-export type CreateCommentTypeWorkspaceMember2 = ClosedEnum<
-  typeof CreateCommentTypeWorkspaceMember2
->;
-
-/**
  * The workspace member who wrote this comment. Note that other types of actors are not currently supported.
  */
 export type Author2 = {
-  type: CreateCommentTypeWorkspaceMember2;
+  type: "workspace-member";
   id: string;
 };
 
@@ -109,7 +72,7 @@ export type CreateCommentDataPlaintext2 = {
   /**
    * The format that the comment content is provided in. The `plaintext` format uses the line feed character `\n` to create new lines within the note content. Rich text formatting and links are not supported.
    */
-  format: CreateCommentFormat2;
+  format: "plaintext";
   /**
    * The content of the comment itself. Workspace members can be mentioned using their email address, otherwise email addresses will be presented to users as clickable mailto links.
    */
@@ -126,28 +89,10 @@ export type CreateCommentDataPlaintext2 = {
 };
 
 /**
- * The format that the comment content is provided in. The `plaintext` format uses the line feed character `\n` to create new lines within the note content. Rich text formatting and links are not supported.
- */
-export const CreateCommentFormat1 = {
-  Plaintext: "plaintext",
-} as const;
-/**
- * The format that the comment content is provided in. The `plaintext` format uses the line feed character `\n` to create new lines within the note content. Rich text formatting and links are not supported.
- */
-export type CreateCommentFormat1 = ClosedEnum<typeof CreateCommentFormat1>;
-
-export const CreateCommentTypeWorkspaceMember1 = {
-  WorkspaceMember: "workspace-member",
-} as const;
-export type CreateCommentTypeWorkspaceMember1 = ClosedEnum<
-  typeof CreateCommentTypeWorkspaceMember1
->;
-
-/**
  * The workspace member who wrote this comment. Note that other types of actors are not currently supported.
  */
 export type Author1 = {
-  type: CreateCommentTypeWorkspaceMember1;
+  type: "workspace-member";
   id: string;
 };
 
@@ -155,7 +100,7 @@ export type CreateCommentDataPlaintext1 = {
   /**
    * The format that the comment content is provided in. The `plaintext` format uses the line feed character `\n` to create new lines within the note content. Rich text formatting and links are not supported.
    */
-  format: CreateCommentFormat1;
+  format: "plaintext";
   /**
    * The content of the comment itself. Workspace members can be mentioned using their email address, otherwise email addresses will be presented to users as clickable mailto links.
    */
@@ -186,25 +131,6 @@ export type CreateCommentRequest = {
     | CreateCommentDataPlaintext3;
 };
 
-export const CreateCommentStatusCode = {
-  FourHundred: 400,
-} as const;
-export type CreateCommentStatusCode = ClosedEnum<
-  typeof CreateCommentStatusCode
->;
-
-export const CreateCommentBadRequestType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type CreateCommentBadRequestType = ClosedEnum<
-  typeof CreateCommentBadRequestType
->;
-
-export const CreateCommentCode = {
-  ValueNotFound: "value_not_found",
-} as const;
-export type CreateCommentCode = ClosedEnum<typeof CreateCommentCode>;
-
 /**
  * Success
  */
@@ -213,25 +139,15 @@ export type CreateCommentResponse = {
 };
 
 /** @internal */
-export const CreateCommentFormat3$outboundSchema: z.ZodMiniEnum<
-  typeof CreateCommentFormat3
-> = z.enum(CreateCommentFormat3);
-
-/** @internal */
-export const CreateCommentTypeWorkspaceMember3$outboundSchema: z.ZodMiniEnum<
-  typeof CreateCommentTypeWorkspaceMember3
-> = z.enum(CreateCommentTypeWorkspaceMember3);
-
-/** @internal */
 export type Author3$Outbound = {
-  type: string;
+  type: "workspace-member";
   id: string;
 };
 
 /** @internal */
 export const Author3$outboundSchema: z.ZodMiniType<Author3$Outbound, Author3> =
   z.object({
-    type: CreateCommentTypeWorkspaceMember3$outboundSchema,
+    type: z.literal("workspace-member"),
     id: z.string(),
   });
 
@@ -265,7 +181,7 @@ export function entryToJSON(entry: Entry): string {
 
 /** @internal */
 export type CreateCommentDataPlaintext3$Outbound = {
-  format: string;
+  format: "plaintext";
   content: string;
   author: Author3$Outbound;
   created_at?: string | undefined;
@@ -278,7 +194,7 @@ export const CreateCommentDataPlaintext3$outboundSchema: z.ZodMiniType<
   CreateCommentDataPlaintext3
 > = z.pipe(
   z.object({
-    format: CreateCommentFormat3$outboundSchema,
+    format: z.literal("plaintext"),
     content: z.string(),
     author: z.lazy(() => Author3$outboundSchema),
     createdAt: z.optional(z.string()),
@@ -302,25 +218,15 @@ export function createCommentDataPlaintext3ToJSON(
 }
 
 /** @internal */
-export const CreateCommentFormat2$outboundSchema: z.ZodMiniEnum<
-  typeof CreateCommentFormat2
-> = z.enum(CreateCommentFormat2);
-
-/** @internal */
-export const CreateCommentTypeWorkspaceMember2$outboundSchema: z.ZodMiniEnum<
-  typeof CreateCommentTypeWorkspaceMember2
-> = z.enum(CreateCommentTypeWorkspaceMember2);
-
-/** @internal */
 export type Author2$Outbound = {
-  type: string;
+  type: "workspace-member";
   id: string;
 };
 
 /** @internal */
 export const Author2$outboundSchema: z.ZodMiniType<Author2$Outbound, Author2> =
   z.object({
-    type: CreateCommentTypeWorkspaceMember2$outboundSchema,
+    type: z.literal("workspace-member"),
     id: z.string(),
   });
 
@@ -354,7 +260,7 @@ export function recordToJSON(recordT: RecordT): string {
 
 /** @internal */
 export type CreateCommentDataPlaintext2$Outbound = {
-  format: string;
+  format: "plaintext";
   content: string;
   author: Author2$Outbound;
   created_at?: string | undefined;
@@ -367,7 +273,7 @@ export const CreateCommentDataPlaintext2$outboundSchema: z.ZodMiniType<
   CreateCommentDataPlaintext2
 > = z.pipe(
   z.object({
-    format: CreateCommentFormat2$outboundSchema,
+    format: z.literal("plaintext"),
     content: z.string(),
     author: z.lazy(() => Author2$outboundSchema),
     createdAt: z.optional(z.string()),
@@ -391,25 +297,15 @@ export function createCommentDataPlaintext2ToJSON(
 }
 
 /** @internal */
-export const CreateCommentFormat1$outboundSchema: z.ZodMiniEnum<
-  typeof CreateCommentFormat1
-> = z.enum(CreateCommentFormat1);
-
-/** @internal */
-export const CreateCommentTypeWorkspaceMember1$outboundSchema: z.ZodMiniEnum<
-  typeof CreateCommentTypeWorkspaceMember1
-> = z.enum(CreateCommentTypeWorkspaceMember1);
-
-/** @internal */
 export type Author1$Outbound = {
-  type: string;
+  type: "workspace-member";
   id: string;
 };
 
 /** @internal */
 export const Author1$outboundSchema: z.ZodMiniType<Author1$Outbound, Author1> =
   z.object({
-    type: CreateCommentTypeWorkspaceMember1$outboundSchema,
+    type: z.literal("workspace-member"),
     id: z.string(),
   });
 
@@ -419,7 +315,7 @@ export function author1ToJSON(author1: Author1): string {
 
 /** @internal */
 export type CreateCommentDataPlaintext1$Outbound = {
-  format: string;
+  format: "plaintext";
   content: string;
   author: Author1$Outbound;
   created_at?: string | undefined;
@@ -432,7 +328,7 @@ export const CreateCommentDataPlaintext1$outboundSchema: z.ZodMiniType<
   CreateCommentDataPlaintext1
 > = z.pipe(
   z.object({
-    format: CreateCommentFormat1$outboundSchema,
+    format: z.literal("plaintext"),
     content: z.string(),
     author: z.lazy(() => Author1$outboundSchema),
     createdAt: z.optional(z.string()),
@@ -507,21 +403,6 @@ export function createCommentRequestToJSON(
     CreateCommentRequest$outboundSchema.parse(createCommentRequest),
   );
 }
-
-/** @internal */
-export const CreateCommentStatusCode$inboundSchema: z.ZodMiniEnum<
-  typeof CreateCommentStatusCode
-> = z.enum(CreateCommentStatusCode);
-
-/** @internal */
-export const CreateCommentBadRequestType$inboundSchema: z.ZodMiniEnum<
-  typeof CreateCommentBadRequestType
-> = z.enum(CreateCommentBadRequestType);
-
-/** @internal */
-export const CreateCommentCode$inboundSchema: z.ZodMiniEnum<
-  typeof CreateCommentCode
-> = z.enum(CreateCommentCode);
 
 /** @internal */
 export const CreateCommentResponse$inboundSchema: z.ZodMiniType<

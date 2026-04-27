@@ -9,8 +9,8 @@ A task is a defined, actionable item with references to linked records and assig
 * [list](#list) - List tasks
 * [create](#create) - Create a task
 * [get](#get) - Get a task
-* [update](#update) - Update a task
 * [delete](#delete) - Delete a task
+* [update](#update) - Update a task
 
 ## list
 
@@ -282,6 +282,82 @@ run();
 | errors.GetTaskNotFoundError | 404                         | application/json            |
 | errors.AttioError           | 4XX, 5XX                    | \*/\*                       |
 
+## delete
+
+Delete a task by ID.
+
+Required scopes: `task:read-write`.
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="deleteTask" method="delete" path="/v2/tasks/{task_id}" -->
+```typescript
+import { Attio } from "@interfere/attio";
+
+const attio = new Attio({
+  oauth2: process.env["ATTIO_OAUTH2"] ?? "",
+});
+
+async function run() {
+  const result = await attio.tasks.delete({
+    taskId: "649e34f4-c39a-4f4d-99ef-48a36bef8f04",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { AttioCore } from "@interfere/attio/core.js";
+import { tasksDelete } from "@interfere/attio/funcs/tasks-delete.js";
+
+// Use `AttioCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const attio = new AttioCore({
+  oauth2: process.env["ATTIO_OAUTH2"] ?? "",
+});
+
+async function run() {
+  const res = await tasksDelete(attio, {
+    taskId: "649e34f4-c39a-4f4d-99ef-48a36bef8f04",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("tasksDelete failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.DeleteTaskRequest](../../models/operations/delete-task-request.md)                                                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.DeleteTaskResponse](../../models/operations/delete-task-response.md)\>**
+
+### Errors
+
+| Error Type                     | Status Code                    | Content Type                   |
+| ------------------------------ | ------------------------------ | ------------------------------ |
+| errors.DeleteTaskNotFoundError | 404                            | application/json               |
+| errors.AttioError              | 4XX, 5XX                       | \*/\*                          |
+
 ## update
 
 Updates an existing task by `task_id`. At present, only the `deadline_at`, `is_completed`, `linked_records`, and `assignees` fields can be updated.
@@ -390,79 +466,3 @@ run();
 | errors.UpdateTaskValidationTypeError | 400                                  | application/json                     |
 | errors.UpdateTaskNotFoundError       | 404                                  | application/json                     |
 | errors.AttioError                    | 4XX, 5XX                             | \*/\*                                |
-
-## delete
-
-Delete a task by ID.
-
-Required scopes: `task:read-write`.
-
-### Example Usage
-
-<!-- UsageSnippet language="typescript" operationID="deleteTask" method="delete" path="/v2/tasks/{task_id}" -->
-```typescript
-import { Attio } from "@interfere/attio";
-
-const attio = new Attio({
-  oauth2: process.env["ATTIO_OAUTH2"] ?? "",
-});
-
-async function run() {
-  const result = await attio.tasks.delete({
-    taskId: "649e34f4-c39a-4f4d-99ef-48a36bef8f04",
-  });
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { AttioCore } from "@interfere/attio/core.js";
-import { tasksDelete } from "@interfere/attio/funcs/tasks-delete.js";
-
-// Use `AttioCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const attio = new AttioCore({
-  oauth2: process.env["ATTIO_OAUTH2"] ?? "",
-});
-
-async function run() {
-  const res = await tasksDelete(attio, {
-    taskId: "649e34f4-c39a-4f4d-99ef-48a36bef8f04",
-  });
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("tasksDelete failed:", res.error);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.DeleteTaskRequest](../../models/operations/delete-task-request.md)                                                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-
-### Response
-
-**Promise\<[operations.DeleteTaskResponse](../../models/operations/delete-task-response.md)\>**
-
-### Errors
-
-| Error Type                     | Status Code                    | Content Type                   |
-| ------------------------------ | ------------------------------ | ------------------------------ |
-| errors.DeleteTaskNotFoundError | 404                            | application/json               |
-| errors.AttioError              | 4XX, 5XX                       | \*/\*                          |

@@ -5,16 +5,15 @@
 import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import * as types from "../../types/primitives.js";
-import * as operations from "../operations/index.js";
 import { AttioBaseError } from "./attio-base-error.js";
 
 /**
  * Not Found
  */
 export type UpdateEntryNotFoundErrorData = {
-  statusCode: operations.UpdateEntryNotFoundStatusCode;
-  type: operations.UpdateEntryNotFoundType;
-  code: operations.UpdateEntryNotFoundCode;
+  type: "invalid_request_error";
+  statusCode: 404;
+  code: "not_found";
   message: string;
 };
 
@@ -22,8 +21,8 @@ export type UpdateEntryNotFoundErrorData = {
  * Not Found
  */
 export class UpdateEntryNotFoundError extends AttioBaseError {
-  type: operations.UpdateEntryNotFoundType;
-  code: operations.UpdateEntryNotFoundCode;
+  type: "invalid_request_error";
+  code: "not_found";
 
   /** The original data that was passed to this error instance. */
   data$: UpdateEntryNotFoundErrorData;
@@ -46,9 +45,9 @@ export class UpdateEntryNotFoundError extends AttioBaseError {
  * Bad Request
  */
 export type UpdateEntryImmutableValueErrorData = {
-  statusCode: operations.UpdateEntryBadRequestStatusCode;
-  type: operations.UpdateEntryBadRequestType;
-  code: operations.UpdateEntryCodeImmutableValue;
+  type: "invalid_request_error";
+  statusCode: 400;
+  code: "immutable_value";
   message: string;
 };
 
@@ -56,8 +55,8 @@ export type UpdateEntryImmutableValueErrorData = {
  * Bad Request
  */
 export class UpdateEntryImmutableValueError extends AttioBaseError {
-  type: operations.UpdateEntryBadRequestType;
-  code: operations.UpdateEntryCodeImmutableValue;
+  type: "invalid_request_error";
+  code: "immutable_value";
 
   /** The original data that was passed to this error instance. */
   data$: UpdateEntryImmutableValueErrorData;
@@ -82,9 +81,9 @@ export const UpdateEntryNotFoundError$inboundSchema: z.ZodMiniType<
   unknown
 > = z.pipe(
   z.object({
-    status_code: operations.UpdateEntryNotFoundStatusCode$inboundSchema,
-    type: operations.UpdateEntryNotFoundType$inboundSchema,
-    code: operations.UpdateEntryNotFoundCode$inboundSchema,
+    type: types.literal("invalid_request_error"),
+    status_code: types.literal(404),
+    code: types.literal("not_found"),
     message: types.string(),
     request$: z.custom<Request>(x => x instanceof Request),
     response$: z.custom<Response>(x => x instanceof Response),
@@ -109,9 +108,9 @@ export const UpdateEntryImmutableValueError$inboundSchema: z.ZodMiniType<
   unknown
 > = z.pipe(
   z.object({
-    status_code: operations.UpdateEntryBadRequestStatusCode$inboundSchema,
-    type: operations.UpdateEntryBadRequestType$inboundSchema,
-    code: operations.UpdateEntryCodeImmutableValue$inboundSchema,
+    type: types.literal("invalid_request_error"),
+    status_code: types.literal(400),
+    code: types.literal("immutable_value"),
     message: types.string(),
     request$: z.custom<Request>(x => x instanceof Request),
     response$: z.custom<Response>(x => x instanceof Response),

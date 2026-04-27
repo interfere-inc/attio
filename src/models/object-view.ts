@@ -25,11 +25,11 @@ export type ObjectViewId = {
 };
 
 export type ObjectView = {
-  id: ObjectViewId;
   /**
    * The title of the view shown in the Attio app.
    */
   title: string;
+  id: ObjectViewId;
   /**
    * When the view was created.
    */
@@ -67,8 +67,8 @@ export function objectViewIdFromJSON(
 export const ObjectView$inboundSchema: z.ZodMiniType<ObjectView, unknown> = z
   .pipe(
     z.object({
-      id: z.lazy(() => ObjectViewId$inboundSchema),
       title: types.string(),
+      id: z.lazy(() => ObjectViewId$inboundSchema),
       created_at: types.string(),
     }),
     z.transform((v) => {

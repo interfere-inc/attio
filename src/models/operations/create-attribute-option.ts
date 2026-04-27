@@ -44,69 +44,6 @@ export type CreateAttributeOptionRequest = {
   body: CreateAttributeOptionRequestBody;
 };
 
-export const CreateAttributeOptionConflictStatusCode = {
-  FourHundredAndNine: 409,
-} as const;
-export type CreateAttributeOptionConflictStatusCode = ClosedEnum<
-  typeof CreateAttributeOptionConflictStatusCode
->;
-
-export const CreateAttributeOptionConflictType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type CreateAttributeOptionConflictType = ClosedEnum<
-  typeof CreateAttributeOptionConflictType
->;
-
-export const CreateAttributeOptionConflictCode = {
-  SlugConflict: "slug_conflict",
-} as const;
-export type CreateAttributeOptionConflictCode = ClosedEnum<
-  typeof CreateAttributeOptionConflictCode
->;
-
-export const CreateAttributeOptionNotFoundStatusCode = {
-  FourHundredAndFour: 404,
-} as const;
-export type CreateAttributeOptionNotFoundStatusCode = ClosedEnum<
-  typeof CreateAttributeOptionNotFoundStatusCode
->;
-
-export const CreateAttributeOptionNotFoundType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type CreateAttributeOptionNotFoundType = ClosedEnum<
-  typeof CreateAttributeOptionNotFoundType
->;
-
-export const CreateAttributeOptionNotFoundCode = {
-  NotFound: "not_found",
-} as const;
-export type CreateAttributeOptionNotFoundCode = ClosedEnum<
-  typeof CreateAttributeOptionNotFoundCode
->;
-
-export const CreateAttributeOptionBadRequestStatusCode = {
-  FourHundred: 400,
-} as const;
-export type CreateAttributeOptionBadRequestStatusCode = ClosedEnum<
-  typeof CreateAttributeOptionBadRequestStatusCode
->;
-
-export const CreateAttributeOptionBadRequestType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type CreateAttributeOptionBadRequestType = ClosedEnum<
-  typeof CreateAttributeOptionBadRequestType
->;
-
-export const CreateAttributeOptionCodeValidationType = {
-  ValidationType: "validation_type",
-} as const;
-export type CreateAttributeOptionCodeValidationType = ClosedEnum<
-  typeof CreateAttributeOptionCodeValidationType
->;
-
 /**
  * Success
  */
@@ -191,55 +128,6 @@ export function createAttributeOptionRequestToJSON(
     ),
   );
 }
-
-/** @internal */
-export const CreateAttributeOptionConflictStatusCode$inboundSchema:
-  z.ZodMiniEnum<typeof CreateAttributeOptionConflictStatusCode> = z.enum(
-    CreateAttributeOptionConflictStatusCode,
-  );
-
-/** @internal */
-export const CreateAttributeOptionConflictType$inboundSchema: z.ZodMiniEnum<
-  typeof CreateAttributeOptionConflictType
-> = z.enum(CreateAttributeOptionConflictType);
-
-/** @internal */
-export const CreateAttributeOptionConflictCode$inboundSchema: z.ZodMiniEnum<
-  typeof CreateAttributeOptionConflictCode
-> = z.enum(CreateAttributeOptionConflictCode);
-
-/** @internal */
-export const CreateAttributeOptionNotFoundStatusCode$inboundSchema:
-  z.ZodMiniEnum<typeof CreateAttributeOptionNotFoundStatusCode> = z.enum(
-    CreateAttributeOptionNotFoundStatusCode,
-  );
-
-/** @internal */
-export const CreateAttributeOptionNotFoundType$inboundSchema: z.ZodMiniEnum<
-  typeof CreateAttributeOptionNotFoundType
-> = z.enum(CreateAttributeOptionNotFoundType);
-
-/** @internal */
-export const CreateAttributeOptionNotFoundCode$inboundSchema: z.ZodMiniEnum<
-  typeof CreateAttributeOptionNotFoundCode
-> = z.enum(CreateAttributeOptionNotFoundCode);
-
-/** @internal */
-export const CreateAttributeOptionBadRequestStatusCode$inboundSchema:
-  z.ZodMiniEnum<typeof CreateAttributeOptionBadRequestStatusCode> = z.enum(
-    CreateAttributeOptionBadRequestStatusCode,
-  );
-
-/** @internal */
-export const CreateAttributeOptionBadRequestType$inboundSchema: z.ZodMiniEnum<
-  typeof CreateAttributeOptionBadRequestType
-> = z.enum(CreateAttributeOptionBadRequestType);
-
-/** @internal */
-export const CreateAttributeOptionCodeValidationType$inboundSchema:
-  z.ZodMiniEnum<typeof CreateAttributeOptionCodeValidationType> = z.enum(
-    CreateAttributeOptionCodeValidationType,
-  );
 
 /** @internal */
 export const CreateAttributeOptionResponse$inboundSchema: z.ZodMiniType<

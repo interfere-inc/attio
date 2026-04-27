@@ -5,7 +5,6 @@
 import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
 import * as models from "../index.js";
@@ -28,21 +27,6 @@ export type CreateObjectData = {
 export type CreateObjectRequest = {
   data: CreateObjectData;
 };
-
-export const CreateObjectStatusCode = {
-  FourHundredAndNine: 409,
-} as const;
-export type CreateObjectStatusCode = ClosedEnum<typeof CreateObjectStatusCode>;
-
-export const CreateObjectType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type CreateObjectType = ClosedEnum<typeof CreateObjectType>;
-
-export const CreateObjectCode = {
-  SlugConflict: "slug_conflict",
-} as const;
-export type CreateObjectCode = ClosedEnum<typeof CreateObjectCode>;
 
 /**
  * Success
@@ -105,21 +89,6 @@ export function createObjectRequestToJSON(
     CreateObjectRequest$outboundSchema.parse(createObjectRequest),
   );
 }
-
-/** @internal */
-export const CreateObjectStatusCode$inboundSchema: z.ZodMiniEnum<
-  typeof CreateObjectStatusCode
-> = z.enum(CreateObjectStatusCode);
-
-/** @internal */
-export const CreateObjectType$inboundSchema: z.ZodMiniEnum<
-  typeof CreateObjectType
-> = z.enum(CreateObjectType);
-
-/** @internal */
-export const CreateObjectCode$inboundSchema: z.ZodMiniEnum<
-  typeof CreateObjectCode
-> = z.enum(CreateObjectCode);
 
 /** @internal */
 export const CreateObjectResponse$inboundSchema: z.ZodMiniType<

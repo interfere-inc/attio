@@ -4,16 +4,15 @@
 
 import * as z from "zod/v4-mini";
 import * as types from "../../types/primitives.js";
-import * as operations from "../operations/index.js";
 import { AttioBaseError } from "./attio-base-error.js";
 
 /**
  * Bad Request
  */
 export type FindOrCreateMeetingValidationTypeErrorData = {
-  statusCode: operations.FindOrCreateMeetingStatusCode;
-  type: operations.FindOrCreateMeetingType;
-  code: operations.FindOrCreateMeetingCode;
+  type: "invalid_request_error";
+  statusCode: 400;
+  code: "validation_type";
   message: string;
 };
 
@@ -21,8 +20,8 @@ export type FindOrCreateMeetingValidationTypeErrorData = {
  * Bad Request
  */
 export class FindOrCreateMeetingValidationTypeError extends AttioBaseError {
-  type: operations.FindOrCreateMeetingType;
-  code: operations.FindOrCreateMeetingCode;
+  type: "invalid_request_error";
+  code: "validation_type";
 
   /** The original data that was passed to this error instance. */
   data$: FindOrCreateMeetingValidationTypeErrorData;
@@ -45,9 +44,9 @@ export class FindOrCreateMeetingValidationTypeError extends AttioBaseError {
 export const FindOrCreateMeetingValidationTypeError$inboundSchema:
   z.ZodMiniType<FindOrCreateMeetingValidationTypeError, unknown> = z.pipe(
     z.object({
-      statusCode: operations.FindOrCreateMeetingStatusCode$inboundSchema,
-      type: operations.FindOrCreateMeetingType$inboundSchema,
-      code: operations.FindOrCreateMeetingCode$inboundSchema,
+      type: types.literal("invalid_request_error"),
+      statusCode: types.literal(400),
+      code: types.literal("validation_type"),
       message: types.string(),
       request$: z.custom<Request>(x => x instanceof Request),
       response$: z.custom<Response>(x => x instanceof Response),

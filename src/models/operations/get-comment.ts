@@ -5,7 +5,6 @@
 import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
 import * as models from "../index.js";
@@ -13,21 +12,6 @@ import * as models from "../index.js";
 export type GetCommentRequest = {
   commentId: string;
 };
-
-export const GetCommentStatusCode = {
-  FourHundredAndFour: 404,
-} as const;
-export type GetCommentStatusCode = ClosedEnum<typeof GetCommentStatusCode>;
-
-export const GetCommentType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type GetCommentType = ClosedEnum<typeof GetCommentType>;
-
-export const GetCommentCode = {
-  NotFound: "not_found",
-} as const;
-export type GetCommentCode = ClosedEnum<typeof GetCommentCode>;
 
 /**
  * Success
@@ -63,21 +47,6 @@ export function getCommentRequestToJSON(
     GetCommentRequest$outboundSchema.parse(getCommentRequest),
   );
 }
-
-/** @internal */
-export const GetCommentStatusCode$inboundSchema: z.ZodMiniEnum<
-  typeof GetCommentStatusCode
-> = z.enum(GetCommentStatusCode);
-
-/** @internal */
-export const GetCommentType$inboundSchema: z.ZodMiniEnum<
-  typeof GetCommentType
-> = z.enum(GetCommentType);
-
-/** @internal */
-export const GetCommentCode$inboundSchema: z.ZodMiniEnum<
-  typeof GetCommentCode
-> = z.enum(GetCommentCode);
 
 /** @internal */
 export const GetCommentResponse$inboundSchema: z.ZodMiniType<

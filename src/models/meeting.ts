@@ -23,14 +23,14 @@ export type MeetingId = {
   meetingId: string;
 };
 
-export type Start2 = {
+export type MeetingStartDate = {
   /**
    * If an all day event, a date representing when the meeting starts.
    */
   date: string;
 };
 
-export type Start1 = {
+export type MeetingStartDateTime = {
   /**
    * If a non-all day event, a datetime representing when the meeting starts. Datetimes are formatted as UTC if no timezone is available. If a timezone is available, the datetime will offset using the specified timezone.
    */
@@ -41,16 +41,16 @@ export type Start1 = {
   timezone: string | null;
 };
 
-export type StartUnion = Start1 | Start2;
+export type Start = MeetingStartDateTime | MeetingStartDate;
 
-export type End2 = {
+export type MeetingEndDate = {
   /**
    * If an all day event, a date representing when the meeting ends.
    */
   date: string;
 };
 
-export type End1 = {
+export type MeetingEndDateTime = {
   /**
    * A datetime representing when the meeting ends. All day meetings will return a date whereas non-all day meetings will return a datetime. Datetimes do not include timezone information; please refer to `timezone` for timezone information. Following iCalendar RFC 5545, the `end_at` property is exclusive, meaning that the meeting ends before the specified time, not at it. For example, a one day meeting on June 3rd would have an `end_at` of June 4th, not June 3rd; a one hour meeting starting at 14:00 would have an `end_at` of 15:00, not 14:00.
    */
@@ -61,7 +61,7 @@ export type End1 = {
   timezone: string | null;
 };
 
-export type EndUnion = End1 | End2;
+export type End = MeetingEndDateTime | MeetingEndDate;
 
 /**
  * The status of the individual meeting participant.
@@ -126,17 +126,16 @@ export type MeetingType = OpenEnum<typeof MeetingType>;
  */
 export type MeetingCreatedByActor = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: MeetingType | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type Meeting = {
-  id: MeetingId;
   /**
    * The title of the meeting.
    */
@@ -145,12 +144,13 @@ export type Meeting = {
    * The description of the meeting.
    */
   description: string;
+  id: MeetingId;
   /**
    * Whether or not the meeting is an all day event. All day events may span multiple days.
    */
   isAllDay: boolean;
-  start: Start1 | Start2;
-  end: End1 | End2;
+  start: MeetingStartDateTime | MeetingStartDate;
+  end: MeetingEndDateTime | MeetingEndDate;
   participants: Array<Participant>;
   /**
    * A list of records that are linked to the meeting. Participants with matching person records are automatically linked to the meeting but other records may also be linked explicitly.
@@ -192,98 +192,108 @@ export function meetingIdFromJSON(
 }
 
 /** @internal */
-export const Start2$inboundSchema: z.ZodMiniType<Start2, unknown> = z.object({
+export const MeetingStartDate$inboundSchema: z.ZodMiniType<
+  MeetingStartDate,
+  unknown
+> = z.object({
   date: types.string(),
 });
 
-export function start2FromJSON(
+export function meetingStartDateFromJSON(
   jsonString: string,
-): SafeParseResult<Start2, SDKValidationError> {
+): SafeParseResult<MeetingStartDate, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => Start2$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Start2' from JSON`,
+    (x) => MeetingStartDate$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MeetingStartDate' from JSON`,
   );
 }
 
 /** @internal */
-export const Start1$inboundSchema: z.ZodMiniType<Start1, unknown> = z.object({
+export const MeetingStartDateTime$inboundSchema: z.ZodMiniType<
+  MeetingStartDateTime,
+  unknown
+> = z.object({
   datetime: types.string(),
   timezone: types.nullable(types.string()),
 });
 
-export function start1FromJSON(
+export function meetingStartDateTimeFromJSON(
   jsonString: string,
-): SafeParseResult<Start1, SDKValidationError> {
+): SafeParseResult<MeetingStartDateTime, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => Start1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Start1' from JSON`,
+    (x) => MeetingStartDateTime$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MeetingStartDateTime' from JSON`,
   );
 }
 
 /** @internal */
-export const StartUnion$inboundSchema: z.ZodMiniType<StartUnion, unknown> =
-  smartUnion([
-    z.lazy(() => Start1$inboundSchema),
-    z.lazy(() => Start2$inboundSchema),
-  ]);
+export const Start$inboundSchema: z.ZodMiniType<Start, unknown> = smartUnion([
+  z.lazy(() => MeetingStartDateTime$inboundSchema),
+  z.lazy(() => MeetingStartDate$inboundSchema),
+]);
 
-export function startUnionFromJSON(
+export function startFromJSON(
   jsonString: string,
-): SafeParseResult<StartUnion, SDKValidationError> {
+): SafeParseResult<Start, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => StartUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'StartUnion' from JSON`,
+    (x) => Start$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Start' from JSON`,
   );
 }
 
 /** @internal */
-export const End2$inboundSchema: z.ZodMiniType<End2, unknown> = z.object({
+export const MeetingEndDate$inboundSchema: z.ZodMiniType<
+  MeetingEndDate,
+  unknown
+> = z.object({
   date: types.string(),
 });
 
-export function end2FromJSON(
+export function meetingEndDateFromJSON(
   jsonString: string,
-): SafeParseResult<End2, SDKValidationError> {
+): SafeParseResult<MeetingEndDate, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => End2$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'End2' from JSON`,
+    (x) => MeetingEndDate$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MeetingEndDate' from JSON`,
   );
 }
 
 /** @internal */
-export const End1$inboundSchema: z.ZodMiniType<End1, unknown> = z.object({
+export const MeetingEndDateTime$inboundSchema: z.ZodMiniType<
+  MeetingEndDateTime,
+  unknown
+> = z.object({
   datetime: types.string(),
   timezone: types.nullable(types.string()),
 });
 
-export function end1FromJSON(
+export function meetingEndDateTimeFromJSON(
   jsonString: string,
-): SafeParseResult<End1, SDKValidationError> {
+): SafeParseResult<MeetingEndDateTime, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => End1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'End1' from JSON`,
+    (x) => MeetingEndDateTime$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MeetingEndDateTime' from JSON`,
   );
 }
 
 /** @internal */
-export const EndUnion$inboundSchema: z.ZodMiniType<EndUnion, unknown> =
-  smartUnion([
-    z.lazy(() => End1$inboundSchema),
-    z.lazy(() => End2$inboundSchema),
-  ]);
+export const End$inboundSchema: z.ZodMiniType<End, unknown> = smartUnion([
+  z.lazy(() => MeetingEndDateTime$inboundSchema),
+  z.lazy(() => MeetingEndDate$inboundSchema),
+]);
 
-export function endUnionFromJSON(
+export function endFromJSON(
   jsonString: string,
-): SafeParseResult<EndUnion, SDKValidationError> {
+): SafeParseResult<End, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => EndUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EndUnion' from JSON`,
+    (x) => End$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'End' from JSON`,
   );
 }
 
@@ -355,8 +365,8 @@ export const MeetingCreatedByActor$inboundSchema: z.ZodMiniType<
   MeetingCreatedByActor,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(z.nullable(MeetingType$inboundSchema)),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function meetingCreatedByActorFromJSON(
@@ -372,17 +382,17 @@ export function meetingCreatedByActorFromJSON(
 /** @internal */
 export const Meeting$inboundSchema: z.ZodMiniType<Meeting, unknown> = z.pipe(
   z.object({
-    id: z.lazy(() => MeetingId$inboundSchema),
     title: types.string(),
     description: types.string(),
+    id: z.lazy(() => MeetingId$inboundSchema),
     is_all_day: types.boolean(),
     start: smartUnion([
-      z.lazy(() => Start1$inboundSchema),
-      z.lazy(() => Start2$inboundSchema),
+      z.lazy(() => MeetingStartDateTime$inboundSchema),
+      z.lazy(() => MeetingStartDate$inboundSchema),
     ]),
     end: smartUnion([
-      z.lazy(() => End1$inboundSchema),
-      z.lazy(() => End2$inboundSchema),
+      z.lazy(() => MeetingEndDateTime$inboundSchema),
+      z.lazy(() => MeetingEndDate$inboundSchema),
     ]),
     participants: z.array(z.lazy(() => Participant$inboundSchema)),
     linked_records: z.array(z.lazy(() => MeetingLinkedRecord$inboundSchema)),

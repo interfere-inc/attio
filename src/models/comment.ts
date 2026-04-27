@@ -69,13 +69,13 @@ export type ResolvedByType = OpenEnum<typeof ResolvedByType>;
  */
 export type ResolvedBy = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: ResolvedByType | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 /**
@@ -97,13 +97,13 @@ export type AuthorType = OpenEnum<typeof AuthorType>;
  */
 export type Author = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: AuthorType | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type Comment = {
@@ -224,8 +224,8 @@ export const ResolvedByType$inboundSchema: z.ZodMiniType<
 /** @internal */
 export const ResolvedBy$inboundSchema: z.ZodMiniType<ResolvedBy, unknown> = z
   .object({
-    id: z.optional(z.nullable(types.string())),
     type: z.optional(z.nullable(ResolvedByType$inboundSchema)),
+    id: z.optional(z.nullable(types.string())),
   });
 
 export function resolvedByFromJSON(
@@ -244,8 +244,8 @@ export const AuthorType$inboundSchema: z.ZodMiniType<AuthorType, unknown> =
 
 /** @internal */
 export const Author$inboundSchema: z.ZodMiniType<Author, unknown> = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(z.nullable(AuthorType$inboundSchema)),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function authorFromJSON(

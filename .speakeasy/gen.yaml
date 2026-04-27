@@ -35,7 +35,7 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: false
 typescript:
-  version: 0.2.10
+  version: 0.2.15
   acceptHeaderEnum: false
   additionalDependencies:
     dependencies: {}
@@ -43,9 +43,6 @@ typescript:
     peerDependencies: {}
   additionalPackageJSON:
     private: false
-    repository:
-      type: git
-      url: https://github.com/interfere-inc/attio.git
   additionalScripts: {}
   alwaysIncludeInboundAndOutbound: false
   author: Interfere, Inc. <support@interfere.com>
@@ -83,7 +80,7 @@ typescript:
   maxMethodParams: 0
   methodArguments: infer-optional-args
   modelPropertyCasing: camel
-  moduleFormat: dual
+  moduleFormat: esm
   multipartArrayFormat: standard
   outputModelSuffix: output
   packageName: '@interfere/attio'
@@ -95,6 +92,6 @@ typescript:
   unionStrategy: populated-fields
   usageSDKInitImports: []
   useIndexModules: true
-  useOxlint: false
-  useTsgo: false
+  useOxlint: true
+  useTsgo: true
   zodVersion: v4-mini

@@ -92,25 +92,6 @@ export class Entries extends ClientSDK {
   }
 
   /**
-   * Update a list entry (append multiselect values)
-   *
-   * @remarks
-   * Use this endpoint to update list entries by `entry_id`. If the update payload includes multiselect attributes, the values supplied will be created and prepended to the list of values that already exist (if any). Use the `PUT` endpoint to overwrite or remove multiselect attribute values.
-   *
-   * Required scopes: `list_entry:read-write`, `list_configuration:read`.
-   */
-  async updateAppending(
-    request: operations.UpdateAppendingEntryRequest,
-    options?: RequestOptions,
-  ): Promise<operations.UpdateAppendingEntryResponse> {
-    return unwrapAsync(entriesUpdateAppending(
-      this,
-      request,
-      options,
-    ));
-  }
-
-  /**
    * Update a list entry (overwrite multiselect values)
    *
    * @remarks
@@ -142,6 +123,25 @@ export class Entries extends ClientSDK {
     options?: RequestOptions,
   ): Promise<operations.DeleteEntryResponse> {
     return unwrapAsync(entriesDelete(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Update a list entry (append multiselect values)
+   *
+   * @remarks
+   * Use this endpoint to update list entries by `entry_id`. If the update payload includes multiselect attributes, the values supplied will be created and prepended to the list of values that already exist (if any). Use the `PUT` endpoint to overwrite or remove multiselect attribute values.
+   *
+   * Required scopes: `list_entry:read-write`, `list_configuration:read`.
+   */
+  async updateAppending(
+    request: operations.UpdateAppendingEntryRequest,
+    options?: RequestOptions,
+  ): Promise<operations.UpdateAppendingEntryResponse> {
+    return unwrapAsync(entriesUpdateAppending(
       this,
       request,
       options,

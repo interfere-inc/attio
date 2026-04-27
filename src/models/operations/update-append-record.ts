@@ -8,7 +8,7 @@ import { safeParse } from "../../lib/schemas.js";
 import * as discriminatedUnionTypes from "../../types/discriminated-union.js";
 import { discriminatedUnion } from "../../types/discriminated-union.js";
 import * as openEnums from "../../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../../types/enums.js";
+import { OpenEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import * as types from "../../types/primitives.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
@@ -30,48 +30,6 @@ export type UpdateAppendRecordRequest = {
   recordId: string;
   body: UpdateAppendRecordRequestBody;
 };
-
-export const UpdateAppendRecordNotFoundStatusCode = {
-  FourHundredAndFour: 404,
-} as const;
-export type UpdateAppendRecordNotFoundStatusCode = ClosedEnum<
-  typeof UpdateAppendRecordNotFoundStatusCode
->;
-
-export const UpdateAppendRecordNotFoundType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type UpdateAppendRecordNotFoundType = ClosedEnum<
-  typeof UpdateAppendRecordNotFoundType
->;
-
-export const UpdateAppendRecordNotFoundCode = {
-  NotFound: "not_found",
-} as const;
-export type UpdateAppendRecordNotFoundCode = ClosedEnum<
-  typeof UpdateAppendRecordNotFoundCode
->;
-
-export const UpdateAppendRecordBadRequestStatusCode = {
-  FourHundred: 400,
-} as const;
-export type UpdateAppendRecordBadRequestStatusCode = ClosedEnum<
-  typeof UpdateAppendRecordBadRequestStatusCode
->;
-
-export const UpdateAppendRecordBadRequestType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type UpdateAppendRecordBadRequestType = ClosedEnum<
-  typeof UpdateAppendRecordBadRequestType
->;
-
-export const UpdateAppendRecordCodeMissingValue = {
-  MissingValue: "missing_value",
-} as const;
-export type UpdateAppendRecordCodeMissingValue = ClosedEnum<
-  typeof UpdateAppendRecordCodeMissingValue
->;
 
 export type UpdateAppendRecordId = {
   /**
@@ -109,13 +67,13 @@ export type UpdateAppendRecordCreatedByActorType17 = OpenEnum<
  */
 export type UpdateAppendRecordCreatedByActor17 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: UpdateAppendRecordCreatedByActorType17 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type UpdateAppendRecordValueTimestamp = {
@@ -162,13 +120,13 @@ export type UpdateAppendRecordCreatedByActorType16 = OpenEnum<
  */
 export type UpdateAppendRecordCreatedByActor16 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: UpdateAppendRecordCreatedByActorType16 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type UpdateAppendRecordValueText = {
@@ -215,13 +173,13 @@ export type UpdateAppendRecordCreatedByActorType15 = OpenEnum<
  */
 export type UpdateAppendRecordCreatedByActor15 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: UpdateAppendRecordCreatedByActorType15 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type UpdateAppendRecordValueSelect = {
@@ -265,13 +223,13 @@ export type UpdateAppendRecordCreatedByActorType14 = OpenEnum<
  */
 export type UpdateAppendRecordCreatedByActor14 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: UpdateAppendRecordCreatedByActorType14 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type UpdateAppendRecordValueRating = {
@@ -318,13 +276,13 @@ export type UpdateAppendRecordCreatedByActorType13 = OpenEnum<
  */
 export type UpdateAppendRecordCreatedByActor13 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: UpdateAppendRecordCreatedByActorType13 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type UpdateAppendRecordValueStatus = {
@@ -368,13 +326,13 @@ export type UpdateAppendRecordCreatedByActorType12 = OpenEnum<
  */
 export type UpdateAppendRecordCreatedByActor12 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: UpdateAppendRecordCreatedByActorType12 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 /**
@@ -690,13 +648,13 @@ export type UpdateAppendRecordCreatedByActorType11 = OpenEnum<
  */
 export type UpdateAppendRecordCreatedByActor11 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: UpdateAppendRecordCreatedByActorType11 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type UpdateAppendRecordValuePersonalName = {
@@ -751,13 +709,13 @@ export type UpdateAppendRecordCreatedByActorType10 = OpenEnum<
  */
 export type UpdateAppendRecordCreatedByActor10 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: UpdateAppendRecordCreatedByActorType10 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type UpdateAppendRecordValueNumber = {
@@ -804,13 +762,13 @@ export type UpdateAppendRecordCreatedByActorType9 = OpenEnum<
  */
 export type UpdateAppendRecordCreatedByActor9 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: UpdateAppendRecordCreatedByActorType9 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 /**
@@ -1157,13 +1115,13 @@ export type UpdateAppendRecordCreatedByActorType8 = OpenEnum<
  */
 export type UpdateAppendRecordCreatedByActor8 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: UpdateAppendRecordCreatedByActorType8 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 /**
@@ -1205,13 +1163,13 @@ export type UpdateAppendRecordOwnerActorType = OpenEnum<
  */
 export type UpdateAppendRecordOwnerActor = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: UpdateAppendRecordOwnerActorType | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type UpdateAppendRecordValueInteraction = {
@@ -1266,13 +1224,13 @@ export type UpdateAppendRecordCreatedByActorType7 = OpenEnum<
  */
 export type UpdateAppendRecordCreatedByActor7 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: UpdateAppendRecordCreatedByActorType7 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type UpdateAppendRecordValueRecordReference = {
@@ -1323,13 +1281,13 @@ export type UpdateAppendRecordCreatedByActorType6 = OpenEnum<
  */
 export type UpdateAppendRecordCreatedByActor6 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: UpdateAppendRecordCreatedByActorType6 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type UpdateAppendRecordValueEmailAddress = {
@@ -1377,13 +1335,13 @@ export type UpdateAppendRecordCreatedByActorType5 = OpenEnum<
  */
 export type UpdateAppendRecordCreatedByActor5 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: UpdateAppendRecordCreatedByActorType5 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type UpdateAppendRecordValueDomain = {
@@ -1428,13 +1386,13 @@ export type UpdateAppendRecordCreatedByActorType4 = OpenEnum<
  */
 export type UpdateAppendRecordCreatedByActor4 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: UpdateAppendRecordCreatedByActorType4 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type UpdateAppendRecordValueDate = {
@@ -1481,13 +1439,13 @@ export type UpdateAppendRecordCreatedByActorType3 = OpenEnum<
  */
 export type UpdateAppendRecordCreatedByActor3 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: UpdateAppendRecordCreatedByActorType3 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 /**
@@ -1591,13 +1549,13 @@ export type UpdateAppendRecordCreatedByActorType2 = OpenEnum<
  */
 export type UpdateAppendRecordCreatedByActor2 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: UpdateAppendRecordCreatedByActorType2 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type UpdateAppendRecordValueCheckbox = {
@@ -1644,13 +1602,13 @@ export type UpdateAppendRecordCreatedByActorType1 = OpenEnum<
  */
 export type UpdateAppendRecordCreatedByActor1 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: UpdateAppendRecordCreatedByActorType1 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 /**
@@ -1839,37 +1797,6 @@ export function updateAppendRecordRequestToJSON(
 }
 
 /** @internal */
-export const UpdateAppendRecordNotFoundStatusCode$inboundSchema: z.ZodMiniEnum<
-  typeof UpdateAppendRecordNotFoundStatusCode
-> = z.enum(UpdateAppendRecordNotFoundStatusCode);
-
-/** @internal */
-export const UpdateAppendRecordNotFoundType$inboundSchema: z.ZodMiniEnum<
-  typeof UpdateAppendRecordNotFoundType
-> = z.enum(UpdateAppendRecordNotFoundType);
-
-/** @internal */
-export const UpdateAppendRecordNotFoundCode$inboundSchema: z.ZodMiniEnum<
-  typeof UpdateAppendRecordNotFoundCode
-> = z.enum(UpdateAppendRecordNotFoundCode);
-
-/** @internal */
-export const UpdateAppendRecordBadRequestStatusCode$inboundSchema:
-  z.ZodMiniEnum<typeof UpdateAppendRecordBadRequestStatusCode> = z.enum(
-    UpdateAppendRecordBadRequestStatusCode,
-  );
-
-/** @internal */
-export const UpdateAppendRecordBadRequestType$inboundSchema: z.ZodMiniEnum<
-  typeof UpdateAppendRecordBadRequestType
-> = z.enum(UpdateAppendRecordBadRequestType);
-
-/** @internal */
-export const UpdateAppendRecordCodeMissingValue$inboundSchema: z.ZodMiniEnum<
-  typeof UpdateAppendRecordCodeMissingValue
-> = z.enum(UpdateAppendRecordCodeMissingValue);
-
-/** @internal */
 export const UpdateAppendRecordId$inboundSchema: z.ZodMiniType<
   UpdateAppendRecordId,
   unknown
@@ -1908,10 +1835,10 @@ export const UpdateAppendRecordCreatedByActor17$inboundSchema: z.ZodMiniType<
   UpdateAppendRecordCreatedByActor17,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(
     z.nullable(UpdateAppendRecordCreatedByActorType17$inboundSchema),
   ),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function updateAppendRecordCreatedByActor17FromJSON(
@@ -1969,10 +1896,10 @@ export const UpdateAppendRecordCreatedByActor16$inboundSchema: z.ZodMiniType<
   UpdateAppendRecordCreatedByActor16,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(
     z.nullable(UpdateAppendRecordCreatedByActorType16$inboundSchema),
   ),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function updateAppendRecordCreatedByActor16FromJSON(
@@ -2030,10 +1957,10 @@ export const UpdateAppendRecordCreatedByActor15$inboundSchema: z.ZodMiniType<
   UpdateAppendRecordCreatedByActor15,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(
     z.nullable(UpdateAppendRecordCreatedByActorType15$inboundSchema),
   ),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function updateAppendRecordCreatedByActor15FromJSON(
@@ -2091,10 +2018,10 @@ export const UpdateAppendRecordCreatedByActor14$inboundSchema: z.ZodMiniType<
   UpdateAppendRecordCreatedByActor14,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(
     z.nullable(UpdateAppendRecordCreatedByActorType14$inboundSchema),
   ),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function updateAppendRecordCreatedByActor14FromJSON(
@@ -2152,10 +2079,10 @@ export const UpdateAppendRecordCreatedByActor13$inboundSchema: z.ZodMiniType<
   UpdateAppendRecordCreatedByActor13,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(
     z.nullable(UpdateAppendRecordCreatedByActorType13$inboundSchema),
   ),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function updateAppendRecordCreatedByActor13FromJSON(
@@ -2213,10 +2140,10 @@ export const UpdateAppendRecordCreatedByActor12$inboundSchema: z.ZodMiniType<
   UpdateAppendRecordCreatedByActor12,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(
     z.nullable(UpdateAppendRecordCreatedByActorType12$inboundSchema),
   ),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function updateAppendRecordCreatedByActor12FromJSON(
@@ -2286,10 +2213,10 @@ export const UpdateAppendRecordCreatedByActor11$inboundSchema: z.ZodMiniType<
   UpdateAppendRecordCreatedByActor11,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(
     z.nullable(UpdateAppendRecordCreatedByActorType11$inboundSchema),
   ),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function updateAppendRecordCreatedByActor11FromJSON(
@@ -2353,10 +2280,10 @@ export const UpdateAppendRecordCreatedByActor10$inboundSchema: z.ZodMiniType<
   UpdateAppendRecordCreatedByActor10,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(
     z.nullable(UpdateAppendRecordCreatedByActorType10$inboundSchema),
   ),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function updateAppendRecordCreatedByActor10FromJSON(
@@ -2415,10 +2342,10 @@ export const UpdateAppendRecordCreatedByActor9$inboundSchema: z.ZodMiniType<
   UpdateAppendRecordCreatedByActor9,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(
     z.nullable(UpdateAppendRecordCreatedByActorType9$inboundSchema),
   ),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function updateAppendRecordCreatedByActor9FromJSON(
@@ -2496,10 +2423,10 @@ export const UpdateAppendRecordCreatedByActor8$inboundSchema: z.ZodMiniType<
   UpdateAppendRecordCreatedByActor8,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(
     z.nullable(UpdateAppendRecordCreatedByActorType8$inboundSchema),
   ),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function updateAppendRecordCreatedByActor8FromJSON(
@@ -2529,8 +2456,8 @@ export const UpdateAppendRecordOwnerActor$inboundSchema: z.ZodMiniType<
   UpdateAppendRecordOwnerActor,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(z.nullable(UpdateAppendRecordOwnerActorType$inboundSchema)),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function updateAppendRecordOwnerActorFromJSON(
@@ -2594,10 +2521,10 @@ export const UpdateAppendRecordCreatedByActor7$inboundSchema: z.ZodMiniType<
   UpdateAppendRecordCreatedByActor7,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(
     z.nullable(UpdateAppendRecordCreatedByActorType7$inboundSchema),
   ),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function updateAppendRecordCreatedByActor7FromJSON(
@@ -2657,10 +2584,10 @@ export const UpdateAppendRecordCreatedByActor6$inboundSchema: z.ZodMiniType<
   UpdateAppendRecordCreatedByActor6,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(
     z.nullable(UpdateAppendRecordCreatedByActorType6$inboundSchema),
   ),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function updateAppendRecordCreatedByActor6FromJSON(
@@ -2728,10 +2655,10 @@ export const UpdateAppendRecordCreatedByActor5$inboundSchema: z.ZodMiniType<
   UpdateAppendRecordCreatedByActor5,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(
     z.nullable(UpdateAppendRecordCreatedByActorType5$inboundSchema),
   ),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function updateAppendRecordCreatedByActor5FromJSON(
@@ -2791,10 +2718,10 @@ export const UpdateAppendRecordCreatedByActor4$inboundSchema: z.ZodMiniType<
   UpdateAppendRecordCreatedByActor4,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(
     z.nullable(UpdateAppendRecordCreatedByActorType4$inboundSchema),
   ),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function updateAppendRecordCreatedByActor4FromJSON(
@@ -2852,10 +2779,10 @@ export const UpdateAppendRecordCreatedByActor3$inboundSchema: z.ZodMiniType<
   UpdateAppendRecordCreatedByActor3,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(
     z.nullable(UpdateAppendRecordCreatedByActorType3$inboundSchema),
   ),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function updateAppendRecordCreatedByActor3FromJSON(
@@ -2924,10 +2851,10 @@ export const UpdateAppendRecordCreatedByActor2$inboundSchema: z.ZodMiniType<
   UpdateAppendRecordCreatedByActor2,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(
     z.nullable(UpdateAppendRecordCreatedByActorType2$inboundSchema),
   ),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function updateAppendRecordCreatedByActor2FromJSON(
@@ -2985,10 +2912,10 @@ export const UpdateAppendRecordCreatedByActor1$inboundSchema: z.ZodMiniType<
   UpdateAppendRecordCreatedByActor1,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(
     z.nullable(UpdateAppendRecordCreatedByActorType1$inboundSchema),
   ),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function updateAppendRecordCreatedByActor1FromJSON(

@@ -23,7 +23,7 @@ import * as models from "../index.js";
  *
  *   *Note: While the Attio interface supports image embeds, they cannot currently be added or retrieved via the API's markdown format.*
  */
-export const CreateNoteFormat = {
+export const Format = {
   Plaintext: "plaintext",
   Markdown: "markdown",
 } as const;
@@ -40,9 +40,13 @@ export const CreateNoteFormat = {
  *
  *   *Note: While the Attio interface supports image embeds, they cannot currently be added or retrieved via the API's markdown format.*
  */
-export type CreateNoteFormat = ClosedEnum<typeof CreateNoteFormat>;
+export type Format = ClosedEnum<typeof Format>;
 
 export type CreateNoteData = {
+  /**
+   * The note title. The title is plaintext only and has no formatting.
+   */
+  title: string;
   /**
    * The ID or slug of the parent object the note belongs to.
    */
@@ -51,10 +55,6 @@ export type CreateNoteData = {
    * The ID of the parent record the note belongs to.
    */
   parentRecordId: string;
-  /**
-   * The note title. The title is plaintext only and has no formatting.
-   */
-  title: string;
   /**
    * Specify the format for the note's content. Choose from:
    *
@@ -68,7 +68,7 @@ export type CreateNoteData = {
    *
    *   *Note: While the Attio interface supports image embeds, they cannot currently be added or retrieved via the API's markdown format.*
    */
-  format: CreateNoteFormat;
+  format: Format;
   /**
    * The main content of the note, formatted according to the value provided in the `format` field. Use `\n` for line breaks in `plaintext`. For `markdown`, utilize the supported syntax elements to structure and style your note.
    */
@@ -87,44 +87,6 @@ export type CreateNoteRequest = {
   data: CreateNoteData;
 };
 
-export const RequestEntityTooLargeStatusCode = {
-  FourHundredAndThirteen: 413,
-} as const;
-export type RequestEntityTooLargeStatusCode = ClosedEnum<
-  typeof RequestEntityTooLargeStatusCode
->;
-
-export const RequestEntityTooLargeType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type RequestEntityTooLargeType = ClosedEnum<
-  typeof RequestEntityTooLargeType
->;
-
-export const RequestEntityTooLargeCode = {
-  ValidationType: "validation_type",
-} as const;
-export type RequestEntityTooLargeCode = ClosedEnum<
-  typeof RequestEntityTooLargeCode
->;
-
-export const CreateNoteNotFoundStatusCode = {
-  FourHundredAndFour: 404,
-} as const;
-export type CreateNoteNotFoundStatusCode = ClosedEnum<
-  typeof CreateNoteNotFoundStatusCode
->;
-
-export const CreateNoteNotFoundType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type CreateNoteNotFoundType = ClosedEnum<typeof CreateNoteNotFoundType>;
-
-export const CreateNoteNotFoundCode = {
-  NotFound: "not_found",
-} as const;
-export type CreateNoteNotFoundCode = ClosedEnum<typeof CreateNoteNotFoundCode>;
-
 /**
  * Success
  */
@@ -133,15 +95,15 @@ export type CreateNoteResponse = {
 };
 
 /** @internal */
-export const CreateNoteFormat$outboundSchema: z.ZodMiniEnum<
-  typeof CreateNoteFormat
-> = z.enum(CreateNoteFormat);
+export const Format$outboundSchema: z.ZodMiniEnum<typeof Format> = z.enum(
+  Format,
+);
 
 /** @internal */
 export type CreateNoteData$Outbound = {
+  title: string;
   parent_object: string;
   parent_record_id: string;
-  title: string;
   format: string;
   content: string;
   created_at?: string | undefined;
@@ -154,10 +116,10 @@ export const CreateNoteData$outboundSchema: z.ZodMiniType<
   CreateNoteData
 > = z.pipe(
   z.object({
+    title: z.string(),
     parentObject: z.string(),
     parentRecordId: z.string(),
-    title: z.string(),
-    format: CreateNoteFormat$outboundSchema,
+    format: Format$outboundSchema,
     content: z.string(),
     createdAt: z.optional(z.string()),
     meetingId: z.optional(z.nullable(z.string())),
@@ -196,36 +158,6 @@ export function createNoteRequestToJSON(
     CreateNoteRequest$outboundSchema.parse(createNoteRequest),
   );
 }
-
-/** @internal */
-export const RequestEntityTooLargeStatusCode$inboundSchema: z.ZodMiniEnum<
-  typeof RequestEntityTooLargeStatusCode
-> = z.enum(RequestEntityTooLargeStatusCode);
-
-/** @internal */
-export const RequestEntityTooLargeType$inboundSchema: z.ZodMiniEnum<
-  typeof RequestEntityTooLargeType
-> = z.enum(RequestEntityTooLargeType);
-
-/** @internal */
-export const RequestEntityTooLargeCode$inboundSchema: z.ZodMiniEnum<
-  typeof RequestEntityTooLargeCode
-> = z.enum(RequestEntityTooLargeCode);
-
-/** @internal */
-export const CreateNoteNotFoundStatusCode$inboundSchema: z.ZodMiniEnum<
-  typeof CreateNoteNotFoundStatusCode
-> = z.enum(CreateNoteNotFoundStatusCode);
-
-/** @internal */
-export const CreateNoteNotFoundType$inboundSchema: z.ZodMiniEnum<
-  typeof CreateNoteNotFoundType
-> = z.enum(CreateNoteNotFoundType);
-
-/** @internal */
-export const CreateNoteNotFoundCode$inboundSchema: z.ZodMiniEnum<
-  typeof CreateNoteNotFoundCode
-> = z.enum(CreateNoteNotFoundCode);
 
 /** @internal */
 export const CreateNoteResponse$inboundSchema: z.ZodMiniType<

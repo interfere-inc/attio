@@ -5,7 +5,6 @@
 import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
 import * as models from "../index.js";
@@ -13,21 +12,6 @@ import * as models from "../index.js";
 export type GetMeetingRequest = {
   meetingId: string;
 };
-
-export const GetMeetingStatusCode = {
-  FourHundredAndFour: 404,
-} as const;
-export type GetMeetingStatusCode = ClosedEnum<typeof GetMeetingStatusCode>;
-
-export const GetMeetingType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type GetMeetingType = ClosedEnum<typeof GetMeetingType>;
-
-export const GetMeetingCode = {
-  NotFound: "not_found",
-} as const;
-export type GetMeetingCode = ClosedEnum<typeof GetMeetingCode>;
 
 /**
  * Success
@@ -63,21 +47,6 @@ export function getMeetingRequestToJSON(
     GetMeetingRequest$outboundSchema.parse(getMeetingRequest),
   );
 }
-
-/** @internal */
-export const GetMeetingStatusCode$inboundSchema: z.ZodMiniEnum<
-  typeof GetMeetingStatusCode
-> = z.enum(GetMeetingStatusCode);
-
-/** @internal */
-export const GetMeetingType$inboundSchema: z.ZodMiniEnum<
-  typeof GetMeetingType
-> = z.enum(GetMeetingType);
-
-/** @internal */
-export const GetMeetingCode$inboundSchema: z.ZodMiniEnum<
-  typeof GetMeetingCode
-> = z.enum(GetMeetingCode);
 
 /** @internal */
 export const GetMeetingResponse$inboundSchema: z.ZodMiniType<

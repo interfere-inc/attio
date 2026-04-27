@@ -5,16 +5,15 @@
 import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import * as types from "../../types/primitives.js";
-import * as operations from "../operations/index.js";
 import { AttioBaseError } from "./attio-base-error.js";
 
 /**
  * Not Found
  */
 export type AssertEntryNotFoundErrorData = {
-  statusCode: operations.AssertEntryNotFoundStatusCode;
-  type: operations.AssertEntryNotFoundType;
-  code: operations.AssertEntryNotFoundCode;
+  type: "invalid_request_error";
+  statusCode: 404;
+  code: "not_found";
   message: string;
 };
 
@@ -22,8 +21,8 @@ export type AssertEntryNotFoundErrorData = {
  * Not Found
  */
 export class AssertEntryNotFoundError extends AttioBaseError {
-  type: operations.AssertEntryNotFoundType;
-  code: operations.AssertEntryNotFoundCode;
+  type: "invalid_request_error";
+  code: "not_found";
 
   /** The original data that was passed to this error instance. */
   data$: AssertEntryNotFoundErrorData;
@@ -46,9 +45,9 @@ export class AssertEntryNotFoundError extends AttioBaseError {
  * Bad Request
  */
 export type MultipleMatchResultsErrorData = {
-  statusCode: operations.AssertEntryBadRequestStatusCode;
-  type: operations.AssertEntryBadRequestType;
-  code: operations.CodeMultipleMatchResults;
+  type: "invalid_request_error";
+  statusCode: 400;
+  code: "multiple_match_results";
   message: string;
 };
 
@@ -56,8 +55,8 @@ export type MultipleMatchResultsErrorData = {
  * Bad Request
  */
 export class MultipleMatchResultsError extends AttioBaseError {
-  type: operations.AssertEntryBadRequestType;
-  code: operations.CodeMultipleMatchResults;
+  type: "invalid_request_error";
+  code: "multiple_match_results";
 
   /** The original data that was passed to this error instance. */
   data$: MultipleMatchResultsErrorData;
@@ -82,9 +81,9 @@ export const AssertEntryNotFoundError$inboundSchema: z.ZodMiniType<
   unknown
 > = z.pipe(
   z.object({
-    status_code: operations.AssertEntryNotFoundStatusCode$inboundSchema,
-    type: operations.AssertEntryNotFoundType$inboundSchema,
-    code: operations.AssertEntryNotFoundCode$inboundSchema,
+    type: types.literal("invalid_request_error"),
+    status_code: types.literal(404),
+    code: types.literal("not_found"),
     message: types.string(),
     request$: z.custom<Request>(x => x instanceof Request),
     response$: z.custom<Response>(x => x instanceof Response),
@@ -109,9 +108,9 @@ export const MultipleMatchResultsError$inboundSchema: z.ZodMiniType<
   unknown
 > = z.pipe(
   z.object({
-    status_code: operations.AssertEntryBadRequestStatusCode$inboundSchema,
-    type: operations.AssertEntryBadRequestType$inboundSchema,
-    code: operations.CodeMultipleMatchResults$inboundSchema,
+    type: types.literal("invalid_request_error"),
+    status_code: types.literal(400),
+    code: types.literal("multiple_match_results"),
     message: types.string(),
     request$: z.custom<Request>(x => x instanceof Request),
     response$: z.custom<Response>(x => x instanceof Response),

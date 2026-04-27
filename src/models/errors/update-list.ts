@@ -5,16 +5,15 @@
 import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import * as types from "../../types/primitives.js";
-import * as operations from "../operations/index.js";
 import { AttioBaseError } from "./attio-base-error.js";
 
 /**
  * Not Found
  */
 export type UpdateListNotFoundErrorData = {
-  statusCode: operations.UpdateListNotFoundStatusCode;
-  type: operations.UpdateListNotFoundType;
-  code: operations.UpdateListNotFoundCode;
+  type: "invalid_request_error";
+  statusCode: 404;
+  code: "not_found";
   message: string;
 };
 
@@ -22,8 +21,8 @@ export type UpdateListNotFoundErrorData = {
  * Not Found
  */
 export class UpdateListNotFoundError extends AttioBaseError {
-  type: operations.UpdateListNotFoundType;
-  code: operations.UpdateListNotFoundCode;
+  type: "invalid_request_error";
+  code: "not_found";
 
   /** The original data that was passed to this error instance. */
   data$: UpdateListNotFoundErrorData;
@@ -46,9 +45,9 @@ export class UpdateListNotFoundError extends AttioBaseError {
  * Bad Request
  */
 export type UpdateListValueNotFoundErrorData = {
-  statusCode: operations.UpdateListBadRequestStatusCode;
-  type: operations.UpdateListBadRequestType;
-  code: operations.UpdateListCodeValueNotFound;
+  type: "invalid_request_error";
+  statusCode: 400;
+  code: "value_not_found";
   message: string;
 };
 
@@ -56,8 +55,8 @@ export type UpdateListValueNotFoundErrorData = {
  * Bad Request
  */
 export class UpdateListValueNotFoundError extends AttioBaseError {
-  type: operations.UpdateListBadRequestType;
-  code: operations.UpdateListCodeValueNotFound;
+  type: "invalid_request_error";
+  code: "value_not_found";
 
   /** The original data that was passed to this error instance. */
   data$: UpdateListValueNotFoundErrorData;
@@ -82,9 +81,9 @@ export const UpdateListNotFoundError$inboundSchema: z.ZodMiniType<
   unknown
 > = z.pipe(
   z.object({
-    status_code: operations.UpdateListNotFoundStatusCode$inboundSchema,
-    type: operations.UpdateListNotFoundType$inboundSchema,
-    code: operations.UpdateListNotFoundCode$inboundSchema,
+    type: types.literal("invalid_request_error"),
+    status_code: types.literal(404),
+    code: types.literal("not_found"),
     message: types.string(),
     request$: z.custom<Request>(x => x instanceof Request),
     response$: z.custom<Response>(x => x instanceof Response),
@@ -109,9 +108,9 @@ export const UpdateListValueNotFoundError$inboundSchema: z.ZodMiniType<
   unknown
 > = z.pipe(
   z.object({
-    status_code: operations.UpdateListBadRequestStatusCode$inboundSchema,
-    type: operations.UpdateListBadRequestType$inboundSchema,
-    code: operations.UpdateListCodeValueNotFound$inboundSchema,
+    type: types.literal("invalid_request_error"),
+    status_code: types.literal(400),
+    code: types.literal("value_not_found"),
     message: types.string(),
     request$: z.custom<Request>(x => x instanceof Request),
     response$: z.custom<Response>(x => x instanceof Response),

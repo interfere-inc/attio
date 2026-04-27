@@ -5,43 +5,23 @@
 import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import * as types from "../../types/primitives.js";
 import { smartUnion } from "../../types/smart-union.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
 
-export const RequestAsTypeWorkspaceMember2 = {
-  WorkspaceMember: "workspace-member",
-} as const;
-export type RequestAsTypeWorkspaceMember2 = ClosedEnum<
-  typeof RequestAsTypeWorkspaceMember2
->;
-
 export type RequestAsWorkspaceMember2 = {
-  type: RequestAsTypeWorkspaceMember2;
+  type: "workspace-member";
   emailAddress: string;
 };
 
-export const RequestAsTypeWorkspaceMember1 = {
-  WorkspaceMember: "workspace-member",
-} as const;
-export type RequestAsTypeWorkspaceMember1 = ClosedEnum<
-  typeof RequestAsTypeWorkspaceMember1
->;
-
 export type RequestAsWorkspaceMember1 = {
-  type: RequestAsTypeWorkspaceMember1;
+  type: "workspace-member";
   workspaceMemberId: string;
 };
 
-export const TypeWorkspace = {
-  Workspace: "workspace",
-} as const;
-export type TypeWorkspace = ClosedEnum<typeof TypeWorkspace>;
-
 export type RequestAsWorkspace = {
-  type: TypeWorkspace;
+  type: "workspace";
 };
 
 /**
@@ -74,25 +54,6 @@ export type SearchRecordsRequest = {
     | RequestAsWorkspace;
 };
 
-export const SearchRecordsStatusCode = {
-  FourHundred: 400,
-} as const;
-export type SearchRecordsStatusCode = ClosedEnum<
-  typeof SearchRecordsStatusCode
->;
-
-export const SearchRecordsBadRequestType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type SearchRecordsBadRequestType = ClosedEnum<
-  typeof SearchRecordsBadRequestType
->;
-
-export const SearchRecordsCode = {
-  ValueNotFound: "value_not_found",
-} as const;
-export type SearchRecordsCode = ClosedEnum<typeof SearchRecordsCode>;
-
 export type SearchRecordsId3 = {
   /**
    * A UUID identifying the workspace this record belongs to.
@@ -108,17 +69,6 @@ export type SearchRecordsId3 = {
   recordId: string;
 };
 
-/**
- * The slug of the object this record belongs to.
- */
-export const ObjectSlugCompanies = {
-  Companies: "companies",
-} as const;
-/**
- * The slug of the object this record belongs to.
- */
-export type ObjectSlugCompanies = ClosedEnum<typeof ObjectSlugCompanies>;
-
 export type DataCompanies = {
   id: SearchRecordsId3;
   /**
@@ -132,7 +82,7 @@ export type DataCompanies = {
   /**
    * The slug of the object this record belongs to.
    */
-  objectSlug: ObjectSlugCompanies;
+  objectSlug: "companies";
   /**
    * The company's domains.
    */
@@ -154,17 +104,6 @@ export type SearchRecordsId2 = {
   recordId: string;
 };
 
-/**
- * The slug of the object this record belongs to.
- */
-export const ObjectSlugPeople = {
-  People: "people",
-} as const;
-/**
- * The slug of the object this record belongs to.
- */
-export type ObjectSlugPeople = ClosedEnum<typeof ObjectSlugPeople>;
-
 export type DataPeople = {
   id: SearchRecordsId2;
   /**
@@ -178,7 +117,7 @@ export type DataPeople = {
   /**
    * The slug of the object this record belongs to.
    */
-  objectSlug: ObjectSlugPeople;
+  objectSlug: "people";
   /**
    * The person's email addresses.
    */
@@ -233,13 +172,8 @@ export type SearchRecordsResponse = {
 };
 
 /** @internal */
-export const RequestAsTypeWorkspaceMember2$outboundSchema: z.ZodMiniEnum<
-  typeof RequestAsTypeWorkspaceMember2
-> = z.enum(RequestAsTypeWorkspaceMember2);
-
-/** @internal */
 export type RequestAsWorkspaceMember2$Outbound = {
-  type: string;
+  type: "workspace-member";
   email_address: string;
 };
 
@@ -249,7 +183,7 @@ export const RequestAsWorkspaceMember2$outboundSchema: z.ZodMiniType<
   RequestAsWorkspaceMember2
 > = z.pipe(
   z.object({
-    type: RequestAsTypeWorkspaceMember2$outboundSchema,
+    type: z.literal("workspace-member"),
     emailAddress: z.string(),
   }),
   z.transform((v) => {
@@ -268,13 +202,8 @@ export function requestAsWorkspaceMember2ToJSON(
 }
 
 /** @internal */
-export const RequestAsTypeWorkspaceMember1$outboundSchema: z.ZodMiniEnum<
-  typeof RequestAsTypeWorkspaceMember1
-> = z.enum(RequestAsTypeWorkspaceMember1);
-
-/** @internal */
 export type RequestAsWorkspaceMember1$Outbound = {
-  type: string;
+  type: "workspace-member";
   workspace_member_id: string;
 };
 
@@ -284,7 +213,7 @@ export const RequestAsWorkspaceMember1$outboundSchema: z.ZodMiniType<
   RequestAsWorkspaceMember1
 > = z.pipe(
   z.object({
-    type: RequestAsTypeWorkspaceMember1$outboundSchema,
+    type: z.literal("workspace-member"),
     workspaceMemberId: z.string(),
   }),
   z.transform((v) => {
@@ -303,12 +232,8 @@ export function requestAsWorkspaceMember1ToJSON(
 }
 
 /** @internal */
-export const TypeWorkspace$outboundSchema: z.ZodMiniEnum<typeof TypeWorkspace> =
-  z.enum(TypeWorkspace);
-
-/** @internal */
 export type RequestAsWorkspace$Outbound = {
-  type: string;
+  type: "workspace";
 };
 
 /** @internal */
@@ -316,7 +241,7 @@ export const RequestAsWorkspace$outboundSchema: z.ZodMiniType<
   RequestAsWorkspace$Outbound,
   RequestAsWorkspace
 > = z.object({
-  type: TypeWorkspace$outboundSchema,
+  type: z.literal("workspace"),
 });
 
 export function requestAsWorkspaceToJSON(
@@ -389,21 +314,6 @@ export function searchRecordsRequestToJSON(
 }
 
 /** @internal */
-export const SearchRecordsStatusCode$inboundSchema: z.ZodMiniEnum<
-  typeof SearchRecordsStatusCode
-> = z.enum(SearchRecordsStatusCode);
-
-/** @internal */
-export const SearchRecordsBadRequestType$inboundSchema: z.ZodMiniEnum<
-  typeof SearchRecordsBadRequestType
-> = z.enum(SearchRecordsBadRequestType);
-
-/** @internal */
-export const SearchRecordsCode$inboundSchema: z.ZodMiniEnum<
-  typeof SearchRecordsCode
-> = z.enum(SearchRecordsCode);
-
-/** @internal */
 export const SearchRecordsId3$inboundSchema: z.ZodMiniType<
   SearchRecordsId3,
   unknown
@@ -433,11 +343,6 @@ export function searchRecordsId3FromJSON(
 }
 
 /** @internal */
-export const ObjectSlugCompanies$inboundSchema: z.ZodMiniEnum<
-  typeof ObjectSlugCompanies
-> = z.enum(ObjectSlugCompanies);
-
-/** @internal */
 export const DataCompanies$inboundSchema: z.ZodMiniType<
   DataCompanies,
   unknown
@@ -446,7 +351,7 @@ export const DataCompanies$inboundSchema: z.ZodMiniType<
     id: z.lazy(() => SearchRecordsId3$inboundSchema),
     record_text: types.string(),
     record_image: types.nullable(types.string()),
-    object_slug: ObjectSlugCompanies$inboundSchema,
+    object_slug: types.literal("companies"),
     domains: z.array(types.string()),
   }),
   z.transform((v) => {
@@ -498,18 +403,13 @@ export function searchRecordsId2FromJSON(
 }
 
 /** @internal */
-export const ObjectSlugPeople$inboundSchema: z.ZodMiniEnum<
-  typeof ObjectSlugPeople
-> = z.enum(ObjectSlugPeople);
-
-/** @internal */
 export const DataPeople$inboundSchema: z.ZodMiniType<DataPeople, unknown> = z
   .pipe(
     z.object({
       id: z.lazy(() => SearchRecordsId2$inboundSchema),
       record_text: types.string(),
       record_image: types.nullable(types.string()),
-      object_slug: ObjectSlugPeople$inboundSchema,
+      object_slug: types.literal("people"),
       email_addresses: z.array(types.string()),
       phone_numbers: z.array(types.string()),
     }),

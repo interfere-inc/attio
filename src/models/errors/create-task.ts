@@ -5,16 +5,15 @@
 import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import * as types from "../../types/primitives.js";
-import * as operations from "../operations/index.js";
 import { AttioBaseError } from "./attio-base-error.js";
 
 /**
  * Not Found
  */
 export type CreateTaskNotFoundErrorData = {
-  statusCode: operations.CreateTaskNotFoundStatusCode;
-  type: operations.CreateTaskNotFoundType;
-  code: operations.CreateTaskNotFoundCode;
+  type: "invalid_request_error";
+  statusCode: 404;
+  code: "not_found";
   message: string;
 };
 
@@ -22,8 +21,8 @@ export type CreateTaskNotFoundErrorData = {
  * Not Found
  */
 export class CreateTaskNotFoundError extends AttioBaseError {
-  type: operations.CreateTaskNotFoundType;
-  code: operations.CreateTaskNotFoundCode;
+  type: "invalid_request_error";
+  code: "not_found";
 
   /** The original data that was passed to this error instance. */
   data$: CreateTaskNotFoundErrorData;
@@ -46,9 +45,9 @@ export class CreateTaskNotFoundError extends AttioBaseError {
  * Bad Request
  */
 export type CreateTaskValidationTypeErrorData = {
-  statusCode: operations.CreateTaskBadRequestStatusCode;
-  type: operations.CreateTaskBadRequestType;
-  code: operations.CreateTaskCodeValidationType;
+  type: "invalid_request_error";
+  statusCode: 400;
+  code: "validation_type";
   message: string;
 };
 
@@ -56,8 +55,8 @@ export type CreateTaskValidationTypeErrorData = {
  * Bad Request
  */
 export class CreateTaskValidationTypeError extends AttioBaseError {
-  type: operations.CreateTaskBadRequestType;
-  code: operations.CreateTaskCodeValidationType;
+  type: "invalid_request_error";
+  code: "validation_type";
 
   /** The original data that was passed to this error instance. */
   data$: CreateTaskValidationTypeErrorData;
@@ -82,9 +81,9 @@ export const CreateTaskNotFoundError$inboundSchema: z.ZodMiniType<
   unknown
 > = z.pipe(
   z.object({
-    status_code: operations.CreateTaskNotFoundStatusCode$inboundSchema,
-    type: operations.CreateTaskNotFoundType$inboundSchema,
-    code: operations.CreateTaskNotFoundCode$inboundSchema,
+    type: types.literal("invalid_request_error"),
+    status_code: types.literal(404),
+    code: types.literal("not_found"),
     message: types.string(),
     request$: z.custom<Request>(x => x instanceof Request),
     response$: z.custom<Response>(x => x instanceof Response),
@@ -109,9 +108,9 @@ export const CreateTaskValidationTypeError$inboundSchema: z.ZodMiniType<
   unknown
 > = z.pipe(
   z.object({
-    status_code: operations.CreateTaskBadRequestStatusCode$inboundSchema,
-    type: operations.CreateTaskBadRequestType$inboundSchema,
-    code: operations.CreateTaskCodeValidationType$inboundSchema,
+    type: types.literal("invalid_request_error"),
+    status_code: types.literal(400),
+    code: types.literal("validation_type"),
     message: types.string(),
     request$: z.custom<Request>(x => x instanceof Request),
     response$: z.custom<Response>(x => x instanceof Response),

@@ -13,17 +13,6 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
 
-export type NoteId = {
-  /**
-   * The ID of the workspace the note belongs to.
-   */
-  workspaceId: string;
-  /**
-   * The ID of the note.
-   */
-  noteId: string;
-};
-
 export type TagRecord = {
   /**
    * The type of entity tagged in the note. Can be either 'workspace-member' or 'record'
@@ -55,10 +44,21 @@ export type Tag =
   | TagRecord
   | discriminatedUnionTypes.Unknown<"type">;
 
+export type NoteId = {
+  /**
+   * The ID of the workspace the note belongs to.
+   */
+  workspaceId: string;
+  /**
+   * The ID of the note.
+   */
+  noteId: string;
+};
+
 /**
  * The type of actor. [Read more information on actor types here](/docs/actors).
  */
-export const NoteCreatedByActorType = {
+export const NoteType = {
   ApiToken: "api-token",
   WorkspaceMember: "workspace-member",
   System: "system",
@@ -67,23 +67,29 @@ export const NoteCreatedByActorType = {
 /**
  * The type of actor. [Read more information on actor types here](/docs/actors).
  */
-export type NoteCreatedByActorType = OpenEnum<typeof NoteCreatedByActorType>;
+export type NoteType = OpenEnum<typeof NoteType>;
 
 /**
  * The actor that created this note.
  */
 export type NoteCreatedByActor = {
   /**
+   * The type of actor. [Read more information on actor types here](/docs/actors).
+   */
+  type?: NoteType | null | undefined;
+  /**
    * An ID to identify the actor.
    */
   id?: string | null | undefined;
-  /**
-   * The type of actor. [Read more information on actor types here](/docs/actors).
-   */
-  type?: NoteCreatedByActorType | null | undefined;
 };
 
 export type Note = {
+  /**
+   * An array of records or workspace members that are @-tagged in the note content.
+   */
+  tags: Array<
+    TagWorkspaceMember | TagRecord | discriminatedUnionTypes.Unknown<"type">
+  >;
   id: NoteId;
   /**
    * The slug or ID of the parent object the note belongs to.
@@ -119,12 +125,6 @@ export type Note = {
    */
   contentMarkdown: string;
   /**
-   * An array of records or workspace members that are @-tagged in the note content.
-   */
-  tags: Array<
-    TagWorkspaceMember | TagRecord | discriminatedUnionTypes.Unknown<"type">
-  >;
-  /**
    * The actor that created this note.
    */
   createdByActor: NoteCreatedByActor;
@@ -133,30 +133,6 @@ export type Note = {
    */
   createdAt: string;
 };
-
-/** @internal */
-export const NoteId$inboundSchema: z.ZodMiniType<NoteId, unknown> = z.pipe(
-  z.object({
-    workspace_id: types.string(),
-    note_id: types.string(),
-  }),
-  z.transform((v) => {
-    return remap$(v, {
-      "workspace_id": "workspaceId",
-      "note_id": "noteId",
-    });
-  }),
-);
-
-export function noteIdFromJSON(
-  jsonString: string,
-): SafeParseResult<NoteId, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => NoteId$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'NoteId' from JSON`,
-  );
-}
 
 /** @internal */
 export const TagRecord$inboundSchema: z.ZodMiniType<TagRecord, unknown> = z
@@ -227,18 +203,40 @@ export function tagFromJSON(
 }
 
 /** @internal */
-export const NoteCreatedByActorType$inboundSchema: z.ZodMiniType<
-  NoteCreatedByActorType,
-  unknown
-> = openEnums.inboundSchema(NoteCreatedByActorType);
+export const NoteId$inboundSchema: z.ZodMiniType<NoteId, unknown> = z.pipe(
+  z.object({
+    workspace_id: types.string(),
+    note_id: types.string(),
+  }),
+  z.transform((v) => {
+    return remap$(v, {
+      "workspace_id": "workspaceId",
+      "note_id": "noteId",
+    });
+  }),
+);
+
+export function noteIdFromJSON(
+  jsonString: string,
+): SafeParseResult<NoteId, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => NoteId$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'NoteId' from JSON`,
+  );
+}
+
+/** @internal */
+export const NoteType$inboundSchema: z.ZodMiniType<NoteType, unknown> =
+  openEnums.inboundSchema(NoteType);
 
 /** @internal */
 export const NoteCreatedByActor$inboundSchema: z.ZodMiniType<
   NoteCreatedByActor,
   unknown
 > = z.object({
+  type: z.optional(z.nullable(NoteType$inboundSchema)),
   id: z.optional(z.nullable(types.string())),
-  type: z.optional(z.nullable(NoteCreatedByActorType$inboundSchema)),
 });
 
 export function noteCreatedByActorFromJSON(
@@ -254,6 +252,12 @@ export function noteCreatedByActorFromJSON(
 /** @internal */
 export const Note$inboundSchema: z.ZodMiniType<Note, unknown> = z.pipe(
   z.object({
+    tags: z.array(
+      discriminatedUnion("type", {
+        ["workspace-member"]: z.lazy(() => TagWorkspaceMember$inboundSchema),
+        record: z.lazy(() => TagRecord$inboundSchema),
+      }),
+    ),
     id: z.lazy(() => NoteId$inboundSchema),
     parent_object: types.string(),
     parent_record_id: types.string(),
@@ -261,12 +265,6 @@ export const Note$inboundSchema: z.ZodMiniType<Note, unknown> = z.pipe(
     meeting_id: types.nullable(types.string()),
     content_plaintext: types.string(),
     content_markdown: types.string(),
-    tags: z.array(
-      discriminatedUnion("type", {
-        ["workspace-member"]: z.lazy(() => TagWorkspaceMember$inboundSchema),
-        record: z.lazy(() => TagRecord$inboundSchema),
-      }),
-    ),
     created_by_actor: z.lazy(() => NoteCreatedByActor$inboundSchema),
     created_at: types.string(),
   }),

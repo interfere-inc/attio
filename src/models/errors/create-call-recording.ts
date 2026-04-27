@@ -12,9 +12,9 @@ import { AttioBaseError } from "./attio-base-error.js";
  * Not Found
  */
 export type CreateCallRecordingNotFoundErrorData = {
-  statusCode: operations.CreateCallRecordingNotFoundStatusCode;
-  type: operations.CreateCallRecordingNotFoundType;
-  code: operations.CreateCallRecordingNotFoundCode;
+  type: "invalid_request_error";
+  statusCode: 404;
+  code: "not_found";
   message: string;
 };
 
@@ -22,8 +22,8 @@ export type CreateCallRecordingNotFoundErrorData = {
  * Not Found
  */
 export class CreateCallRecordingNotFoundError extends AttioBaseError {
-  type: operations.CreateCallRecordingNotFoundType;
-  code: operations.CreateCallRecordingNotFoundCode;
+  type: "invalid_request_error";
+  code: "not_found";
 
   /** The original data that was passed to this error instance. */
   data$: CreateCallRecordingNotFoundErrorData;
@@ -46,8 +46,8 @@ export class CreateCallRecordingNotFoundError extends AttioBaseError {
  * Forbidden
  */
 export type AuthErrorData = {
-  statusCode: operations.CreateCallRecordingForbiddenStatusCode;
-  type: operations.CreateCallRecordingForbiddenType;
+  type: "auth_error";
+  statusCode: 403;
   code: operations.Code;
   message: string;
 };
@@ -56,7 +56,7 @@ export type AuthErrorData = {
  * Forbidden
  */
 export class AuthError extends AttioBaseError {
-  type: operations.CreateCallRecordingForbiddenType;
+  type: "auth_error";
   code: operations.Code;
 
   /** The original data that was passed to this error instance. */
@@ -80,9 +80,9 @@ export class AuthError extends AttioBaseError {
  * Bad Request
  */
 export type CreateCallRecordingValidationTypeErrorData = {
-  statusCode: operations.CreateCallRecordingBadRequestStatusCode;
-  type: operations.CreateCallRecordingBadRequestType;
-  code: operations.CreateCallRecordingCodeValidationType;
+  type: "invalid_request_error";
+  statusCode: 400;
+  code: "validation_type";
   message: string;
 };
 
@@ -90,8 +90,8 @@ export type CreateCallRecordingValidationTypeErrorData = {
  * Bad Request
  */
 export class CreateCallRecordingValidationTypeError extends AttioBaseError {
-  type: operations.CreateCallRecordingBadRequestType;
-  code: operations.CreateCallRecordingCodeValidationType;
+  type: "invalid_request_error";
+  code: "validation_type";
 
   /** The original data that was passed to this error instance. */
   data$: CreateCallRecordingValidationTypeErrorData;
@@ -116,9 +116,9 @@ export const CreateCallRecordingNotFoundError$inboundSchema: z.ZodMiniType<
   unknown
 > = z.pipe(
   z.object({
-    status_code: operations.CreateCallRecordingNotFoundStatusCode$inboundSchema,
-    type: operations.CreateCallRecordingNotFoundType$inboundSchema,
-    code: operations.CreateCallRecordingNotFoundCode$inboundSchema,
+    type: types.literal("invalid_request_error"),
+    status_code: types.literal(404),
+    code: types.literal("not_found"),
     message: types.string(),
     request$: z.custom<Request>(x => x instanceof Request),
     response$: z.custom<Response>(x => x instanceof Response),
@@ -141,10 +141,9 @@ export const CreateCallRecordingNotFoundError$inboundSchema: z.ZodMiniType<
 export const AuthError$inboundSchema: z.ZodMiniType<AuthError, unknown> = z
   .pipe(
     z.object({
-      status_code:
-        operations.CreateCallRecordingForbiddenStatusCode$inboundSchema,
-      type: operations.CreateCallRecordingForbiddenType$inboundSchema,
-      code: z.lazy(() => operations.Code$inboundSchema),
+      type: types.literal("auth_error"),
+      status_code: types.literal(403),
+      code: operations.Code$inboundSchema,
       message: types.string(),
       request$: z.custom<Request>(x => x instanceof Request),
       response$: z.custom<Response>(x => x instanceof Response),
@@ -167,10 +166,9 @@ export const AuthError$inboundSchema: z.ZodMiniType<AuthError, unknown> = z
 export const CreateCallRecordingValidationTypeError$inboundSchema:
   z.ZodMiniType<CreateCallRecordingValidationTypeError, unknown> = z.pipe(
     z.object({
-      status_code:
-        operations.CreateCallRecordingBadRequestStatusCode$inboundSchema,
-      type: operations.CreateCallRecordingBadRequestType$inboundSchema,
-      code: operations.CreateCallRecordingCodeValidationType$inboundSchema,
+      type: types.literal("invalid_request_error"),
+      status_code: types.literal(400),
+      code: types.literal("validation_type"),
       message: types.string(),
       request$: z.custom<Request>(x => x instanceof Request),
       response$: z.custom<Response>(x => x instanceof Response),

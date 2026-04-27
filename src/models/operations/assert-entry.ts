@@ -8,7 +8,7 @@ import { safeParse } from "../../lib/schemas.js";
 import * as discriminatedUnionTypes from "../../types/discriminated-union.js";
 import { discriminatedUnion } from "../../types/discriminated-union.js";
 import * as openEnums from "../../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../../types/enums.js";
+import { OpenEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import * as types from "../../types/primitives.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
@@ -37,48 +37,6 @@ export type AssertEntryRequest = {
   list: string;
   body: AssertEntryRequestBody;
 };
-
-export const AssertEntryNotFoundStatusCode = {
-  FourHundredAndFour: 404,
-} as const;
-export type AssertEntryNotFoundStatusCode = ClosedEnum<
-  typeof AssertEntryNotFoundStatusCode
->;
-
-export const AssertEntryNotFoundType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type AssertEntryNotFoundType = ClosedEnum<
-  typeof AssertEntryNotFoundType
->;
-
-export const AssertEntryNotFoundCode = {
-  NotFound: "not_found",
-} as const;
-export type AssertEntryNotFoundCode = ClosedEnum<
-  typeof AssertEntryNotFoundCode
->;
-
-export const AssertEntryBadRequestStatusCode = {
-  FourHundred: 400,
-} as const;
-export type AssertEntryBadRequestStatusCode = ClosedEnum<
-  typeof AssertEntryBadRequestStatusCode
->;
-
-export const AssertEntryBadRequestType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type AssertEntryBadRequestType = ClosedEnum<
-  typeof AssertEntryBadRequestType
->;
-
-export const CodeMultipleMatchResults = {
-  MultipleMatchResults: "multiple_match_results",
-} as const;
-export type CodeMultipleMatchResults = ClosedEnum<
-  typeof CodeMultipleMatchResults
->;
 
 export type AssertEntryId = {
   /**
@@ -116,13 +74,13 @@ export type AssertEntryCreatedByActorType17 = OpenEnum<
  */
 export type AssertEntryCreatedByActor17 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: AssertEntryCreatedByActorType17 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type AssertEntryEntryValueTimestamp = {
@@ -169,13 +127,13 @@ export type AssertEntryCreatedByActorType16 = OpenEnum<
  */
 export type AssertEntryCreatedByActor16 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: AssertEntryCreatedByActorType16 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type AssertEntryEntryValueText = {
@@ -222,13 +180,13 @@ export type AssertEntryCreatedByActorType15 = OpenEnum<
  */
 export type AssertEntryCreatedByActor15 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: AssertEntryCreatedByActorType15 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type AssertEntryEntryValueSelect = {
@@ -272,13 +230,13 @@ export type AssertEntryCreatedByActorType14 = OpenEnum<
  */
 export type AssertEntryCreatedByActor14 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: AssertEntryCreatedByActorType14 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type AssertEntryEntryValueRating = {
@@ -325,13 +283,13 @@ export type AssertEntryCreatedByActorType13 = OpenEnum<
  */
 export type AssertEntryCreatedByActor13 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: AssertEntryCreatedByActorType13 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type AssertEntryEntryValueStatus = {
@@ -375,13 +333,13 @@ export type AssertEntryCreatedByActorType12 = OpenEnum<
  */
 export type AssertEntryCreatedByActor12 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: AssertEntryCreatedByActorType12 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 /**
@@ -695,13 +653,13 @@ export type AssertEntryCreatedByActorType11 = OpenEnum<
  */
 export type AssertEntryCreatedByActor11 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: AssertEntryCreatedByActorType11 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type AssertEntryEntryValuePersonalName = {
@@ -756,13 +714,13 @@ export type AssertEntryCreatedByActorType10 = OpenEnum<
  */
 export type AssertEntryCreatedByActor10 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: AssertEntryCreatedByActorType10 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type AssertEntryEntryValueNumber = {
@@ -809,13 +767,13 @@ export type AssertEntryCreatedByActorType9 = OpenEnum<
  */
 export type AssertEntryCreatedByActor9 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: AssertEntryCreatedByActorType9 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 /**
@@ -1160,13 +1118,13 @@ export type AssertEntryCreatedByActorType8 = OpenEnum<
  */
 export type AssertEntryCreatedByActor8 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: AssertEntryCreatedByActorType8 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 /**
@@ -1208,13 +1166,13 @@ export type AssertEntryOwnerActorType = OpenEnum<
  */
 export type AssertEntryOwnerActor = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: AssertEntryOwnerActorType | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type AssertEntryEntryValueInteraction = {
@@ -1269,13 +1227,13 @@ export type AssertEntryCreatedByActorType7 = OpenEnum<
  */
 export type AssertEntryCreatedByActor7 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: AssertEntryCreatedByActorType7 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type AssertEntryEntryValueRecordReference = {
@@ -1326,13 +1284,13 @@ export type AssertEntryCreatedByActorType6 = OpenEnum<
  */
 export type AssertEntryCreatedByActor6 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: AssertEntryCreatedByActorType6 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type AssertEntryEntryValueEmailAddress = {
@@ -1380,13 +1338,13 @@ export type AssertEntryCreatedByActorType5 = OpenEnum<
  */
 export type AssertEntryCreatedByActor5 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: AssertEntryCreatedByActorType5 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type AssertEntryEntryValueDomain = {
@@ -1431,13 +1389,13 @@ export type AssertEntryCreatedByActorType4 = OpenEnum<
  */
 export type AssertEntryCreatedByActor4 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: AssertEntryCreatedByActorType4 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type AssertEntryEntryValueDate = {
@@ -1484,13 +1442,13 @@ export type AssertEntryCreatedByActorType3 = OpenEnum<
  */
 export type AssertEntryCreatedByActor3 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: AssertEntryCreatedByActorType3 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 /**
@@ -1592,13 +1550,13 @@ export type AssertEntryCreatedByActorType2 = OpenEnum<
  */
 export type AssertEntryCreatedByActor2 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: AssertEntryCreatedByActorType2 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type AssertEntryEntryValueCheckbox = {
@@ -1645,13 +1603,13 @@ export type AssertEntryCreatedByActorType1 = OpenEnum<
  */
 export type AssertEntryCreatedByActor1 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: AssertEntryCreatedByActorType1 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 /**
@@ -1844,36 +1802,6 @@ export function assertEntryRequestToJSON(
 }
 
 /** @internal */
-export const AssertEntryNotFoundStatusCode$inboundSchema: z.ZodMiniEnum<
-  typeof AssertEntryNotFoundStatusCode
-> = z.enum(AssertEntryNotFoundStatusCode);
-
-/** @internal */
-export const AssertEntryNotFoundType$inboundSchema: z.ZodMiniEnum<
-  typeof AssertEntryNotFoundType
-> = z.enum(AssertEntryNotFoundType);
-
-/** @internal */
-export const AssertEntryNotFoundCode$inboundSchema: z.ZodMiniEnum<
-  typeof AssertEntryNotFoundCode
-> = z.enum(AssertEntryNotFoundCode);
-
-/** @internal */
-export const AssertEntryBadRequestStatusCode$inboundSchema: z.ZodMiniEnum<
-  typeof AssertEntryBadRequestStatusCode
-> = z.enum(AssertEntryBadRequestStatusCode);
-
-/** @internal */
-export const AssertEntryBadRequestType$inboundSchema: z.ZodMiniEnum<
-  typeof AssertEntryBadRequestType
-> = z.enum(AssertEntryBadRequestType);
-
-/** @internal */
-export const CodeMultipleMatchResults$inboundSchema: z.ZodMiniEnum<
-  typeof CodeMultipleMatchResults
-> = z.enum(CodeMultipleMatchResults);
-
-/** @internal */
 export const AssertEntryId$inboundSchema: z.ZodMiniType<
   AssertEntryId,
   unknown
@@ -1913,8 +1841,8 @@ export const AssertEntryCreatedByActor17$inboundSchema: z.ZodMiniType<
   AssertEntryCreatedByActor17,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(z.nullable(AssertEntryCreatedByActorType17$inboundSchema)),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function assertEntryCreatedByActor17FromJSON(
@@ -1970,8 +1898,8 @@ export const AssertEntryCreatedByActor16$inboundSchema: z.ZodMiniType<
   AssertEntryCreatedByActor16,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(z.nullable(AssertEntryCreatedByActorType16$inboundSchema)),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function assertEntryCreatedByActor16FromJSON(
@@ -2027,8 +1955,8 @@ export const AssertEntryCreatedByActor15$inboundSchema: z.ZodMiniType<
   AssertEntryCreatedByActor15,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(z.nullable(AssertEntryCreatedByActorType15$inboundSchema)),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function assertEntryCreatedByActor15FromJSON(
@@ -2084,8 +2012,8 @@ export const AssertEntryCreatedByActor14$inboundSchema: z.ZodMiniType<
   AssertEntryCreatedByActor14,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(z.nullable(AssertEntryCreatedByActorType14$inboundSchema)),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function assertEntryCreatedByActor14FromJSON(
@@ -2141,8 +2069,8 @@ export const AssertEntryCreatedByActor13$inboundSchema: z.ZodMiniType<
   AssertEntryCreatedByActor13,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(z.nullable(AssertEntryCreatedByActorType13$inboundSchema)),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function assertEntryCreatedByActor13FromJSON(
@@ -2198,8 +2126,8 @@ export const AssertEntryCreatedByActor12$inboundSchema: z.ZodMiniType<
   AssertEntryCreatedByActor12,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(z.nullable(AssertEntryCreatedByActorType12$inboundSchema)),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function assertEntryCreatedByActor12FromJSON(
@@ -2266,8 +2194,8 @@ export const AssertEntryCreatedByActor11$inboundSchema: z.ZodMiniType<
   AssertEntryCreatedByActor11,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(z.nullable(AssertEntryCreatedByActorType11$inboundSchema)),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function assertEntryCreatedByActor11FromJSON(
@@ -2328,8 +2256,8 @@ export const AssertEntryCreatedByActor10$inboundSchema: z.ZodMiniType<
   AssertEntryCreatedByActor10,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(z.nullable(AssertEntryCreatedByActorType10$inboundSchema)),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function assertEntryCreatedByActor10FromJSON(
@@ -2385,8 +2313,8 @@ export const AssertEntryCreatedByActor9$inboundSchema: z.ZodMiniType<
   AssertEntryCreatedByActor9,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(z.nullable(AssertEntryCreatedByActorType9$inboundSchema)),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function assertEntryCreatedByActor9FromJSON(
@@ -2462,8 +2390,8 @@ export const AssertEntryCreatedByActor8$inboundSchema: z.ZodMiniType<
   AssertEntryCreatedByActor8,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(z.nullable(AssertEntryCreatedByActorType8$inboundSchema)),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function assertEntryCreatedByActor8FromJSON(
@@ -2493,8 +2421,8 @@ export const AssertEntryOwnerActor$inboundSchema: z.ZodMiniType<
   AssertEntryOwnerActor,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(z.nullable(AssertEntryOwnerActorType$inboundSchema)),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function assertEntryOwnerActorFromJSON(
@@ -2555,8 +2483,8 @@ export const AssertEntryCreatedByActor7$inboundSchema: z.ZodMiniType<
   AssertEntryCreatedByActor7,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(z.nullable(AssertEntryCreatedByActorType7$inboundSchema)),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function assertEntryCreatedByActor7FromJSON(
@@ -2616,8 +2544,8 @@ export const AssertEntryCreatedByActor6$inboundSchema: z.ZodMiniType<
   AssertEntryCreatedByActor6,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(z.nullable(AssertEntryCreatedByActorType6$inboundSchema)),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function assertEntryCreatedByActor6FromJSON(
@@ -2682,8 +2610,8 @@ export const AssertEntryCreatedByActor5$inboundSchema: z.ZodMiniType<
   AssertEntryCreatedByActor5,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(z.nullable(AssertEntryCreatedByActorType5$inboundSchema)),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function assertEntryCreatedByActor5FromJSON(
@@ -2741,8 +2669,8 @@ export const AssertEntryCreatedByActor4$inboundSchema: z.ZodMiniType<
   AssertEntryCreatedByActor4,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(z.nullable(AssertEntryCreatedByActorType4$inboundSchema)),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function assertEntryCreatedByActor4FromJSON(
@@ -2798,8 +2726,8 @@ export const AssertEntryCreatedByActor3$inboundSchema: z.ZodMiniType<
   AssertEntryCreatedByActor3,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(z.nullable(AssertEntryCreatedByActorType3$inboundSchema)),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function assertEntryCreatedByActor3FromJSON(
@@ -2866,8 +2794,8 @@ export const AssertEntryCreatedByActor2$inboundSchema: z.ZodMiniType<
   AssertEntryCreatedByActor2,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(z.nullable(AssertEntryCreatedByActorType2$inboundSchema)),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function assertEntryCreatedByActor2FromJSON(
@@ -2923,8 +2851,8 @@ export const AssertEntryCreatedByActor1$inboundSchema: z.ZodMiniType<
   AssertEntryCreatedByActor1,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(z.nullable(AssertEntryCreatedByActorType1$inboundSchema)),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function assertEntryCreatedByActor1FromJSON(

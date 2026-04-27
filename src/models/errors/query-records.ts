@@ -5,16 +5,15 @@
 import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import * as types from "../../types/primitives.js";
-import * as operations from "../operations/index.js";
 import { AttioBaseError } from "./attio-base-error.js";
 
 /**
  * Not Found
  */
 export type QueryRecordsNotFoundErrorData = {
-  statusCode: operations.QueryRecordsNotFoundStatusCode;
-  type: operations.QueryRecordsNotFoundType;
-  code: operations.QueryRecordsNotFoundCode;
+  type: "invalid_request_error";
+  statusCode: 404;
+  code: "not_found";
   message: string;
 };
 
@@ -22,8 +21,8 @@ export type QueryRecordsNotFoundErrorData = {
  * Not Found
  */
 export class QueryRecordsNotFoundError extends AttioBaseError {
-  type: operations.QueryRecordsNotFoundType;
-  code: operations.QueryRecordsNotFoundCode;
+  type: "invalid_request_error";
+  code: "not_found";
 
   /** The original data that was passed to this error instance. */
   data$: QueryRecordsNotFoundErrorData;
@@ -46,9 +45,9 @@ export class QueryRecordsNotFoundError extends AttioBaseError {
  * Bad Request
  */
 export type FilterErrorData = {
-  statusCode: operations.QueryRecordsBadRequestStatusCode;
-  type: operations.QueryRecordsBadRequestType;
-  code: operations.CodeFilterError;
+  type: "invalid_request_error";
+  statusCode: 400;
+  code: "filter_error";
   message: string;
 };
 
@@ -56,8 +55,8 @@ export type FilterErrorData = {
  * Bad Request
  */
 export class FilterError extends AttioBaseError {
-  type: operations.QueryRecordsBadRequestType;
-  code: operations.CodeFilterError;
+  type: "invalid_request_error";
+  code: "filter_error";
 
   /** The original data that was passed to this error instance. */
   data$: FilterErrorData;
@@ -82,9 +81,9 @@ export const QueryRecordsNotFoundError$inboundSchema: z.ZodMiniType<
   unknown
 > = z.pipe(
   z.object({
-    status_code: operations.QueryRecordsNotFoundStatusCode$inboundSchema,
-    type: operations.QueryRecordsNotFoundType$inboundSchema,
-    code: operations.QueryRecordsNotFoundCode$inboundSchema,
+    type: types.literal("invalid_request_error"),
+    status_code: types.literal(404),
+    code: types.literal("not_found"),
     message: types.string(),
     request$: z.custom<Request>(x => x instanceof Request),
     response$: z.custom<Response>(x => x instanceof Response),
@@ -107,9 +106,9 @@ export const QueryRecordsNotFoundError$inboundSchema: z.ZodMiniType<
 export const FilterError$inboundSchema: z.ZodMiniType<FilterError, unknown> = z
   .pipe(
     z.object({
-      status_code: operations.QueryRecordsBadRequestStatusCode$inboundSchema,
-      type: operations.QueryRecordsBadRequestType$inboundSchema,
-      code: operations.CodeFilterError$inboundSchema,
+      type: types.literal("invalid_request_error"),
+      status_code: types.literal(400),
+      code: types.literal("filter_error"),
       message: types.string(),
       request$: z.custom<Request>(x => x instanceof Request),
       response$: z.custom<Response>(x => x instanceof Response),

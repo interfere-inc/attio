@@ -70,25 +70,6 @@ export class Webhooks extends ClientSDK {
   }
 
   /**
-   * Update a webhook
-   *
-   * @remarks
-   * Update a webhook and associated subscriptions.
-   *
-   * Required scopes: `webhook:read-write`.
-   */
-  async update(
-    request: operations.UpdateWebhookRequest,
-    options?: RequestOptions,
-  ): Promise<operations.UpdateWebhookResponse> {
-    return unwrapAsync(webhooksUpdate(
-      this,
-      request,
-      options,
-    ));
-  }
-
-  /**
    * Delete a webhook
    *
    * @remarks
@@ -101,6 +82,25 @@ export class Webhooks extends ClientSDK {
     options?: RequestOptions,
   ): Promise<operations.DeleteWebhookResponse> {
     return unwrapAsync(webhooksDelete(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Update a webhook
+   *
+   * @remarks
+   * Update a webhook and associated subscriptions.
+   *
+   * Required scopes: `webhook:read-write`.
+   */
+  async update(
+    request: operations.UpdateWebhookRequest,
+    options?: RequestOptions,
+  ): Promise<operations.UpdateWebhookResponse> {
+    return unwrapAsync(webhooksUpdate(
       this,
       request,
       options,

@@ -8,31 +8,16 @@ import { safeParse } from "../lib/schemas.js";
 import * as discriminatedUnionTypes from "../types/discriminated-union.js";
 import { discriminatedUnion } from "../types/discriminated-union.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
 import { OutputValue, OutputValue$inboundSchema } from "./output-value.js";
 
-export type AttributeId = {
-  /**
-   * A UUID representing the workspace this attribute belongs to.
-   */
-  workspaceId: string;
-  /**
-   * A UUID to identify the object or list that this attribute belongs to
-   */
-  objectId: string;
-  /**
-   * A UUID to identify this attribute.
-   */
-  attributeId: string;
-};
-
 /**
  * The type of the attribute.
  */
-export const AttributeTypeEnum = {
+export const AttributeType = {
   Text: "text",
   Number: "number",
   Checkbox: "checkbox",
@@ -54,27 +39,31 @@ export const AttributeTypeEnum = {
 /**
  * The type of the attribute.
  */
-export type AttributeTypeEnum = OpenEnum<typeof AttributeTypeEnum>;
+export type AttributeType = OpenEnum<typeof AttributeType>;
+
+export type AttributeId = {
+  /**
+   * A UUID representing the workspace this attribute belongs to.
+   */
+  workspaceId: string;
+  /**
+   * A UUID to identify the object or list that this attribute belongs to
+   */
+  objectId: string;
+  /**
+   * A UUID to identify this attribute.
+   */
+  attributeId: string;
+};
 
 export type DefaultValueStatic = {
   type: "static";
   template: Array<OutputValue>;
 };
 
-/**
- * For actor reference attributes, you may pass a dynamic value of `"current-user"`. When creating new records or entries, this will cause the actor reference value to be populated with either the workspace member or API token that created the record/entry.
- */
-export const Template = {
-  CurrentUser: "current-user",
-} as const;
-/**
- * For actor reference attributes, you may pass a dynamic value of `"current-user"`. When creating new records or entries, this will cause the actor reference value to be populated with either the workspace member or API token that created the record/entry.
- */
-export type Template = ClosedEnum<typeof Template>;
-
 export type DefaultValueDynamic = {
   type: "dynamic";
-  template: any;
+  template: "current-user";
 };
 
 /**
@@ -104,15 +93,15 @@ export type RelationshipId = {
  * If this attribute is related to another attribute, this is an object that includes an `id` property that identifies the other attribute. `null` means no relationship exists. See [the help center](https://attio.com/help/reference/managing-your-data/attributes#relationship-attributes) for more details about relationship attributes.
  */
 export type Relationship = {
+  /**
+   * The title of the related attribute.
+   */
+  title: string;
   id: RelationshipId;
   /**
    * The slug of the object that the related attribute belongs to.
    */
   objectSlug: string;
-  /**
-   * The title of the related attribute.
-   */
-  title: string;
   /**
    * The API slug identifying the related attribute.
    */
@@ -227,7 +216,10 @@ export type Config = {
 };
 
 export type Attribute = {
-  id: AttributeId;
+  /**
+   * The type of the attribute.
+   */
+  type: AttributeType;
   /**
    * A title for the attribute, to be displayed across the app.
    */
@@ -236,14 +228,11 @@ export type Attribute = {
    * A text description of the attribute.
    */
   description: string | null;
+  id: AttributeId;
   /**
    * A unique slug for the attribute for use in API responses and URLs. Formatted in snake case.
    */
   apiSlug: string;
-  /**
-   * The type of the attribute.
-   */
-  type: AttributeTypeEnum;
   /**
    * `true` if this is an Attio system-defined attribute, `false` if defined by a user or non-Attio system.
    */
@@ -295,6 +284,12 @@ export type Attribute = {
 };
 
 /** @internal */
+export const AttributeType$inboundSchema: z.ZodMiniType<
+  AttributeType,
+  unknown
+> = openEnums.inboundSchema(AttributeType);
+
+/** @internal */
 export const AttributeId$inboundSchema: z.ZodMiniType<AttributeId, unknown> = z
   .pipe(
     z.object({
@@ -322,12 +317,6 @@ export function attributeIdFromJSON(
 }
 
 /** @internal */
-export const AttributeTypeEnum$inboundSchema: z.ZodMiniType<
-  AttributeTypeEnum,
-  unknown
-> = openEnums.inboundSchema(AttributeTypeEnum);
-
-/** @internal */
 export const DefaultValueStatic$inboundSchema: z.ZodMiniType<
   DefaultValueStatic,
   unknown
@@ -347,17 +336,12 @@ export function defaultValueStaticFromJSON(
 }
 
 /** @internal */
-export const Template$inboundSchema: z.ZodMiniEnum<typeof Template> = z.enum(
-  Template,
-);
-
-/** @internal */
 export const DefaultValueDynamic$inboundSchema: z.ZodMiniType<
   DefaultValueDynamic,
   unknown
 > = z.object({
   type: types.literal("dynamic"),
-  template: z.any(),
+  template: types.literal("current-user"),
 });
 
 export function defaultValueDynamicFromJSON(
@@ -420,9 +404,9 @@ export function relationshipIdFromJSON(
 export const Relationship$inboundSchema: z.ZodMiniType<Relationship, unknown> =
   z.pipe(
     z.object({
+      title: types.string(),
       id: z.lazy(() => RelationshipId$inboundSchema),
       object_slug: types.string(),
-      title: types.string(),
       api_slug: types.string(),
       is_multiselect: types.boolean(),
     }),
@@ -531,11 +515,11 @@ export function configFromJSON(
 export const Attribute$inboundSchema: z.ZodMiniType<Attribute, unknown> = z
   .pipe(
     z.object({
-      id: z.lazy(() => AttributeId$inboundSchema),
+      type: AttributeType$inboundSchema,
       title: types.string(),
       description: types.nullable(types.string()),
+      id: z.lazy(() => AttributeId$inboundSchema),
       api_slug: types.string(),
-      type: AttributeTypeEnum$inboundSchema,
       is_system_attribute: types.boolean(),
       is_writable: types.boolean(),
       is_required: types.boolean(),

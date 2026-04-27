@@ -7,10 +7,10 @@ import { CreateNewAttributeRequestBody } from "@interfere/attio/models/operation
 
 let value: CreateNewAttributeRequestBody = {
   data: {
+    type: "text",
     title: "Your Attribute",
     description: "Lorem ipsum",
     apiSlug: "my-attribute",
-    type: "text",
     isRequired: true,
     isUnique: true,
     isMultiselect: true,
@@ -23,8 +23,8 @@ let value: CreateNewAttributeRequestBody = {
       ],
     },
     relationship: {
-      object: "companies",
       title: "Team members",
+      object: "companies",
       apiSlug: "team_members",
       isMultiselect: false,
     },

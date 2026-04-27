@@ -30,21 +30,6 @@ export type GetAttributeRequest = {
   attribute: string;
 };
 
-export const GetAttributeStatusCode = {
-  FourHundredAndFour: 404,
-} as const;
-export type GetAttributeStatusCode = ClosedEnum<typeof GetAttributeStatusCode>;
-
-export const GetAttributeType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type GetAttributeType = ClosedEnum<typeof GetAttributeType>;
-
-export const GetAttributeCode = {
-  NotFound: "not_found",
-} as const;
-export type GetAttributeCode = ClosedEnum<typeof GetAttributeCode>;
-
 /**
  * Success
  */
@@ -81,21 +66,6 @@ export function getAttributeRequestToJSON(
     GetAttributeRequest$outboundSchema.parse(getAttributeRequest),
   );
 }
-
-/** @internal */
-export const GetAttributeStatusCode$inboundSchema: z.ZodMiniEnum<
-  typeof GetAttributeStatusCode
-> = z.enum(GetAttributeStatusCode);
-
-/** @internal */
-export const GetAttributeType$inboundSchema: z.ZodMiniEnum<
-  typeof GetAttributeType
-> = z.enum(GetAttributeType);
-
-/** @internal */
-export const GetAttributeCode$inboundSchema: z.ZodMiniEnum<
-  typeof GetAttributeCode
-> = z.enum(GetAttributeCode);
 
 /** @internal */
 export const GetAttributeResponse$inboundSchema: z.ZodMiniType<

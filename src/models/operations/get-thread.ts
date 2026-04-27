@@ -5,7 +5,6 @@
 import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
 import * as models from "../index.js";
@@ -13,21 +12,6 @@ import * as models from "../index.js";
 export type GetThreadRequest = {
   threadId: string;
 };
-
-export const GetThreadStatusCode = {
-  FourHundredAndFour: 404,
-} as const;
-export type GetThreadStatusCode = ClosedEnum<typeof GetThreadStatusCode>;
-
-export const GetThreadType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type GetThreadType = ClosedEnum<typeof GetThreadType>;
-
-export const GetThreadCode = {
-  NotFound: "not_found",
-} as const;
-export type GetThreadCode = ClosedEnum<typeof GetThreadCode>;
 
 /**
  * Success
@@ -63,19 +47,6 @@ export function getThreadRequestToJSON(
     GetThreadRequest$outboundSchema.parse(getThreadRequest),
   );
 }
-
-/** @internal */
-export const GetThreadStatusCode$inboundSchema: z.ZodMiniEnum<
-  typeof GetThreadStatusCode
-> = z.enum(GetThreadStatusCode);
-
-/** @internal */
-export const GetThreadType$inboundSchema: z.ZodMiniEnum<typeof GetThreadType> =
-  z.enum(GetThreadType);
-
-/** @internal */
-export const GetThreadCode$inboundSchema: z.ZodMiniEnum<typeof GetThreadCode> =
-  z.enum(GetThreadCode);
 
 /** @internal */
 export const GetThreadResponse$inboundSchema: z.ZodMiniType<

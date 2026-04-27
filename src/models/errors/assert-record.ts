@@ -5,16 +5,15 @@
 import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import * as types from "../../types/primitives.js";
-import * as operations from "../operations/index.js";
 import { AttioBaseError } from "./attio-base-error.js";
 
 /**
  * Not Found
  */
 export type AssertRecordNotFoundErrorData = {
-  statusCode: operations.AssertRecordNotFoundStatusCode;
-  type: operations.AssertRecordNotFoundType;
-  code: operations.AssertRecordNotFoundCode;
+  type: "invalid_request_error";
+  statusCode: 404;
+  code: "not_found";
   message: string;
 };
 
@@ -22,8 +21,8 @@ export type AssertRecordNotFoundErrorData = {
  * Not Found
  */
 export class AssertRecordNotFoundError extends AttioBaseError {
-  type: operations.AssertRecordNotFoundType;
-  code: operations.AssertRecordNotFoundCode;
+  type: "invalid_request_error";
+  code: "not_found";
 
   /** The original data that was passed to this error instance. */
   data$: AssertRecordNotFoundErrorData;
@@ -46,9 +45,9 @@ export class AssertRecordNotFoundError extends AttioBaseError {
  * Bad Request
  */
 export type AssertRecordValueNotFoundErrorData = {
-  statusCode: operations.AssertRecordBadRequestStatusCode;
-  type: operations.AssertRecordBadRequestType;
-  code: operations.AssertRecordCodeValueNotFound;
+  type: "invalid_request_error";
+  statusCode: 400;
+  code: "value_not_found";
   message: string;
 };
 
@@ -56,8 +55,8 @@ export type AssertRecordValueNotFoundErrorData = {
  * Bad Request
  */
 export class AssertRecordValueNotFoundError extends AttioBaseError {
-  type: operations.AssertRecordBadRequestType;
-  code: operations.AssertRecordCodeValueNotFound;
+  type: "invalid_request_error";
+  code: "value_not_found";
 
   /** The original data that was passed to this error instance. */
   data$: AssertRecordValueNotFoundErrorData;
@@ -82,9 +81,9 @@ export const AssertRecordNotFoundError$inboundSchema: z.ZodMiniType<
   unknown
 > = z.pipe(
   z.object({
-    status_code: operations.AssertRecordNotFoundStatusCode$inboundSchema,
-    type: operations.AssertRecordNotFoundType$inboundSchema,
-    code: operations.AssertRecordNotFoundCode$inboundSchema,
+    type: types.literal("invalid_request_error"),
+    status_code: types.literal(404),
+    code: types.literal("not_found"),
     message: types.string(),
     request$: z.custom<Request>(x => x instanceof Request),
     response$: z.custom<Response>(x => x instanceof Response),
@@ -109,9 +108,9 @@ export const AssertRecordValueNotFoundError$inboundSchema: z.ZodMiniType<
   unknown
 > = z.pipe(
   z.object({
-    status_code: operations.AssertRecordBadRequestStatusCode$inboundSchema,
-    type: operations.AssertRecordBadRequestType$inboundSchema,
-    code: operations.AssertRecordCodeValueNotFound$inboundSchema,
+    type: types.literal("invalid_request_error"),
+    status_code: types.literal(400),
+    code: types.literal("value_not_found"),
     message: types.string(),
     request$: z.custom<Request>(x => x instanceof Request),
     response$: z.custom<Response>(x => x instanceof Response),

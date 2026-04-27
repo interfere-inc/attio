@@ -5,28 +5,12 @@
 import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
 
 export type DeleteTaskRequest = {
   taskId: string;
 };
-
-export const DeleteTaskStatusCode = {
-  FourHundredAndFour: 404,
-} as const;
-export type DeleteTaskStatusCode = ClosedEnum<typeof DeleteTaskStatusCode>;
-
-export const DeleteTaskType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type DeleteTaskType = ClosedEnum<typeof DeleteTaskType>;
-
-export const DeleteTaskCode = {
-  NotFound: "not_found",
-} as const;
-export type DeleteTaskCode = ClosedEnum<typeof DeleteTaskCode>;
 
 /**
  * Success
@@ -60,21 +44,6 @@ export function deleteTaskRequestToJSON(
     DeleteTaskRequest$outboundSchema.parse(deleteTaskRequest),
   );
 }
-
-/** @internal */
-export const DeleteTaskStatusCode$inboundSchema: z.ZodMiniEnum<
-  typeof DeleteTaskStatusCode
-> = z.enum(DeleteTaskStatusCode);
-
-/** @internal */
-export const DeleteTaskType$inboundSchema: z.ZodMiniEnum<
-  typeof DeleteTaskType
-> = z.enum(DeleteTaskType);
-
-/** @internal */
-export const DeleteTaskCode$inboundSchema: z.ZodMiniEnum<
-  typeof DeleteTaskCode
-> = z.enum(DeleteTaskCode);
 
 /** @internal */
 export const DeleteTaskResponse$inboundSchema: z.ZodMiniType<

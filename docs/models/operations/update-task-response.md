@@ -20,8 +20,8 @@ let value: UpdateTaskResponse = {
     linkedRecords: [],
     assignees: [],
     createdByActor: {
-      id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
       type: "workspace-member",
+      id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
     },
     createdAt: "2022-11-21T13:22:49.061281000Z",
   },

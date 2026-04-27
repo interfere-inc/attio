@@ -14,8 +14,8 @@ let value: OutputValueDomain = {
 
 ## Fields
 
-| Field                                                            | Type                                                             | Required                                                         | Description                                                      | Example                                                          |
-| ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- |
-| `domain`                                                         | *string*                                                         | :heavy_check_mark:                                               | N/A                                                              | app.attio.com                                                    |
-| `rootDomain`                                                     | *string*                                                         | :heavy_check_mark:                                               | N/A                                                              | attio.com                                                        |
-| `attributeType`                                                  | [models.AttributeTypeDomain](../models/attribute-type-domain.md) | :heavy_check_mark:                                               | The attribute type of the value.                                 | domain                                                           |
+| Field                            | Type                             | Required                         | Description                      | Example                          |
+| -------------------------------- | -------------------------------- | -------------------------------- | -------------------------------- | -------------------------------- |
+| `domain`                         | *string*                         | :heavy_check_mark:               | N/A                              | app.attio.com                    |
+| `rootDomain`                     | *string*                         | :heavy_check_mark:               | N/A                              | attio.com                        |
+| `attributeType`                  | *"domain"*                       | :heavy_check_mark:               | The attribute type of the value. | domain                           |

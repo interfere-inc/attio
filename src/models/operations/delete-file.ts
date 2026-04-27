@@ -5,28 +5,12 @@
 import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
 
 export type DeleteFileRequest = {
   fileId: string;
 };
-
-export const DeleteFileStatusCode = {
-  FourHundredAndFour: 404,
-} as const;
-export type DeleteFileStatusCode = ClosedEnum<typeof DeleteFileStatusCode>;
-
-export const DeleteFileType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type DeleteFileType = ClosedEnum<typeof DeleteFileType>;
-
-export const DeleteFileCode = {
-  NotFound: "not_found",
-} as const;
-export type DeleteFileCode = ClosedEnum<typeof DeleteFileCode>;
 
 /**
  * Success
@@ -60,21 +44,6 @@ export function deleteFileRequestToJSON(
     DeleteFileRequest$outboundSchema.parse(deleteFileRequest),
   );
 }
-
-/** @internal */
-export const DeleteFileStatusCode$inboundSchema: z.ZodMiniEnum<
-  typeof DeleteFileStatusCode
-> = z.enum(DeleteFileStatusCode);
-
-/** @internal */
-export const DeleteFileType$inboundSchema: z.ZodMiniEnum<
-  typeof DeleteFileType
-> = z.enum(DeleteFileType);
-
-/** @internal */
-export const DeleteFileCode$inboundSchema: z.ZodMiniEnum<
-  typeof DeleteFileCode
-> = z.enum(DeleteFileCode);
 
 /** @internal */
 export const DeleteFileResponse$inboundSchema: z.ZodMiniType<

@@ -8,7 +8,7 @@ import { safeParse } from "../../lib/schemas.js";
 import * as discriminatedUnionTypes from "../../types/discriminated-union.js";
 import { discriminatedUnion } from "../../types/discriminated-union.js";
 import * as openEnums from "../../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../../types/enums.js";
+import { OpenEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import * as types from "../../types/primitives.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
@@ -30,48 +30,6 @@ export type UpdateEntryRequest = {
   entryId: string;
   body: UpdateEntryRequestBody;
 };
-
-export const UpdateEntryNotFoundStatusCode = {
-  FourHundredAndFour: 404,
-} as const;
-export type UpdateEntryNotFoundStatusCode = ClosedEnum<
-  typeof UpdateEntryNotFoundStatusCode
->;
-
-export const UpdateEntryNotFoundType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type UpdateEntryNotFoundType = ClosedEnum<
-  typeof UpdateEntryNotFoundType
->;
-
-export const UpdateEntryNotFoundCode = {
-  NotFound: "not_found",
-} as const;
-export type UpdateEntryNotFoundCode = ClosedEnum<
-  typeof UpdateEntryNotFoundCode
->;
-
-export const UpdateEntryBadRequestStatusCode = {
-  FourHundred: 400,
-} as const;
-export type UpdateEntryBadRequestStatusCode = ClosedEnum<
-  typeof UpdateEntryBadRequestStatusCode
->;
-
-export const UpdateEntryBadRequestType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type UpdateEntryBadRequestType = ClosedEnum<
-  typeof UpdateEntryBadRequestType
->;
-
-export const UpdateEntryCodeImmutableValue = {
-  ImmutableValue: "immutable_value",
-} as const;
-export type UpdateEntryCodeImmutableValue = ClosedEnum<
-  typeof UpdateEntryCodeImmutableValue
->;
 
 export type UpdateEntryId = {
   /**
@@ -109,13 +67,13 @@ export type UpdateEntryCreatedByActorType17 = OpenEnum<
  */
 export type UpdateEntryCreatedByActor17 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: UpdateEntryCreatedByActorType17 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type UpdateEntryEntryValueTimestamp = {
@@ -162,13 +120,13 @@ export type UpdateEntryCreatedByActorType16 = OpenEnum<
  */
 export type UpdateEntryCreatedByActor16 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: UpdateEntryCreatedByActorType16 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type UpdateEntryEntryValueText = {
@@ -215,13 +173,13 @@ export type UpdateEntryCreatedByActorType15 = OpenEnum<
  */
 export type UpdateEntryCreatedByActor15 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: UpdateEntryCreatedByActorType15 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type UpdateEntryEntryValueSelect = {
@@ -265,13 +223,13 @@ export type UpdateEntryCreatedByActorType14 = OpenEnum<
  */
 export type UpdateEntryCreatedByActor14 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: UpdateEntryCreatedByActorType14 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type UpdateEntryEntryValueRating = {
@@ -318,13 +276,13 @@ export type UpdateEntryCreatedByActorType13 = OpenEnum<
  */
 export type UpdateEntryCreatedByActor13 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: UpdateEntryCreatedByActorType13 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type UpdateEntryEntryValueStatus = {
@@ -368,13 +326,13 @@ export type UpdateEntryCreatedByActorType12 = OpenEnum<
  */
 export type UpdateEntryCreatedByActor12 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: UpdateEntryCreatedByActorType12 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 /**
@@ -688,13 +646,13 @@ export type UpdateEntryCreatedByActorType11 = OpenEnum<
  */
 export type UpdateEntryCreatedByActor11 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: UpdateEntryCreatedByActorType11 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type UpdateEntryEntryValuePersonalName = {
@@ -749,13 +707,13 @@ export type UpdateEntryCreatedByActorType10 = OpenEnum<
  */
 export type UpdateEntryCreatedByActor10 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: UpdateEntryCreatedByActorType10 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type UpdateEntryEntryValueNumber = {
@@ -802,13 +760,13 @@ export type UpdateEntryCreatedByActorType9 = OpenEnum<
  */
 export type UpdateEntryCreatedByActor9 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: UpdateEntryCreatedByActorType9 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 /**
@@ -1153,13 +1111,13 @@ export type UpdateEntryCreatedByActorType8 = OpenEnum<
  */
 export type UpdateEntryCreatedByActor8 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: UpdateEntryCreatedByActorType8 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 /**
@@ -1201,13 +1159,13 @@ export type UpdateEntryOwnerActorType = OpenEnum<
  */
 export type UpdateEntryOwnerActor = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: UpdateEntryOwnerActorType | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type UpdateEntryEntryValueInteraction = {
@@ -1262,13 +1220,13 @@ export type UpdateEntryCreatedByActorType7 = OpenEnum<
  */
 export type UpdateEntryCreatedByActor7 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: UpdateEntryCreatedByActorType7 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type UpdateEntryEntryValueRecordReference = {
@@ -1319,13 +1277,13 @@ export type UpdateEntryCreatedByActorType6 = OpenEnum<
  */
 export type UpdateEntryCreatedByActor6 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: UpdateEntryCreatedByActorType6 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type UpdateEntryEntryValueEmailAddress = {
@@ -1373,13 +1331,13 @@ export type UpdateEntryCreatedByActorType5 = OpenEnum<
  */
 export type UpdateEntryCreatedByActor5 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: UpdateEntryCreatedByActorType5 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type UpdateEntryEntryValueDomain = {
@@ -1424,13 +1382,13 @@ export type UpdateEntryCreatedByActorType4 = OpenEnum<
  */
 export type UpdateEntryCreatedByActor4 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: UpdateEntryCreatedByActorType4 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type UpdateEntryEntryValueDate = {
@@ -1477,13 +1435,13 @@ export type UpdateEntryCreatedByActorType3 = OpenEnum<
  */
 export type UpdateEntryCreatedByActor3 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: UpdateEntryCreatedByActorType3 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 /**
@@ -1585,13 +1543,13 @@ export type UpdateEntryCreatedByActorType2 = OpenEnum<
  */
 export type UpdateEntryCreatedByActor2 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: UpdateEntryCreatedByActorType2 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type UpdateEntryEntryValueCheckbox = {
@@ -1638,13 +1596,13 @@ export type UpdateEntryCreatedByActorType1 = OpenEnum<
  */
 export type UpdateEntryCreatedByActor1 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: UpdateEntryCreatedByActorType1 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 /**
@@ -1840,36 +1798,6 @@ export function updateEntryRequestToJSON(
 }
 
 /** @internal */
-export const UpdateEntryNotFoundStatusCode$inboundSchema: z.ZodMiniEnum<
-  typeof UpdateEntryNotFoundStatusCode
-> = z.enum(UpdateEntryNotFoundStatusCode);
-
-/** @internal */
-export const UpdateEntryNotFoundType$inboundSchema: z.ZodMiniEnum<
-  typeof UpdateEntryNotFoundType
-> = z.enum(UpdateEntryNotFoundType);
-
-/** @internal */
-export const UpdateEntryNotFoundCode$inboundSchema: z.ZodMiniEnum<
-  typeof UpdateEntryNotFoundCode
-> = z.enum(UpdateEntryNotFoundCode);
-
-/** @internal */
-export const UpdateEntryBadRequestStatusCode$inboundSchema: z.ZodMiniEnum<
-  typeof UpdateEntryBadRequestStatusCode
-> = z.enum(UpdateEntryBadRequestStatusCode);
-
-/** @internal */
-export const UpdateEntryBadRequestType$inboundSchema: z.ZodMiniEnum<
-  typeof UpdateEntryBadRequestType
-> = z.enum(UpdateEntryBadRequestType);
-
-/** @internal */
-export const UpdateEntryCodeImmutableValue$inboundSchema: z.ZodMiniEnum<
-  typeof UpdateEntryCodeImmutableValue
-> = z.enum(UpdateEntryCodeImmutableValue);
-
-/** @internal */
 export const UpdateEntryId$inboundSchema: z.ZodMiniType<
   UpdateEntryId,
   unknown
@@ -1909,8 +1837,8 @@ export const UpdateEntryCreatedByActor17$inboundSchema: z.ZodMiniType<
   UpdateEntryCreatedByActor17,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(z.nullable(UpdateEntryCreatedByActorType17$inboundSchema)),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function updateEntryCreatedByActor17FromJSON(
@@ -1966,8 +1894,8 @@ export const UpdateEntryCreatedByActor16$inboundSchema: z.ZodMiniType<
   UpdateEntryCreatedByActor16,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(z.nullable(UpdateEntryCreatedByActorType16$inboundSchema)),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function updateEntryCreatedByActor16FromJSON(
@@ -2023,8 +1951,8 @@ export const UpdateEntryCreatedByActor15$inboundSchema: z.ZodMiniType<
   UpdateEntryCreatedByActor15,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(z.nullable(UpdateEntryCreatedByActorType15$inboundSchema)),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function updateEntryCreatedByActor15FromJSON(
@@ -2080,8 +2008,8 @@ export const UpdateEntryCreatedByActor14$inboundSchema: z.ZodMiniType<
   UpdateEntryCreatedByActor14,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(z.nullable(UpdateEntryCreatedByActorType14$inboundSchema)),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function updateEntryCreatedByActor14FromJSON(
@@ -2137,8 +2065,8 @@ export const UpdateEntryCreatedByActor13$inboundSchema: z.ZodMiniType<
   UpdateEntryCreatedByActor13,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(z.nullable(UpdateEntryCreatedByActorType13$inboundSchema)),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function updateEntryCreatedByActor13FromJSON(
@@ -2194,8 +2122,8 @@ export const UpdateEntryCreatedByActor12$inboundSchema: z.ZodMiniType<
   UpdateEntryCreatedByActor12,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(z.nullable(UpdateEntryCreatedByActorType12$inboundSchema)),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function updateEntryCreatedByActor12FromJSON(
@@ -2262,8 +2190,8 @@ export const UpdateEntryCreatedByActor11$inboundSchema: z.ZodMiniType<
   UpdateEntryCreatedByActor11,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(z.nullable(UpdateEntryCreatedByActorType11$inboundSchema)),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function updateEntryCreatedByActor11FromJSON(
@@ -2324,8 +2252,8 @@ export const UpdateEntryCreatedByActor10$inboundSchema: z.ZodMiniType<
   UpdateEntryCreatedByActor10,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(z.nullable(UpdateEntryCreatedByActorType10$inboundSchema)),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function updateEntryCreatedByActor10FromJSON(
@@ -2381,8 +2309,8 @@ export const UpdateEntryCreatedByActor9$inboundSchema: z.ZodMiniType<
   UpdateEntryCreatedByActor9,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(z.nullable(UpdateEntryCreatedByActorType9$inboundSchema)),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function updateEntryCreatedByActor9FromJSON(
@@ -2458,8 +2386,8 @@ export const UpdateEntryCreatedByActor8$inboundSchema: z.ZodMiniType<
   UpdateEntryCreatedByActor8,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(z.nullable(UpdateEntryCreatedByActorType8$inboundSchema)),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function updateEntryCreatedByActor8FromJSON(
@@ -2489,8 +2417,8 @@ export const UpdateEntryOwnerActor$inboundSchema: z.ZodMiniType<
   UpdateEntryOwnerActor,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(z.nullable(UpdateEntryOwnerActorType$inboundSchema)),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function updateEntryOwnerActorFromJSON(
@@ -2551,8 +2479,8 @@ export const UpdateEntryCreatedByActor7$inboundSchema: z.ZodMiniType<
   UpdateEntryCreatedByActor7,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(z.nullable(UpdateEntryCreatedByActorType7$inboundSchema)),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function updateEntryCreatedByActor7FromJSON(
@@ -2612,8 +2540,8 @@ export const UpdateEntryCreatedByActor6$inboundSchema: z.ZodMiniType<
   UpdateEntryCreatedByActor6,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(z.nullable(UpdateEntryCreatedByActorType6$inboundSchema)),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function updateEntryCreatedByActor6FromJSON(
@@ -2678,8 +2606,8 @@ export const UpdateEntryCreatedByActor5$inboundSchema: z.ZodMiniType<
   UpdateEntryCreatedByActor5,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(z.nullable(UpdateEntryCreatedByActorType5$inboundSchema)),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function updateEntryCreatedByActor5FromJSON(
@@ -2737,8 +2665,8 @@ export const UpdateEntryCreatedByActor4$inboundSchema: z.ZodMiniType<
   UpdateEntryCreatedByActor4,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(z.nullable(UpdateEntryCreatedByActorType4$inboundSchema)),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function updateEntryCreatedByActor4FromJSON(
@@ -2794,8 +2722,8 @@ export const UpdateEntryCreatedByActor3$inboundSchema: z.ZodMiniType<
   UpdateEntryCreatedByActor3,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(z.nullable(UpdateEntryCreatedByActorType3$inboundSchema)),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function updateEntryCreatedByActor3FromJSON(
@@ -2862,8 +2790,8 @@ export const UpdateEntryCreatedByActor2$inboundSchema: z.ZodMiniType<
   UpdateEntryCreatedByActor2,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(z.nullable(UpdateEntryCreatedByActorType2$inboundSchema)),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function updateEntryCreatedByActor2FromJSON(
@@ -2919,8 +2847,8 @@ export const UpdateEntryCreatedByActor1$inboundSchema: z.ZodMiniType<
   UpdateEntryCreatedByActor1,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(z.nullable(UpdateEntryCreatedByActorType1$inboundSchema)),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function updateEntryCreatedByActor1FromJSON(

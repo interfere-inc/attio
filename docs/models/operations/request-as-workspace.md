@@ -12,6 +12,6 @@ let value: RequestAsWorkspace = {
 
 ## Fields
 
-| Field                                                                 | Type                                                                  | Required                                                              | Description                                                           |
-| --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
-| `type`                                                                | [operations.TypeWorkspace](../../models/operations/type-workspace.md) | :heavy_check_mark:                                                    | N/A                                                                   |
+| Field              | Type               | Required           | Description        |
+| ------------------ | ------------------ | ------------------ | ------------------ |
+| `type`             | *"workspace"*      | :heavy_check_mark: | N/A                |

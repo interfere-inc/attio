@@ -10,7 +10,7 @@ The default value for this attribute. Static values are used to directly populat
 ```typescript
 const value: models.DefaultValueDynamic = {
   type: "dynamic",
-  template: "P1M",
+  template: "current-user",
 };
 ```
 
@@ -21,8 +21,8 @@ const value: models.DefaultValueStatic = {
   type: "static",
   template: [
     {
+      attributeType: "date",
       value: "Some default text",
-      attributeType: "text",
     },
   ],
 };

@@ -25,13 +25,13 @@ let value: CreateCommentResponse = {
     },
     resolvedAt: "2023-01-01T15:00:00.000000000Z",
     resolvedBy: {
-      id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
       type: "workspace-member",
+      id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
     },
     createdAt: "2023-01-01T15:00:00.000000000Z",
     author: {
-      id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
       type: "workspace-member",
+      id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
     },
   },
 };

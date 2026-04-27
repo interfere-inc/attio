@@ -16,4 +16,4 @@ let value: UpdateAttributeDefaultValueDynamic = {
 | Field              | Type               | Required           | Description        | Example            |
 | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ |
 | `type`             | *"dynamic"*        | :heavy_check_mark: | N/A                | dynamic            |
-| `template`         | *any*              | :heavy_check_mark: | N/A                |                    |
+| `template`         | *"current-user"*   | :heavy_check_mark: | N/A                | current-user       |

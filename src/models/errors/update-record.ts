@@ -5,16 +5,15 @@
 import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import * as types from "../../types/primitives.js";
-import * as operations from "../operations/index.js";
 import { AttioBaseError } from "./attio-base-error.js";
 
 /**
  * Not Found
  */
 export type UpdateRecordNotFoundErrorData = {
-  statusCode: operations.UpdateRecordNotFoundStatusCode;
-  type: operations.UpdateRecordNotFoundType;
-  code: operations.UpdateRecordNotFoundCode;
+  type: "invalid_request_error";
+  statusCode: 404;
+  code: "not_found";
   message: string;
 };
 
@@ -22,8 +21,8 @@ export type UpdateRecordNotFoundErrorData = {
  * Not Found
  */
 export class UpdateRecordNotFoundError extends AttioBaseError {
-  type: operations.UpdateRecordNotFoundType;
-  code: operations.UpdateRecordNotFoundCode;
+  type: "invalid_request_error";
+  code: "not_found";
 
   /** The original data that was passed to this error instance. */
   data$: UpdateRecordNotFoundErrorData;
@@ -46,9 +45,9 @@ export class UpdateRecordNotFoundError extends AttioBaseError {
  * Bad Request
  */
 export type UpdateRecordMissingValueErrorData = {
-  statusCode: operations.UpdateRecordBadRequestStatusCode;
-  type: operations.UpdateRecordBadRequestType;
-  code: operations.UpdateRecordCodeMissingValue;
+  type: "invalid_request_error";
+  statusCode: 400;
+  code: "missing_value";
   message: string;
 };
 
@@ -56,8 +55,8 @@ export type UpdateRecordMissingValueErrorData = {
  * Bad Request
  */
 export class UpdateRecordMissingValueError extends AttioBaseError {
-  type: operations.UpdateRecordBadRequestType;
-  code: operations.UpdateRecordCodeMissingValue;
+  type: "invalid_request_error";
+  code: "missing_value";
 
   /** The original data that was passed to this error instance. */
   data$: UpdateRecordMissingValueErrorData;
@@ -82,9 +81,9 @@ export const UpdateRecordNotFoundError$inboundSchema: z.ZodMiniType<
   unknown
 > = z.pipe(
   z.object({
-    status_code: operations.UpdateRecordNotFoundStatusCode$inboundSchema,
-    type: operations.UpdateRecordNotFoundType$inboundSchema,
-    code: operations.UpdateRecordNotFoundCode$inboundSchema,
+    type: types.literal("invalid_request_error"),
+    status_code: types.literal(404),
+    code: types.literal("not_found"),
     message: types.string(),
     request$: z.custom<Request>(x => x instanceof Request),
     response$: z.custom<Response>(x => x instanceof Response),
@@ -109,9 +108,9 @@ export const UpdateRecordMissingValueError$inboundSchema: z.ZodMiniType<
   unknown
 > = z.pipe(
   z.object({
-    status_code: operations.UpdateRecordBadRequestStatusCode$inboundSchema,
-    type: operations.UpdateRecordBadRequestType$inboundSchema,
-    code: operations.UpdateRecordCodeMissingValue$inboundSchema,
+    type: types.literal("invalid_request_error"),
+    status_code: types.literal(400),
+    code: types.literal("missing_value"),
     message: types.string(),
     request$: z.custom<Request>(x => x instanceof Request),
     response$: z.custom<Response>(x => x instanceof Response),

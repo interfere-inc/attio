@@ -1,0 +1,247 @@
+overlay: 1.0.0
+x-speakeasy-jsonpath: rfc9535
+info:
+  title: Variant naming
+  version: 0.0.1
+  description: |
+    Provides `x-speakeasy-name-override` for inline anyOf variants that
+    Speakeasy can't disambiguate automatically. Without this overlay,
+    Attio's `input-value` / `output-value` / `meeting.start` / `meeting.end`
+    union variants get numbered names like `InputValue1`, `Start2`,
+    `OutputValueSelect2`, which forces SDK consumers to import opaque types.
+
+    For each variant we add a name that describes its distinctive shape
+    (e.g. `InputValueCheckbox`, `MeetingStartDateTime`) or, where two
+    variants share the same discriminator value, the relationship between
+    them (e.g. `OutputValueSelect` for the expanded form vs
+    `OutputValueSelectReference` for the bare-id form).
+
+    Targets use anyOf array indices, which are stable as long as Attio
+    doesn't reorder variants in their spec. If they do, the indices in
+    this overlay need updating; the failure mode is just less-pretty
+    model names, not broken codegen.
+actions:
+
+  # ===== input-value anyOf variants =====
+  # Variant 0 is already named `InputValueWorkspaceMember` by Speakeasy
+  # because its `referenced_actor_type` enum has a single value.
+
+  - target: $["components"]["schemas"]["input-value"]["anyOf"][1]
+    description: Workspace member referenced by email address (vs by actor id in variant 0).
+    update:
+      x-speakeasy-name-override: InputValueWorkspaceMemberByEmail
+
+  - target: $["components"]["schemas"]["input-value"]["anyOf"][2]
+    description: Checkbox boolean value.
+    update:
+      x-speakeasy-name-override: InputValueCheckbox
+
+  - target: $["components"]["schemas"]["input-value"]["anyOf"][3]
+    description: Currency value.
+    update:
+      x-speakeasy-name-override: InputValueCurrency
+
+  - target: $["components"]["schemas"]["input-value"]["anyOf"][4]
+    description: Date value (calendar date, no time component).
+    update:
+      x-speakeasy-name-override: InputValueDate
+
+  - target: $["components"]["schemas"]["input-value"]["anyOf"][5]
+    description: Domain reference (URL host).
+    update:
+      x-speakeasy-name-override: InputValueDomain
+
+  - target: $["components"]["schemas"]["input-value"]["anyOf"][6]
+    description: Email address.
+    update:
+      x-speakeasy-name-override: InputValueEmailAddress
+
+  - target: $["components"]["schemas"]["input-value"]["anyOf"][7]
+    description: Record reference by record id (target_object + target_record_id).
+    update:
+      x-speakeasy-name-override: InputValueRecordReferenceById
+
+  - target: $["components"]["schemas"]["input-value"]["anyOf"][8]
+    description: Record reference by matching attribute (target_object + slug_or_id_of_matching_attribute).
+    update:
+      x-speakeasy-name-override: InputValueRecordReferenceByMatching
+
+  - target: $["components"]["schemas"]["input-value"]["anyOf"][9]
+    description: Interaction (e.g. email/calendar event).
+    update:
+      x-speakeasy-name-override: InputValueInteraction
+
+  - target: $["components"]["schemas"]["input-value"]["anyOf"][10]
+    description: Postal location with optional lat/lng.
+    update:
+      x-speakeasy-name-override: InputValueLocation
+
+  - target: $["components"]["schemas"]["input-value"]["anyOf"][11]
+    description: Numeric value (64-bit float).
+    update:
+      x-speakeasy-name-override: InputValueNumber
+
+  - target: $["components"]["schemas"]["input-value"]["anyOf"][12]
+    description: Personal name (first/last/full).
+    update:
+      x-speakeasy-name-override: InputValuePersonalName
+
+  - target: $["components"]["schemas"]["input-value"]["anyOf"][13]
+    description: Phone number with optional ISO country code.
+    update:
+      x-speakeasy-name-override: InputValuePhoneNumber
+
+  - target: $["components"]["schemas"]["input-value"]["anyOf"][14]
+    description: Status reference by UUID or title.
+    update:
+      x-speakeasy-name-override: InputValueStatus
+
+  - target: $["components"]["schemas"]["input-value"]["anyOf"][15]
+    description: Star rating (0-5 inclusive).
+    update:
+      x-speakeasy-name-override: InputValueRating
+
+  - target: $["components"]["schemas"]["input-value"]["anyOf"][16]
+    description: Select option reference by UUID or title.
+    update:
+      x-speakeasy-name-override: InputValueSelect
+
+  - target: $["components"]["schemas"]["input-value"]["anyOf"][17]
+    description: Free-form text value (up to 10MB).
+    update:
+      x-speakeasy-name-override: InputValueText
+
+  - target: $["components"]["schemas"]["input-value"]["anyOf"][18]
+    description: Timestamp value (ISO 8601 datetime).
+    update:
+      x-speakeasy-name-override: InputValueTimestamp
+
+  # ===== output-value duplicate-discriminator variants =====
+  # Most output-value variants get sensible names from their unique
+  # `attribute_type` const (e.g. OutputValueCheckbox, OutputValueText).
+  # The exceptions are status (variants 12, 13) and select (variants 15, 16),
+  # which each have two shapes for the same discriminator value: a bare
+  # reference (string id) and an expanded object.
+
+  - target: $["components"]["schemas"]["output-value"]["anyOf"][12]
+    description: Status as a bare reference (status name/slug as string), without expanded object.
+    update:
+      x-speakeasy-name-override: OutputValueStatusReference
+
+  - target: $["components"]["schemas"]["output-value"]["anyOf"][13]
+    description: Status with the full Status object expanded (id, title, color, etc.).
+    update:
+      x-speakeasy-name-override: OutputValueStatus
+
+  - target: $["components"]["schemas"]["output-value"]["anyOf"][15]
+    description: Select option as a bare reference (option UUID as string), without expanded object.
+    update:
+      x-speakeasy-name-override: OutputValueSelectReference
+
+  - target: $["components"]["schemas"]["output-value"]["anyOf"][16]
+    description: Select option with the full SelectOption object expanded (id, title, etc.).
+    update:
+      x-speakeasy-name-override: OutputValueSelect
+
+  # ===== meeting start / end variants =====
+  # `meeting.start` and `meeting.end` are each a 2-variant anyOf that
+  # distinguishes between timed events (datetime + timezone) and all-day
+  # events (date only). They appear in both the response schema and the
+  # POST /v2/meetings request body; we name both so dedup stays consistent.
+
+  - target: $["components"]["schemas"]["meeting"]["properties"]["start"]["anyOf"][0]
+    description: Meeting start as datetime (timed event).
+    update:
+      x-speakeasy-name-override: MeetingStartDateTime
+
+  - target: $["components"]["schemas"]["meeting"]["properties"]["start"]["anyOf"][1]
+    description: Meeting start as calendar date (all-day event).
+    update:
+      x-speakeasy-name-override: MeetingStartDate
+
+  - target: $["components"]["schemas"]["meeting"]["properties"]["end"]["anyOf"][0]
+    description: Meeting end as datetime (timed event).
+    update:
+      x-speakeasy-name-override: MeetingEndDateTime
+
+  - target: $["components"]["schemas"]["meeting"]["properties"]["end"]["anyOf"][1]
+    description: Meeting end as calendar date (all-day event).
+    update:
+      x-speakeasy-name-override: MeetingEndDate
+
+  - target: $["paths"]["/v2/meetings"]["post"]["requestBody"]["content"]["application/json"]["schema"]["properties"]["data"]["properties"]["start"]["anyOf"][0]
+    description: Meeting start as datetime in create-meeting request body.
+    update:
+      x-speakeasy-name-override: MeetingStartDateTime
+
+  - target: $["paths"]["/v2/meetings"]["post"]["requestBody"]["content"]["application/json"]["schema"]["properties"]["data"]["properties"]["start"]["anyOf"][1]
+    description: Meeting start as calendar date in create-meeting request body.
+    update:
+      x-speakeasy-name-override: MeetingStartDate
+
+  - target: $["paths"]["/v2/meetings"]["post"]["requestBody"]["content"]["application/json"]["schema"]["properties"]["data"]["properties"]["end"]["anyOf"][0]
+    description: Meeting end as datetime in create-meeting request body.
+    update:
+      x-speakeasy-name-override: MeetingEndDateTime
+
+  - target: $["paths"]["/v2/meetings"]["post"]["requestBody"]["content"]["application/json"]["schema"]["properties"]["data"]["properties"]["end"]["anyOf"][1]
+    description: Meeting end as calendar date in create-meeting request body.
+    update:
+      x-speakeasy-name-override: MeetingEndDate
+
+  # ===== slug-or-id-of-matching-attribute variants =====
+  # The `slug_or_id_of_matching_attribute` array (used in record-reference
+  # input values) holds objects matching one of several shapes. Speakeasy
+  # numbers them 1, 2, ... ; we give each variant a name based on which
+  # attribute type it's matching against.
+
+  - target: $["components"]["schemas"]["input-value"]["anyOf"][8]["properties"]["[slug_or_id_of_matching_attribute]"]["items"]["anyOf"][0]
+    description: Match record by domain attribute.
+    update:
+      x-speakeasy-name-override: MatchingAttributeDomain
+
+  - target: $["components"]["schemas"]["input-value"]["anyOf"][8]["properties"]["[slug_or_id_of_matching_attribute]"]["items"]["anyOf"][1]
+    description: Match record by email-address attribute.
+    update:
+      x-speakeasy-name-override: MatchingAttributeEmailAddress
+
+  - target: $["components"]["schemas"]["input-value"]["anyOf"][8]["properties"]["[slug_or_id_of_matching_attribute]"]["items"]["anyOf"][2]
+    description: Match record by numeric attribute.
+    update:
+      x-speakeasy-name-override: MatchingAttributeNumber
+
+  - target: $["components"]["schemas"]["input-value"]["anyOf"][8]["properties"]["[slug_or_id_of_matching_attribute]"]["items"]["anyOf"][3]
+    description: Match record by phone-number attribute.
+    update:
+      x-speakeasy-name-override: MatchingAttributePhoneNumber
+
+  - target: $["components"]["schemas"]["input-value"]["anyOf"][8]["properties"]["[slug_or_id_of_matching_attribute]"]["items"]["anyOf"][4]
+    description: Match record by text attribute.
+    update:
+      x-speakeasy-name-override: MatchingAttributeText
+
+  # ===== country-code enum reuses =====
+  # `country_code` is the same 240-value ISO 3166-1 alpha-2 enum used in
+  # both location and phone-number contexts. Without naming, Speakeasy
+  # produces InputValueCountryCode1 / InputValueCountryCode2 (and the
+  # output-value equivalents). We name them by their context.
+
+  - target: $["components"]["schemas"]["input-value"]["anyOf"][10]["properties"]["country_code"]
+    description: ISO 3166-1 alpha-2 country code on a location input value.
+    update:
+      x-speakeasy-name-override: LocationCountryCode
+
+  - target: $["components"]["schemas"]["input-value"]["anyOf"][13]["properties"]["country_code"]
+    description: ISO 3166-1 alpha-2 country code on a phone-number input value.
+    update:
+      x-speakeasy-name-override: PhoneCountryCode
+
+  - target: $["components"]["schemas"]["output-value"]["anyOf"][8]["properties"]["country_code"]
+    description: ISO 3166-1 alpha-2 country code on a location output value.
+    update:
+      x-speakeasy-name-override: LocationCountryCode
+
+  - target: $["components"]["schemas"]["output-value"]["anyOf"][11]["properties"]["country_code"]
+    description: ISO 3166-1 alpha-2 country code on a phone-number output value.
+    update:
+      x-speakeasy-name-override: PhoneCountryCode

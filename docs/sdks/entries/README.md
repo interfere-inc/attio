@@ -10,9 +10,9 @@ Entries are elements in a list that reference a single parent record. Entries co
 * [create](#create) - Create an entry (add record to list)
 * [assert](#assert) - Assert a list entry by parent
 * [get](#get) - Get a list entry
-* [updateAppending](#updateappending) - Update a list entry (append multiselect values)
 * [update](#update) - Update a list entry (overwrite multiselect values)
 * [delete](#delete) - Delete a list entry
+* [updateAppending](#updateappending) - Update a list entry (append multiselect values)
 * [listAttributeValues](#listattributevalues) - List attribute values for a list entry
 
 ## query
@@ -484,111 +484,6 @@ run();
 | errors.GetEntryNotFoundError | 404                          | application/json             |
 | errors.AttioError            | 4XX, 5XX                     | \*/\*                        |
 
-## updateAppending
-
-Use this endpoint to update list entries by `entry_id`. If the update payload includes multiselect attributes, the values supplied will be created and prepended to the list of values that already exist (if any). Use the `PUT` endpoint to overwrite or remove multiselect attribute values.
-
-Required scopes: `list_entry:read-write`, `list_configuration:read`.
-
-### Example Usage
-
-<!-- UsageSnippet language="typescript" operationID="updateAppendingEntry" method="patch" path="/v2/lists/{list}/entries/{entry_id}" -->
-```typescript
-import { Attio } from "@interfere/attio";
-
-const attio = new Attio({
-  oauth2: process.env["ATTIO_OAUTH2"] ?? "",
-});
-
-async function run() {
-  const result = await attio.entries.updateAppending({
-    list: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0",
-    entryId: "2e6e29ea-c4e0-4f44-842d-78a891f8c156",
-    body: {
-      data: {
-        entryValues: {
-          "41252299-f8c7-4b5e-99c9-4ff8321d2f96": [
-            "Text value",
-          ],
-          "multiselect_attribute": [
-            "Select option 1",
-            "Select option 2",
-          ],
-        },
-      },
-    },
-  });
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { AttioCore } from "@interfere/attio/core.js";
-import { entriesUpdateAppending } from "@interfere/attio/funcs/entries-update-appending.js";
-
-// Use `AttioCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const attio = new AttioCore({
-  oauth2: process.env["ATTIO_OAUTH2"] ?? "",
-});
-
-async function run() {
-  const res = await entriesUpdateAppending(attio, {
-    list: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0",
-    entryId: "2e6e29ea-c4e0-4f44-842d-78a891f8c156",
-    body: {
-      data: {
-        entryValues: {
-          "41252299-f8c7-4b5e-99c9-4ff8321d2f96": [
-            "Text value",
-          ],
-          "multiselect_attribute": [
-            "Select option 1",
-            "Select option 2",
-          ],
-        },
-      },
-    },
-  });
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("entriesUpdateAppending failed:", res.error);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.UpdateAppendingEntryRequest](../../models/operations/update-appending-entry-request.md)                                                                            | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-
-### Response
-
-**Promise\<[operations.UpdateAppendingEntryResponse](../../models/operations/update-appending-entry-response.md)\>**
-
-### Errors
-
-| Error Type                                     | Status Code                                    | Content Type                                   |
-| ---------------------------------------------- | ---------------------------------------------- | ---------------------------------------------- |
-| errors.UpdateAppendingEntryImmutableValueError | 400                                            | application/json                               |
-| errors.UpdateAppendingEntryNotFoundError       | 404                                            | application/json                               |
-| errors.AttioError                              | 4XX, 5XX                                       | \*/\*                                          |
-
 ## update
 
 Use this endpoint to update list entries by `entry_id`. If the update payload includes multiselect attributes, the values supplied will overwrite/remove the list of values that already exist (if any). Use the `PATCH` endpoint to add multiselect attribute values without removing those value that already exist.
@@ -771,6 +666,111 @@ run();
 | ------------------------------- | ------------------------------- | ------------------------------- |
 | errors.DeleteEntryNotFoundError | 404                             | application/json                |
 | errors.AttioError               | 4XX, 5XX                        | \*/\*                           |
+
+## updateAppending
+
+Use this endpoint to update list entries by `entry_id`. If the update payload includes multiselect attributes, the values supplied will be created and prepended to the list of values that already exist (if any). Use the `PUT` endpoint to overwrite or remove multiselect attribute values.
+
+Required scopes: `list_entry:read-write`, `list_configuration:read`.
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="updateAppendingEntry" method="patch" path="/v2/lists/{list}/entries/{entry_id}" -->
+```typescript
+import { Attio } from "@interfere/attio";
+
+const attio = new Attio({
+  oauth2: process.env["ATTIO_OAUTH2"] ?? "",
+});
+
+async function run() {
+  const result = await attio.entries.updateAppending({
+    list: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0",
+    entryId: "2e6e29ea-c4e0-4f44-842d-78a891f8c156",
+    body: {
+      data: {
+        entryValues: {
+          "41252299-f8c7-4b5e-99c9-4ff8321d2f96": [
+            "Text value",
+          ],
+          "multiselect_attribute": [
+            "Select option 1",
+            "Select option 2",
+          ],
+        },
+      },
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { AttioCore } from "@interfere/attio/core.js";
+import { entriesUpdateAppending } from "@interfere/attio/funcs/entries-update-appending.js";
+
+// Use `AttioCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const attio = new AttioCore({
+  oauth2: process.env["ATTIO_OAUTH2"] ?? "",
+});
+
+async function run() {
+  const res = await entriesUpdateAppending(attio, {
+    list: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0",
+    entryId: "2e6e29ea-c4e0-4f44-842d-78a891f8c156",
+    body: {
+      data: {
+        entryValues: {
+          "41252299-f8c7-4b5e-99c9-4ff8321d2f96": [
+            "Text value",
+          ],
+          "multiselect_attribute": [
+            "Select option 1",
+            "Select option 2",
+          ],
+        },
+      },
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("entriesUpdateAppending failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.UpdateAppendingEntryRequest](../../models/operations/update-appending-entry-request.md)                                                                            | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.UpdateAppendingEntryResponse](../../models/operations/update-appending-entry-response.md)\>**
+
+### Errors
+
+| Error Type                                     | Status Code                                    | Content Type                                   |
+| ---------------------------------------------- | ---------------------------------------------- | ---------------------------------------------- |
+| errors.UpdateAppendingEntryImmutableValueError | 400                                            | application/json                               |
+| errors.UpdateAppendingEntryNotFoundError       | 404                                            | application/json                               |
+| errors.AttioError                              | 4XX, 5XX                                       | \*/\*                                          |
 
 ## listAttributeValues
 

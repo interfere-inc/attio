@@ -13,8 +13,8 @@ let value: CreateScimGroupResponse = {
   displayName: "Kody_Kutch60",
   members: [
     {
-      value: "<value>",
       dollarRef: "<value>",
+      value: "<value>",
     },
   ],
   meta: {

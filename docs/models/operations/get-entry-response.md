@@ -23,17 +23,17 @@ let value: GetEntryResponse = {
           activeFrom: new Date("2023-01-01T15:00:00.000000000Z"),
           activeUntil: null,
           createdByActor: {
-            id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
             type: "workspace-member",
+            id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
           },
           status: {
+            title: "In Progress",
             id: {
               workspaceId: "14beef7a-99f7-4534-a87e-70b564330a4c",
               objectId: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0",
               attributeId: "e350362f-4b55-4c0f-93f4-379ae8ff2e5b",
               statusId: "527def35-7994-4ef7-9584-80ef8de352a8",
             },
-            title: "In Progress",
             isArchived: false,
             celebrationEnabled: false,
             targetTimeInStatus: null,
@@ -46,8 +46,8 @@ let value: GetEntryResponse = {
           activeFrom: new Date("2023-01-01T15:00:00.000000000Z"),
           activeUntil: null,
           createdByActor: {
-            id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
             type: "workspace-member",
+            id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
           },
           attributeType: "timestamp",
           value: new Date("2023-01-01T15:00:00.000000000Z"),
@@ -58,8 +58,8 @@ let value: GetEntryResponse = {
           activeFrom: new Date("2023-01-01T15:00:00.000000000Z"),
           activeUntil: null,
           createdByActor: {
-            id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
             type: "workspace-member",
+            id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
           },
           referencedActorType: "workspace-member",
           referencedActorId: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",

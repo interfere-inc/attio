@@ -66,13 +66,13 @@ export type ListCallRecordingsType = OpenEnum<typeof ListCallRecordingsType>;
  */
 export type ListCallRecordingsCreatedByActor = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: ListCallRecordingsType | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type ListCallRecordingsData = {
@@ -185,8 +185,8 @@ export const ListCallRecordingsCreatedByActor$inboundSchema: z.ZodMiniType<
   ListCallRecordingsCreatedByActor,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(z.nullable(ListCallRecordingsType$inboundSchema)),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function listCallRecordingsCreatedByActorFromJSON(

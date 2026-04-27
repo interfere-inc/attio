@@ -365,24 +365,11 @@ export type UpdateTaskAssignee = {
   workspaceMemberEmailAddress: string;
 };
 
-/**
- * The actor type of the task assignee. Only `workspace-member` actors can be assigned to tasks. [Read more information on actor types here](/docs/actors).
- */
-export const UpdateTaskReferencedActorType = {
-  WorkspaceMember: "workspace-member",
-} as const;
-/**
- * The actor type of the task assignee. Only `workspace-member` actors can be assigned to tasks. [Read more information on actor types here](/docs/actors).
- */
-export type UpdateTaskReferencedActorType = ClosedEnum<
-  typeof UpdateTaskReferencedActorType
->;
-
 export type UpdateTaskAssigneeWorkspaceMember = {
   /**
    * The actor type of the task assignee. Only `workspace-member` actors can be assigned to tasks. [Read more information on actor types here](/docs/actors).
    */
-  referencedActorType: UpdateTaskReferencedActorType;
+  referencedActorType: "workspace-member";
   /**
    * The ID of the actor assigned to this task.
    */
@@ -425,44 +412,6 @@ export type UpdateTaskRequest = {
   taskId: string;
   body: UpdateTaskRequestBody;
 };
-
-export const UpdateTaskNotFoundStatusCode = {
-  FourHundredAndFour: 404,
-} as const;
-export type UpdateTaskNotFoundStatusCode = ClosedEnum<
-  typeof UpdateTaskNotFoundStatusCode
->;
-
-export const UpdateTaskNotFoundType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type UpdateTaskNotFoundType = ClosedEnum<typeof UpdateTaskNotFoundType>;
-
-export const UpdateTaskNotFoundCode = {
-  NotFound: "not_found",
-} as const;
-export type UpdateTaskNotFoundCode = ClosedEnum<typeof UpdateTaskNotFoundCode>;
-
-export const UpdateTaskBadRequestStatusCode = {
-  FourHundred: 400,
-} as const;
-export type UpdateTaskBadRequestStatusCode = ClosedEnum<
-  typeof UpdateTaskBadRequestStatusCode
->;
-
-export const UpdateTaskBadRequestType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type UpdateTaskBadRequestType = ClosedEnum<
-  typeof UpdateTaskBadRequestType
->;
-
-export const UpdateTaskCodeValidationType = {
-  ValidationType: "validation_type",
-} as const;
-export type UpdateTaskCodeValidationType = ClosedEnum<
-  typeof UpdateTaskCodeValidationType
->;
 
 /**
  * Success
@@ -806,13 +755,8 @@ export function updateTaskAssigneeToJSON(
 }
 
 /** @internal */
-export const UpdateTaskReferencedActorType$outboundSchema: z.ZodMiniEnum<
-  typeof UpdateTaskReferencedActorType
-> = z.enum(UpdateTaskReferencedActorType);
-
-/** @internal */
 export type UpdateTaskAssigneeWorkspaceMember$Outbound = {
-  referenced_actor_type: string;
+  referenced_actor_type: "workspace-member";
   referenced_actor_id: string;
 };
 
@@ -822,7 +766,7 @@ export const UpdateTaskAssigneeWorkspaceMember$outboundSchema: z.ZodMiniType<
   UpdateTaskAssigneeWorkspaceMember
 > = z.pipe(
   z.object({
-    referencedActorType: UpdateTaskReferencedActorType$outboundSchema,
+    referencedActorType: z.literal("workspace-member"),
     referencedActorId: z.string(),
   }),
   z.transform((v) => {
@@ -971,36 +915,6 @@ export function updateTaskRequestToJSON(
     UpdateTaskRequest$outboundSchema.parse(updateTaskRequest),
   );
 }
-
-/** @internal */
-export const UpdateTaskNotFoundStatusCode$inboundSchema: z.ZodMiniEnum<
-  typeof UpdateTaskNotFoundStatusCode
-> = z.enum(UpdateTaskNotFoundStatusCode);
-
-/** @internal */
-export const UpdateTaskNotFoundType$inboundSchema: z.ZodMiniEnum<
-  typeof UpdateTaskNotFoundType
-> = z.enum(UpdateTaskNotFoundType);
-
-/** @internal */
-export const UpdateTaskNotFoundCode$inboundSchema: z.ZodMiniEnum<
-  typeof UpdateTaskNotFoundCode
-> = z.enum(UpdateTaskNotFoundCode);
-
-/** @internal */
-export const UpdateTaskBadRequestStatusCode$inboundSchema: z.ZodMiniEnum<
-  typeof UpdateTaskBadRequestStatusCode
-> = z.enum(UpdateTaskBadRequestStatusCode);
-
-/** @internal */
-export const UpdateTaskBadRequestType$inboundSchema: z.ZodMiniEnum<
-  typeof UpdateTaskBadRequestType
-> = z.enum(UpdateTaskBadRequestType);
-
-/** @internal */
-export const UpdateTaskCodeValidationType$inboundSchema: z.ZodMiniEnum<
-  typeof UpdateTaskCodeValidationType
-> = z.enum(UpdateTaskCodeValidationType);
 
 /** @internal */
 export const UpdateTaskResponse$inboundSchema: z.ZodMiniType<

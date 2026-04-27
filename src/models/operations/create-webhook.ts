@@ -130,23 +130,6 @@ export type CreateWebhookRequest = {
   data: CreateWebhookDataRequest;
 };
 
-export const CreateWebhookStatusCode = {
-  FourHundred: 400,
-} as const;
-export type CreateWebhookStatusCode = ClosedEnum<
-  typeof CreateWebhookStatusCode
->;
-
-export const CreateWebhookType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type CreateWebhookType = ClosedEnum<typeof CreateWebhookType>;
-
-export const CreateWebhookCode = {
-  ValidationType: "validation_type",
-} as const;
-export type CreateWebhookCode = ClosedEnum<typeof CreateWebhookCode>;
-
 /**
  * Type of event the webhook is subscribed to.
  */
@@ -659,21 +642,6 @@ export function createWebhookRequestToJSON(
     CreateWebhookRequest$outboundSchema.parse(createWebhookRequest),
   );
 }
-
-/** @internal */
-export const CreateWebhookStatusCode$inboundSchema: z.ZodMiniEnum<
-  typeof CreateWebhookStatusCode
-> = z.enum(CreateWebhookStatusCode);
-
-/** @internal */
-export const CreateWebhookType$inboundSchema: z.ZodMiniEnum<
-  typeof CreateWebhookType
-> = z.enum(CreateWebhookType);
-
-/** @internal */
-export const CreateWebhookCode$inboundSchema: z.ZodMiniEnum<
-  typeof CreateWebhookCode
-> = z.enum(CreateWebhookCode);
 
 /** @internal */
 export const CreateWebhookEventTypeResponse$inboundSchema: z.ZodMiniType<

@@ -13,7 +13,7 @@ let value: OutputValueNumber = {
 
 ## Fields
 
-| Field                                                            | Type                                                             | Required                                                         | Description                                                      | Example                                                          |
-| ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- |
-| `value`                                                          | *number*                                                         | :heavy_check_mark:                                               | Numbers are persisted as 64 bit floats.                          | 42                                                               |
-| `attributeType`                                                  | [models.AttributeTypeNumber](../models/attribute-type-number.md) | :heavy_check_mark:                                               | The attribute type of the value.                                 | number                                                           |
+| Field                                   | Type                                    | Required                                | Description                             | Example                                 |
+| --------------------------------------- | --------------------------------------- | --------------------------------------- | --------------------------------------- | --------------------------------------- |
+| `value`                                 | *number*                                | :heavy_check_mark:                      | Numbers are persisted as 64 bit floats. | 42                                      |
+| `attributeType`                         | *"number"*                              | :heavy_check_mark:                      | The attribute type of the value.        | number                                  |

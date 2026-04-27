@@ -4,16 +4,15 @@
 
 import * as z from "zod/v4-mini";
 import * as types from "../../types/primitives.js";
-import * as operations from "../operations/index.js";
 import { AttioBaseError } from "./attio-base-error.js";
 
 /**
  * Bad Request
  */
 export type CreateCommentValueNotFoundErrorData = {
-  statusCode: operations.CreateCommentStatusCode;
-  type: operations.CreateCommentBadRequestType;
-  code: operations.CreateCommentCode;
+  type: "invalid_request_error";
+  statusCode: 400;
+  code: "value_not_found";
   message: string;
 };
 
@@ -21,8 +20,8 @@ export type CreateCommentValueNotFoundErrorData = {
  * Bad Request
  */
 export class CreateCommentValueNotFoundError extends AttioBaseError {
-  type: operations.CreateCommentBadRequestType;
-  code: operations.CreateCommentCode;
+  type: "invalid_request_error";
+  code: "value_not_found";
 
   /** The original data that was passed to this error instance. */
   data$: CreateCommentValueNotFoundErrorData;
@@ -47,9 +46,9 @@ export const CreateCommentValueNotFoundError$inboundSchema: z.ZodMiniType<
   unknown
 > = z.pipe(
   z.object({
-    statusCode: operations.CreateCommentStatusCode$inboundSchema,
-    type: operations.CreateCommentBadRequestType$inboundSchema,
-    code: operations.CreateCommentCode$inboundSchema,
+    type: types.literal("invalid_request_error"),
+    statusCode: types.literal(400),
+    code: types.literal("value_not_found"),
     message: types.string(),
     request$: z.custom<Request>(x => x instanceof Request),
     response$: z.custom<Response>(x => x instanceof Response),

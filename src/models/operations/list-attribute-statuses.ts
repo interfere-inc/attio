@@ -34,27 +34,6 @@ export type ListAttributeStatusesRequest = {
   showArchived?: boolean | undefined;
 };
 
-export const ListAttributeStatusesStatusCode = {
-  FourHundredAndFour: 404,
-} as const;
-export type ListAttributeStatusesStatusCode = ClosedEnum<
-  typeof ListAttributeStatusesStatusCode
->;
-
-export const ListAttributeStatusesType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type ListAttributeStatusesType = ClosedEnum<
-  typeof ListAttributeStatusesType
->;
-
-export const ListAttributeStatusesCode = {
-  NotFound: "not_found",
-} as const;
-export type ListAttributeStatusesCode = ClosedEnum<
-  typeof ListAttributeStatusesCode
->;
-
 /**
  * Success
  */
@@ -102,21 +81,6 @@ export function listAttributeStatusesRequestToJSON(
     ),
   );
 }
-
-/** @internal */
-export const ListAttributeStatusesStatusCode$inboundSchema: z.ZodMiniEnum<
-  typeof ListAttributeStatusesStatusCode
-> = z.enum(ListAttributeStatusesStatusCode);
-
-/** @internal */
-export const ListAttributeStatusesType$inboundSchema: z.ZodMiniEnum<
-  typeof ListAttributeStatusesType
-> = z.enum(ListAttributeStatusesType);
-
-/** @internal */
-export const ListAttributeStatusesCode$inboundSchema: z.ZodMiniEnum<
-  typeof ListAttributeStatusesCode
-> = z.enum(ListAttributeStatusesCode);
 
 /** @internal */
 export const ListAttributeStatusesResponse$inboundSchema: z.ZodMiniType<

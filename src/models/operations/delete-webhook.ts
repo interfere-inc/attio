@@ -5,30 +5,12 @@
 import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
 
 export type DeleteWebhookRequest = {
   webhookId: string;
 };
-
-export const DeleteWebhookStatusCode = {
-  FourHundredAndFour: 404,
-} as const;
-export type DeleteWebhookStatusCode = ClosedEnum<
-  typeof DeleteWebhookStatusCode
->;
-
-export const DeleteWebhookType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type DeleteWebhookType = ClosedEnum<typeof DeleteWebhookType>;
-
-export const DeleteWebhookCode = {
-  NotFound: "not_found",
-} as const;
-export type DeleteWebhookCode = ClosedEnum<typeof DeleteWebhookCode>;
 
 /**
  * Success
@@ -62,21 +44,6 @@ export function deleteWebhookRequestToJSON(
     DeleteWebhookRequest$outboundSchema.parse(deleteWebhookRequest),
   );
 }
-
-/** @internal */
-export const DeleteWebhookStatusCode$inboundSchema: z.ZodMiniEnum<
-  typeof DeleteWebhookStatusCode
-> = z.enum(DeleteWebhookStatusCode);
-
-/** @internal */
-export const DeleteWebhookType$inboundSchema: z.ZodMiniEnum<
-  typeof DeleteWebhookType
-> = z.enum(DeleteWebhookType);
-
-/** @internal */
-export const DeleteWebhookCode$inboundSchema: z.ZodMiniEnum<
-  typeof DeleteWebhookCode
-> = z.enum(DeleteWebhookCode);
 
 /** @internal */
 export const DeleteWebhookResponse$inboundSchema: z.ZodMiniType<

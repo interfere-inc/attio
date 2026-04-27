@@ -9,8 +9,8 @@ let value: DefaultValueStatic = {
   type: "static",
   template: [
     {
+      attributeType: "date",
       value: "Some default text",
-      attributeType: "text",
     },
   ],
 };

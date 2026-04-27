@@ -5,7 +5,6 @@
 import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
 
@@ -13,21 +12,6 @@ export type DeleteRecordRequest = {
   object: string;
   recordId: string;
 };
-
-export const DeleteRecordStatusCode = {
-  FourHundredAndFour: 404,
-} as const;
-export type DeleteRecordStatusCode = ClosedEnum<typeof DeleteRecordStatusCode>;
-
-export const DeleteRecordType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type DeleteRecordType = ClosedEnum<typeof DeleteRecordType>;
-
-export const DeleteRecordCode = {
-  NotFound: "not_found",
-} as const;
-export type DeleteRecordCode = ClosedEnum<typeof DeleteRecordCode>;
 
 /**
  * Success
@@ -63,21 +47,6 @@ export function deleteRecordRequestToJSON(
     DeleteRecordRequest$outboundSchema.parse(deleteRecordRequest),
   );
 }
-
-/** @internal */
-export const DeleteRecordStatusCode$inboundSchema: z.ZodMiniEnum<
-  typeof DeleteRecordStatusCode
-> = z.enum(DeleteRecordStatusCode);
-
-/** @internal */
-export const DeleteRecordType$inboundSchema: z.ZodMiniEnum<
-  typeof DeleteRecordType
-> = z.enum(DeleteRecordType);
-
-/** @internal */
-export const DeleteRecordCode$inboundSchema: z.ZodMiniEnum<
-  typeof DeleteRecordCode
-> = z.enum(DeleteRecordCode);
 
 /** @internal */
 export const DeleteRecordResponse$inboundSchema: z.ZodMiniType<

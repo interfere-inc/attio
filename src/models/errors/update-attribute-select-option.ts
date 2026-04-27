@@ -5,16 +5,15 @@
 import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import * as types from "../../types/primitives.js";
-import * as operations from "../operations/index.js";
 import { AttioBaseError } from "./attio-base-error.js";
 
 /**
  * Conflict
  */
 export type UpdateAttributeSelectOptionSlugConflictErrorData = {
-  statusCode: operations.UpdateAttributeSelectOptionConflictStatusCode;
-  type: operations.UpdateAttributeSelectOptionConflictType;
-  code: operations.UpdateAttributeSelectOptionConflictCode;
+  type: "invalid_request_error";
+  statusCode: 409;
+  code: "slug_conflict";
   message: string;
 };
 
@@ -24,8 +23,8 @@ export type UpdateAttributeSelectOptionSlugConflictErrorData = {
 export class UpdateAttributeSelectOptionSlugConflictError
   extends AttioBaseError
 {
-  type: operations.UpdateAttributeSelectOptionConflictType;
-  code: operations.UpdateAttributeSelectOptionConflictCode;
+  type: "invalid_request_error";
+  code: "slug_conflict";
 
   /** The original data that was passed to this error instance. */
   data$: UpdateAttributeSelectOptionSlugConflictErrorData;
@@ -48,9 +47,9 @@ export class UpdateAttributeSelectOptionSlugConflictError
  * Not Found
  */
 export type UpdateAttributeSelectOptionNotFoundErrorData = {
-  statusCode: operations.UpdateAttributeSelectOptionNotFoundStatusCode;
-  type: operations.UpdateAttributeSelectOptionNotFoundType;
-  code: operations.UpdateAttributeSelectOptionNotFoundCode;
+  type: "invalid_request_error";
+  statusCode: 404;
+  code: "not_found";
   message: string;
 };
 
@@ -58,8 +57,8 @@ export type UpdateAttributeSelectOptionNotFoundErrorData = {
  * Not Found
  */
 export class UpdateAttributeSelectOptionNotFoundError extends AttioBaseError {
-  type: operations.UpdateAttributeSelectOptionNotFoundType;
-  code: operations.UpdateAttributeSelectOptionNotFoundCode;
+  type: "invalid_request_error";
+  code: "not_found";
 
   /** The original data that was passed to this error instance. */
   data$: UpdateAttributeSelectOptionNotFoundErrorData;
@@ -82,9 +81,9 @@ export class UpdateAttributeSelectOptionNotFoundError extends AttioBaseError {
  * Bad Request
  */
 export type UpdateAttributeSelectOptionValueNotFoundErrorData = {
-  statusCode: operations.UpdateAttributeSelectOptionBadRequestStatusCode;
-  type: operations.UpdateAttributeSelectOptionBadRequestType;
-  code: operations.UpdateAttributeSelectOptionCodeValueNotFound;
+  type: "invalid_request_error";
+  statusCode: 400;
+  code: "value_not_found";
   message: string;
 };
 
@@ -94,8 +93,8 @@ export type UpdateAttributeSelectOptionValueNotFoundErrorData = {
 export class UpdateAttributeSelectOptionValueNotFoundError
   extends AttioBaseError
 {
-  type: operations.UpdateAttributeSelectOptionBadRequestType;
-  code: operations.UpdateAttributeSelectOptionCodeValueNotFound;
+  type: "invalid_request_error";
+  code: "value_not_found";
 
   /** The original data that was passed to this error instance. */
   data$: UpdateAttributeSelectOptionValueNotFoundErrorData;
@@ -118,10 +117,9 @@ export class UpdateAttributeSelectOptionValueNotFoundError
 export const UpdateAttributeSelectOptionSlugConflictError$inboundSchema:
   z.ZodMiniType<UpdateAttributeSelectOptionSlugConflictError, unknown> = z.pipe(
     z.object({
-      status_code:
-        operations.UpdateAttributeSelectOptionConflictStatusCode$inboundSchema,
-      type: operations.UpdateAttributeSelectOptionConflictType$inboundSchema,
-      code: operations.UpdateAttributeSelectOptionConflictCode$inboundSchema,
+      type: types.literal("invalid_request_error"),
+      status_code: types.literal(409),
+      code: types.literal("slug_conflict"),
       message: types.string(),
       request$: z.custom<Request>(x => x instanceof Request),
       response$: z.custom<Response>(x => x instanceof Response),
@@ -144,10 +142,9 @@ export const UpdateAttributeSelectOptionSlugConflictError$inboundSchema:
 export const UpdateAttributeSelectOptionNotFoundError$inboundSchema:
   z.ZodMiniType<UpdateAttributeSelectOptionNotFoundError, unknown> = z.pipe(
     z.object({
-      status_code:
-        operations.UpdateAttributeSelectOptionNotFoundStatusCode$inboundSchema,
-      type: operations.UpdateAttributeSelectOptionNotFoundType$inboundSchema,
-      code: operations.UpdateAttributeSelectOptionNotFoundCode$inboundSchema,
+      type: types.literal("invalid_request_error"),
+      status_code: types.literal(404),
+      code: types.literal("not_found"),
       message: types.string(),
       request$: z.custom<Request>(x => x instanceof Request),
       response$: z.custom<Response>(x => x instanceof Response),
@@ -171,13 +168,9 @@ export const UpdateAttributeSelectOptionValueNotFoundError$inboundSchema:
   z.ZodMiniType<UpdateAttributeSelectOptionValueNotFoundError, unknown> = z
     .pipe(
       z.object({
-        status_code:
-          operations
-            .UpdateAttributeSelectOptionBadRequestStatusCode$inboundSchema,
-        type:
-          operations.UpdateAttributeSelectOptionBadRequestType$inboundSchema,
-        code:
-          operations.UpdateAttributeSelectOptionCodeValueNotFound$inboundSchema,
+        type: types.literal("invalid_request_error"),
+        status_code: types.literal(400),
+        code: types.literal("value_not_found"),
         message: types.string(),
         request$: z.custom<Request>(x => x instanceof Request),
         response$: z.custom<Response>(x => x instanceof Response),

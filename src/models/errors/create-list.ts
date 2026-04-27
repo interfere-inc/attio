@@ -5,16 +5,15 @@
 import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import * as types from "../../types/primitives.js";
-import * as operations from "../operations/index.js";
 import { AttioBaseError } from "./attio-base-error.js";
 
 /**
  * Conflict
  */
 export type CreateListSlugConflictErrorData = {
-  statusCode: operations.CreateListConflictStatusCode;
-  type: operations.CreateListConflictType;
-  code: operations.CreateListConflictCode;
+  type: "invalid_request_error";
+  statusCode: 409;
+  code: "slug_conflict";
   message: string;
 };
 
@@ -22,8 +21,8 @@ export type CreateListSlugConflictErrorData = {
  * Conflict
  */
 export class CreateListSlugConflictError extends AttioBaseError {
-  type: operations.CreateListConflictType;
-  code: operations.CreateListConflictCode;
+  type: "invalid_request_error";
+  code: "slug_conflict";
 
   /** The original data that was passed to this error instance. */
   data$: CreateListSlugConflictErrorData;
@@ -46,9 +45,9 @@ export class CreateListSlugConflictError extends AttioBaseError {
  * Not Found
  */
 export type CreateListNotFoundErrorData = {
-  statusCode: operations.CreateListNotFoundStatusCode;
-  type: operations.CreateListNotFoundType;
-  code: operations.CreateListNotFoundCode;
+  type: "invalid_request_error";
+  statusCode: 404;
+  code: "not_found";
   message: string;
 };
 
@@ -56,8 +55,8 @@ export type CreateListNotFoundErrorData = {
  * Not Found
  */
 export class CreateListNotFoundError extends AttioBaseError {
-  type: operations.CreateListNotFoundType;
-  code: operations.CreateListNotFoundCode;
+  type: "invalid_request_error";
+  code: "not_found";
 
   /** The original data that was passed to this error instance. */
   data$: CreateListNotFoundErrorData;
@@ -80,9 +79,9 @@ export class CreateListNotFoundError extends AttioBaseError {
  * Forbidden
  */
 export type BillingErrorData = {
-  statusCode: operations.CreateListForbiddenStatusCode;
-  type: operations.CreateListForbiddenType;
-  code: operations.CreateListCodeBillingError;
+  type: "auth_error";
+  statusCode: 403;
+  code: "billing_error";
   message: string;
 };
 
@@ -90,8 +89,8 @@ export type BillingErrorData = {
  * Forbidden
  */
 export class BillingError extends AttioBaseError {
-  type: operations.CreateListForbiddenType;
-  code: operations.CreateListCodeBillingError;
+  type: "auth_error";
+  code: "billing_error";
 
   /** The original data that was passed to this error instance. */
   data$: BillingErrorData;
@@ -114,9 +113,9 @@ export class BillingError extends AttioBaseError {
  * Bad Request
  */
 export type CreateListValueNotFoundErrorData = {
-  statusCode: operations.CreateListBadRequestStatusCode;
-  type: operations.CreateListBadRequestType;
-  code: operations.CreateListCodeValueNotFound;
+  type: "invalid_request_error";
+  statusCode: 400;
+  code: "value_not_found";
   message: string;
 };
 
@@ -124,8 +123,8 @@ export type CreateListValueNotFoundErrorData = {
  * Bad Request
  */
 export class CreateListValueNotFoundError extends AttioBaseError {
-  type: operations.CreateListBadRequestType;
-  code: operations.CreateListCodeValueNotFound;
+  type: "invalid_request_error";
+  code: "value_not_found";
 
   /** The original data that was passed to this error instance. */
   data$: CreateListValueNotFoundErrorData;
@@ -150,9 +149,9 @@ export const CreateListSlugConflictError$inboundSchema: z.ZodMiniType<
   unknown
 > = z.pipe(
   z.object({
-    status_code: operations.CreateListConflictStatusCode$inboundSchema,
-    type: operations.CreateListConflictType$inboundSchema,
-    code: operations.CreateListConflictCode$inboundSchema,
+    type: types.literal("invalid_request_error"),
+    status_code: types.literal(409),
+    code: types.literal("slug_conflict"),
     message: types.string(),
     request$: z.custom<Request>(x => x instanceof Request),
     response$: z.custom<Response>(x => x instanceof Response),
@@ -177,9 +176,9 @@ export const CreateListNotFoundError$inboundSchema: z.ZodMiniType<
   unknown
 > = z.pipe(
   z.object({
-    status_code: operations.CreateListNotFoundStatusCode$inboundSchema,
-    type: operations.CreateListNotFoundType$inboundSchema,
-    code: operations.CreateListNotFoundCode$inboundSchema,
+    type: types.literal("invalid_request_error"),
+    status_code: types.literal(404),
+    code: types.literal("not_found"),
     message: types.string(),
     request$: z.custom<Request>(x => x instanceof Request),
     response$: z.custom<Response>(x => x instanceof Response),
@@ -202,9 +201,9 @@ export const CreateListNotFoundError$inboundSchema: z.ZodMiniType<
 export const BillingError$inboundSchema: z.ZodMiniType<BillingError, unknown> =
   z.pipe(
     z.object({
-      status_code: operations.CreateListForbiddenStatusCode$inboundSchema,
-      type: operations.CreateListForbiddenType$inboundSchema,
-      code: operations.CreateListCodeBillingError$inboundSchema,
+      type: types.literal("auth_error"),
+      status_code: types.literal(403),
+      code: types.literal("billing_error"),
       message: types.string(),
       request$: z.custom<Request>(x => x instanceof Request),
       response$: z.custom<Response>(x => x instanceof Response),
@@ -229,9 +228,9 @@ export const CreateListValueNotFoundError$inboundSchema: z.ZodMiniType<
   unknown
 > = z.pipe(
   z.object({
-    status_code: operations.CreateListBadRequestStatusCode$inboundSchema,
-    type: operations.CreateListBadRequestType$inboundSchema,
-    code: operations.CreateListCodeValueNotFound$inboundSchema,
+    type: types.literal("invalid_request_error"),
+    status_code: types.literal(400),
+    code: types.literal("value_not_found"),
     message: types.string(),
     request$: z.custom<Request>(x => x instanceof Request),
     response$: z.custom<Response>(x => x instanceof Response),

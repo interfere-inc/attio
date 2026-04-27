@@ -5,33 +5,10 @@
 import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import * as types from "../../types/primitives.js";
 import { smartUnion } from "../../types/smart-union.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
-
-/**
- * The type of token, always Bearer for tokens acquired via the OAuth 2.0 flow.
- */
-export const TokenType = {
-  Bearer: "Bearer",
-} as const;
-/**
- * The type of token, always Bearer for tokens acquired via the OAuth 2.0 flow.
- */
-export type TokenType = ClosedEnum<typeof TokenType>;
-
-/**
- * The issuer of the token. Always attio.com
- */
-export const Iss = {
-  AttioCom: "attio.com",
-} as const;
-/**
- * The issuer of the token. Always attio.com
- */
-export type Iss = ClosedEnum<typeof Iss>;
 
 export type AttioCom = {
   /**
@@ -49,7 +26,7 @@ export type AttioCom = {
   /**
    * The type of token, always Bearer for tokens acquired via the OAuth 2.0 flow.
    */
-  tokenType: TokenType;
+  tokenType: "Bearer";
   /**
    * The time at which this token will expire, if set, as a number of seconds since January 1 1970 UTC.
    */
@@ -69,7 +46,7 @@ export type AttioCom = {
   /**
    * The issuer of the token. Always attio.com
    */
-  iss: Iss;
+  iss: "attio.com";
   /**
    * The ID of the workspace member who authorised this token initially.
    */
@@ -102,25 +79,17 @@ export type ResponseBody = {
 export type IdentifyResponse = AttioCom | ResponseBody;
 
 /** @internal */
-export const TokenType$inboundSchema: z.ZodMiniEnum<typeof TokenType> = z.enum(
-  TokenType,
-);
-
-/** @internal */
-export const Iss$inboundSchema: z.ZodMiniEnum<typeof Iss> = z.enum(Iss);
-
-/** @internal */
 export const AttioCom$inboundSchema: z.ZodMiniType<AttioCom, unknown> = z.pipe(
   z.object({
     active: types.boolean(),
     scope: types.string(),
     client_id: types.string(),
-    token_type: TokenType$inboundSchema,
+    token_type: types.literal("Bearer"),
     exp: types.nullable(types.number()),
     iat: types.number(),
     sub: types.string(),
     aud: types.string(),
-    iss: Iss$inboundSchema,
+    iss: types.literal("attio.com"),
     authorized_by_workspace_member_id: types.string(),
     workspace_id: types.string(),
     workspace_name: types.string(),

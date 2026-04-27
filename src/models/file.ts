@@ -6,7 +6,7 @@ import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
@@ -56,27 +56,20 @@ export type FileType = OpenEnum<typeof FileType>;
  */
 export type FileCreatedByActor = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: FileType | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
-/**
- * The type of file entry.
- */
-export const FileTypeEnum = {
-  File: "file",
-} as const;
-/**
- * The type of file entry.
- */
-export type FileTypeEnum = ClosedEnum<typeof FileTypeEnum>;
-
 export type FileT = {
+  /**
+   * The name of the file.
+   */
+  name: string;
   id: FileId;
   /**
    * The ID of the object the record belongs to.
@@ -105,11 +98,7 @@ export type FileT = {
   /**
    * The type of file entry.
    */
-  fileType: FileTypeEnum;
-  /**
-   * The name of the file.
-   */
-  name: string;
+  fileType: "file";
   /**
    * The content type of the file.
    */
@@ -163,8 +152,8 @@ export const FileCreatedByActor$inboundSchema: z.ZodMiniType<
   FileCreatedByActor,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(z.nullable(FileType$inboundSchema)),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function fileCreatedByActorFromJSON(
@@ -178,12 +167,9 @@ export function fileCreatedByActorFromJSON(
 }
 
 /** @internal */
-export const FileTypeEnum$inboundSchema: z.ZodMiniEnum<typeof FileTypeEnum> = z
-  .enum(FileTypeEnum);
-
-/** @internal */
 export const FileT$inboundSchema: z.ZodMiniType<FileT, unknown> = z.pipe(
   z.object({
+    name: types.string(),
     id: z.lazy(() => FileId$inboundSchema),
     object_id: types.string(),
     object_slug: types.string(),
@@ -191,8 +177,7 @@ export const FileT$inboundSchema: z.ZodMiniType<FileT, unknown> = z.pipe(
     storage_provider: FileStorageProvider$inboundSchema,
     created_by_actor: z.lazy(() => FileCreatedByActor$inboundSchema),
     created_at: types.string(),
-    file_type: FileTypeEnum$inboundSchema,
-    name: types.string(),
+    file_type: types.literal("file"),
     content_type: types.nullable(types.string()),
     content_size: types.nullable(types.number()),
     parent_folder_id: types.nullable(types.string()),

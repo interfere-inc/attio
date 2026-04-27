@@ -3,8 +3,8 @@
  */
 
 import { scimGroupsCreate } from "../funcs/scim-groups-create.js";
-import { scimGroupsDeleteScimV2GroupsWorkspaceTeamId } from "../funcs/scim-groups-delete-scim-v2-groups-workspace-team-id.js";
-import { scimGroupsGetScimV2GroupsWorkspaceTeamId } from "../funcs/scim-groups-get-scim-v2-groups-workspace-team-id.js";
+import { scimGroupsDelete } from "../funcs/scim-groups-delete.js";
+import { scimGroupsGet } from "../funcs/scim-groups-get.js";
 import { scimGroupsList } from "../funcs/scim-groups-list.js";
 import { scimGroupsPatch } from "../funcs/scim-groups-patch.js";
 import { scimGroupsUpdate } from "../funcs/scim-groups-update.js";
@@ -48,6 +48,25 @@ export class ScimGroups extends ClientSDK {
   }
 
   /**
+   * Get SCIM group
+   *
+   * @remarks
+   * Gets a SCIM group by ID.
+   *
+   * Required scopes: `user_management:read`.
+   */
+  async get(
+    request: operations.GetScimGroupRequest,
+    options?: RequestOptions,
+  ): Promise<operations.GetScimGroupResponse> {
+    return unwrapAsync(scimGroupsGet(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
    * Patch SCIM group
    *
    * @remarks
@@ -86,25 +105,6 @@ export class ScimGroups extends ClientSDK {
   }
 
   /**
-   * Get SCIM group
-   *
-   * @remarks
-   * Gets a SCIM group by ID.
-   *
-   * Required scopes: `user_management:read`.
-   */
-  async getScimV2GroupsWorkspaceTeamId(
-    request: operations.GetScimV2GroupsWorkspaceTeamIdRequest,
-    options?: RequestOptions,
-  ): Promise<operations.GetScimV2GroupsWorkspaceTeamIdResponse> {
-    return unwrapAsync(scimGroupsGetScimV2GroupsWorkspaceTeamId(
-      this,
-      request,
-      options,
-    ));
-  }
-
-  /**
    * Delete SCIM group
    *
    * @remarks
@@ -112,11 +112,11 @@ export class ScimGroups extends ClientSDK {
    *
    * Required scopes: `user_management:read-write`.
    */
-  async deleteScimV2GroupsWorkspaceTeamId(
-    request: operations.DeleteScimV2GroupsWorkspaceTeamIdRequest,
+  async delete(
+    request: operations.DeleteScimGroupRequest,
     options?: RequestOptions,
-  ): Promise<operations.DeleteScimV2GroupsWorkspaceTeamIdResponse> {
-    return unwrapAsync(scimGroupsDeleteScimV2GroupsWorkspaceTeamId(
+  ): Promise<operations.DeleteScimGroupResponse> {
+    return unwrapAsync(scimGroupsDelete(
       this,
       request,
       options,

@@ -8,7 +8,7 @@ import { safeParse } from "../../lib/schemas.js";
 import * as discriminatedUnionTypes from "../../types/discriminated-union.js";
 import { discriminatedUnion } from "../../types/discriminated-union.js";
 import * as openEnums from "../../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../../types/enums.js";
+import { OpenEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import * as types from "../../types/primitives.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
@@ -22,48 +22,6 @@ export type ListRecordAttributeValuesRequest = {
   limit?: number | undefined;
   offset?: number | undefined;
 };
-
-export const ListRecordAttributeValuesNotFoundStatusCode = {
-  FourHundredAndFour: 404,
-} as const;
-export type ListRecordAttributeValuesNotFoundStatusCode = ClosedEnum<
-  typeof ListRecordAttributeValuesNotFoundStatusCode
->;
-
-export const ListRecordAttributeValuesNotFoundType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type ListRecordAttributeValuesNotFoundType = ClosedEnum<
-  typeof ListRecordAttributeValuesNotFoundType
->;
-
-export const ListRecordAttributeValuesNotFoundCode = {
-  NotFound: "not_found",
-} as const;
-export type ListRecordAttributeValuesNotFoundCode = ClosedEnum<
-  typeof ListRecordAttributeValuesNotFoundCode
->;
-
-export const ListRecordAttributeValuesBadRequestStatusCode = {
-  FourHundred: 400,
-} as const;
-export type ListRecordAttributeValuesBadRequestStatusCode = ClosedEnum<
-  typeof ListRecordAttributeValuesBadRequestStatusCode
->;
-
-export const ListRecordAttributeValuesBadRequestType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type ListRecordAttributeValuesBadRequestType = ClosedEnum<
-  typeof ListRecordAttributeValuesBadRequestType
->;
-
-export const ListRecordAttributeValuesCodeValidationType = {
-  ValidationType: "validation_type",
-} as const;
-export type ListRecordAttributeValuesCodeValidationType = ClosedEnum<
-  typeof ListRecordAttributeValuesCodeValidationType
->;
 
 /**
  * The type of actor. [Read more information on actor types here](/docs/actors).
@@ -86,13 +44,13 @@ export type ListRecordAttributeValuesCreatedByActorType17 = OpenEnum<
  */
 export type ListRecordAttributeValuesCreatedByActor17 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: ListRecordAttributeValuesCreatedByActorType17 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type ListRecordAttributeValuesDataTimestamp = {
@@ -139,13 +97,13 @@ export type ListRecordAttributeValuesCreatedByActorType16 = OpenEnum<
  */
 export type ListRecordAttributeValuesCreatedByActor16 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: ListRecordAttributeValuesCreatedByActorType16 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type ListRecordAttributeValuesDataText = {
@@ -192,13 +150,13 @@ export type ListRecordAttributeValuesCreatedByActorType15 = OpenEnum<
  */
 export type ListRecordAttributeValuesCreatedByActor15 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: ListRecordAttributeValuesCreatedByActorType15 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type ListRecordAttributeValuesDataSelect = {
@@ -242,13 +200,13 @@ export type ListRecordAttributeValuesCreatedByActorType14 = OpenEnum<
  */
 export type ListRecordAttributeValuesCreatedByActor14 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: ListRecordAttributeValuesCreatedByActorType14 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type ListRecordAttributeValuesDataRating = {
@@ -295,13 +253,13 @@ export type ListRecordAttributeValuesCreatedByActorType13 = OpenEnum<
  */
 export type ListRecordAttributeValuesCreatedByActor13 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: ListRecordAttributeValuesCreatedByActorType13 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type ListRecordAttributeValuesDataStatus = {
@@ -345,13 +303,13 @@ export type ListRecordAttributeValuesCreatedByActorType12 = OpenEnum<
  */
 export type ListRecordAttributeValuesCreatedByActor12 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: ListRecordAttributeValuesCreatedByActorType12 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 /**
@@ -667,13 +625,13 @@ export type ListRecordAttributeValuesCreatedByActorType11 = OpenEnum<
  */
 export type ListRecordAttributeValuesCreatedByActor11 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: ListRecordAttributeValuesCreatedByActorType11 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type ListRecordAttributeValuesDataPersonalName = {
@@ -728,13 +686,13 @@ export type ListRecordAttributeValuesCreatedByActorType10 = OpenEnum<
  */
 export type ListRecordAttributeValuesCreatedByActor10 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: ListRecordAttributeValuesCreatedByActorType10 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type ListRecordAttributeValuesDataNumber = {
@@ -781,13 +739,13 @@ export type ListRecordAttributeValuesCreatedByActorType9 = OpenEnum<
  */
 export type ListRecordAttributeValuesCreatedByActor9 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: ListRecordAttributeValuesCreatedByActorType9 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 /**
@@ -1134,13 +1092,13 @@ export type ListRecordAttributeValuesCreatedByActorType8 = OpenEnum<
  */
 export type ListRecordAttributeValuesCreatedByActor8 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: ListRecordAttributeValuesCreatedByActorType8 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 /**
@@ -1182,13 +1140,13 @@ export type ListRecordAttributeValuesOwnerActorType = OpenEnum<
  */
 export type ListRecordAttributeValuesOwnerActor = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: ListRecordAttributeValuesOwnerActorType | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type ListRecordAttributeValuesDataInteraction = {
@@ -1243,13 +1201,13 @@ export type ListRecordAttributeValuesCreatedByActorType7 = OpenEnum<
  */
 export type ListRecordAttributeValuesCreatedByActor7 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: ListRecordAttributeValuesCreatedByActorType7 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type ListRecordAttributeValuesDataRecordReference = {
@@ -1300,13 +1258,13 @@ export type ListRecordAttributeValuesCreatedByActorType6 = OpenEnum<
  */
 export type ListRecordAttributeValuesCreatedByActor6 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: ListRecordAttributeValuesCreatedByActorType6 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type ListRecordAttributeValuesDataEmailAddress = {
@@ -1354,13 +1312,13 @@ export type ListRecordAttributeValuesCreatedByActorType5 = OpenEnum<
  */
 export type ListRecordAttributeValuesCreatedByActor5 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: ListRecordAttributeValuesCreatedByActorType5 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type ListRecordAttributeValuesDataDomain = {
@@ -1405,13 +1363,13 @@ export type ListRecordAttributeValuesCreatedByActorType4 = OpenEnum<
  */
 export type ListRecordAttributeValuesCreatedByActor4 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: ListRecordAttributeValuesCreatedByActorType4 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type ListRecordAttributeValuesDataDate = {
@@ -1458,13 +1416,13 @@ export type ListRecordAttributeValuesCreatedByActorType3 = OpenEnum<
  */
 export type ListRecordAttributeValuesCreatedByActor3 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: ListRecordAttributeValuesCreatedByActorType3 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 /**
@@ -1568,13 +1526,13 @@ export type ListRecordAttributeValuesCreatedByActorType2 = OpenEnum<
  */
 export type ListRecordAttributeValuesCreatedByActor2 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: ListRecordAttributeValuesCreatedByActorType2 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type ListRecordAttributeValuesDataCheckbox = {
@@ -1621,13 +1579,13 @@ export type ListRecordAttributeValuesCreatedByActorType1 = OpenEnum<
  */
 export type ListRecordAttributeValuesCreatedByActor1 = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: ListRecordAttributeValuesCreatedByActorType1 | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 /**
@@ -1761,40 +1719,6 @@ export function listRecordAttributeValuesRequestToJSON(
 }
 
 /** @internal */
-export const ListRecordAttributeValuesNotFoundStatusCode$inboundSchema:
-  z.ZodMiniEnum<typeof ListRecordAttributeValuesNotFoundStatusCode> = z.enum(
-    ListRecordAttributeValuesNotFoundStatusCode,
-  );
-
-/** @internal */
-export const ListRecordAttributeValuesNotFoundType$inboundSchema: z.ZodMiniEnum<
-  typeof ListRecordAttributeValuesNotFoundType
-> = z.enum(ListRecordAttributeValuesNotFoundType);
-
-/** @internal */
-export const ListRecordAttributeValuesNotFoundCode$inboundSchema: z.ZodMiniEnum<
-  typeof ListRecordAttributeValuesNotFoundCode
-> = z.enum(ListRecordAttributeValuesNotFoundCode);
-
-/** @internal */
-export const ListRecordAttributeValuesBadRequestStatusCode$inboundSchema:
-  z.ZodMiniEnum<typeof ListRecordAttributeValuesBadRequestStatusCode> = z.enum(
-    ListRecordAttributeValuesBadRequestStatusCode,
-  );
-
-/** @internal */
-export const ListRecordAttributeValuesBadRequestType$inboundSchema:
-  z.ZodMiniEnum<typeof ListRecordAttributeValuesBadRequestType> = z.enum(
-    ListRecordAttributeValuesBadRequestType,
-  );
-
-/** @internal */
-export const ListRecordAttributeValuesCodeValidationType$inboundSchema:
-  z.ZodMiniEnum<typeof ListRecordAttributeValuesCodeValidationType> = z.enum(
-    ListRecordAttributeValuesCodeValidationType,
-  );
-
-/** @internal */
 export const ListRecordAttributeValuesCreatedByActorType17$inboundSchema:
   z.ZodMiniType<ListRecordAttributeValuesCreatedByActorType17, unknown> =
     openEnums.inboundSchema(ListRecordAttributeValuesCreatedByActorType17);
@@ -1802,10 +1726,10 @@ export const ListRecordAttributeValuesCreatedByActorType17$inboundSchema:
 /** @internal */
 export const ListRecordAttributeValuesCreatedByActor17$inboundSchema:
   z.ZodMiniType<ListRecordAttributeValuesCreatedByActor17, unknown> = z.object({
-    id: z.optional(z.nullable(types.string())),
     type: z.optional(
       z.nullable(ListRecordAttributeValuesCreatedByActorType17$inboundSchema),
     ),
+    id: z.optional(z.nullable(types.string())),
   });
 
 export function listRecordAttributeValuesCreatedByActor17FromJSON(
@@ -1865,10 +1789,10 @@ export const ListRecordAttributeValuesCreatedByActorType16$inboundSchema:
 /** @internal */
 export const ListRecordAttributeValuesCreatedByActor16$inboundSchema:
   z.ZodMiniType<ListRecordAttributeValuesCreatedByActor16, unknown> = z.object({
-    id: z.optional(z.nullable(types.string())),
     type: z.optional(
       z.nullable(ListRecordAttributeValuesCreatedByActorType16$inboundSchema),
     ),
+    id: z.optional(z.nullable(types.string())),
   });
 
 export function listRecordAttributeValuesCreatedByActor16FromJSON(
@@ -1929,10 +1853,10 @@ export const ListRecordAttributeValuesCreatedByActorType15$inboundSchema:
 /** @internal */
 export const ListRecordAttributeValuesCreatedByActor15$inboundSchema:
   z.ZodMiniType<ListRecordAttributeValuesCreatedByActor15, unknown> = z.object({
-    id: z.optional(z.nullable(types.string())),
     type: z.optional(
       z.nullable(ListRecordAttributeValuesCreatedByActorType15$inboundSchema),
     ),
+    id: z.optional(z.nullable(types.string())),
   });
 
 export function listRecordAttributeValuesCreatedByActor15FromJSON(
@@ -1994,10 +1918,10 @@ export const ListRecordAttributeValuesCreatedByActorType14$inboundSchema:
 /** @internal */
 export const ListRecordAttributeValuesCreatedByActor14$inboundSchema:
   z.ZodMiniType<ListRecordAttributeValuesCreatedByActor14, unknown> = z.object({
-    id: z.optional(z.nullable(types.string())),
     type: z.optional(
       z.nullable(ListRecordAttributeValuesCreatedByActorType14$inboundSchema),
     ),
+    id: z.optional(z.nullable(types.string())),
   });
 
 export function listRecordAttributeValuesCreatedByActor14FromJSON(
@@ -2059,10 +1983,10 @@ export const ListRecordAttributeValuesCreatedByActorType13$inboundSchema:
 /** @internal */
 export const ListRecordAttributeValuesCreatedByActor13$inboundSchema:
   z.ZodMiniType<ListRecordAttributeValuesCreatedByActor13, unknown> = z.object({
-    id: z.optional(z.nullable(types.string())),
     type: z.optional(
       z.nullable(ListRecordAttributeValuesCreatedByActorType13$inboundSchema),
     ),
+    id: z.optional(z.nullable(types.string())),
   });
 
 export function listRecordAttributeValuesCreatedByActor13FromJSON(
@@ -2124,10 +2048,10 @@ export const ListRecordAttributeValuesCreatedByActorType12$inboundSchema:
 /** @internal */
 export const ListRecordAttributeValuesCreatedByActor12$inboundSchema:
   z.ZodMiniType<ListRecordAttributeValuesCreatedByActor12, unknown> = z.object({
-    id: z.optional(z.nullable(types.string())),
     type: z.optional(
       z.nullable(ListRecordAttributeValuesCreatedByActorType12$inboundSchema),
     ),
+    id: z.optional(z.nullable(types.string())),
   });
 
 export function listRecordAttributeValuesCreatedByActor12FromJSON(
@@ -2203,10 +2127,10 @@ export const ListRecordAttributeValuesCreatedByActorType11$inboundSchema:
 /** @internal */
 export const ListRecordAttributeValuesCreatedByActor11$inboundSchema:
   z.ZodMiniType<ListRecordAttributeValuesCreatedByActor11, unknown> = z.object({
-    id: z.optional(z.nullable(types.string())),
     type: z.optional(
       z.nullable(ListRecordAttributeValuesCreatedByActorType11$inboundSchema),
     ),
+    id: z.optional(z.nullable(types.string())),
   });
 
 export function listRecordAttributeValuesCreatedByActor11FromJSON(
@@ -2276,10 +2200,10 @@ export const ListRecordAttributeValuesCreatedByActorType10$inboundSchema:
 /** @internal */
 export const ListRecordAttributeValuesCreatedByActor10$inboundSchema:
   z.ZodMiniType<ListRecordAttributeValuesCreatedByActor10, unknown> = z.object({
-    id: z.optional(z.nullable(types.string())),
     type: z.optional(
       z.nullable(ListRecordAttributeValuesCreatedByActorType10$inboundSchema),
     ),
+    id: z.optional(z.nullable(types.string())),
   });
 
 export function listRecordAttributeValuesCreatedByActor10FromJSON(
@@ -2341,10 +2265,10 @@ export const ListRecordAttributeValuesCreatedByActorType9$inboundSchema:
 /** @internal */
 export const ListRecordAttributeValuesCreatedByActor9$inboundSchema:
   z.ZodMiniType<ListRecordAttributeValuesCreatedByActor9, unknown> = z.object({
-    id: z.optional(z.nullable(types.string())),
     type: z.optional(
       z.nullable(ListRecordAttributeValuesCreatedByActorType9$inboundSchema),
     ),
+    id: z.optional(z.nullable(types.string())),
   });
 
 export function listRecordAttributeValuesCreatedByActor9FromJSON(
@@ -2428,10 +2352,10 @@ export const ListRecordAttributeValuesCreatedByActorType8$inboundSchema:
 /** @internal */
 export const ListRecordAttributeValuesCreatedByActor8$inboundSchema:
   z.ZodMiniType<ListRecordAttributeValuesCreatedByActor8, unknown> = z.object({
-    id: z.optional(z.nullable(types.string())),
     type: z.optional(
       z.nullable(ListRecordAttributeValuesCreatedByActorType8$inboundSchema),
     ),
+    id: z.optional(z.nullable(types.string())),
   });
 
 export function listRecordAttributeValuesCreatedByActor8FromJSON(
@@ -2465,10 +2389,10 @@ export const ListRecordAttributeValuesOwnerActor$inboundSchema: z.ZodMiniType<
   ListRecordAttributeValuesOwnerActor,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(
     z.nullable(ListRecordAttributeValuesOwnerActorType$inboundSchema),
   ),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function listRecordAttributeValuesOwnerActorFromJSON(
@@ -2535,10 +2459,10 @@ export const ListRecordAttributeValuesCreatedByActorType7$inboundSchema:
 /** @internal */
 export const ListRecordAttributeValuesCreatedByActor7$inboundSchema:
   z.ZodMiniType<ListRecordAttributeValuesCreatedByActor7, unknown> = z.object({
-    id: z.optional(z.nullable(types.string())),
     type: z.optional(
       z.nullable(ListRecordAttributeValuesCreatedByActorType7$inboundSchema),
     ),
+    id: z.optional(z.nullable(types.string())),
   });
 
 export function listRecordAttributeValuesCreatedByActor7FromJSON(
@@ -2606,10 +2530,10 @@ export const ListRecordAttributeValuesCreatedByActorType6$inboundSchema:
 /** @internal */
 export const ListRecordAttributeValuesCreatedByActor6$inboundSchema:
   z.ZodMiniType<ListRecordAttributeValuesCreatedByActor6, unknown> = z.object({
-    id: z.optional(z.nullable(types.string())),
     type: z.optional(
       z.nullable(ListRecordAttributeValuesCreatedByActorType6$inboundSchema),
     ),
+    id: z.optional(z.nullable(types.string())),
   });
 
 export function listRecordAttributeValuesCreatedByActor6FromJSON(
@@ -2683,10 +2607,10 @@ export const ListRecordAttributeValuesCreatedByActorType5$inboundSchema:
 /** @internal */
 export const ListRecordAttributeValuesCreatedByActor5$inboundSchema:
   z.ZodMiniType<ListRecordAttributeValuesCreatedByActor5, unknown> = z.object({
-    id: z.optional(z.nullable(types.string())),
     type: z.optional(
       z.nullable(ListRecordAttributeValuesCreatedByActorType5$inboundSchema),
     ),
+    id: z.optional(z.nullable(types.string())),
   });
 
 export function listRecordAttributeValuesCreatedByActor5FromJSON(
@@ -2750,10 +2674,10 @@ export const ListRecordAttributeValuesCreatedByActorType4$inboundSchema:
 /** @internal */
 export const ListRecordAttributeValuesCreatedByActor4$inboundSchema:
   z.ZodMiniType<ListRecordAttributeValuesCreatedByActor4, unknown> = z.object({
-    id: z.optional(z.nullable(types.string())),
     type: z.optional(
       z.nullable(ListRecordAttributeValuesCreatedByActorType4$inboundSchema),
     ),
+    id: z.optional(z.nullable(types.string())),
   });
 
 export function listRecordAttributeValuesCreatedByActor4FromJSON(
@@ -2814,10 +2738,10 @@ export const ListRecordAttributeValuesCreatedByActorType3$inboundSchema:
 /** @internal */
 export const ListRecordAttributeValuesCreatedByActor3$inboundSchema:
   z.ZodMiniType<ListRecordAttributeValuesCreatedByActor3, unknown> = z.object({
-    id: z.optional(z.nullable(types.string())),
     type: z.optional(
       z.nullable(ListRecordAttributeValuesCreatedByActorType3$inboundSchema),
     ),
+    id: z.optional(z.nullable(types.string())),
   });
 
 export function listRecordAttributeValuesCreatedByActor3FromJSON(
@@ -2890,10 +2814,10 @@ export const ListRecordAttributeValuesCreatedByActorType2$inboundSchema:
 /** @internal */
 export const ListRecordAttributeValuesCreatedByActor2$inboundSchema:
   z.ZodMiniType<ListRecordAttributeValuesCreatedByActor2, unknown> = z.object({
-    id: z.optional(z.nullable(types.string())),
     type: z.optional(
       z.nullable(ListRecordAttributeValuesCreatedByActorType2$inboundSchema),
     ),
+    id: z.optional(z.nullable(types.string())),
   });
 
 export function listRecordAttributeValuesCreatedByActor2FromJSON(
@@ -2955,10 +2879,10 @@ export const ListRecordAttributeValuesCreatedByActorType1$inboundSchema:
 /** @internal */
 export const ListRecordAttributeValuesCreatedByActor1$inboundSchema:
   z.ZodMiniType<ListRecordAttributeValuesCreatedByActor1, unknown> = z.object({
-    id: z.optional(z.nullable(types.string())),
     type: z.optional(
       z.nullable(ListRecordAttributeValuesCreatedByActorType1$inboundSchema),
     ),
+    id: z.optional(z.nullable(types.string())),
   });
 
 export function listRecordAttributeValuesCreatedByActor1FromJSON(

@@ -2,16 +2,14 @@
 
 ## Overview
 
-SCIM groups represent Attio teams managed through the SCIM provisioning protocol.
-
 ### Available Operations
 
 * [list](#list) - List SCIM groups
 * [create](#create) - Create SCIM group
+* [get](#get) - Get SCIM group
 * [patch](#patch) - Patch SCIM group
 * [update](#update) - Update SCIM group
-* [getScimV2GroupsWorkspaceTeamId](#getscimv2groupsworkspaceteamid) - Get SCIM group
-* [deleteScimV2GroupsWorkspaceTeamId](#deletescimv2groupsworkspaceteamid) - Delete SCIM group
+* [delete](#delete) - Delete SCIM group
 
 ## list
 
@@ -146,6 +144,81 @@ run();
 ### Response
 
 **Promise\<[operations.CreateScimGroupResponse](../../models/operations/create-scim-group-response.md)\>**
+
+### Errors
+
+| Error Type        | Status Code       | Content Type      |
+| ----------------- | ----------------- | ----------------- |
+| errors.AttioError | 4XX, 5XX          | \*/\*             |
+
+## get
+
+Gets a SCIM group by ID.
+
+Required scopes: `user_management:read`.
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="getScimGroup" method="get" path="/scim/v2/Groups/{workspace_team_id}" -->
+```typescript
+import { Attio } from "@interfere/attio";
+
+const attio = new Attio({
+  oauth2: process.env["ATTIO_OAUTH2"] ?? "",
+});
+
+async function run() {
+  const result = await attio.scimGroups.get({
+    workspaceTeamId: "<id>",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { AttioCore } from "@interfere/attio/core.js";
+import { scimGroupsGet } from "@interfere/attio/funcs/scim-groups-get.js";
+
+// Use `AttioCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const attio = new AttioCore({
+  oauth2: process.env["ATTIO_OAUTH2"] ?? "",
+});
+
+async function run() {
+  const res = await scimGroupsGet(attio, {
+    workspaceTeamId: "<id>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("scimGroupsGet failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.GetScimGroupRequest](../../models/operations/get-scim-group-request.md)                                                                                            | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.GetScimGroupResponse](../../models/operations/get-scim-group-response.md)\>**
 
 ### Errors
 
@@ -303,82 +376,7 @@ run();
 | ----------------- | ----------------- | ----------------- |
 | errors.AttioError | 4XX, 5XX          | \*/\*             |
 
-## getScimV2GroupsWorkspaceTeamId
-
-Gets a SCIM group by ID.
-
-Required scopes: `user_management:read`.
-
-### Example Usage
-
-<!-- UsageSnippet language="typescript" operationID="get_/scim/v2/Groups/{workspace_team_id}" method="get" path="/scim/v2/Groups/{workspace_team_id}" -->
-```typescript
-import { Attio } from "@interfere/attio";
-
-const attio = new Attio({
-  oauth2: process.env["ATTIO_OAUTH2"] ?? "",
-});
-
-async function run() {
-  const result = await attio.scimGroups.getScimV2GroupsWorkspaceTeamId({
-    workspaceTeamId: "<id>",
-  });
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { AttioCore } from "@interfere/attio/core.js";
-import { scimGroupsGetScimV2GroupsWorkspaceTeamId } from "@interfere/attio/funcs/scim-groups-get-scim-v2-groups-workspace-team-id.js";
-
-// Use `AttioCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const attio = new AttioCore({
-  oauth2: process.env["ATTIO_OAUTH2"] ?? "",
-});
-
-async function run() {
-  const res = await scimGroupsGetScimV2GroupsWorkspaceTeamId(attio, {
-    workspaceTeamId: "<id>",
-  });
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("scimGroupsGetScimV2GroupsWorkspaceTeamId failed:", res.error);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.GetScimV2GroupsWorkspaceTeamIdRequest](../../models/operations/get-scim-v2-groups-workspace-team-id-request.md)                                                    | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-
-### Response
-
-**Promise\<[operations.GetScimV2GroupsWorkspaceTeamIdResponse](../../models/operations/get-scim-v2-groups-workspace-team-id-response.md)\>**
-
-### Errors
-
-| Error Type        | Status Code       | Content Type      |
-| ----------------- | ----------------- | ----------------- |
-| errors.AttioError | 4XX, 5XX          | \*/\*             |
-
-## deleteScimV2GroupsWorkspaceTeamId
+## delete
 
 Deletes a SCIM group from the workspace.
 
@@ -386,7 +384,7 @@ Required scopes: `user_management:read-write`.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="delete_/scim/v2/Groups/{workspace_team_id}" method="delete" path="/scim/v2/Groups/{workspace_team_id}" -->
+<!-- UsageSnippet language="typescript" operationID="deleteScimGroup" method="delete" path="/scim/v2/Groups/{workspace_team_id}" -->
 ```typescript
 import { Attio } from "@interfere/attio";
 
@@ -395,7 +393,7 @@ const attio = new Attio({
 });
 
 async function run() {
-  const result = await attio.scimGroups.deleteScimV2GroupsWorkspaceTeamId({
+  const result = await attio.scimGroups.delete({
     workspaceTeamId: "<id>",
   });
 
@@ -411,7 +409,7 @@ The standalone function version of this method:
 
 ```typescript
 import { AttioCore } from "@interfere/attio/core.js";
-import { scimGroupsDeleteScimV2GroupsWorkspaceTeamId } from "@interfere/attio/funcs/scim-groups-delete-scim-v2-groups-workspace-team-id.js";
+import { scimGroupsDelete } from "@interfere/attio/funcs/scim-groups-delete.js";
 
 // Use `AttioCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -420,14 +418,14 @@ const attio = new AttioCore({
 });
 
 async function run() {
-  const res = await scimGroupsDeleteScimV2GroupsWorkspaceTeamId(attio, {
+  const res = await scimGroupsDelete(attio, {
     workspaceTeamId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("scimGroupsDeleteScimV2GroupsWorkspaceTeamId failed:", res.error);
+    console.log("scimGroupsDelete failed:", res.error);
   }
 }
 
@@ -438,14 +436,14 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.DeleteScimV2GroupsWorkspaceTeamIdRequest](../../models/operations/delete-scim-v2-groups-workspace-team-id-request.md)                                              | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.DeleteScimGroupRequest](../../models/operations/delete-scim-group-request.md)                                                                                      | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.DeleteScimV2GroupsWorkspaceTeamIdResponse](../../models/operations/delete-scim-v2-groups-workspace-team-id-response.md)\>**
+**Promise\<[operations.DeleteScimGroupResponse](../../models/operations/delete-scim-group-response.md)\>**
 
 ### Errors
 

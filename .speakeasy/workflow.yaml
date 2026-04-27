@@ -6,7 +6,13 @@ sources:
             - location: https://api.attio.com/openapi/api
         overlays:
             - location: .speakeasy/overlays/enum-fixes-overlay.yaml
+            - location: .speakeasy/overlays/single-value-enum-to-const-overlay.yaml
+            - location: .speakeasy/overlays/variant-naming-overlay.yaml
             - location: .speakeasy/overlays/speakeasy-modifications-overlay.yaml
+        transformations:
+            - removeUnused: true
+            - cleanup: true
+            - format: true
         output: .speakeasy/outputs/attio.openapi.yaml
         registry:
             location: registry.speakeasyapi.dev/interfere/api/attio-api

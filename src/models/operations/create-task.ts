@@ -11,17 +11,6 @@ import { smartUnion } from "../../types/smart-union.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
 import * as models from "../index.js";
 
-/**
- * The format of the task content to be created. Rich text formatting, links and @references are not supported.
- */
-export const CreateTaskFormat = {
-  Plaintext: "plaintext",
-} as const;
-/**
- * The format of the task content to be created. Rich text formatting, links and @references are not supported.
- */
-export type CreateTaskFormat = ClosedEnum<typeof CreateTaskFormat>;
-
 export type CreateTaskSlugOrIdOfMatchingAttribute5 = {
   /**
    * A raw text field. Values are limited to 10MB.
@@ -376,24 +365,11 @@ export type CreateTaskAssignee = {
   workspaceMemberEmailAddress: string;
 };
 
-/**
- * The actor type of the task assignee. Only `workspace-member` actors can be assigned to tasks. [Read more information on actor types here](/docs/actors).
- */
-export const CreateTaskReferencedActorType = {
-  WorkspaceMember: "workspace-member",
-} as const;
-/**
- * The actor type of the task assignee. Only `workspace-member` actors can be assigned to tasks. [Read more information on actor types here](/docs/actors).
- */
-export type CreateTaskReferencedActorType = ClosedEnum<
-  typeof CreateTaskReferencedActorType
->;
-
 export type CreateTaskAssigneeWorkspaceMember = {
   /**
    * The actor type of the task assignee. Only `workspace-member` actors can be assigned to tasks. [Read more information on actor types here](/docs/actors).
    */
-  referencedActorType: CreateTaskReferencedActorType;
+  referencedActorType: "workspace-member";
   /**
    * The ID of the actor assigned to this task.
    */
@@ -412,7 +388,7 @@ export type CreateTaskData = {
   /**
    * The format of the task content to be created. Rich text formatting, links and @references are not supported.
    */
-  format: CreateTaskFormat;
+  format: "plaintext";
   /**
    * The deadline of the task, in ISO 8601 format.
    */
@@ -437,55 +413,12 @@ export type CreateTaskRequest = {
   data: CreateTaskData;
 };
 
-export const CreateTaskNotFoundStatusCode = {
-  FourHundredAndFour: 404,
-} as const;
-export type CreateTaskNotFoundStatusCode = ClosedEnum<
-  typeof CreateTaskNotFoundStatusCode
->;
-
-export const CreateTaskNotFoundType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type CreateTaskNotFoundType = ClosedEnum<typeof CreateTaskNotFoundType>;
-
-export const CreateTaskNotFoundCode = {
-  NotFound: "not_found",
-} as const;
-export type CreateTaskNotFoundCode = ClosedEnum<typeof CreateTaskNotFoundCode>;
-
-export const CreateTaskBadRequestStatusCode = {
-  FourHundred: 400,
-} as const;
-export type CreateTaskBadRequestStatusCode = ClosedEnum<
-  typeof CreateTaskBadRequestStatusCode
->;
-
-export const CreateTaskBadRequestType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type CreateTaskBadRequestType = ClosedEnum<
-  typeof CreateTaskBadRequestType
->;
-
-export const CreateTaskCodeValidationType = {
-  ValidationType: "validation_type",
-} as const;
-export type CreateTaskCodeValidationType = ClosedEnum<
-  typeof CreateTaskCodeValidationType
->;
-
 /**
  * Success
  */
 export type CreateTaskResponse = {
   data: models.Task;
 };
-
-/** @internal */
-export const CreateTaskFormat$outboundSchema: z.ZodMiniEnum<
-  typeof CreateTaskFormat
-> = z.enum(CreateTaskFormat);
 
 /** @internal */
 export type CreateTaskSlugOrIdOfMatchingAttribute5$Outbound = {
@@ -822,13 +755,8 @@ export function createTaskAssigneeToJSON(
 }
 
 /** @internal */
-export const CreateTaskReferencedActorType$outboundSchema: z.ZodMiniEnum<
-  typeof CreateTaskReferencedActorType
-> = z.enum(CreateTaskReferencedActorType);
-
-/** @internal */
 export type CreateTaskAssigneeWorkspaceMember$Outbound = {
-  referenced_actor_type: string;
+  referenced_actor_type: "workspace-member";
   referenced_actor_id: string;
 };
 
@@ -838,7 +766,7 @@ export const CreateTaskAssigneeWorkspaceMember$outboundSchema: z.ZodMiniType<
   CreateTaskAssigneeWorkspaceMember
 > = z.pipe(
   z.object({
-    referencedActorType: CreateTaskReferencedActorType$outboundSchema,
+    referencedActorType: z.literal("workspace-member"),
     referencedActorId: z.string(),
   }),
   z.transform((v) => {
@@ -884,7 +812,7 @@ export function createTaskAssigneeUnionToJSON(
 /** @internal */
 export type CreateTaskData$Outbound = {
   content: string;
-  format: string;
+  format: "plaintext";
   deadline_at: string | null;
   is_completed: boolean;
   linked_records:
@@ -904,7 +832,7 @@ export const CreateTaskData$outboundSchema: z.ZodMiniType<
 > = z.pipe(
   z.object({
     content: z.string(),
-    format: CreateTaskFormat$outboundSchema,
+    format: z.literal("plaintext"),
     deadlineAt: z.nullable(z.string()),
     isCompleted: z.boolean(),
     linkedRecords: smartUnion([
@@ -956,36 +884,6 @@ export function createTaskRequestToJSON(
     CreateTaskRequest$outboundSchema.parse(createTaskRequest),
   );
 }
-
-/** @internal */
-export const CreateTaskNotFoundStatusCode$inboundSchema: z.ZodMiniEnum<
-  typeof CreateTaskNotFoundStatusCode
-> = z.enum(CreateTaskNotFoundStatusCode);
-
-/** @internal */
-export const CreateTaskNotFoundType$inboundSchema: z.ZodMiniEnum<
-  typeof CreateTaskNotFoundType
-> = z.enum(CreateTaskNotFoundType);
-
-/** @internal */
-export const CreateTaskNotFoundCode$inboundSchema: z.ZodMiniEnum<
-  typeof CreateTaskNotFoundCode
-> = z.enum(CreateTaskNotFoundCode);
-
-/** @internal */
-export const CreateTaskBadRequestStatusCode$inboundSchema: z.ZodMiniEnum<
-  typeof CreateTaskBadRequestStatusCode
-> = z.enum(CreateTaskBadRequestStatusCode);
-
-/** @internal */
-export const CreateTaskBadRequestType$inboundSchema: z.ZodMiniEnum<
-  typeof CreateTaskBadRequestType
-> = z.enum(CreateTaskBadRequestType);
-
-/** @internal */
-export const CreateTaskCodeValidationType$inboundSchema: z.ZodMiniEnum<
-  typeof CreateTaskCodeValidationType
-> = z.enum(CreateTaskCodeValidationType);
 
 /** @internal */
 export const CreateTaskResponse$inboundSchema: z.ZodMiniType<

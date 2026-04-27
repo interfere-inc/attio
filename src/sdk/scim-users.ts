@@ -3,8 +3,8 @@
  */
 
 import { scimUsersCreate } from "../funcs/scim-users-create.js";
-import { scimUsersDeleteScimV2UsersUserId } from "../funcs/scim-users-delete-scim-v2-users-user-id.js";
-import { scimUsersGetScimV2UsersUserId } from "../funcs/scim-users-get-scim-v2-users-user-id.js";
+import { scimUsersDelete } from "../funcs/scim-users-delete.js";
+import { scimUsersGet } from "../funcs/scim-users-get.js";
 import { scimUsersList } from "../funcs/scim-users-list.js";
 import { scimUsersPatch } from "../funcs/scim-users-patch.js";
 import { scimUsersUpdate } from "../funcs/scim-users-update.js";
@@ -48,6 +48,25 @@ export class ScimUsers extends ClientSDK {
   }
 
   /**
+   * Get SCIM user
+   *
+   * @remarks
+   * Gets a SCIM user by ID.
+   *
+   * Required scopes: `user_management:read`.
+   */
+  async get(
+    request: operations.GetScimUserRequest,
+    options?: RequestOptions,
+  ): Promise<operations.GetScimUserResponse> {
+    return unwrapAsync(scimUsersGet(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
    * Patch SCIM user
    *
    * @remarks
@@ -86,25 +105,6 @@ export class ScimUsers extends ClientSDK {
   }
 
   /**
-   * Get SCIM user
-   *
-   * @remarks
-   * Gets a SCIM user by ID.
-   *
-   * Required scopes: `user_management:read`.
-   */
-  async getScimV2UsersUserId(
-    request: operations.GetScimV2UsersUserIdRequest,
-    options?: RequestOptions,
-  ): Promise<operations.GetScimV2UsersUserIdResponse> {
-    return unwrapAsync(scimUsersGetScimV2UsersUserId(
-      this,
-      request,
-      options,
-    ));
-  }
-
-  /**
    * Delete SCIM user
    *
    * @remarks
@@ -112,11 +112,11 @@ export class ScimUsers extends ClientSDK {
    *
    * Required scopes: `user_management:read-write`.
    */
-  async deleteScimV2UsersUserId(
-    request: operations.DeleteScimV2UsersUserIdRequest,
+  async delete(
+    request: operations.DeleteScimUserRequest,
     options?: RequestOptions,
-  ): Promise<operations.DeleteScimV2UsersUserIdResponse> {
-    return unwrapAsync(scimUsersDeleteScimV2UsersUserId(
+  ): Promise<operations.DeleteScimUserResponse> {
+    return unwrapAsync(scimUsersDelete(
       this,
       request,
       options,

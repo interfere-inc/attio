@@ -6,7 +6,7 @@ import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { smartUnion } from "../types/smart-union.js";
@@ -14,38 +14,16 @@ import { SDKValidationError } from "./errors/sdk-validation-error.js";
 import { SelectOption, SelectOption$inboundSchema } from "./select-option.js";
 import { Status, Status$inboundSchema } from "./status.js";
 
-/**
- * The attribute type of the value.
- */
-export const AttributeTypeTimestamp = {
-  Timestamp: "timestamp",
-} as const;
-/**
- * The attribute type of the value.
- */
-export type AttributeTypeTimestamp = ClosedEnum<typeof AttributeTypeTimestamp>;
-
 export type OutputValueTimestamp = {
   /**
    * The attribute type of the value.
    */
-  attributeType: AttributeTypeTimestamp;
+  attributeType: "timestamp";
   /**
    * A timestamp value represents a single, universal moment in time using an ISO 8601 formatted string. This means that a timestamp consists of a date, a time (with nanosecond precision), and a time zone. Attio will coerce timestamps which do not provide full nanosecond precision and UTC is assumed if no time zone is provided. For example, "2023", "2023-01", "2023-01-02", "2023-01-02T13:00", "2023-01-02T13:00:00", and "2023-01-02T13:00:00.000000000" will all be coerced to "2023-01-02T13:00:00.000000000Z". Timestamps are always returned in UTC. For example, writing a timestamp value using the string "2023-01-02T13:00:00.000000000+02:00" will result in the value "2023-01-02T11:00:00.000000000Z" being returned. The maximum date is "9999-12-31T23:59:59.999999999Z".
    */
   value: Date;
 };
-
-/**
- * The attribute type of the value.
- */
-export const AttributeTypeText = {
-  Text: "text",
-} as const;
-/**
- * The attribute type of the value.
- */
-export type AttributeTypeText = ClosedEnum<typeof AttributeTypeText>;
 
 export type OutputValueText = {
   /**
@@ -55,40 +33,18 @@ export type OutputValueText = {
   /**
    * The attribute type of the value.
    */
-  attributeType: AttributeTypeText;
+  attributeType: "text";
 };
 
-/**
- * The attribute type of the value.
- */
-export const AttributeTypeSelect2 = {
-  Select: "select",
-} as const;
-/**
- * The attribute type of the value.
- */
-export type AttributeTypeSelect2 = ClosedEnum<typeof AttributeTypeSelect2>;
-
-export type OutputValueSelect2 = {
+export type OutputValueSelect = {
   option: SelectOption;
   /**
    * The attribute type of the value.
    */
-  attributeType: AttributeTypeSelect2;
+  attributeType: "select";
 };
 
-/**
- * The attribute type of the value.
- */
-export const AttributeTypeSelect1 = {
-  Select: "select",
-} as const;
-/**
- * The attribute type of the value.
- */
-export type AttributeTypeSelect1 = ClosedEnum<typeof AttributeTypeSelect1>;
-
-export type OutputValueSelect1 = {
+export type OutputValueSelectReference = {
   /**
    * The UUID identifying the selected select option.
    */
@@ -96,19 +52,8 @@ export type OutputValueSelect1 = {
   /**
    * The attribute type of the value.
    */
-  attributeType: AttributeTypeSelect1;
+  attributeType: "select";
 };
-
-/**
- * The attribute type of the value.
- */
-export const AttributeTypeRating = {
-  Rating: "rating",
-} as const;
-/**
- * The attribute type of the value.
- */
-export type AttributeTypeRating = ClosedEnum<typeof AttributeTypeRating>;
 
 export type OutputValueRating = {
   /**
@@ -118,40 +63,18 @@ export type OutputValueRating = {
   /**
    * The attribute type of the value.
    */
-  attributeType: AttributeTypeRating;
+  attributeType: "rating";
 };
 
-/**
- * The attribute type of the value.
- */
-export const AttributeTypeStatus2 = {
-  Status: "status",
-} as const;
-/**
- * The attribute type of the value.
- */
-export type AttributeTypeStatus2 = ClosedEnum<typeof AttributeTypeStatus2>;
-
-export type OutputValueStatus2 = {
+export type OutputValueStatus = {
   status: Status;
   /**
    * The attribute type of the value.
    */
-  attributeType: AttributeTypeStatus2;
+  attributeType: "status";
 };
 
-/**
- * The attribute type of the value.
- */
-export const AttributeTypeStatus1 = {
-  Status: "status",
-} as const;
-/**
- * The attribute type of the value.
- */
-export type AttributeTypeStatus1 = ClosedEnum<typeof AttributeTypeStatus1>;
-
-export type OutputValueStatus1 = {
+export type OutputValueStatusReference = {
   /**
    * The UUID identifying the selected status.
    */
@@ -159,13 +82,13 @@ export type OutputValueStatus1 = {
   /**
    * The attribute type of the value.
    */
-  attributeType: AttributeTypeStatus1;
+  attributeType: "status";
 };
 
 /**
  * The ISO 3166-1 alpha-2 country code representing the country that this phone number belongs to.
  */
-export const OutputValueCountryCode2 = {
+export const OutputValuePhoneCountryCode = {
   Af: "AF",
   Ax: "AX",
   Al: "AL",
@@ -422,19 +345,8 @@ export const OutputValueCountryCode2 = {
 /**
  * The ISO 3166-1 alpha-2 country code representing the country that this phone number belongs to.
  */
-export type OutputValueCountryCode2 = OpenEnum<typeof OutputValueCountryCode2>;
-
-/**
- * The attribute type of the value.
- */
-export const AttributeTypePhoneNumber = {
-  PhoneNumber: "phone-number",
-} as const;
-/**
- * The attribute type of the value.
- */
-export type AttributeTypePhoneNumber = ClosedEnum<
-  typeof AttributeTypePhoneNumber
+export type OutputValuePhoneCountryCode = OpenEnum<
+  typeof OutputValuePhoneCountryCode
 >;
 
 export type OutputValuePhoneNumber = {
@@ -445,26 +357,13 @@ export type OutputValuePhoneNumber = {
   /**
    * The ISO 3166-1 alpha-2 country code representing the country that this phone number belongs to.
    */
-  countryCode: OutputValueCountryCode2;
+  phoneCountryCode: OutputValuePhoneCountryCode;
   phoneNumber: string;
   /**
    * The attribute type of the value.
    */
-  attributeType: AttributeTypePhoneNumber;
+  attributeType: "phone-number";
 };
-
-/**
- * The attribute type of the value.
- */
-export const AttributeTypePersonalName = {
-  PersonalName: "personal-name",
-} as const;
-/**
- * The attribute type of the value.
- */
-export type AttributeTypePersonalName = ClosedEnum<
-  typeof AttributeTypePersonalName
->;
 
 export type OutputValuePersonalName = {
   /**
@@ -482,19 +381,8 @@ export type OutputValuePersonalName = {
   /**
    * The attribute type of the value.
    */
-  attributeType: AttributeTypePersonalName;
+  attributeType: "personal-name";
 };
-
-/**
- * The attribute type of the value.
- */
-export const AttributeTypeNumber = {
-  Number: "number",
-} as const;
-/**
- * The attribute type of the value.
- */
-export type AttributeTypeNumber = ClosedEnum<typeof AttributeTypeNumber>;
 
 export type OutputValueNumber = {
   /**
@@ -504,13 +392,13 @@ export type OutputValueNumber = {
   /**
    * The attribute type of the value.
    */
-  attributeType: AttributeTypeNumber;
+  attributeType: "number";
 };
 
 /**
  * The ISO 3166-1 alpha-2 country code for the country this location is in.
  */
-export const OutputValueCountryCode1 = {
+export const OutputValueLocationCountryCode = {
   Af: "AF",
   Ax: "AX",
   Al: "AL",
@@ -767,18 +655,9 @@ export const OutputValueCountryCode1 = {
 /**
  * The ISO 3166-1 alpha-2 country code for the country this location is in.
  */
-export type OutputValueCountryCode1 = OpenEnum<typeof OutputValueCountryCode1>;
-
-/**
- * The attribute type of the value.
- */
-export const AttributeTypeLocation = {
-  Location: "location",
-} as const;
-/**
- * The attribute type of the value.
- */
-export type AttributeTypeLocation = ClosedEnum<typeof AttributeTypeLocation>;
+export type OutputValueLocationCountryCode = OpenEnum<
+  typeof OutputValueLocationCountryCode
+>;
 
 export type OutputValueLocation = {
   /**
@@ -812,7 +691,7 @@ export type OutputValueLocation = {
   /**
    * The ISO 3166-1 alpha-2 country code for the country this location is in.
    */
-  countryCode: OutputValueCountryCode1 | null;
+  locationCountryCode: OutputValueLocationCountryCode | null;
   /**
    * The latitude of the location. Validated by the regular expression `/^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)$/`. Values are stored with up to 9 decimal places of precision. Note that this value is not currently represented in the UI but will be persisted and readable through API calls.}
    */
@@ -824,7 +703,7 @@ export type OutputValueLocation = {
   /**
    * The attribute type of the value.
    */
-  attributeType: AttributeTypeLocation;
+  attributeType: "location";
 };
 
 /**
@@ -864,27 +743,14 @@ export type OutputValueType = OpenEnum<typeof OutputValueType>;
  */
 export type OutputValueOwnerActor = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: OutputValueType | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
-
-/**
- * The attribute type of the value.
- */
-export const AttributeTypeInteraction = {
-  Interaction: "interaction",
-} as const;
-/**
- * The attribute type of the value.
- */
-export type AttributeTypeInteraction = ClosedEnum<
-  typeof AttributeTypeInteraction
->;
 
 export type OutputValueInteraction = {
   /**
@@ -902,21 +768,8 @@ export type OutputValueInteraction = {
   /**
    * The attribute type of the value.
    */
-  attributeType: AttributeTypeInteraction;
+  attributeType: "interaction";
 };
-
-/**
- * The attribute type of the value.
- */
-export const AttributeTypeRecordReference = {
-  RecordReference: "record-reference",
-} as const;
-/**
- * The attribute type of the value.
- */
-export type AttributeTypeRecordReference = ClosedEnum<
-  typeof AttributeTypeRecordReference
->;
 
 export type OutputValueRecordReference = {
   /**
@@ -930,21 +783,8 @@ export type OutputValueRecordReference = {
   /**
    * The attribute type of the value.
    */
-  attributeType: AttributeTypeRecordReference;
+  attributeType: "record-reference";
 };
-
-/**
- * The attribute type of the value.
- */
-export const AttributeTypeEmailAddress = {
-  EmailAddress: "email-address",
-} as const;
-/**
- * The attribute type of the value.
- */
-export type AttributeTypeEmailAddress = ClosedEnum<
-  typeof AttributeTypeEmailAddress
->;
 
 export type OutputValueEmailAddress = {
   originalEmailAddress: string;
@@ -955,19 +795,8 @@ export type OutputValueEmailAddress = {
   /**
    * The attribute type of the value.
    */
-  attributeType: AttributeTypeEmailAddress;
+  attributeType: "email-address";
 };
-
-/**
- * The attribute type of the value.
- */
-export const AttributeTypeDomain = {
-  Domain: "domain",
-} as const;
-/**
- * The attribute type of the value.
- */
-export type AttributeTypeDomain = ClosedEnum<typeof AttributeTypeDomain>;
 
 export type OutputValueDomain = {
   domain: string;
@@ -975,25 +804,14 @@ export type OutputValueDomain = {
   /**
    * The attribute type of the value.
    */
-  attributeType: AttributeTypeDomain;
+  attributeType: "domain";
 };
-
-/**
- * The attribute type of the value.
- */
-export const AttributeTypeDate = {
-  Date: "date",
-} as const;
-/**
- * The attribute type of the value.
- */
-export type AttributeTypeDate = ClosedEnum<typeof AttributeTypeDate>;
 
 export type OutputValueDate = {
   /**
    * The attribute type of the value.
    */
-  attributeType: AttributeTypeDate;
+  attributeType: "date";
   /**
    * A date represents a single calendar year, month and day, independent of timezone. If hours, months, seconds or timezones are provided, they will be trimmed. For example, "2023" and "2023-01" will be coerced into "2023-01-01", and "2023-01-02", "2023-01-02T13:00", "2023-01-02T14:00:00", "2023-01-02T15:00:00.000000000", and "2023-01-02T15:00:00.000000000+02:00" will all be coerced to "2023-01-02". If a timezone is provided that would result in a different calendar date in UTC, the date will be coerced to UTC and then the timezone component will be trimmed. For example, the value "2023-01-02T23:00:00-10:00" will be returned as "2023-01-03". The maximum date is "9999-12-31".
    */
@@ -1051,17 +869,6 @@ export const CurrencyCode = {
  */
 export type CurrencyCode = OpenEnum<typeof CurrencyCode>;
 
-/**
- * The attribute type of the value.
- */
-export const AttributeTypeCurrency = {
-  Currency: "currency",
-} as const;
-/**
- * The attribute type of the value.
- */
-export type AttributeTypeCurrency = ClosedEnum<typeof AttributeTypeCurrency>;
-
 export type OutputValueCurrency = {
   /**
    * A numerical representation of the currency value. A decimal with a max of 4 decimal places.
@@ -1074,19 +881,8 @@ export type OutputValueCurrency = {
   /**
    * The attribute type of the value.
    */
-  attributeType: AttributeTypeCurrency;
+  attributeType: "currency";
 };
-
-/**
- * The attribute type of the value.
- */
-export const AttributeTypeCheckbox = {
-  Checkbox: "checkbox",
-} as const;
-/**
- * The attribute type of the value.
- */
-export type AttributeTypeCheckbox = ClosedEnum<typeof AttributeTypeCheckbox>;
 
 export type OutputValueCheckbox = {
   /**
@@ -1096,7 +892,7 @@ export type OutputValueCheckbox = {
   /**
    * The attribute type of the value.
    */
-  attributeType: AttributeTypeCheckbox;
+  attributeType: "checkbox";
 };
 
 /**
@@ -1115,19 +911,6 @@ export type OutputValueReferencedActorType = OpenEnum<
   typeof OutputValueReferencedActorType
 >;
 
-/**
- * The attribute type of the value.
- */
-export const AttributeTypeActorReference = {
-  ActorReference: "actor-reference",
-} as const;
-/**
- * The attribute type of the value.
- */
-export type AttributeTypeActorReference = ClosedEnum<
-  typeof AttributeTypeActorReference
->;
-
 export type OutputValueActorReference = {
   /**
    * The type of the referenced actor. [Read more information on actor types here](/docs/actors).
@@ -1140,7 +923,7 @@ export type OutputValueActorReference = {
   /**
    * The attribute type of the value.
    */
-  attributeType: AttributeTypeActorReference;
+  attributeType: "actor-reference";
 };
 
 /**
@@ -1159,18 +942,13 @@ export type OutputValue =
   | OutputValueCurrency
   | OutputValueDate
   | OutputValueNumber
-  | OutputValueStatus1
-  | OutputValueStatus2
+  | OutputValueStatusReference
+  | OutputValueStatus
   | OutputValueRating
-  | OutputValueSelect1
-  | OutputValueSelect2
+  | OutputValueSelectReference
+  | OutputValueSelect
   | OutputValueText
   | OutputValueTimestamp;
-
-/** @internal */
-export const AttributeTypeTimestamp$inboundSchema: z.ZodMiniEnum<
-  typeof AttributeTypeTimestamp
-> = z.enum(AttributeTypeTimestamp);
 
 /** @internal */
 export const OutputValueTimestamp$inboundSchema: z.ZodMiniType<
@@ -1178,7 +956,7 @@ export const OutputValueTimestamp$inboundSchema: z.ZodMiniType<
   unknown
 > = z.pipe(
   z.object({
-    attribute_type: AttributeTypeTimestamp$inboundSchema,
+    attribute_type: types.literal("timestamp"),
     value: types.date(),
   }),
   z.transform((v) => {
@@ -1199,18 +977,13 @@ export function outputValueTimestampFromJSON(
 }
 
 /** @internal */
-export const AttributeTypeText$inboundSchema: z.ZodMiniEnum<
-  typeof AttributeTypeText
-> = z.enum(AttributeTypeText);
-
-/** @internal */
 export const OutputValueText$inboundSchema: z.ZodMiniType<
   OutputValueText,
   unknown
 > = z.pipe(
   z.object({
     value: types.string(),
-    attribute_type: AttributeTypeText$inboundSchema,
+    attribute_type: types.literal("text"),
   }),
   z.transform((v) => {
     return remap$(v, {
@@ -1230,18 +1003,13 @@ export function outputValueTextFromJSON(
 }
 
 /** @internal */
-export const AttributeTypeSelect2$inboundSchema: z.ZodMiniEnum<
-  typeof AttributeTypeSelect2
-> = z.enum(AttributeTypeSelect2);
-
-/** @internal */
-export const OutputValueSelect2$inboundSchema: z.ZodMiniType<
-  OutputValueSelect2,
+export const OutputValueSelect$inboundSchema: z.ZodMiniType<
+  OutputValueSelect,
   unknown
 > = z.pipe(
   z.object({
     option: SelectOption$inboundSchema,
-    attribute_type: AttributeTypeSelect2$inboundSchema,
+    attribute_type: types.literal("select"),
   }),
   z.transform((v) => {
     return remap$(v, {
@@ -1250,29 +1018,24 @@ export const OutputValueSelect2$inboundSchema: z.ZodMiniType<
   }),
 );
 
-export function outputValueSelect2FromJSON(
+export function outputValueSelectFromJSON(
   jsonString: string,
-): SafeParseResult<OutputValueSelect2, SDKValidationError> {
+): SafeParseResult<OutputValueSelect, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => OutputValueSelect2$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputValueSelect2' from JSON`,
+    (x) => OutputValueSelect$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputValueSelect' from JSON`,
   );
 }
 
 /** @internal */
-export const AttributeTypeSelect1$inboundSchema: z.ZodMiniEnum<
-  typeof AttributeTypeSelect1
-> = z.enum(AttributeTypeSelect1);
-
-/** @internal */
-export const OutputValueSelect1$inboundSchema: z.ZodMiniType<
-  OutputValueSelect1,
+export const OutputValueSelectReference$inboundSchema: z.ZodMiniType<
+  OutputValueSelectReference,
   unknown
 > = z.pipe(
   z.object({
     option: types.string(),
-    attribute_type: AttributeTypeSelect1$inboundSchema,
+    attribute_type: types.literal("select"),
   }),
   z.transform((v) => {
     return remap$(v, {
@@ -1281,20 +1044,15 @@ export const OutputValueSelect1$inboundSchema: z.ZodMiniType<
   }),
 );
 
-export function outputValueSelect1FromJSON(
+export function outputValueSelectReferenceFromJSON(
   jsonString: string,
-): SafeParseResult<OutputValueSelect1, SDKValidationError> {
+): SafeParseResult<OutputValueSelectReference, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => OutputValueSelect1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputValueSelect1' from JSON`,
+    (x) => OutputValueSelectReference$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputValueSelectReference' from JSON`,
   );
 }
-
-/** @internal */
-export const AttributeTypeRating$inboundSchema: z.ZodMiniEnum<
-  typeof AttributeTypeRating
-> = z.enum(AttributeTypeRating);
 
 /** @internal */
 export const OutputValueRating$inboundSchema: z.ZodMiniType<
@@ -1303,7 +1061,7 @@ export const OutputValueRating$inboundSchema: z.ZodMiniType<
 > = z.pipe(
   z.object({
     value: types.number(),
-    attribute_type: AttributeTypeRating$inboundSchema,
+    attribute_type: types.literal("rating"),
   }),
   z.transform((v) => {
     return remap$(v, {
@@ -1323,18 +1081,13 @@ export function outputValueRatingFromJSON(
 }
 
 /** @internal */
-export const AttributeTypeStatus2$inboundSchema: z.ZodMiniEnum<
-  typeof AttributeTypeStatus2
-> = z.enum(AttributeTypeStatus2);
-
-/** @internal */
-export const OutputValueStatus2$inboundSchema: z.ZodMiniType<
-  OutputValueStatus2,
+export const OutputValueStatus$inboundSchema: z.ZodMiniType<
+  OutputValueStatus,
   unknown
 > = z.pipe(
   z.object({
     status: Status$inboundSchema,
-    attribute_type: AttributeTypeStatus2$inboundSchema,
+    attribute_type: types.literal("status"),
   }),
   z.transform((v) => {
     return remap$(v, {
@@ -1343,29 +1096,24 @@ export const OutputValueStatus2$inboundSchema: z.ZodMiniType<
   }),
 );
 
-export function outputValueStatus2FromJSON(
+export function outputValueStatusFromJSON(
   jsonString: string,
-): SafeParseResult<OutputValueStatus2, SDKValidationError> {
+): SafeParseResult<OutputValueStatus, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => OutputValueStatus2$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputValueStatus2' from JSON`,
+    (x) => OutputValueStatus$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputValueStatus' from JSON`,
   );
 }
 
 /** @internal */
-export const AttributeTypeStatus1$inboundSchema: z.ZodMiniEnum<
-  typeof AttributeTypeStatus1
-> = z.enum(AttributeTypeStatus1);
-
-/** @internal */
-export const OutputValueStatus1$inboundSchema: z.ZodMiniType<
-  OutputValueStatus1,
+export const OutputValueStatusReference$inboundSchema: z.ZodMiniType<
+  OutputValueStatusReference,
   unknown
 > = z.pipe(
   z.object({
     status: types.string(),
-    attribute_type: AttributeTypeStatus1$inboundSchema,
+    attribute_type: types.literal("status"),
   }),
   z.transform((v) => {
     return remap$(v, {
@@ -1374,26 +1122,21 @@ export const OutputValueStatus1$inboundSchema: z.ZodMiniType<
   }),
 );
 
-export function outputValueStatus1FromJSON(
+export function outputValueStatusReferenceFromJSON(
   jsonString: string,
-): SafeParseResult<OutputValueStatus1, SDKValidationError> {
+): SafeParseResult<OutputValueStatusReference, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => OutputValueStatus1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputValueStatus1' from JSON`,
+    (x) => OutputValueStatusReference$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputValueStatusReference' from JSON`,
   );
 }
 
 /** @internal */
-export const OutputValueCountryCode2$inboundSchema: z.ZodMiniType<
-  OutputValueCountryCode2,
+export const OutputValuePhoneCountryCode$inboundSchema: z.ZodMiniType<
+  OutputValuePhoneCountryCode,
   unknown
-> = openEnums.inboundSchema(OutputValueCountryCode2);
-
-/** @internal */
-export const AttributeTypePhoneNumber$inboundSchema: z.ZodMiniEnum<
-  typeof AttributeTypePhoneNumber
-> = z.enum(AttributeTypePhoneNumber);
+> = openEnums.inboundSchema(OutputValuePhoneCountryCode);
 
 /** @internal */
 export const OutputValuePhoneNumber$inboundSchema: z.ZodMiniType<
@@ -1402,14 +1145,14 @@ export const OutputValuePhoneNumber$inboundSchema: z.ZodMiniType<
 > = z.pipe(
   z.object({
     original_phone_number: types.string(),
-    country_code: OutputValueCountryCode2$inboundSchema,
+    country_code: OutputValuePhoneCountryCode$inboundSchema,
     phone_number: types.string(),
-    attribute_type: AttributeTypePhoneNumber$inboundSchema,
+    attribute_type: types.literal("phone-number"),
   }),
   z.transform((v) => {
     return remap$(v, {
       "original_phone_number": "originalPhoneNumber",
-      "country_code": "countryCode",
+      "country_code": "phoneCountryCode",
       "phone_number": "phoneNumber",
       "attribute_type": "attributeType",
     });
@@ -1427,11 +1170,6 @@ export function outputValuePhoneNumberFromJSON(
 }
 
 /** @internal */
-export const AttributeTypePersonalName$inboundSchema: z.ZodMiniEnum<
-  typeof AttributeTypePersonalName
-> = z.enum(AttributeTypePersonalName);
-
-/** @internal */
 export const OutputValuePersonalName$inboundSchema: z.ZodMiniType<
   OutputValuePersonalName,
   unknown
@@ -1440,7 +1178,7 @@ export const OutputValuePersonalName$inboundSchema: z.ZodMiniType<
     first_name: types.string(),
     last_name: types.string(),
     full_name: types.string(),
-    attribute_type: AttributeTypePersonalName$inboundSchema,
+    attribute_type: types.literal("personal-name"),
   }),
   z.transform((v) => {
     return remap$(v, {
@@ -1463,18 +1201,13 @@ export function outputValuePersonalNameFromJSON(
 }
 
 /** @internal */
-export const AttributeTypeNumber$inboundSchema: z.ZodMiniEnum<
-  typeof AttributeTypeNumber
-> = z.enum(AttributeTypeNumber);
-
-/** @internal */
 export const OutputValueNumber$inboundSchema: z.ZodMiniType<
   OutputValueNumber,
   unknown
 > = z.pipe(
   z.object({
     value: types.number(),
-    attribute_type: AttributeTypeNumber$inboundSchema,
+    attribute_type: types.literal("number"),
   }),
   z.transform((v) => {
     return remap$(v, {
@@ -1494,15 +1227,10 @@ export function outputValueNumberFromJSON(
 }
 
 /** @internal */
-export const OutputValueCountryCode1$inboundSchema: z.ZodMiniType<
-  OutputValueCountryCode1,
+export const OutputValueLocationCountryCode$inboundSchema: z.ZodMiniType<
+  OutputValueLocationCountryCode,
   unknown
-> = openEnums.inboundSchema(OutputValueCountryCode1);
-
-/** @internal */
-export const AttributeTypeLocation$inboundSchema: z.ZodMiniEnum<
-  typeof AttributeTypeLocation
-> = z.enum(AttributeTypeLocation);
+> = openEnums.inboundSchema(OutputValueLocationCountryCode);
 
 /** @internal */
 export const OutputValueLocation$inboundSchema: z.ZodMiniType<
@@ -1517,10 +1245,10 @@ export const OutputValueLocation$inboundSchema: z.ZodMiniType<
     locality: types.nullable(types.string()),
     region: types.nullable(types.string()),
     postcode: types.nullable(types.string()),
-    country_code: types.nullable(OutputValueCountryCode1$inboundSchema),
+    country_code: types.nullable(OutputValueLocationCountryCode$inboundSchema),
     latitude: types.nullable(types.string()),
     longitude: types.nullable(types.string()),
-    attribute_type: AttributeTypeLocation$inboundSchema,
+    attribute_type: types.literal("location"),
   }),
   z.transform((v) => {
     return remap$(v, {
@@ -1528,7 +1256,7 @@ export const OutputValueLocation$inboundSchema: z.ZodMiniType<
       "line_2": "line2",
       "line_3": "line3",
       "line_4": "line4",
-      "country_code": "countryCode",
+      "country_code": "locationCountryCode",
       "attribute_type": "attributeType",
     });
   }),
@@ -1561,8 +1289,8 @@ export const OutputValueOwnerActor$inboundSchema: z.ZodMiniType<
   OutputValueOwnerActor,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(z.nullable(OutputValueType$inboundSchema)),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function outputValueOwnerActorFromJSON(
@@ -1576,11 +1304,6 @@ export function outputValueOwnerActorFromJSON(
 }
 
 /** @internal */
-export const AttributeTypeInteraction$inboundSchema: z.ZodMiniEnum<
-  typeof AttributeTypeInteraction
-> = z.enum(AttributeTypeInteraction);
-
-/** @internal */
 export const OutputValueInteraction$inboundSchema: z.ZodMiniType<
   OutputValueInteraction,
   unknown
@@ -1589,7 +1312,7 @@ export const OutputValueInteraction$inboundSchema: z.ZodMiniType<
     interaction_type: OutputValueInteractionType$inboundSchema,
     interacted_at: types.date(),
     owner_actor: z.lazy(() => OutputValueOwnerActor$inboundSchema),
-    attribute_type: AttributeTypeInteraction$inboundSchema,
+    attribute_type: types.literal("interaction"),
   }),
   z.transform((v) => {
     return remap$(v, {
@@ -1612,11 +1335,6 @@ export function outputValueInteractionFromJSON(
 }
 
 /** @internal */
-export const AttributeTypeRecordReference$inboundSchema: z.ZodMiniEnum<
-  typeof AttributeTypeRecordReference
-> = z.enum(AttributeTypeRecordReference);
-
-/** @internal */
 export const OutputValueRecordReference$inboundSchema: z.ZodMiniType<
   OutputValueRecordReference,
   unknown
@@ -1624,7 +1342,7 @@ export const OutputValueRecordReference$inboundSchema: z.ZodMiniType<
   z.object({
     target_object: types.string(),
     target_record_id: types.string(),
-    attribute_type: AttributeTypeRecordReference$inboundSchema,
+    attribute_type: types.literal("record-reference"),
   }),
   z.transform((v) => {
     return remap$(v, {
@@ -1646,11 +1364,6 @@ export function outputValueRecordReferenceFromJSON(
 }
 
 /** @internal */
-export const AttributeTypeEmailAddress$inboundSchema: z.ZodMiniEnum<
-  typeof AttributeTypeEmailAddress
-> = z.enum(AttributeTypeEmailAddress);
-
-/** @internal */
 export const OutputValueEmailAddress$inboundSchema: z.ZodMiniType<
   OutputValueEmailAddress,
   unknown
@@ -1661,7 +1374,7 @@ export const OutputValueEmailAddress$inboundSchema: z.ZodMiniType<
     email_domain: types.string(),
     email_root_domain: types.string(),
     email_local_specifier: types.string(),
-    attribute_type: AttributeTypeEmailAddress$inboundSchema,
+    attribute_type: types.literal("email-address"),
   }),
   z.transform((v) => {
     return remap$(v, {
@@ -1686,11 +1399,6 @@ export function outputValueEmailAddressFromJSON(
 }
 
 /** @internal */
-export const AttributeTypeDomain$inboundSchema: z.ZodMiniEnum<
-  typeof AttributeTypeDomain
-> = z.enum(AttributeTypeDomain);
-
-/** @internal */
 export const OutputValueDomain$inboundSchema: z.ZodMiniType<
   OutputValueDomain,
   unknown
@@ -1698,7 +1406,7 @@ export const OutputValueDomain$inboundSchema: z.ZodMiniType<
   z.object({
     domain: types.string(),
     root_domain: types.string(),
-    attribute_type: AttributeTypeDomain$inboundSchema,
+    attribute_type: types.literal("domain"),
   }),
   z.transform((v) => {
     return remap$(v, {
@@ -1719,17 +1427,12 @@ export function outputValueDomainFromJSON(
 }
 
 /** @internal */
-export const AttributeTypeDate$inboundSchema: z.ZodMiniEnum<
-  typeof AttributeTypeDate
-> = z.enum(AttributeTypeDate);
-
-/** @internal */
 export const OutputValueDate$inboundSchema: z.ZodMiniType<
   OutputValueDate,
   unknown
 > = z.pipe(
   z.object({
-    attribute_type: AttributeTypeDate$inboundSchema,
+    attribute_type: types.literal("date"),
     value: types.string(),
   }),
   z.transform((v) => {
@@ -1754,11 +1457,6 @@ export const CurrencyCode$inboundSchema: z.ZodMiniType<CurrencyCode, unknown> =
   openEnums.inboundSchema(CurrencyCode);
 
 /** @internal */
-export const AttributeTypeCurrency$inboundSchema: z.ZodMiniEnum<
-  typeof AttributeTypeCurrency
-> = z.enum(AttributeTypeCurrency);
-
-/** @internal */
 export const OutputValueCurrency$inboundSchema: z.ZodMiniType<
   OutputValueCurrency,
   unknown
@@ -1766,7 +1464,7 @@ export const OutputValueCurrency$inboundSchema: z.ZodMiniType<
   z.object({
     currency_value: types.number(),
     currency_code: z.optional(z.nullable(CurrencyCode$inboundSchema)),
-    attribute_type: AttributeTypeCurrency$inboundSchema,
+    attribute_type: types.literal("currency"),
   }),
   z.transform((v) => {
     return remap$(v, {
@@ -1788,18 +1486,13 @@ export function outputValueCurrencyFromJSON(
 }
 
 /** @internal */
-export const AttributeTypeCheckbox$inboundSchema: z.ZodMiniEnum<
-  typeof AttributeTypeCheckbox
-> = z.enum(AttributeTypeCheckbox);
-
-/** @internal */
 export const OutputValueCheckbox$inboundSchema: z.ZodMiniType<
   OutputValueCheckbox,
   unknown
 > = z.pipe(
   z.object({
     value: types.boolean(),
-    attribute_type: AttributeTypeCheckbox$inboundSchema,
+    attribute_type: types.literal("checkbox"),
   }),
   z.transform((v) => {
     return remap$(v, {
@@ -1825,11 +1518,6 @@ export const OutputValueReferencedActorType$inboundSchema: z.ZodMiniType<
 > = openEnums.inboundSchema(OutputValueReferencedActorType);
 
 /** @internal */
-export const AttributeTypeActorReference$inboundSchema: z.ZodMiniEnum<
-  typeof AttributeTypeActorReference
-> = z.enum(AttributeTypeActorReference);
-
-/** @internal */
 export const OutputValueActorReference$inboundSchema: z.ZodMiniType<
   OutputValueActorReference,
   unknown
@@ -1837,7 +1525,7 @@ export const OutputValueActorReference$inboundSchema: z.ZodMiniType<
   z.object({
     referenced_actor_type: OutputValueReferencedActorType$inboundSchema,
     referenced_actor_id: types.nullable(types.string()),
-    attribute_type: AttributeTypeActorReference$inboundSchema,
+    attribute_type: types.literal("actor-reference"),
   }),
   z.transform((v) => {
     return remap$(v, {
@@ -1873,11 +1561,11 @@ export const OutputValue$inboundSchema: z.ZodMiniType<OutputValue, unknown> =
     z.lazy(() => OutputValueCurrency$inboundSchema),
     z.lazy(() => OutputValueDate$inboundSchema),
     z.lazy(() => OutputValueNumber$inboundSchema),
-    z.lazy(() => OutputValueStatus1$inboundSchema),
-    z.lazy(() => OutputValueStatus2$inboundSchema),
+    z.lazy(() => OutputValueStatusReference$inboundSchema),
+    z.lazy(() => OutputValueStatus$inboundSchema),
     z.lazy(() => OutputValueRating$inboundSchema),
-    z.lazy(() => OutputValueSelect1$inboundSchema),
-    z.lazy(() => OutputValueSelect2$inboundSchema),
+    z.lazy(() => OutputValueSelectReference$inboundSchema),
+    z.lazy(() => OutputValueSelect$inboundSchema),
     z.lazy(() => OutputValueText$inboundSchema),
     z.lazy(() => OutputValueTimestamp$inboundSchema),
   ]);

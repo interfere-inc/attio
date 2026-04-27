@@ -10,8 +10,8 @@ import * as types from "../../types/primitives.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
 
 export type CreateScimGroupMember = {
-  value: string;
   dollarRef: string;
+  value: string;
   display?: string | undefined;
 };
 
@@ -38,8 +38,8 @@ export const CreateScimGroupMember$inboundSchema: z.ZodMiniType<
   unknown
 > = z.pipe(
   z.object({
-    value: types.string(),
     $ref: types.string(),
+    value: types.string(),
     display: types.optional(types.string()),
   }),
   z.transform((v) => {

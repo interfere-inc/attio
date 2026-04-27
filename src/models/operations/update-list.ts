@@ -77,44 +77,6 @@ export type UpdateListRequest = {
   body: UpdateListRequestBody;
 };
 
-export const UpdateListNotFoundStatusCode = {
-  FourHundredAndFour: 404,
-} as const;
-export type UpdateListNotFoundStatusCode = ClosedEnum<
-  typeof UpdateListNotFoundStatusCode
->;
-
-export const UpdateListNotFoundType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type UpdateListNotFoundType = ClosedEnum<typeof UpdateListNotFoundType>;
-
-export const UpdateListNotFoundCode = {
-  NotFound: "not_found",
-} as const;
-export type UpdateListNotFoundCode = ClosedEnum<typeof UpdateListNotFoundCode>;
-
-export const UpdateListBadRequestStatusCode = {
-  FourHundred: 400,
-} as const;
-export type UpdateListBadRequestStatusCode = ClosedEnum<
-  typeof UpdateListBadRequestStatusCode
->;
-
-export const UpdateListBadRequestType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type UpdateListBadRequestType = ClosedEnum<
-  typeof UpdateListBadRequestType
->;
-
-export const UpdateListCodeValueNotFound = {
-  ValueNotFound: "value_not_found",
-} as const;
-export type UpdateListCodeValueNotFound = ClosedEnum<
-  typeof UpdateListCodeValueNotFound
->;
-
 /**
  * Success
  */
@@ -245,36 +207,6 @@ export function updateListRequestToJSON(
     UpdateListRequest$outboundSchema.parse(updateListRequest),
   );
 }
-
-/** @internal */
-export const UpdateListNotFoundStatusCode$inboundSchema: z.ZodMiniEnum<
-  typeof UpdateListNotFoundStatusCode
-> = z.enum(UpdateListNotFoundStatusCode);
-
-/** @internal */
-export const UpdateListNotFoundType$inboundSchema: z.ZodMiniEnum<
-  typeof UpdateListNotFoundType
-> = z.enum(UpdateListNotFoundType);
-
-/** @internal */
-export const UpdateListNotFoundCode$inboundSchema: z.ZodMiniEnum<
-  typeof UpdateListNotFoundCode
-> = z.enum(UpdateListNotFoundCode);
-
-/** @internal */
-export const UpdateListBadRequestStatusCode$inboundSchema: z.ZodMiniEnum<
-  typeof UpdateListBadRequestStatusCode
-> = z.enum(UpdateListBadRequestStatusCode);
-
-/** @internal */
-export const UpdateListBadRequestType$inboundSchema: z.ZodMiniEnum<
-  typeof UpdateListBadRequestType
-> = z.enum(UpdateListBadRequestType);
-
-/** @internal */
-export const UpdateListCodeValueNotFound$inboundSchema: z.ZodMiniEnum<
-  typeof UpdateListCodeValueNotFound
-> = z.enum(UpdateListCodeValueNotFound);
 
 /** @internal */
 export const UpdateListResponse$inboundSchema: z.ZodMiniType<

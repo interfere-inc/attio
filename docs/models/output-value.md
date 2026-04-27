@@ -83,8 +83,8 @@ const value: models.OutputValueInteraction = {
   interactionType: "email",
   interactedAt: new Date("2023-01-01T15:00:00.000000000Z"),
   ownerActor: {
-    id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
     type: "workspace-member",
+    id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
   },
   attributeType: "interaction",
 };
@@ -101,7 +101,7 @@ const value: models.OutputValueLocation = {
   locality: "Cupertino",
   region: "CA",
   postcode: "95014",
-  countryCode: "US",
+  locationCountryCode: "US",
   latitude: "37.331741",
   longitude: "-122.030333",
   attributeType: "location",
@@ -133,33 +133,33 @@ const value: models.OutputValuePersonalName = {
 ```typescript
 const value: models.OutputValuePhoneNumber = {
   originalPhoneNumber: "5558675309",
-  countryCode: "US",
+  phoneCountryCode: "US",
   phoneNumber: "+15558675309",
   attributeType: "phone-number",
 };
 ```
 
-### `models.OutputValueStatus1`
+### `models.OutputValueStatusReference`
 
 ```typescript
-const value: models.OutputValueStatus1 = {
+const value: models.OutputValueStatusReference = {
   status: "11f07f01-c10f-4e05-a522-33e050bc52ee",
   attributeType: "status",
 };
 ```
 
-### `models.OutputValueStatus2`
+### `models.OutputValueStatus`
 
 ```typescript
-const value: models.OutputValueStatus2 = {
+const value: models.OutputValueStatus = {
   status: {
+    title: "In Progress",
     id: {
       workspaceId: "14beef7a-99f7-4534-a87e-70b564330a4c",
       objectId: "97052eb9-e65e-443f-a297-f2d9a4a7f795",
       attributeId: "41252299-f8c7-4b5e-99c9-4ff8321d2f96",
       statusId: "11f07f01-c10f-4e05-a522-33e050bc52ee",
     },
-    title: "In Progress",
     isArchived: false,
     celebrationEnabled: false,
     targetTimeInStatus: "P0Y0M1DT0H0M0S",
@@ -177,27 +177,27 @@ const value: models.OutputValueRating = {
 };
 ```
 
-### `models.OutputValueSelect1`
+### `models.OutputValueSelectReference`
 
 ```typescript
-const value: models.OutputValueSelect1 = {
+const value: models.OutputValueSelectReference = {
   option: "08c2c59a-c18e-40c6-8dc4-95415313b2ea",
   attributeType: "select",
 };
 ```
 
-### `models.OutputValueSelect2`
+### `models.OutputValueSelect`
 
 ```typescript
-const value: models.OutputValueSelect2 = {
+const value: models.OutputValueSelect = {
   option: {
+    title: "Medium",
     id: {
       workspaceId: "14beef7a-99f7-4534-a87e-70b564330a4c",
       objectId: "97052eb9-e65e-443f-a297-f2d9a4a7f795",
       attributeId: "41252299-f8c7-4b5e-99c9-4ff8321d2f96",
       optionId: "08c2c59a-c18e-40c6-8dc4-95415313b2ea",
     },
-    title: "Medium",
     isArchived: false,
   },
   attributeType: "select",

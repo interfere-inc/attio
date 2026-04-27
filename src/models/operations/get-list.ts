@@ -4,7 +4,6 @@
 
 import * as z from "zod/v4-mini";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
 import * as models from "../index.js";
@@ -12,21 +11,6 @@ import * as models from "../index.js";
 export type GetListRequest = {
   list: string;
 };
-
-export const GetListStatusCode = {
-  FourHundredAndFour: 404,
-} as const;
-export type GetListStatusCode = ClosedEnum<typeof GetListStatusCode>;
-
-export const GetListType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type GetListType = ClosedEnum<typeof GetListType>;
-
-export const GetListCode = {
-  NotFound: "not_found",
-} as const;
-export type GetListCode = ClosedEnum<typeof GetListCode>;
 
 /**
  * Success
@@ -51,19 +35,6 @@ export const GetListRequest$outboundSchema: z.ZodMiniType<
 export function getListRequestToJSON(getListRequest: GetListRequest): string {
   return JSON.stringify(GetListRequest$outboundSchema.parse(getListRequest));
 }
-
-/** @internal */
-export const GetListStatusCode$inboundSchema: z.ZodMiniEnum<
-  typeof GetListStatusCode
-> = z.enum(GetListStatusCode);
-
-/** @internal */
-export const GetListType$inboundSchema: z.ZodMiniEnum<typeof GetListType> = z
-  .enum(GetListType);
-
-/** @internal */
-export const GetListCode$inboundSchema: z.ZodMiniEnum<typeof GetListCode> = z
-  .enum(GetListCode);
 
 /** @internal */
 export const GetListResponse$inboundSchema: z.ZodMiniType<

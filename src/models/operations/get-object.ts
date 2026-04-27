@@ -4,7 +4,6 @@
 
 import * as z from "zod/v4-mini";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
 import * as models from "../index.js";
@@ -12,21 +11,6 @@ import * as models from "../index.js";
 export type GetObjectRequest = {
   object: string;
 };
-
-export const GetObjectStatusCode = {
-  FourHundredAndFour: 404,
-} as const;
-export type GetObjectStatusCode = ClosedEnum<typeof GetObjectStatusCode>;
-
-export const GetObjectType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type GetObjectType = ClosedEnum<typeof GetObjectType>;
-
-export const GetObjectCode = {
-  NotFound: "not_found",
-} as const;
-export type GetObjectCode = ClosedEnum<typeof GetObjectCode>;
 
 /**
  * Success
@@ -55,19 +39,6 @@ export function getObjectRequestToJSON(
     GetObjectRequest$outboundSchema.parse(getObjectRequest),
   );
 }
-
-/** @internal */
-export const GetObjectStatusCode$inboundSchema: z.ZodMiniEnum<
-  typeof GetObjectStatusCode
-> = z.enum(GetObjectStatusCode);
-
-/** @internal */
-export const GetObjectType$inboundSchema: z.ZodMiniEnum<typeof GetObjectType> =
-  z.enum(GetObjectType);
-
-/** @internal */
-export const GetObjectCode$inboundSchema: z.ZodMiniEnum<typeof GetObjectCode> =
-  z.enum(GetObjectCode);
 
 /** @internal */
 export const GetObjectResponse$inboundSchema: z.ZodMiniType<

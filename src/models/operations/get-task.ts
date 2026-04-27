@@ -5,7 +5,6 @@
 import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
 import * as models from "../index.js";
@@ -13,21 +12,6 @@ import * as models from "../index.js";
 export type GetTaskRequest = {
   taskId: string;
 };
-
-export const GetTaskStatusCode = {
-  FourHundredAndFour: 404,
-} as const;
-export type GetTaskStatusCode = ClosedEnum<typeof GetTaskStatusCode>;
-
-export const GetTaskType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type GetTaskType = ClosedEnum<typeof GetTaskType>;
-
-export const GetTaskCode = {
-  NotFound: "not_found",
-} as const;
-export type GetTaskCode = ClosedEnum<typeof GetTaskCode>;
 
 /**
  * Success
@@ -59,19 +43,6 @@ export const GetTaskRequest$outboundSchema: z.ZodMiniType<
 export function getTaskRequestToJSON(getTaskRequest: GetTaskRequest): string {
   return JSON.stringify(GetTaskRequest$outboundSchema.parse(getTaskRequest));
 }
-
-/** @internal */
-export const GetTaskStatusCode$inboundSchema: z.ZodMiniEnum<
-  typeof GetTaskStatusCode
-> = z.enum(GetTaskStatusCode);
-
-/** @internal */
-export const GetTaskType$inboundSchema: z.ZodMiniEnum<typeof GetTaskType> = z
-  .enum(GetTaskType);
-
-/** @internal */
-export const GetTaskCode$inboundSchema: z.ZodMiniEnum<typeof GetTaskCode> = z
-  .enum(GetTaskCode);
 
 /** @internal */
 export const GetTaskResponse$inboundSchema: z.ZodMiniType<

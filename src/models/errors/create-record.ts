@@ -5,16 +5,15 @@
 import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import * as types from "../../types/primitives.js";
-import * as operations from "../operations/index.js";
 import { AttioBaseError } from "./attio-base-error.js";
 
 /**
  * Not Found
  */
 export type CreateRecordNotFoundErrorData = {
-  statusCode: operations.CreateRecordNotFoundStatusCode;
-  type: operations.CreateRecordNotFoundType;
-  code: operations.CreateRecordNotFoundCode;
+  type: "invalid_request_error";
+  statusCode: 404;
+  code: "not_found";
   message: string;
 };
 
@@ -22,8 +21,8 @@ export type CreateRecordNotFoundErrorData = {
  * Not Found
  */
 export class CreateRecordNotFoundError extends AttioBaseError {
-  type: operations.CreateRecordNotFoundType;
-  code: operations.CreateRecordNotFoundCode;
+  type: "invalid_request_error";
+  code: "not_found";
 
   /** The original data that was passed to this error instance. */
   data$: CreateRecordNotFoundErrorData;
@@ -46,9 +45,9 @@ export class CreateRecordNotFoundError extends AttioBaseError {
  * Bad Request
  */
 export type CreateRecordValueNotFoundErrorData = {
-  statusCode: operations.CreateRecordBadRequestStatusCode;
-  type: operations.CreateRecordBadRequestType;
-  code: operations.CreateRecordCodeValueNotFound;
+  type: "invalid_request_error";
+  statusCode: 400;
+  code: "value_not_found";
   message: string;
 };
 
@@ -56,8 +55,8 @@ export type CreateRecordValueNotFoundErrorData = {
  * Bad Request
  */
 export class CreateRecordValueNotFoundError extends AttioBaseError {
-  type: operations.CreateRecordBadRequestType;
-  code: operations.CreateRecordCodeValueNotFound;
+  type: "invalid_request_error";
+  code: "value_not_found";
 
   /** The original data that was passed to this error instance. */
   data$: CreateRecordValueNotFoundErrorData;
@@ -82,9 +81,9 @@ export const CreateRecordNotFoundError$inboundSchema: z.ZodMiniType<
   unknown
 > = z.pipe(
   z.object({
-    status_code: operations.CreateRecordNotFoundStatusCode$inboundSchema,
-    type: operations.CreateRecordNotFoundType$inboundSchema,
-    code: operations.CreateRecordNotFoundCode$inboundSchema,
+    type: types.literal("invalid_request_error"),
+    status_code: types.literal(404),
+    code: types.literal("not_found"),
     message: types.string(),
     request$: z.custom<Request>(x => x instanceof Request),
     response$: z.custom<Response>(x => x instanceof Response),
@@ -109,9 +108,9 @@ export const CreateRecordValueNotFoundError$inboundSchema: z.ZodMiniType<
   unknown
 > = z.pipe(
   z.object({
-    status_code: operations.CreateRecordBadRequestStatusCode$inboundSchema,
-    type: operations.CreateRecordBadRequestType$inboundSchema,
-    code: operations.CreateRecordCodeValueNotFound$inboundSchema,
+    type: types.literal("invalid_request_error"),
+    status_code: types.literal(400),
+    code: types.literal("value_not_found"),
     message: types.string(),
     request$: z.custom<Request>(x => x instanceof Request),
     response$: z.custom<Response>(x => x instanceof Response),

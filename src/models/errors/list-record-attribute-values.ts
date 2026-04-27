@@ -5,16 +5,15 @@
 import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import * as types from "../../types/primitives.js";
-import * as operations from "../operations/index.js";
 import { AttioBaseError } from "./attio-base-error.js";
 
 /**
  * Not Found
  */
 export type ListRecordAttributeValuesNotFoundErrorData = {
-  statusCode: operations.ListRecordAttributeValuesNotFoundStatusCode;
-  type: operations.ListRecordAttributeValuesNotFoundType;
-  code: operations.ListRecordAttributeValuesNotFoundCode;
+  type: "invalid_request_error";
+  statusCode: 404;
+  code: "not_found";
   message: string;
 };
 
@@ -22,8 +21,8 @@ export type ListRecordAttributeValuesNotFoundErrorData = {
  * Not Found
  */
 export class ListRecordAttributeValuesNotFoundError extends AttioBaseError {
-  type: operations.ListRecordAttributeValuesNotFoundType;
-  code: operations.ListRecordAttributeValuesNotFoundCode;
+  type: "invalid_request_error";
+  code: "not_found";
 
   /** The original data that was passed to this error instance. */
   data$: ListRecordAttributeValuesNotFoundErrorData;
@@ -46,9 +45,9 @@ export class ListRecordAttributeValuesNotFoundError extends AttioBaseError {
  * Bad Request
  */
 export type ListRecordAttributeValuesValidationTypeErrorData = {
-  statusCode: operations.ListRecordAttributeValuesBadRequestStatusCode;
-  type: operations.ListRecordAttributeValuesBadRequestType;
-  code: operations.ListRecordAttributeValuesCodeValidationType;
+  type: "invalid_request_error";
+  statusCode: 400;
+  code: "validation_type";
   message: string;
 };
 
@@ -58,8 +57,8 @@ export type ListRecordAttributeValuesValidationTypeErrorData = {
 export class ListRecordAttributeValuesValidationTypeError
   extends AttioBaseError
 {
-  type: operations.ListRecordAttributeValuesBadRequestType;
-  code: operations.ListRecordAttributeValuesCodeValidationType;
+  type: "invalid_request_error";
+  code: "validation_type";
 
   /** The original data that was passed to this error instance. */
   data$: ListRecordAttributeValuesValidationTypeErrorData;
@@ -82,10 +81,9 @@ export class ListRecordAttributeValuesValidationTypeError
 export const ListRecordAttributeValuesNotFoundError$inboundSchema:
   z.ZodMiniType<ListRecordAttributeValuesNotFoundError, unknown> = z.pipe(
     z.object({
-      status_code:
-        operations.ListRecordAttributeValuesNotFoundStatusCode$inboundSchema,
-      type: operations.ListRecordAttributeValuesNotFoundType$inboundSchema,
-      code: operations.ListRecordAttributeValuesNotFoundCode$inboundSchema,
+      type: types.literal("invalid_request_error"),
+      status_code: types.literal(404),
+      code: types.literal("not_found"),
       message: types.string(),
       request$: z.custom<Request>(x => x instanceof Request),
       response$: z.custom<Response>(x => x instanceof Response),
@@ -108,11 +106,9 @@ export const ListRecordAttributeValuesNotFoundError$inboundSchema:
 export const ListRecordAttributeValuesValidationTypeError$inboundSchema:
   z.ZodMiniType<ListRecordAttributeValuesValidationTypeError, unknown> = z.pipe(
     z.object({
-      status_code:
-        operations.ListRecordAttributeValuesBadRequestStatusCode$inboundSchema,
-      type: operations.ListRecordAttributeValuesBadRequestType$inboundSchema,
-      code:
-        operations.ListRecordAttributeValuesCodeValidationType$inboundSchema,
+      type: types.literal("invalid_request_error"),
+      status_code: types.literal(400),
+      code: types.literal("validation_type"),
       message: types.string(),
       request$: z.custom<Request>(x => x instanceof Request),
       response$: z.custom<Response>(x => x instanceof Response),

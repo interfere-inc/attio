@@ -72,25 +72,6 @@ export class Tasks extends ClientSDK {
   }
 
   /**
-   * Update a task
-   *
-   * @remarks
-   * Updates an existing task by `task_id`. At present, only the `deadline_at`, `is_completed`, `linked_records`, and `assignees` fields can be updated.
-   *
-   * Required scopes: `task:read-write`, `object_configuration:read`, `record_permission:read`, `user_management:read`.
-   */
-  async update(
-    request: operations.UpdateTaskRequest,
-    options?: RequestOptions,
-  ): Promise<operations.UpdateTaskResponse> {
-    return unwrapAsync(tasksUpdate(
-      this,
-      request,
-      options,
-    ));
-  }
-
-  /**
    * Delete a task
    *
    * @remarks
@@ -103,6 +84,25 @@ export class Tasks extends ClientSDK {
     options?: RequestOptions,
   ): Promise<operations.DeleteTaskResponse> {
     return unwrapAsync(tasksDelete(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Update a task
+   *
+   * @remarks
+   * Updates an existing task by `task_id`. At present, only the `deadline_at`, `is_completed`, `linked_records`, and `assignees` fields can be updated.
+   *
+   * Required scopes: `task:read-write`, `object_configuration:read`, `record_permission:read`, `user_management:read`.
+   */
+  async update(
+    request: operations.UpdateTaskRequest,
+    options?: RequestOptions,
+  ): Promise<operations.UpdateTaskResponse> {
+    return unwrapAsync(tasksUpdate(
       this,
       request,
       options,

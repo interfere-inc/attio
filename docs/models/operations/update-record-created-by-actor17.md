@@ -8,8 +8,8 @@ The actor that created this value.
 import { UpdateRecordCreatedByActor17 } from "@interfere/attio/models/operations";
 
 let value: UpdateRecordCreatedByActor17 = {
-  id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
   type: "workspace-member",
+  id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
 };
 ```
 
@@ -17,5 +17,5 @@ let value: UpdateRecordCreatedByActor17 = {
 
 | Field                                                                                                           | Type                                                                                                            | Required                                                                                                        | Description                                                                                                     |
 | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| `id`                                                                                                            | *string*                                                                                                        | :heavy_minus_sign:                                                                                              | An ID to identify the actor.                                                                                    |
 | `type`                                                                                                          | [operations.UpdateRecordCreatedByActorType17](../../models/operations/update-record-created-by-actor-type17.md) | :heavy_minus_sign:                                                                                              | The type of actor. [Read more information on actor types here](/docs/actors).                                   |
+| `id`                                                                                                            | *string*                                                                                                        | :heavy_minus_sign:                                                                                              | An ID to identify the actor.                                                                                    |

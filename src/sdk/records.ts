@@ -96,25 +96,6 @@ export class Records extends ClientSDK {
   }
 
   /**
-   * Update a record (append multiselect values)
-   *
-   * @remarks
-   * Use this endpoint to update people, companies, and other records by `record_id`. If the update payload includes multiselect attributes, the values supplied will be created and prepended to the list of values that already exist (if any). Use the `PUT` endpoint to overwrite or remove multiselect attribute values.
-   *
-   * Required scopes: `record_permission:read-write`, `object_configuration:read`.
-   */
-  async updateAppend(
-    request: operations.UpdateAppendRecordRequest,
-    options?: RequestOptions,
-  ): Promise<operations.UpdateAppendRecordResponse> {
-    return unwrapAsync(recordsUpdateAppend(
-      this,
-      request,
-      options,
-    ));
-  }
-
-  /**
    * Update a record (overwrite multiselect values)
    *
    * @remarks
@@ -146,6 +127,25 @@ export class Records extends ClientSDK {
     options?: RequestOptions,
   ): Promise<operations.DeleteRecordResponse> {
     return unwrapAsync(recordsDelete(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Update a record (append multiselect values)
+   *
+   * @remarks
+   * Use this endpoint to update people, companies, and other records by `record_id`. If the update payload includes multiselect attributes, the values supplied will be created and prepended to the list of values that already exist (if any). Use the `PUT` endpoint to overwrite or remove multiselect attribute values.
+   *
+   * Required scopes: `record_permission:read-write`, `object_configuration:read`.
+   */
+  async updateAppend(
+    request: operations.UpdateAppendRecordRequest,
+    options?: RequestOptions,
+  ): Promise<operations.UpdateAppendRecordResponse> {
+    return unwrapAsync(recordsUpdateAppend(
       this,
       request,
       options,

@@ -7,10 +7,10 @@
 
 ```typescript
 const value: operations.CreateFileFolder = {
+  name: "Documents",
   object: "people",
   recordId: "bf071e1f-6035-429d-b874-d83ea64ea13b",
   fileType: "folder",
-  name: "Documents",
   parentFolderId: "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
 };
 ```

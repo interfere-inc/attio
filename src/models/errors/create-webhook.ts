@@ -5,16 +5,15 @@
 import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import * as types from "../../types/primitives.js";
-import * as operations from "../operations/index.js";
 import { AttioBaseError } from "./attio-base-error.js";
 
 /**
  * Bad Request
  */
 export type CreateWebhookValidationTypeErrorData = {
-  statusCode: operations.CreateWebhookStatusCode;
-  type: operations.CreateWebhookType;
-  code: operations.CreateWebhookCode;
+  type: "invalid_request_error";
+  statusCode: 400;
+  code: "validation_type";
   message: string;
 };
 
@@ -22,8 +21,8 @@ export type CreateWebhookValidationTypeErrorData = {
  * Bad Request
  */
 export class CreateWebhookValidationTypeError extends AttioBaseError {
-  type: operations.CreateWebhookType;
-  code: operations.CreateWebhookCode;
+  type: "invalid_request_error";
+  code: "validation_type";
 
   /** The original data that was passed to this error instance. */
   data$: CreateWebhookValidationTypeErrorData;
@@ -48,9 +47,9 @@ export const CreateWebhookValidationTypeError$inboundSchema: z.ZodMiniType<
   unknown
 > = z.pipe(
   z.object({
-    status_code: operations.CreateWebhookStatusCode$inboundSchema,
-    type: operations.CreateWebhookType$inboundSchema,
-    code: operations.CreateWebhookCode$inboundSchema,
+    type: types.literal("invalid_request_error"),
+    status_code: types.literal(400),
+    code: types.literal("validation_type"),
     message: types.string(),
     request$: z.custom<Request>(x => x instanceof Request),
     response$: z.custom<Response>(x => x instanceof Response),

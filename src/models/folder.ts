@@ -56,16 +56,20 @@ export type FolderType = OpenEnum<typeof FolderType>;
  */
 export type FolderCreatedByActor = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: FolderType | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type Folder = {
+  /**
+   * The name of the folder.
+   */
+  name: string;
   id: FolderId;
   /**
    * The ID of the object the record belongs to.
@@ -95,10 +99,6 @@ export type Folder = {
    * The type of file entry.
    */
   fileType: "folder";
-  /**
-   * The name of the folder.
-   */
-  name: string;
   /**
    * The ID of the parent folder, or null if this is a top-level folder.
    */
@@ -144,8 +144,8 @@ export const FolderCreatedByActor$inboundSchema: z.ZodMiniType<
   FolderCreatedByActor,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(z.nullable(FolderType$inboundSchema)),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function folderCreatedByActorFromJSON(
@@ -161,6 +161,7 @@ export function folderCreatedByActorFromJSON(
 /** @internal */
 export const Folder$inboundSchema: z.ZodMiniType<Folder, unknown> = z.pipe(
   z.object({
+    name: types.string(),
     id: z.lazy(() => FolderId$inboundSchema),
     object_id: types.string(),
     object_slug: types.string(),
@@ -169,7 +170,6 @@ export const Folder$inboundSchema: z.ZodMiniType<Folder, unknown> = z.pipe(
     created_by_actor: z.lazy(() => FolderCreatedByActor$inboundSchema),
     created_at: types.string(),
     file_type: types.literal("folder"),
-    name: types.string(),
     parent_folder_id: types.nullable(types.string()),
   }),
   z.transform((v) => {

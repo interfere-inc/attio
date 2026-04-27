@@ -8,7 +8,7 @@ import { safeParse } from "../../lib/schemas.js";
 import * as discriminatedUnionTypes from "../../types/discriminated-union.js";
 import { discriminatedUnion } from "../../types/discriminated-union.js";
 import * as openEnums from "../../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../../types/enums.js";
+import { OpenEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import * as types from "../../types/primitives.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
@@ -17,21 +17,6 @@ import * as models from "../index.js";
 export type GetFileRequest = {
   fileId: string;
 };
-
-export const GetFileStatusCode = {
-  FourHundredAndFour: 404,
-} as const;
-export type GetFileStatusCode = ClosedEnum<typeof GetFileStatusCode>;
-
-export const GetFileNotFoundType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type GetFileNotFoundType = ClosedEnum<typeof GetFileNotFoundType>;
-
-export const GetFileCode = {
-  NotFound: "not_found",
-} as const;
-export type GetFileCode = ClosedEnum<typeof GetFileCode>;
 
 export type GetFileId = {
   /**
@@ -62,7 +47,7 @@ export type GetFileStorageProvider = OpenEnum<typeof GetFileStorageProvider>;
 /**
  * The type of actor. [Read more information on actor types here](/docs/actors).
  */
-export const GetFileCreatedByActorType = {
+export const GetFileType = {
   ApiToken: "api-token",
   WorkspaceMember: "workspace-member",
   System: "system",
@@ -71,25 +56,27 @@ export const GetFileCreatedByActorType = {
 /**
  * The type of actor. [Read more information on actor types here](/docs/actors).
  */
-export type GetFileCreatedByActorType = OpenEnum<
-  typeof GetFileCreatedByActorType
->;
+export type GetFileType = OpenEnum<typeof GetFileType>;
 
 /**
  * The actor that created this file entry.
  */
 export type GetFileCreatedByActor = {
   /**
+   * The type of actor. [Read more information on actor types here](/docs/actors).
+   */
+  type?: GetFileType | null | undefined;
+  /**
    * An ID to identify the actor.
    */
   id?: string | null | undefined;
-  /**
-   * The type of actor. [Read more information on actor types here](/docs/actors).
-   */
-  type?: GetFileCreatedByActorType | null | undefined;
 };
 
 export type GetFileFolder = {
+  /**
+   * The name of the folder.
+   */
+  name: string;
   id: GetFileId;
   /**
    * The ID of the object the record belongs to.
@@ -120,10 +107,6 @@ export type GetFileFolder = {
    */
   fileType: "folder";
   /**
-   * The name of the folder.
-   */
-  name: string;
-  /**
    * The ID of the parent folder, or null if this is a top-level folder.
    */
   parentFolderId: string | null;
@@ -134,7 +117,7 @@ export type GetFileFolder = {
 };
 
 export type GetFileData =
-  | (models.FileT & { fileType: "file" })
+  | models.FileT
   | GetFileFolder
   | models.ConnectedFile
   | models.ConnectedFolder
@@ -145,7 +128,7 @@ export type GetFileData =
  */
 export type GetFileResponse = {
   data:
-    | (models.FileT & { fileType: "file" })
+    | models.FileT
     | GetFileFolder
     | models.ConnectedFile
     | models.ConnectedFolder
@@ -175,20 +158,6 @@ export const GetFileRequest$outboundSchema: z.ZodMiniType<
 export function getFileRequestToJSON(getFileRequest: GetFileRequest): string {
   return JSON.stringify(GetFileRequest$outboundSchema.parse(getFileRequest));
 }
-
-/** @internal */
-export const GetFileStatusCode$inboundSchema: z.ZodMiniEnum<
-  typeof GetFileStatusCode
-> = z.enum(GetFileStatusCode);
-
-/** @internal */
-export const GetFileNotFoundType$inboundSchema: z.ZodMiniEnum<
-  typeof GetFileNotFoundType
-> = z.enum(GetFileNotFoundType);
-
-/** @internal */
-export const GetFileCode$inboundSchema: z.ZodMiniEnum<typeof GetFileCode> = z
-  .enum(GetFileCode);
 
 /** @internal */
 export const GetFileId$inboundSchema: z.ZodMiniType<GetFileId, unknown> = z
@@ -222,18 +191,16 @@ export const GetFileStorageProvider$inboundSchema: z.ZodMiniType<
 > = openEnums.inboundSchema(GetFileStorageProvider);
 
 /** @internal */
-export const GetFileCreatedByActorType$inboundSchema: z.ZodMiniType<
-  GetFileCreatedByActorType,
-  unknown
-> = openEnums.inboundSchema(GetFileCreatedByActorType);
+export const GetFileType$inboundSchema: z.ZodMiniType<GetFileType, unknown> =
+  openEnums.inboundSchema(GetFileType);
 
 /** @internal */
 export const GetFileCreatedByActor$inboundSchema: z.ZodMiniType<
   GetFileCreatedByActor,
   unknown
 > = z.object({
+  type: z.optional(z.nullable(GetFileType$inboundSchema)),
   id: z.optional(z.nullable(types.string())),
-  type: z.optional(z.nullable(GetFileCreatedByActorType$inboundSchema)),
 });
 
 export function getFileCreatedByActorFromJSON(
@@ -252,6 +219,7 @@ export const GetFileFolder$inboundSchema: z.ZodMiniType<
   unknown
 > = z.pipe(
   z.object({
+    name: types.string(),
     id: z.lazy(() => GetFileId$inboundSchema),
     object_id: types.string(),
     object_slug: types.string(),
@@ -260,7 +228,6 @@ export const GetFileFolder$inboundSchema: z.ZodMiniType<
     created_by_actor: z.lazy(() => GetFileCreatedByActor$inboundSchema),
     created_at: types.string(),
     file_type: types.literal("folder"),
-    name: types.string(),
     parent_folder_id: types.nullable(types.string()),
     has_children: types.boolean(),
   }),
@@ -292,13 +259,7 @@ export function getFileFolderFromJSON(
 /** @internal */
 export const GetFileData$inboundSchema: z.ZodMiniType<GetFileData, unknown> =
   discriminatedUnion("file_type", {
-    file: z.intersection(
-      models.FileT$inboundSchema,
-      z.pipe(
-        z.object({ file_type: z.literal("file") }),
-        z.transform((v) => ({ fileType: v.file_type })),
-      ),
-    ),
+    file: models.FileT$inboundSchema,
     folder: z.lazy(() => GetFileFolder$inboundSchema),
     ["connected-file"]: models.ConnectedFile$inboundSchema,
     ["connected-folder"]: models.ConnectedFolder$inboundSchema,
@@ -320,13 +281,7 @@ export const GetFileResponse$inboundSchema: z.ZodMiniType<
   unknown
 > = z.object({
   data: discriminatedUnion("file_type", {
-    file: z.intersection(
-      models.FileT$inboundSchema,
-      z.pipe(
-        z.object({ file_type: z.literal("file") }),
-        z.transform((v) => ({ fileType: v.file_type })),
-      ),
-    ),
+    file: models.FileT$inboundSchema,
     folder: z.lazy(() => GetFileFolder$inboundSchema),
     ["connected-file"]: models.ConnectedFile$inboundSchema,
     ["connected-folder"]: models.ConnectedFolder$inboundSchema,

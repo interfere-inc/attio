@@ -58,69 +58,6 @@ export type UpdateAttributeStatusRequest = {
   body: UpdateAttributeStatusRequestBody;
 };
 
-export const UpdateAttributeStatusConflictStatusCode = {
-  FourHundredAndNine: 409,
-} as const;
-export type UpdateAttributeStatusConflictStatusCode = ClosedEnum<
-  typeof UpdateAttributeStatusConflictStatusCode
->;
-
-export const UpdateAttributeStatusConflictType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type UpdateAttributeStatusConflictType = ClosedEnum<
-  typeof UpdateAttributeStatusConflictType
->;
-
-export const UpdateAttributeStatusConflictCode = {
-  SlugConflict: "slug_conflict",
-} as const;
-export type UpdateAttributeStatusConflictCode = ClosedEnum<
-  typeof UpdateAttributeStatusConflictCode
->;
-
-export const UpdateAttributeStatusNotFoundStatusCode = {
-  FourHundredAndFour: 404,
-} as const;
-export type UpdateAttributeStatusNotFoundStatusCode = ClosedEnum<
-  typeof UpdateAttributeStatusNotFoundStatusCode
->;
-
-export const UpdateAttributeStatusNotFoundType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type UpdateAttributeStatusNotFoundType = ClosedEnum<
-  typeof UpdateAttributeStatusNotFoundType
->;
-
-export const UpdateAttributeStatusNotFoundCode = {
-  NotFound: "not_found",
-} as const;
-export type UpdateAttributeStatusNotFoundCode = ClosedEnum<
-  typeof UpdateAttributeStatusNotFoundCode
->;
-
-export const UpdateAttributeStatusBadRequestStatusCode = {
-  FourHundred: 400,
-} as const;
-export type UpdateAttributeStatusBadRequestStatusCode = ClosedEnum<
-  typeof UpdateAttributeStatusBadRequestStatusCode
->;
-
-export const UpdateAttributeStatusBadRequestType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type UpdateAttributeStatusBadRequestType = ClosedEnum<
-  typeof UpdateAttributeStatusBadRequestType
->;
-
-export const UpdateAttributeStatusCodeValueNotFound = {
-  ValueNotFound: "value_not_found",
-} as const;
-export type UpdateAttributeStatusCodeValueNotFound = ClosedEnum<
-  typeof UpdateAttributeStatusCodeValueNotFound
->;
-
 /**
  * Success
  */
@@ -222,55 +159,6 @@ export function updateAttributeStatusRequestToJSON(
     ),
   );
 }
-
-/** @internal */
-export const UpdateAttributeStatusConflictStatusCode$inboundSchema:
-  z.ZodMiniEnum<typeof UpdateAttributeStatusConflictStatusCode> = z.enum(
-    UpdateAttributeStatusConflictStatusCode,
-  );
-
-/** @internal */
-export const UpdateAttributeStatusConflictType$inboundSchema: z.ZodMiniEnum<
-  typeof UpdateAttributeStatusConflictType
-> = z.enum(UpdateAttributeStatusConflictType);
-
-/** @internal */
-export const UpdateAttributeStatusConflictCode$inboundSchema: z.ZodMiniEnum<
-  typeof UpdateAttributeStatusConflictCode
-> = z.enum(UpdateAttributeStatusConflictCode);
-
-/** @internal */
-export const UpdateAttributeStatusNotFoundStatusCode$inboundSchema:
-  z.ZodMiniEnum<typeof UpdateAttributeStatusNotFoundStatusCode> = z.enum(
-    UpdateAttributeStatusNotFoundStatusCode,
-  );
-
-/** @internal */
-export const UpdateAttributeStatusNotFoundType$inboundSchema: z.ZodMiniEnum<
-  typeof UpdateAttributeStatusNotFoundType
-> = z.enum(UpdateAttributeStatusNotFoundType);
-
-/** @internal */
-export const UpdateAttributeStatusNotFoundCode$inboundSchema: z.ZodMiniEnum<
-  typeof UpdateAttributeStatusNotFoundCode
-> = z.enum(UpdateAttributeStatusNotFoundCode);
-
-/** @internal */
-export const UpdateAttributeStatusBadRequestStatusCode$inboundSchema:
-  z.ZodMiniEnum<typeof UpdateAttributeStatusBadRequestStatusCode> = z.enum(
-    UpdateAttributeStatusBadRequestStatusCode,
-  );
-
-/** @internal */
-export const UpdateAttributeStatusBadRequestType$inboundSchema: z.ZodMiniEnum<
-  typeof UpdateAttributeStatusBadRequestType
-> = z.enum(UpdateAttributeStatusBadRequestType);
-
-/** @internal */
-export const UpdateAttributeStatusCodeValueNotFound$inboundSchema:
-  z.ZodMiniEnum<typeof UpdateAttributeStatusCodeValueNotFound> = z.enum(
-    UpdateAttributeStatusCodeValueNotFound,
-  );
 
 /** @internal */
 export const UpdateAttributeStatusResponse$inboundSchema: z.ZodMiniType<

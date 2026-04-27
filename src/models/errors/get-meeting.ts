@@ -5,16 +5,15 @@
 import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import * as types from "../../types/primitives.js";
-import * as operations from "../operations/index.js";
 import { AttioBaseError } from "./attio-base-error.js";
 
 /**
  * Not Found
  */
 export type GetMeetingNotFoundErrorData = {
-  statusCode: operations.GetMeetingStatusCode;
-  type: operations.GetMeetingType;
-  code: operations.GetMeetingCode;
+  type: "invalid_request_error";
+  statusCode: 404;
+  code: "not_found";
   message: string;
 };
 
@@ -22,8 +21,8 @@ export type GetMeetingNotFoundErrorData = {
  * Not Found
  */
 export class GetMeetingNotFoundError extends AttioBaseError {
-  type: operations.GetMeetingType;
-  code: operations.GetMeetingCode;
+  type: "invalid_request_error";
+  code: "not_found";
 
   /** The original data that was passed to this error instance. */
   data$: GetMeetingNotFoundErrorData;
@@ -48,9 +47,9 @@ export const GetMeetingNotFoundError$inboundSchema: z.ZodMiniType<
   unknown
 > = z.pipe(
   z.object({
-    status_code: operations.GetMeetingStatusCode$inboundSchema,
-    type: operations.GetMeetingType$inboundSchema,
-    code: operations.GetMeetingCode$inboundSchema,
+    type: types.literal("invalid_request_error"),
+    status_code: types.literal(404),
+    code: types.literal("not_found"),
     message: types.string(),
     request$: z.custom<Request>(x => x instanceof Request),
     response$: z.custom<Response>(x => x instanceof Response),

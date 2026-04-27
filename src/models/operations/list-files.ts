@@ -43,7 +43,7 @@ export type ListFilesRequest = {
 };
 
 export type ListFilesData =
-  | (models.FileT & { fileType: "file" })
+  | models.FileT
   | models.Folder
   | models.ConnectedFile
   | models.ConnectedFolder
@@ -58,7 +58,7 @@ export type ListFilesPagination = {
  */
 export type ListFilesResponse = {
   data: Array<
-    | (models.FileT & { fileType: "file" })
+    | models.FileT
     | models.Folder
     | models.ConnectedFile
     | models.ConnectedFolder
@@ -117,13 +117,7 @@ export const ListFilesData$inboundSchema: z.ZodMiniType<
   ListFilesData,
   unknown
 > = discriminatedUnion("file_type", {
-  file: z.intersection(
-    models.FileT$inboundSchema,
-    z.pipe(
-      z.object({ file_type: z.literal("file") }),
-      z.transform((v) => ({ fileType: v.file_type })),
-    ),
-  ),
+  file: models.FileT$inboundSchema,
   folder: models.Folder$inboundSchema,
   ["connected-file"]: models.ConnectedFile$inboundSchema,
   ["connected-folder"]: models.ConnectedFolder$inboundSchema,
@@ -170,13 +164,7 @@ export const ListFilesResponse$inboundSchema: z.ZodMiniType<
   unknown
 > = z.object({
   data: z.array(discriminatedUnion("file_type", {
-    file: z.intersection(
-      models.FileT$inboundSchema,
-      z.pipe(
-        z.object({ file_type: z.literal("file") }),
-        z.transform((v) => ({ fileType: v.file_type })),
-      ),
-    ),
+    file: models.FileT$inboundSchema,
     folder: models.Folder$inboundSchema,
     ["connected-file"]: models.ConnectedFile$inboundSchema,
     ["connected-folder"]: models.ConnectedFolder$inboundSchema,

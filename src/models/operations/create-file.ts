@@ -100,6 +100,10 @@ export type ConnectedFolder = {
 
 export type CreateFileFolder = {
   /**
+   * The folder name.
+   */
+  name: string;
+  /**
    * The object slug or ID.
    */
   object: string;
@@ -111,10 +115,6 @@ export type CreateFileFolder = {
    * Creates a native Attio folder entry.
    */
   fileType: "folder";
-  /**
-   * The folder name.
-   */
-  name: string;
   /**
    * Optional parent folder ID. Omit to create a top-level folder.
    */
@@ -233,10 +233,10 @@ export function connectedFolderToJSON(
 
 /** @internal */
 export type CreateFileFolder$Outbound = {
+  name: string;
   object: string;
   record_id: string;
   file_type: "folder";
-  name: string;
   parent_folder_id?: string | undefined;
 };
 
@@ -246,10 +246,10 @@ export const CreateFileFolder$outboundSchema: z.ZodMiniType<
   CreateFileFolder
 > = z.pipe(
   z.object({
+    name: z.string(),
     object: z.string(),
     recordId: z.string(),
     fileType: z.literal("folder"),
-    name: z.string(),
     parentFolderId: z.optional(z.string()),
   }),
   z.transform((v) => {

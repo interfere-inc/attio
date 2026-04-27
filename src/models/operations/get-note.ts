@@ -5,7 +5,6 @@
 import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
 import * as models from "../index.js";
@@ -13,21 +12,6 @@ import * as models from "../index.js";
 export type GetNoteRequest = {
   noteId: string;
 };
-
-export const GetNoteStatusCode = {
-  FourHundredAndFour: 404,
-} as const;
-export type GetNoteStatusCode = ClosedEnum<typeof GetNoteStatusCode>;
-
-export const GetNoteType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type GetNoteType = ClosedEnum<typeof GetNoteType>;
-
-export const GetNoteCode = {
-  NotFound: "not_found",
-} as const;
-export type GetNoteCode = ClosedEnum<typeof GetNoteCode>;
 
 /**
  * Success
@@ -59,19 +43,6 @@ export const GetNoteRequest$outboundSchema: z.ZodMiniType<
 export function getNoteRequestToJSON(getNoteRequest: GetNoteRequest): string {
   return JSON.stringify(GetNoteRequest$outboundSchema.parse(getNoteRequest));
 }
-
-/** @internal */
-export const GetNoteStatusCode$inboundSchema: z.ZodMiniEnum<
-  typeof GetNoteStatusCode
-> = z.enum(GetNoteStatusCode);
-
-/** @internal */
-export const GetNoteType$inboundSchema: z.ZodMiniEnum<typeof GetNoteType> = z
-  .enum(GetNoteType);
-
-/** @internal */
-export const GetNoteCode$inboundSchema: z.ZodMiniEnum<typeof GetNoteCode> = z
-  .enum(GetNoteCode);
 
 /** @internal */
 export const GetNoteResponse$inboundSchema: z.ZodMiniType<

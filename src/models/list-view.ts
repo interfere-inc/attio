@@ -25,11 +25,11 @@ export type ListViewId = {
 };
 
 export type ListView = {
-  id: ListViewId;
   /**
    * The title of the view shown in the Attio app.
    */
   title: string;
+  id: ListViewId;
   /**
    * When the view was created.
    */
@@ -66,8 +66,8 @@ export function listViewIdFromJSON(
 /** @internal */
 export const ListView$inboundSchema: z.ZodMiniType<ListView, unknown> = z.pipe(
   z.object({
-    id: z.lazy(() => ListViewId$inboundSchema),
     title: types.string(),
+    id: z.lazy(() => ListViewId$inboundSchema),
     created_at: types.string(),
   }),
   z.transform((v) => {

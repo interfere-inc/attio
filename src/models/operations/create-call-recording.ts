@@ -6,10 +6,9 @@ import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import * as openEnums from "../../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../../types/enums.js";
+import { OpenEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import * as types from "../../types/primitives.js";
-import { smartUnion } from "../../types/smart-union.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
 
 export type CreateCallRecordingDataRequest = {
@@ -36,75 +35,11 @@ export type CreateCallRecordingRequest = {
   body: CreateCallRecordingRequestBody;
 };
 
-export const CreateCallRecordingNotFoundStatusCode = {
-  FourHundredAndFour: 404,
-} as const;
-export type CreateCallRecordingNotFoundStatusCode = ClosedEnum<
-  typeof CreateCallRecordingNotFoundStatusCode
->;
-
-export const CreateCallRecordingNotFoundType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type CreateCallRecordingNotFoundType = ClosedEnum<
-  typeof CreateCallRecordingNotFoundType
->;
-
-export const CreateCallRecordingNotFoundCode = {
-  NotFound: "not_found",
-} as const;
-export type CreateCallRecordingNotFoundCode = ClosedEnum<
-  typeof CreateCallRecordingNotFoundCode
->;
-
-export const CreateCallRecordingForbiddenStatusCode = {
-  FourHundredAndThree: 403,
-} as const;
-export type CreateCallRecordingForbiddenStatusCode = ClosedEnum<
-  typeof CreateCallRecordingForbiddenStatusCode
->;
-
-export const CreateCallRecordingForbiddenType = {
-  AuthError: "auth_error",
-} as const;
-export type CreateCallRecordingForbiddenType = ClosedEnum<
-  typeof CreateCallRecordingForbiddenType
->;
-
-export const CodeQuotaExceeded = {
+export const Code = {
+  BillingError: "billing_error",
   QuotaExceeded: "quota_exceeded",
 } as const;
-export type CodeQuotaExceeded = ClosedEnum<typeof CodeQuotaExceeded>;
-
-export const CreateCallRecordingCodeBillingError = {
-  BillingError: "billing_error",
-} as const;
-export type CreateCallRecordingCodeBillingError = ClosedEnum<
-  typeof CreateCallRecordingCodeBillingError
->;
-
-export type Code = CreateCallRecordingCodeBillingError | CodeQuotaExceeded;
-
-export const CreateCallRecordingBadRequestStatusCode = {
-  FourHundred: 400,
-} as const;
-export type CreateCallRecordingBadRequestStatusCode = ClosedEnum<
-  typeof CreateCallRecordingBadRequestStatusCode
->;
-
-export const CreateCallRecordingBadRequestType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type CreateCallRecordingBadRequestType = ClosedEnum<
-  typeof CreateCallRecordingBadRequestType
->;
-
-export const CreateCallRecordingCodeValidationType = {
-  ValidationType: "validation_type",
-} as const;
-export type CreateCallRecordingCodeValidationType = ClosedEnum<
-  typeof CreateCallRecordingCodeValidationType
->;
+export type Code = OpenEnum<typeof Code>;
 
 export type CreateCallRecordingId = {
   /**
@@ -139,7 +74,7 @@ export type CreateCallRecordingStatus = OpenEnum<
 /**
  * The type of actor. [Read more information on actor types here](/docs/actors).
  */
-export const CreateCallRecordingCreatedByActorType = {
+export const CreateCallRecordingType = {
   ApiToken: "api-token",
   WorkspaceMember: "workspace-member",
   System: "system",
@@ -148,22 +83,20 @@ export const CreateCallRecordingCreatedByActorType = {
 /**
  * The type of actor. [Read more information on actor types here](/docs/actors).
  */
-export type CreateCallRecordingCreatedByActorType = OpenEnum<
-  typeof CreateCallRecordingCreatedByActorType
->;
+export type CreateCallRecordingType = OpenEnum<typeof CreateCallRecordingType>;
 
 /**
  * The actor that created this call recording.
  */
 export type CreateCallRecordingCreatedByActor = {
   /**
+   * The type of actor. [Read more information on actor types here](/docs/actors).
+   */
+  type?: CreateCallRecordingType | null | undefined;
+  /**
    * An ID to identify the actor.
    */
   id?: string | null | undefined;
-  /**
-   * The type of actor. [Read more information on actor types here](/docs/actors).
-   */
-  type?: CreateCallRecordingCreatedByActorType | null | undefined;
 };
 
 export type CreateCallRecordingDataResponse = {
@@ -277,72 +210,8 @@ export function createCallRecordingRequestToJSON(
 }
 
 /** @internal */
-export const CreateCallRecordingNotFoundStatusCode$inboundSchema: z.ZodMiniEnum<
-  typeof CreateCallRecordingNotFoundStatusCode
-> = z.enum(CreateCallRecordingNotFoundStatusCode);
-
-/** @internal */
-export const CreateCallRecordingNotFoundType$inboundSchema: z.ZodMiniEnum<
-  typeof CreateCallRecordingNotFoundType
-> = z.enum(CreateCallRecordingNotFoundType);
-
-/** @internal */
-export const CreateCallRecordingNotFoundCode$inboundSchema: z.ZodMiniEnum<
-  typeof CreateCallRecordingNotFoundCode
-> = z.enum(CreateCallRecordingNotFoundCode);
-
-/** @internal */
-export const CreateCallRecordingForbiddenStatusCode$inboundSchema:
-  z.ZodMiniEnum<typeof CreateCallRecordingForbiddenStatusCode> = z.enum(
-    CreateCallRecordingForbiddenStatusCode,
-  );
-
-/** @internal */
-export const CreateCallRecordingForbiddenType$inboundSchema: z.ZodMiniEnum<
-  typeof CreateCallRecordingForbiddenType
-> = z.enum(CreateCallRecordingForbiddenType);
-
-/** @internal */
-export const CodeQuotaExceeded$inboundSchema: z.ZodMiniEnum<
-  typeof CodeQuotaExceeded
-> = z.enum(CodeQuotaExceeded);
-
-/** @internal */
-export const CreateCallRecordingCodeBillingError$inboundSchema: z.ZodMiniEnum<
-  typeof CreateCallRecordingCodeBillingError
-> = z.enum(CreateCallRecordingCodeBillingError);
-
-/** @internal */
-export const Code$inboundSchema: z.ZodMiniType<Code, unknown> = smartUnion([
-  CreateCallRecordingCodeBillingError$inboundSchema,
-  CodeQuotaExceeded$inboundSchema,
-]);
-
-export function codeFromJSON(
-  jsonString: string,
-): SafeParseResult<Code, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Code$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Code' from JSON`,
-  );
-}
-
-/** @internal */
-export const CreateCallRecordingBadRequestStatusCode$inboundSchema:
-  z.ZodMiniEnum<typeof CreateCallRecordingBadRequestStatusCode> = z.enum(
-    CreateCallRecordingBadRequestStatusCode,
-  );
-
-/** @internal */
-export const CreateCallRecordingBadRequestType$inboundSchema: z.ZodMiniEnum<
-  typeof CreateCallRecordingBadRequestType
-> = z.enum(CreateCallRecordingBadRequestType);
-
-/** @internal */
-export const CreateCallRecordingCodeValidationType$inboundSchema: z.ZodMiniEnum<
-  typeof CreateCallRecordingCodeValidationType
-> = z.enum(CreateCallRecordingCodeValidationType);
+export const Code$inboundSchema: z.ZodMiniType<Code, unknown> = openEnums
+  .inboundSchema(Code);
 
 /** @internal */
 export const CreateCallRecordingId$inboundSchema: z.ZodMiniType<
@@ -380,20 +249,18 @@ export const CreateCallRecordingStatus$inboundSchema: z.ZodMiniType<
 > = openEnums.inboundSchema(CreateCallRecordingStatus);
 
 /** @internal */
-export const CreateCallRecordingCreatedByActorType$inboundSchema: z.ZodMiniType<
-  CreateCallRecordingCreatedByActorType,
+export const CreateCallRecordingType$inboundSchema: z.ZodMiniType<
+  CreateCallRecordingType,
   unknown
-> = openEnums.inboundSchema(CreateCallRecordingCreatedByActorType);
+> = openEnums.inboundSchema(CreateCallRecordingType);
 
 /** @internal */
 export const CreateCallRecordingCreatedByActor$inboundSchema: z.ZodMiniType<
   CreateCallRecordingCreatedByActor,
   unknown
 > = z.object({
+  type: z.optional(z.nullable(CreateCallRecordingType$inboundSchema)),
   id: z.optional(z.nullable(types.string())),
-  type: z.optional(
-    z.nullable(CreateCallRecordingCreatedByActorType$inboundSchema),
-  ),
 });
 
 export function createCallRecordingCreatedByActorFromJSON(

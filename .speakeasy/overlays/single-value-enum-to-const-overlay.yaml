@@ -1,0 +1,300 @@
+overlay: 1.0.0
+x-speakeasy-jsonpath: rfc9535
+info:
+  title: Single-value enum to const
+  version: 0.0.1
+  description: |
+    Converts inline single-value enums (e.g. `enum: ["text"]`) to OpenAPI 3.1
+    `const` values. Attio's spec uses single-value enums extensively as
+    discriminator fields on `output-value` / `input-value` anyOf variants and
+    error response codes. Speakeasy hoists each unique single-value enum into
+    its own top-level type alias model (e.g. `AttributeTypeText = "text"`),
+    producing ~30 noisy single-line types in `docs/models/` and forcing
+    consumers to import a discrete type for every variant tag.
+
+    With `const` instead, Speakeasy inlines the literal value directly into
+    the parent object's TypeScript type, eliminating these standalone models.
+
+    Each action below targets all schemas that have `enum: [<value>]` and
+    adds a matching `const`. A final action strips the now-redundant `enum`
+    arrays.
+actions:
+
+  #  88 occurrences (type: 'string', value: 'invalid_request_error')
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == "invalid_request_error" && @.type == "string")]
+    update:
+      const: invalid_request_error
+
+  #  53 occurrences (type: 'string', value: 'not_found')
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == "not_found" && @.type == "string")]
+    update:
+      const: not_found
+
+  #  53 occurrences (type: 'integer', value: 404)
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == 404 && @.type == "integer")]
+    update:
+      const: 404
+
+  #  26 occurrences (type: 'integer', value: 400)
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == 400 && @.type == "integer")]
+    update:
+      const: 400
+
+  #  16 occurrences (type: 'string', value: 'select')
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == "select" && @.type == "string")]
+    update:
+      const: select
+
+  #  16 occurrences (type: 'string', value: 'status')
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == "status" && @.type == "string")]
+    update:
+      const: status
+
+  #  15 occurrences (type: 'string', value: 'actor-reference')
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == "actor-reference" && @.type == "string")]
+    update:
+      const: actor-reference
+
+  #  15 occurrences (type: 'string', value: 'checkbox')
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == "checkbox" && @.type == "string")]
+    update:
+      const: checkbox
+
+  #  15 occurrences (type: 'string', value: 'currency')
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == "currency" && @.type == "string")]
+    update:
+      const: currency
+
+  #  15 occurrences (type: 'string', value: 'date')
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == "date" && @.type == "string")]
+    update:
+      const: date
+
+  #  15 occurrences (type: 'string', value: 'domain')
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == "domain" && @.type == "string")]
+    update:
+      const: domain
+
+  #  15 occurrences (type: 'string', value: 'email-address')
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == "email-address" && @.type == "string")]
+    update:
+      const: email-address
+
+  #  15 occurrences (type: 'string', value: 'interaction')
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == "interaction" && @.type == "string")]
+    update:
+      const: interaction
+
+  #  15 occurrences (type: 'string', value: 'location')
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == "location" && @.type == "string")]
+    update:
+      const: location
+
+  #  15 occurrences (type: 'string', value: 'number')
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == "number" && @.type == "string")]
+    update:
+      const: number
+
+  #  15 occurrences (type: 'string', value: 'personal-name')
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == "personal-name" && @.type == "string")]
+    update:
+      const: personal-name
+
+  #  15 occurrences (type: 'string', value: 'phone-number')
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == "phone-number" && @.type == "string")]
+    update:
+      const: phone-number
+
+  #  15 occurrences (type: 'string', value: 'rating')
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == "rating" && @.type == "string")]
+    update:
+      const: rating
+
+  #  15 occurrences (type: 'string', value: 'record-reference')
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == "record-reference" && @.type == "string")]
+    update:
+      const: record-reference
+
+  #  15 occurrences (type: 'string', value: 'text')
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == "text" && @.type == "string")]
+    update:
+      const: text
+
+  #  15 occurrences (type: 'string', value: 'timestamp')
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == "timestamp" && @.type == "string")]
+    update:
+      const: timestamp
+
+  #  12 occurrences (type: 'string', value: 'equals')
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == "equals" && @.type == "string")]
+    update:
+      const: equals
+
+  #  12 occurrences (type: 'string', value: 'not_equals')
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == "not_equals" && @.type == "string")]
+    update:
+      const: not_equals
+
+  #  11 occurrences (type: 'string', value: 'validation_type')
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == "validation_type" && @.type == "string")]
+    update:
+      const: validation_type
+
+  #   9 occurrences (type: 'string', value: 'value_not_found')
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == "value_not_found" && @.type == "string")]
+    update:
+      const: value_not_found
+
+  #   9 occurrences (type: 'string', value: 'workspace-member')
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == "workspace-member" && @.type == "string")]
+    update:
+      const: workspace-member
+
+  #   8 occurrences (type: 'string', value: 'slug_conflict')
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == "slug_conflict" && @.type == "string")]
+    update:
+      const: slug_conflict
+
+  #   8 occurrences (type: 'integer', value: 409)
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == 409 && @.type == "integer")]
+    update:
+      const: 409
+
+  #   4 occurrences (type: 'string', value: 'plaintext')
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == "plaintext" && @.type == "string")]
+    update:
+      const: plaintext
+
+  #   3 occurrences (type: 'string', value: 'current-user')
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == "current-user" && @.type == "string")]
+    update:
+      const: current-user
+
+  #   3 occurrences (type: 'string', value: 'dynamic')
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == "dynamic" && @.type == "string")]
+    update:
+      const: dynamic
+
+  #   3 occurrences (type: 'string', value: 'static')
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == "static" && @.type == "string")]
+    update:
+      const: static
+
+  #   2 occurrences (type: 'string', value: 'auth_error')
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == "auth_error" && @.type == "string")]
+    update:
+      const: auth_error
+
+  #   2 occurrences (type: 'string', value: 'billing_error')
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == "billing_error" && @.type == "string")]
+    update:
+      const: billing_error
+
+  #   2 occurrences (type: 'string', value: 'connected-file')
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == "connected-file" && @.type == "string")]
+    update:
+      const: connected-file
+
+  #   2 occurrences (type: 'string', value: 'connected-folder')
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == "connected-folder" && @.type == "string")]
+    update:
+      const: connected-folder
+
+  #   2 occurrences (type: 'string', value: 'folder')
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == "folder" && @.type == "string")]
+    update:
+      const: folder
+
+  #   2 occurrences (type: 'string', value: 'immutable_value')
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == "immutable_value" && @.type == "string")]
+    update:
+      const: immutable_value
+
+  #   2 occurrences (type: 'string', value: 'missing_value')
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == "missing_value" && @.type == "string")]
+    update:
+      const: missing_value
+
+  #   2 occurrences (type: 'integer', value: 403)
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == 403 && @.type == "integer")]
+    update:
+      const: 403
+
+  #   1 occurrences (type: 'string', value: 'Bearer')
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == "Bearer" && @.type == "string")]
+    update:
+      const: Bearer
+
+  #   1 occurrences (type: 'string', value: 'attio.com')
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == "attio.com" && @.type == "string")]
+    update:
+      const: attio.com
+
+  #   1 occurrences (type: 'string', value: 'companies')
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == "companies" && @.type == "string")]
+    update:
+      const: companies
+
+  #   1 occurrences (type: 'string', value: 'false')
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == "false" && @.type == "string")]
+    update:
+      const: "false"
+
+  #   1 occurrences (type: 'string', value: 'file')
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == "file" && @.type == "string")]
+    update:
+      const: file
+
+  #   1 occurrences (type: 'string', value: 'filter_error')
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == "filter_error" && @.type == "string")]
+    update:
+      const: filter_error
+
+  #   1 occurrences (type: 'string', value: 'multiple_match_results')
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == "multiple_match_results" && @.type == "string")]
+    update:
+      const: multiple_match_results
+
+  #   1 occurrences (type: 'string', value: 'people')
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == "people" && @.type == "string")]
+    update:
+      const: people
+
+  #   1 occurrences (type: 'string', value: 'quota_exceeded')
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == "quota_exceeded" && @.type == "string")]
+    update:
+      const: quota_exceeded
+
+  #   1 occurrences (type: 'string', value: 'record')
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == "record" && @.type == "string")]
+    update:
+      const: record
+
+  #   1 occurrences (type: 'string', value: 'system_edit_unauthorized')
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == "system_edit_unauthorized" && @.type == "string")]
+    update:
+      const: system_edit_unauthorized
+
+  #   1 occurrences (type: 'string', value: 'true')
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == "true" && @.type == "string")]
+    update:
+      const: "true"
+
+  #   1 occurrences (type: 'string', value: 'workspace')
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == "workspace" && @.type == "string")]
+    update:
+      const: workspace
+
+  #   1 occurrences (type: 'integer', value: 413)
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == 413 && @.type == "integer")]
+    update:
+      const: 413
+
+  #   1 occurrences (type: 'boolean', value: False)
+  - target: $..[?(@.enum && length(@.enum) == 1 && @.enum[0] == false && @.type == "boolean")]
+    update:
+      const: false
+
+  # Strip the original enum arrays now that const is set.
+  - target: $..[?(@.const != null && @.enum && length(@.enum) == 1)].enum
+    remove: true

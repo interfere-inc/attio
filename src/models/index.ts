@@ -8,7 +8,7 @@ export * from "./connected-file.js";
 export * from "./connected-folder.js";
 export * from "./file.js";
 export * from "./folder.js";
-export * from "./input-value-union.js";
+export * from "./input-value.js";
 export * from "./list-view.js";
 export * from "./list.js";
 export * from "./meeting.js";

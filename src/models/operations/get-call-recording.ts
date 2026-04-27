@@ -6,7 +6,7 @@ import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import * as openEnums from "../../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../../types/enums.js";
+import { OpenEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import * as types from "../../types/primitives.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
@@ -15,25 +15,6 @@ export type GetCallRecordingRequest = {
   meetingId: string;
   callRecordingId: string;
 };
-
-export const GetCallRecordingStatusCode = {
-  FourHundredAndFour: 404,
-} as const;
-export type GetCallRecordingStatusCode = ClosedEnum<
-  typeof GetCallRecordingStatusCode
->;
-
-export const GetCallRecordingNotFoundType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type GetCallRecordingNotFoundType = ClosedEnum<
-  typeof GetCallRecordingNotFoundType
->;
-
-export const GetCallRecordingCode = {
-  NotFound: "not_found",
-} as const;
-export type GetCallRecordingCode = ClosedEnum<typeof GetCallRecordingCode>;
 
 export type GetCallRecordingId = {
   /**
@@ -66,7 +47,7 @@ export type GetCallRecordingStatus = OpenEnum<typeof GetCallRecordingStatus>;
 /**
  * The type of actor. [Read more information on actor types here](/docs/actors).
  */
-export const GetCallRecordingCreatedByActorType = {
+export const GetCallRecordingType = {
   ApiToken: "api-token",
   WorkspaceMember: "workspace-member",
   System: "system",
@@ -75,22 +56,20 @@ export const GetCallRecordingCreatedByActorType = {
 /**
  * The type of actor. [Read more information on actor types here](/docs/actors).
  */
-export type GetCallRecordingCreatedByActorType = OpenEnum<
-  typeof GetCallRecordingCreatedByActorType
->;
+export type GetCallRecordingType = OpenEnum<typeof GetCallRecordingType>;
 
 /**
  * The actor that created this call recording.
  */
 export type GetCallRecordingCreatedByActor = {
   /**
+   * The type of actor. [Read more information on actor types here](/docs/actors).
+   */
+  type?: GetCallRecordingType | null | undefined;
+  /**
    * An ID to identify the actor.
    */
   id?: string | null | undefined;
-  /**
-   * The type of actor. [Read more information on actor types here](/docs/actors).
-   */
-  type?: GetCallRecordingCreatedByActorType | null | undefined;
 };
 
 export type GetCallRecordingData = {
@@ -152,21 +131,6 @@ export function getCallRecordingRequestToJSON(
 }
 
 /** @internal */
-export const GetCallRecordingStatusCode$inboundSchema: z.ZodMiniEnum<
-  typeof GetCallRecordingStatusCode
-> = z.enum(GetCallRecordingStatusCode);
-
-/** @internal */
-export const GetCallRecordingNotFoundType$inboundSchema: z.ZodMiniEnum<
-  typeof GetCallRecordingNotFoundType
-> = z.enum(GetCallRecordingNotFoundType);
-
-/** @internal */
-export const GetCallRecordingCode$inboundSchema: z.ZodMiniEnum<
-  typeof GetCallRecordingCode
-> = z.enum(GetCallRecordingCode);
-
-/** @internal */
 export const GetCallRecordingId$inboundSchema: z.ZodMiniType<
   GetCallRecordingId,
   unknown
@@ -202,20 +166,18 @@ export const GetCallRecordingStatus$inboundSchema: z.ZodMiniType<
 > = openEnums.inboundSchema(GetCallRecordingStatus);
 
 /** @internal */
-export const GetCallRecordingCreatedByActorType$inboundSchema: z.ZodMiniType<
-  GetCallRecordingCreatedByActorType,
+export const GetCallRecordingType$inboundSchema: z.ZodMiniType<
+  GetCallRecordingType,
   unknown
-> = openEnums.inboundSchema(GetCallRecordingCreatedByActorType);
+> = openEnums.inboundSchema(GetCallRecordingType);
 
 /** @internal */
 export const GetCallRecordingCreatedByActor$inboundSchema: z.ZodMiniType<
   GetCallRecordingCreatedByActor,
   unknown
 > = z.object({
+  type: z.optional(z.nullable(GetCallRecordingType$inboundSchema)),
   id: z.optional(z.nullable(types.string())),
-  type: z.optional(
-    z.nullable(GetCallRecordingCreatedByActorType$inboundSchema),
-  ),
 });
 
 export function getCallRecordingCreatedByActorFromJSON(

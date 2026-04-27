@@ -11,14 +11,14 @@ import { smartUnion } from "../../types/smart-union.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
 import * as models from "../index.js";
 
-export type Start2 = {
+export type MeetingStartDate = {
   /**
    * An ISO 8601 date indicating when an all day meeting starts.
    */
   date: string;
 };
 
-export type Start1 = {
+export type MeetingStartDateTime = {
   /**
    * An ISO 8601 datetime indicating when a non-all day meeting starts.
    */
@@ -32,16 +32,16 @@ export type Start1 = {
 /**
  * When the meeting starts. Use a datetime and optional timezone for non-all day meetings, or a date for all day meetings.
  */
-export type StartUnion = Start1 | Start2;
+export type Start = MeetingStartDateTime | MeetingStartDate;
 
-export type End2 = {
+export type MeetingEndDate = {
   /**
    * An ISO 8601 date indicating when an all day meeting ends. Note that dates are exclusive, meaning that the meeting ends before the specified time, not at it. For example, a one day meeting on June 3rd would end on June 4th, not June 3rd.
    */
   date: string;
 };
 
-export type End1 = {
+export type MeetingEndDateTime = {
   /**
    * An ISO 8601 datetime indicating when a non-all day meeting ends. Note that this value is exclusive, meaning that the meeting ends before the specified time, not at it. For example, a one hour meeting starting at 14:00 would end at 15:00, not 15:59:59.
    */
@@ -55,22 +55,7 @@ export type End1 = {
 /**
  * When the meeting ends. Use a datetime and optional timezone for non-all day meetings, or a date for all day meetings.
  */
-export type EndUnion = End1 | End2;
-
-export const IsOrganizerFalse = {
-  False: "false",
-} as const;
-export type IsOrganizerFalse = ClosedEnum<typeof IsOrganizerFalse>;
-
-export const IsOrganizerTrue = {
-  True: "true",
-} as const;
-export type IsOrganizerTrue = ClosedEnum<typeof IsOrganizerTrue>;
-
-/**
- * Whether or not the participant is the organizer of the meeting.
- */
-export type IsOrganizer = boolean | IsOrganizerTrue | IsOrganizerFalse;
+export type End = MeetingEndDateTime | MeetingEndDate;
 
 /**
  * The status of the individual meeting participant.
@@ -96,7 +81,7 @@ export type Participant = {
   /**
    * Whether or not the participant is the organizer of the meeting.
    */
-  isOrganizer: boolean | IsOrganizerTrue | IsOrganizerFalse;
+  isOrganizer: any;
   /**
    * The status of the individual meeting participant.
    */
@@ -162,11 +147,11 @@ export type FindOrCreateMeetingData = {
   /**
    * When the meeting starts. Use a datetime and optional timezone for non-all day meetings, or a date for all day meetings.
    */
-  start: Start1 | Start2;
+  start: MeetingStartDateTime | MeetingStartDate;
   /**
    * When the meeting ends. Use a datetime and optional timezone for non-all day meetings, or a date for all day meetings.
    */
-  end: End1 | End2;
+  end: MeetingEndDateTime | MeetingEndDate;
   /**
    * Whether or not the meeting is an all day event. All day events may span multiple days. When true, start and end must use date format. When false, start and end must use datetime with timezone format.
    */
@@ -186,27 +171,6 @@ export type FindOrCreateMeetingRequest = {
   data: FindOrCreateMeetingData;
 };
 
-export const FindOrCreateMeetingStatusCode = {
-  FourHundred: 400,
-} as const;
-export type FindOrCreateMeetingStatusCode = ClosedEnum<
-  typeof FindOrCreateMeetingStatusCode
->;
-
-export const FindOrCreateMeetingType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type FindOrCreateMeetingType = ClosedEnum<
-  typeof FindOrCreateMeetingType
->;
-
-export const FindOrCreateMeetingCode = {
-  ValidationType: "validation_type",
-} as const;
-export type FindOrCreateMeetingCode = ClosedEnum<
-  typeof FindOrCreateMeetingCode
->;
-
 /**
  * Success
  */
@@ -215,128 +179,118 @@ export type FindOrCreateMeetingResponse = {
 };
 
 /** @internal */
-export type Start2$Outbound = {
+export type MeetingStartDate$Outbound = {
   date: string;
 };
 
 /** @internal */
-export const Start2$outboundSchema: z.ZodMiniType<Start2$Outbound, Start2> = z
-  .object({
-    date: z.string(),
-  });
+export const MeetingStartDate$outboundSchema: z.ZodMiniType<
+  MeetingStartDate$Outbound,
+  MeetingStartDate
+> = z.object({
+  date: z.string(),
+});
 
-export function start2ToJSON(start2: Start2): string {
-  return JSON.stringify(Start2$outboundSchema.parse(start2));
+export function meetingStartDateToJSON(
+  meetingStartDate: MeetingStartDate,
+): string {
+  return JSON.stringify(
+    MeetingStartDate$outboundSchema.parse(meetingStartDate),
+  );
 }
 
 /** @internal */
-export type Start1$Outbound = {
+export type MeetingStartDateTime$Outbound = {
   datetime: string;
   timezone?: string | null | undefined;
 };
 
 /** @internal */
-export const Start1$outboundSchema: z.ZodMiniType<Start1$Outbound, Start1> = z
-  .object({
-    datetime: z.pipe(z.date(), z.transform(v => v.toISOString())),
-    timezone: z.optional(z.nullable(z.string())),
-  });
+export const MeetingStartDateTime$outboundSchema: z.ZodMiniType<
+  MeetingStartDateTime$Outbound,
+  MeetingStartDateTime
+> = z.object({
+  datetime: z.pipe(z.date(), z.transform(v => v.toISOString())),
+  timezone: z.optional(z.nullable(z.string())),
+});
 
-export function start1ToJSON(start1: Start1): string {
-  return JSON.stringify(Start1$outboundSchema.parse(start1));
+export function meetingStartDateTimeToJSON(
+  meetingStartDateTime: MeetingStartDateTime,
+): string {
+  return JSON.stringify(
+    MeetingStartDateTime$outboundSchema.parse(meetingStartDateTime),
+  );
 }
 
 /** @internal */
-export type StartUnion$Outbound = Start1$Outbound | Start2$Outbound;
+export type Start$Outbound =
+  | MeetingStartDateTime$Outbound
+  | MeetingStartDate$Outbound;
 
 /** @internal */
-export const StartUnion$outboundSchema: z.ZodMiniType<
-  StartUnion$Outbound,
-  StartUnion
-> = smartUnion([
-  z.lazy(() => Start1$outboundSchema),
-  z.lazy(() => Start2$outboundSchema),
-]);
+export const Start$outboundSchema: z.ZodMiniType<Start$Outbound, Start> =
+  smartUnion([
+    z.lazy(() => MeetingStartDateTime$outboundSchema),
+    z.lazy(() => MeetingStartDate$outboundSchema),
+  ]);
 
-export function startUnionToJSON(startUnion: StartUnion): string {
-  return JSON.stringify(StartUnion$outboundSchema.parse(startUnion));
+export function startToJSON(start: Start): string {
+  return JSON.stringify(Start$outboundSchema.parse(start));
 }
 
 /** @internal */
-export type End2$Outbound = {
+export type MeetingEndDate$Outbound = {
   date: string;
 };
 
 /** @internal */
-export const End2$outboundSchema: z.ZodMiniType<End2$Outbound, End2> = z.object(
-  {
-    date: z.string(),
-  },
-);
+export const MeetingEndDate$outboundSchema: z.ZodMiniType<
+  MeetingEndDate$Outbound,
+  MeetingEndDate
+> = z.object({
+  date: z.string(),
+});
 
-export function end2ToJSON(end2: End2): string {
-  return JSON.stringify(End2$outboundSchema.parse(end2));
+export function meetingEndDateToJSON(meetingEndDate: MeetingEndDate): string {
+  return JSON.stringify(MeetingEndDate$outboundSchema.parse(meetingEndDate));
 }
 
 /** @internal */
-export type End1$Outbound = {
+export type MeetingEndDateTime$Outbound = {
   datetime: string;
   timezone?: string | null | undefined;
 };
 
 /** @internal */
-export const End1$outboundSchema: z.ZodMiniType<End1$Outbound, End1> = z.object(
-  {
-    datetime: z.pipe(z.date(), z.transform(v => v.toISOString())),
-    timezone: z.optional(z.nullable(z.string())),
-  },
-);
+export const MeetingEndDateTime$outboundSchema: z.ZodMiniType<
+  MeetingEndDateTime$Outbound,
+  MeetingEndDateTime
+> = z.object({
+  datetime: z.pipe(z.date(), z.transform(v => v.toISOString())),
+  timezone: z.optional(z.nullable(z.string())),
+});
 
-export function end1ToJSON(end1: End1): string {
-  return JSON.stringify(End1$outboundSchema.parse(end1));
+export function meetingEndDateTimeToJSON(
+  meetingEndDateTime: MeetingEndDateTime,
+): string {
+  return JSON.stringify(
+    MeetingEndDateTime$outboundSchema.parse(meetingEndDateTime),
+  );
 }
 
 /** @internal */
-export type EndUnion$Outbound = End1$Outbound | End2$Outbound;
+export type End$Outbound =
+  | MeetingEndDateTime$Outbound
+  | MeetingEndDate$Outbound;
 
 /** @internal */
-export const EndUnion$outboundSchema: z.ZodMiniType<
-  EndUnion$Outbound,
-  EndUnion
-> = smartUnion([
-  z.lazy(() => End1$outboundSchema),
-  z.lazy(() => End2$outboundSchema),
+export const End$outboundSchema: z.ZodMiniType<End$Outbound, End> = smartUnion([
+  z.lazy(() => MeetingEndDateTime$outboundSchema),
+  z.lazy(() => MeetingEndDate$outboundSchema),
 ]);
 
-export function endUnionToJSON(endUnion: EndUnion): string {
-  return JSON.stringify(EndUnion$outboundSchema.parse(endUnion));
-}
-
-/** @internal */
-export const IsOrganizerFalse$outboundSchema: z.ZodMiniEnum<
-  typeof IsOrganizerFalse
-> = z.enum(IsOrganizerFalse);
-
-/** @internal */
-export const IsOrganizerTrue$outboundSchema: z.ZodMiniEnum<
-  typeof IsOrganizerTrue
-> = z.enum(IsOrganizerTrue);
-
-/** @internal */
-export type IsOrganizer$Outbound = boolean | string | string;
-
-/** @internal */
-export const IsOrganizer$outboundSchema: z.ZodMiniType<
-  IsOrganizer$Outbound,
-  IsOrganizer
-> = smartUnion([
-  z.boolean(),
-  IsOrganizerTrue$outboundSchema,
-  IsOrganizerFalse$outboundSchema,
-]);
-
-export function isOrganizerToJSON(isOrganizer: IsOrganizer): string {
-  return JSON.stringify(IsOrganizer$outboundSchema.parse(isOrganizer));
+export function endToJSON(end: End): string {
+  return JSON.stringify(End$outboundSchema.parse(end));
 }
 
 /** @internal */
@@ -347,7 +301,7 @@ export const FindOrCreateMeetingStatus$outboundSchema: z.ZodMiniEnum<
 /** @internal */
 export type Participant$Outbound = {
   email_address: string;
-  is_organizer: boolean | string | string;
+  is_organizer: any;
   status: string;
 };
 
@@ -358,11 +312,7 @@ export const Participant$outboundSchema: z.ZodMiniType<
 > = z.pipe(
   z.object({
     emailAddress: z.string(),
-    isOrganizer: smartUnion([
-      z.boolean(),
-      IsOrganizerTrue$outboundSchema,
-      IsOrganizerFalse$outboundSchema,
-    ]),
+    isOrganizer: z.any(),
     status: FindOrCreateMeetingStatus$outboundSchema,
   }),
   z.transform((v) => {
@@ -461,8 +411,8 @@ export function externalRefUnionToJSON(
 export type FindOrCreateMeetingData$Outbound = {
   title: string;
   description: string;
-  start: Start1$Outbound | Start2$Outbound;
-  end: End1$Outbound | End2$Outbound;
+  start: MeetingStartDateTime$Outbound | MeetingStartDate$Outbound;
+  end: MeetingEndDateTime$Outbound | MeetingEndDate$Outbound;
   is_all_day: boolean;
   participants: Array<Participant$Outbound>;
   linked_records?: Array<LinkedRecord$Outbound> | undefined;
@@ -478,12 +428,12 @@ export const FindOrCreateMeetingData$outboundSchema: z.ZodMiniType<
     title: z.string(),
     description: z.string(),
     start: smartUnion([
-      z.lazy(() => Start1$outboundSchema),
-      z.lazy(() => Start2$outboundSchema),
+      z.lazy(() => MeetingStartDateTime$outboundSchema),
+      z.lazy(() => MeetingStartDate$outboundSchema),
     ]),
     end: smartUnion([
-      z.lazy(() => End1$outboundSchema),
-      z.lazy(() => End2$outboundSchema),
+      z.lazy(() => MeetingEndDateTime$outboundSchema),
+      z.lazy(() => MeetingEndDate$outboundSchema),
     ]),
     isAllDay: z.boolean(),
     participants: z.array(z.lazy(() => Participant$outboundSchema)),
@@ -532,21 +482,6 @@ export function findOrCreateMeetingRequestToJSON(
     FindOrCreateMeetingRequest$outboundSchema.parse(findOrCreateMeetingRequest),
   );
 }
-
-/** @internal */
-export const FindOrCreateMeetingStatusCode$inboundSchema: z.ZodMiniEnum<
-  typeof FindOrCreateMeetingStatusCode
-> = z.enum(FindOrCreateMeetingStatusCode);
-
-/** @internal */
-export const FindOrCreateMeetingType$inboundSchema: z.ZodMiniEnum<
-  typeof FindOrCreateMeetingType
-> = z.enum(FindOrCreateMeetingType);
-
-/** @internal */
-export const FindOrCreateMeetingCode$inboundSchema: z.ZodMiniEnum<
-  typeof FindOrCreateMeetingCode
-> = z.enum(FindOrCreateMeetingCode);
 
 /** @internal */
 export const FindOrCreateMeetingResponse$inboundSchema: z.ZodMiniType<

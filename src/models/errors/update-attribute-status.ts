@@ -5,16 +5,15 @@
 import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import * as types from "../../types/primitives.js";
-import * as operations from "../operations/index.js";
 import { AttioBaseError } from "./attio-base-error.js";
 
 /**
  * Conflict
  */
 export type UpdateAttributeStatusSlugConflictErrorData = {
-  statusCode: operations.UpdateAttributeStatusConflictStatusCode;
-  type: operations.UpdateAttributeStatusConflictType;
-  code: operations.UpdateAttributeStatusConflictCode;
+  type: "invalid_request_error";
+  statusCode: 409;
+  code: "slug_conflict";
   message: string;
 };
 
@@ -22,8 +21,8 @@ export type UpdateAttributeStatusSlugConflictErrorData = {
  * Conflict
  */
 export class UpdateAttributeStatusSlugConflictError extends AttioBaseError {
-  type: operations.UpdateAttributeStatusConflictType;
-  code: operations.UpdateAttributeStatusConflictCode;
+  type: "invalid_request_error";
+  code: "slug_conflict";
 
   /** The original data that was passed to this error instance. */
   data$: UpdateAttributeStatusSlugConflictErrorData;
@@ -46,9 +45,9 @@ export class UpdateAttributeStatusSlugConflictError extends AttioBaseError {
  * Not Found
  */
 export type UpdateAttributeStatusNotFoundErrorData = {
-  statusCode: operations.UpdateAttributeStatusNotFoundStatusCode;
-  type: operations.UpdateAttributeStatusNotFoundType;
-  code: operations.UpdateAttributeStatusNotFoundCode;
+  type: "invalid_request_error";
+  statusCode: 404;
+  code: "not_found";
   message: string;
 };
 
@@ -56,8 +55,8 @@ export type UpdateAttributeStatusNotFoundErrorData = {
  * Not Found
  */
 export class UpdateAttributeStatusNotFoundError extends AttioBaseError {
-  type: operations.UpdateAttributeStatusNotFoundType;
-  code: operations.UpdateAttributeStatusNotFoundCode;
+  type: "invalid_request_error";
+  code: "not_found";
 
   /** The original data that was passed to this error instance. */
   data$: UpdateAttributeStatusNotFoundErrorData;
@@ -80,9 +79,9 @@ export class UpdateAttributeStatusNotFoundError extends AttioBaseError {
  * Bad Request
  */
 export type UpdateAttributeStatusValueNotFoundErrorData = {
-  statusCode: operations.UpdateAttributeStatusBadRequestStatusCode;
-  type: operations.UpdateAttributeStatusBadRequestType;
-  code: operations.UpdateAttributeStatusCodeValueNotFound;
+  type: "invalid_request_error";
+  statusCode: 400;
+  code: "value_not_found";
   message: string;
 };
 
@@ -90,8 +89,8 @@ export type UpdateAttributeStatusValueNotFoundErrorData = {
  * Bad Request
  */
 export class UpdateAttributeStatusValueNotFoundError extends AttioBaseError {
-  type: operations.UpdateAttributeStatusBadRequestType;
-  code: operations.UpdateAttributeStatusCodeValueNotFound;
+  type: "invalid_request_error";
+  code: "value_not_found";
 
   /** The original data that was passed to this error instance. */
   data$: UpdateAttributeStatusValueNotFoundErrorData;
@@ -114,10 +113,9 @@ export class UpdateAttributeStatusValueNotFoundError extends AttioBaseError {
 export const UpdateAttributeStatusSlugConflictError$inboundSchema:
   z.ZodMiniType<UpdateAttributeStatusSlugConflictError, unknown> = z.pipe(
     z.object({
-      status_code:
-        operations.UpdateAttributeStatusConflictStatusCode$inboundSchema,
-      type: operations.UpdateAttributeStatusConflictType$inboundSchema,
-      code: operations.UpdateAttributeStatusConflictCode$inboundSchema,
+      type: types.literal("invalid_request_error"),
+      status_code: types.literal(409),
+      code: types.literal("slug_conflict"),
       message: types.string(),
       request$: z.custom<Request>(x => x instanceof Request),
       response$: z.custom<Response>(x => x instanceof Response),
@@ -142,10 +140,9 @@ export const UpdateAttributeStatusNotFoundError$inboundSchema: z.ZodMiniType<
   unknown
 > = z.pipe(
   z.object({
-    status_code:
-      operations.UpdateAttributeStatusNotFoundStatusCode$inboundSchema,
-    type: operations.UpdateAttributeStatusNotFoundType$inboundSchema,
-    code: operations.UpdateAttributeStatusNotFoundCode$inboundSchema,
+    type: types.literal("invalid_request_error"),
+    status_code: types.literal(404),
+    code: types.literal("not_found"),
     message: types.string(),
     request$: z.custom<Request>(x => x instanceof Request),
     response$: z.custom<Response>(x => x instanceof Response),
@@ -168,10 +165,9 @@ export const UpdateAttributeStatusNotFoundError$inboundSchema: z.ZodMiniType<
 export const UpdateAttributeStatusValueNotFoundError$inboundSchema:
   z.ZodMiniType<UpdateAttributeStatusValueNotFoundError, unknown> = z.pipe(
     z.object({
-      status_code:
-        operations.UpdateAttributeStatusBadRequestStatusCode$inboundSchema,
-      type: operations.UpdateAttributeStatusBadRequestType$inboundSchema,
-      code: operations.UpdateAttributeStatusCodeValueNotFound$inboundSchema,
+      type: types.literal("invalid_request_error"),
+      status_code: types.literal(400),
+      code: types.literal("value_not_found"),
       message: types.string(),
       request$: z.custom<Request>(x => x instanceof Request),
       response$: z.custom<Response>(x => x instanceof Response),

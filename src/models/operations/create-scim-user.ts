@@ -14,9 +14,9 @@ export type CreateScimUserName = {
 };
 
 export type CreateScimUserEmail = {
+  type?: string | undefined;
   value: string;
   primary: boolean;
-  type?: string | undefined;
 };
 
 export type CreateScimUserRole = {
@@ -69,9 +69,9 @@ export const CreateScimUserEmail$inboundSchema: z.ZodMiniType<
   CreateScimUserEmail,
   unknown
 > = z.object({
+  type: types.optional(types.string()),
   value: types.string(),
   primary: types.boolean(),
-  type: types.optional(types.string()),
 });
 
 export function createScimUserEmailFromJSON(

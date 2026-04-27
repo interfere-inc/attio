@@ -63,7 +63,8 @@ yarn add @interfere/attio
 ```
 
 > [!NOTE]
-> This package is published with CommonJS and ES Modules (ESM) support.
+> This package is published as an ES Module (ESM) only. For applications using
+> CommonJS, use `await import("@interfere/attio")` to import and use this package.
 <!-- End SDK Installation [installation] -->
 
 <!-- Start Requirements [requirements] -->
@@ -166,9 +167,9 @@ run();
 * [create](docs/sdks/entries/README.md#create) - Create an entry (add record to list)
 * [assert](docs/sdks/entries/README.md#assert) - Assert a list entry by parent
 * [get](docs/sdks/entries/README.md#get) - Get a list entry
-* [updateAppending](docs/sdks/entries/README.md#updateappending) - Update a list entry (append multiselect values)
 * [update](docs/sdks/entries/README.md#update) - Update a list entry (overwrite multiselect values)
 * [delete](docs/sdks/entries/README.md#delete) - Delete a list entry
+* [updateAppending](docs/sdks/entries/README.md#updateappending) - Update a list entry (append multiselect values)
 * [listAttributeValues](docs/sdks/entries/README.md#listattributevalues) - List attribute values for a list entry
 
 ### [Files](docs/sdks/files/README.md)
@@ -219,9 +220,9 @@ run();
 * [create](docs/sdks/records/README.md#create) - Create a record
 * [assert](docs/sdks/records/README.md#assert) - Assert a record
 * [get](docs/sdks/records/README.md#get) - Get a record
-* [updateAppend](docs/sdks/records/README.md#updateappend) - Update a record (append multiselect values)
 * [update](docs/sdks/records/README.md#update) - Update a record (overwrite multiselect values)
 * [delete](docs/sdks/records/README.md#delete) - Delete a record
+* [updateAppend](docs/sdks/records/README.md#updateappend) - Update a record (append multiselect values)
 * [listAttributeValues](docs/sdks/records/README.md#listattributevalues) - List record attribute values
 * [listEntries](docs/sdks/records/README.md#listentries) - List record entries
 * [search](docs/sdks/records/README.md#search) - Search records
@@ -230,10 +231,10 @@ run();
 
 * [list](docs/sdks/scimgroups/README.md#list) - List SCIM groups
 * [create](docs/sdks/scimgroups/README.md#create) - Create SCIM group
+* [get](docs/sdks/scimgroups/README.md#get) - Get SCIM group
 * [patch](docs/sdks/scimgroups/README.md#patch) - Patch SCIM group
 * [update](docs/sdks/scimgroups/README.md#update) - Update SCIM group
-* [getScimV2GroupsWorkspaceTeamId](docs/sdks/scimgroups/README.md#getscimv2groupsworkspaceteamid) - Get SCIM group
-* [deleteScimV2GroupsWorkspaceTeamId](docs/sdks/scimgroups/README.md#deletescimv2groupsworkspaceteamid) - Delete SCIM group
+* [delete](docs/sdks/scimgroups/README.md#delete) - Delete SCIM group
 
 ### [ScimSchemas](docs/sdks/scimschemas/README.md)
 
@@ -243,18 +244,18 @@ run();
 
 * [list](docs/sdks/scimusers/README.md#list) - List SCIM users
 * [create](docs/sdks/scimusers/README.md#create) - Create SCIM user
+* [get](docs/sdks/scimusers/README.md#get) - Get SCIM user
 * [patch](docs/sdks/scimusers/README.md#patch) - Patch SCIM user
 * [update](docs/sdks/scimusers/README.md#update) - Update SCIM user
-* [getScimV2UsersUserId](docs/sdks/scimusers/README.md#getscimv2usersuserid) - Get SCIM user
-* [deleteScimV2UsersUserId](docs/sdks/scimusers/README.md#deletescimv2usersuserid) - Delete SCIM user
+* [delete](docs/sdks/scimusers/README.md#delete) - Delete SCIM user
 
 ### [Tasks](docs/sdks/tasks/README.md)
 
 * [list](docs/sdks/tasks/README.md#list) - List tasks
 * [create](docs/sdks/tasks/README.md#create) - Create a task
 * [get](docs/sdks/tasks/README.md#get) - Get a task
-* [update](docs/sdks/tasks/README.md#update) - Update a task
 * [delete](docs/sdks/tasks/README.md#delete) - Delete a task
+* [update](docs/sdks/tasks/README.md#update) - Update a task
 
 ### [Threads](docs/sdks/threads/README.md)
 
@@ -270,8 +271,8 @@ run();
 * [list](docs/sdks/webhooks/README.md#list) - List webhooks
 * [create](docs/sdks/webhooks/README.md#create) - Create a webhook
 * [get](docs/sdks/webhooks/README.md#get) - Get a webhook
-* [update](docs/sdks/webhooks/README.md#update) - Update a webhook
 * [delete](docs/sdks/webhooks/README.md#delete) - Delete a webhook
+* [update](docs/sdks/webhooks/README.md#update) - Update a webhook
 
 ### [WorkspaceMembers](docs/sdks/workspacemembers/README.md)
 
@@ -356,15 +357,15 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`recordsUpdate`](docs/sdks/records/README.md#update) - Update a record (overwrite multiselect values)
 - [`recordsUpdateAppend`](docs/sdks/records/README.md#updateappend) - Update a record (append multiselect values)
 - [`scimGroupsCreate`](docs/sdks/scimgroups/README.md#create) - Create SCIM group
-- [`scimGroupsDeleteScimV2GroupsWorkspaceTeamId`](docs/sdks/scimgroups/README.md#deletescimv2groupsworkspaceteamid) - Delete SCIM group
-- [`scimGroupsGetScimV2GroupsWorkspaceTeamId`](docs/sdks/scimgroups/README.md#getscimv2groupsworkspaceteamid) - Get SCIM group
+- [`scimGroupsDelete`](docs/sdks/scimgroups/README.md#delete) - Delete SCIM group
+- [`scimGroupsGet`](docs/sdks/scimgroups/README.md#get) - Get SCIM group
 - [`scimGroupsList`](docs/sdks/scimgroups/README.md#list) - List SCIM groups
 - [`scimGroupsPatch`](docs/sdks/scimgroups/README.md#patch) - Patch SCIM group
 - [`scimGroupsUpdate`](docs/sdks/scimgroups/README.md#update) - Update SCIM group
 - [`scimSchemasList`](docs/sdks/scimschemas/README.md#list) - List SCIM schemas
 - [`scimUsersCreate`](docs/sdks/scimusers/README.md#create) - Create SCIM user
-- [`scimUsersDeleteScimV2UsersUserId`](docs/sdks/scimusers/README.md#deletescimv2usersuserid) - Delete SCIM user
-- [`scimUsersGetScimV2UsersUserId`](docs/sdks/scimusers/README.md#getscimv2usersuserid) - Get SCIM user
+- [`scimUsersDelete`](docs/sdks/scimusers/README.md#delete) - Delete SCIM user
+- [`scimUsersGet`](docs/sdks/scimusers/README.md#get) - Get SCIM user
 - [`scimUsersList`](docs/sdks/scimusers/README.md#list) - List SCIM users
 - [`scimUsersPatch`](docs/sdks/scimusers/README.md#patch) - Patch SCIM user
 - [`scimUsersUpdate`](docs/sdks/scimusers/README.md#update) - Update SCIM user
@@ -532,9 +533,9 @@ async function run() {
 
       // Depending on the method different errors may be thrown
       if (error instanceof errors.CreateObjectSlugConflictError) {
-        console.log(error.data$.statusCode); // operations.CreateObjectStatusCode
-        console.log(error.data$.type); // operations.CreateObjectType
-        console.log(error.data$.code); // operations.CreateObjectCode
+        console.log(error.data$.type); // string
+        console.log(error.data$.statusCode); // number
+        console.log(error.data$.code); // string
         console.log(error.data$.message); // string
       }
     }
@@ -571,16 +572,16 @@ run();
 * [`FilterError`](./src/models/errors/filter-error.ts): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
 * [`CreateRecordValueNotFoundError`](./src/models/errors/create-record-value-not-found-error.ts): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
 * [`AssertRecordValueNotFoundError`](./src/models/errors/assert-record-value-not-found-error.ts): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`UpdateAppendRecordMissingValueError`](./src/models/errors/update-append-record-missing-value-error.ts): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
 * [`UpdateRecordMissingValueError`](./src/models/errors/update-record-missing-value-error.ts): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
+* [`UpdateAppendRecordMissingValueError`](./src/models/errors/update-append-record-missing-value-error.ts): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
 * [`ListRecordAttributeValuesValidationTypeError`](./src/models/errors/list-record-attribute-values-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
 * [`SearchRecordsValueNotFoundError`](./src/models/errors/search-records-value-not-found-error.ts): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
 * [`CreateListValueNotFoundError`](./src/models/errors/create-list-value-not-found-error.ts): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
 * [`UpdateListValueNotFoundError`](./src/models/errors/update-list-value-not-found-error.ts): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
 * [`CreateEntryValueNotFoundError`](./src/models/errors/create-entry-value-not-found-error.ts): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
 * [`MultipleMatchResultsError`](./src/models/errors/multiple-match-results-error.ts): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`UpdateAppendingEntryImmutableValueError`](./src/models/errors/update-appending-entry-immutable-value-error.ts): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
 * [`UpdateEntryImmutableValueError`](./src/models/errors/update-entry-immutable-value-error.ts): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
+* [`UpdateAppendingEntryImmutableValueError`](./src/models/errors/update-appending-entry-immutable-value-error.ts): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
 * [`CreateTaskValidationTypeError`](./src/models/errors/create-task-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
 * [`UpdateTaskValidationTypeError`](./src/models/errors/update-task-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
 * [`CreateCommentValueNotFoundError`](./src/models/errors/create-comment-value-not-found-error.ts): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
@@ -604,9 +605,9 @@ run();
 * [`CreateRecordNotFoundError`](./src/models/errors/create-record-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
 * [`AssertRecordNotFoundError`](./src/models/errors/assert-record-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
 * [`GetRecordNotFoundError`](./src/models/errors/get-record-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`UpdateAppendRecordNotFoundError`](./src/models/errors/update-append-record-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
 * [`UpdateRecordNotFoundError`](./src/models/errors/update-record-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
 * [`DeleteRecordNotFoundError`](./src/models/errors/delete-record-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
+* [`UpdateAppendRecordNotFoundError`](./src/models/errors/update-append-record-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
 * [`ListRecordAttributeValuesNotFoundError`](./src/models/errors/list-record-attribute-values-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
 * [`CreateListNotFoundError`](./src/models/errors/create-list-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
 * [`GetListNotFoundError`](./src/models/errors/get-list-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
@@ -616,9 +617,9 @@ run();
 * [`CreateEntryNotFoundError`](./src/models/errors/create-entry-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
 * [`AssertEntryNotFoundError`](./src/models/errors/assert-entry-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
 * [`GetEntryNotFoundError`](./src/models/errors/get-entry-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`UpdateAppendingEntryNotFoundError`](./src/models/errors/update-appending-entry-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
 * [`UpdateEntryNotFoundError`](./src/models/errors/update-entry-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
 * [`DeleteEntryNotFoundError`](./src/models/errors/delete-entry-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
+* [`UpdateAppendingEntryNotFoundError`](./src/models/errors/update-appending-entry-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
 * [`ListEntryAttributeValuesNotFoundError`](./src/models/errors/list-entry-attribute-values-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
 * [`GetWorkspaceMemberNotFoundError`](./src/models/errors/get-workspace-member-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
 * [`ListNotesNotFoundError`](./src/models/errors/list-notes-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
@@ -627,8 +628,8 @@ run();
 * [`DeleteNoteNotFoundError`](./src/models/errors/delete-note-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
 * [`CreateTaskNotFoundError`](./src/models/errors/create-task-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
 * [`GetTaskNotFoundError`](./src/models/errors/get-task-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`UpdateTaskNotFoundError`](./src/models/errors/update-task-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
 * [`DeleteTaskNotFoundError`](./src/models/errors/delete-task-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
+* [`UpdateTaskNotFoundError`](./src/models/errors/update-task-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
 * [`GetThreadNotFoundError`](./src/models/errors/get-thread-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
 * [`GetCommentNotFoundError`](./src/models/errors/get-comment-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
 * [`DeleteCommentNotFoundError`](./src/models/errors/delete-comment-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
@@ -639,8 +640,8 @@ run();
 * [`GetFileNotFoundError`](./src/models/errors/get-file-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
 * [`DeleteFileNotFoundError`](./src/models/errors/delete-file-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
 * [`GetWebhookNotFoundError`](./src/models/errors/get-webhook-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`UpdateWebhookNotFoundError`](./src/models/errors/update-webhook-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
 * [`DeleteWebhookNotFoundError`](./src/models/errors/delete-webhook-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
+* [`UpdateWebhookNotFoundError`](./src/models/errors/update-webhook-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
 * [`ListAttributeOptionsNotFoundError`](./src/models/errors/list-attribute-options-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
 * [`CreateAttributeOptionNotFoundError`](./src/models/errors/create-attribute-option-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
 * [`CreateObjectSlugConflictError`](./src/models/errors/create-object-slug-conflict-error.ts): Conflict. Status code `409`. Applicable to 1 of 87 methods.*

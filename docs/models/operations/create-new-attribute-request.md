@@ -10,10 +10,10 @@ let value: CreateNewAttributeRequest = {
   identifier: "97052eb9-e65e-443f-a297-f2d9a4a7f795",
   body: {
     data: {
+      type: "text",
       title: "Your Attribute",
       description: "Lorem ipsum",
       apiSlug: "my-attribute",
-      type: "text",
       isRequired: true,
       isUnique: true,
       isMultiselect: true,
@@ -26,8 +26,8 @@ let value: CreateNewAttributeRequest = {
         ],
       },
       relationship: {
-        object: "companies",
         title: "Team members",
+        object: "companies",
         apiSlug: "team_members",
         isMultiselect: false,
       },

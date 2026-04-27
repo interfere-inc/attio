@@ -5,16 +5,15 @@
 import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import * as types from "../../types/primitives.js";
-import * as operations from "../operations/index.js";
 import { AttioBaseError } from "./attio-base-error.js";
 
 /**
  * Content Too Large
  */
 export type CreateNoteValidationTypeErrorData = {
-  statusCode: operations.RequestEntityTooLargeStatusCode;
-  type: operations.RequestEntityTooLargeType;
-  code: operations.RequestEntityTooLargeCode;
+  type: "invalid_request_error";
+  statusCode: 413;
+  code: "validation_type";
   message: string;
 };
 
@@ -22,8 +21,8 @@ export type CreateNoteValidationTypeErrorData = {
  * Content Too Large
  */
 export class CreateNoteValidationTypeError extends AttioBaseError {
-  type: operations.RequestEntityTooLargeType;
-  code: operations.RequestEntityTooLargeCode;
+  type: "invalid_request_error";
+  code: "validation_type";
 
   /** The original data that was passed to this error instance. */
   data$: CreateNoteValidationTypeErrorData;
@@ -46,9 +45,9 @@ export class CreateNoteValidationTypeError extends AttioBaseError {
  * Not Found
  */
 export type CreateNoteNotFoundErrorData = {
-  statusCode: operations.CreateNoteNotFoundStatusCode;
-  type: operations.CreateNoteNotFoundType;
-  code: operations.CreateNoteNotFoundCode;
+  type: "invalid_request_error";
+  statusCode: 404;
+  code: "not_found";
   message: string;
 };
 
@@ -56,8 +55,8 @@ export type CreateNoteNotFoundErrorData = {
  * Not Found
  */
 export class CreateNoteNotFoundError extends AttioBaseError {
-  type: operations.CreateNoteNotFoundType;
-  code: operations.CreateNoteNotFoundCode;
+  type: "invalid_request_error";
+  code: "not_found";
 
   /** The original data that was passed to this error instance. */
   data$: CreateNoteNotFoundErrorData;
@@ -82,9 +81,9 @@ export const CreateNoteValidationTypeError$inboundSchema: z.ZodMiniType<
   unknown
 > = z.pipe(
   z.object({
-    status_code: operations.RequestEntityTooLargeStatusCode$inboundSchema,
-    type: operations.RequestEntityTooLargeType$inboundSchema,
-    code: operations.RequestEntityTooLargeCode$inboundSchema,
+    type: types.literal("invalid_request_error"),
+    status_code: types.literal(413),
+    code: types.literal("validation_type"),
     message: types.string(),
     request$: z.custom<Request>(x => x instanceof Request),
     response$: z.custom<Response>(x => x instanceof Response),
@@ -109,9 +108,9 @@ export const CreateNoteNotFoundError$inboundSchema: z.ZodMiniType<
   unknown
 > = z.pipe(
   z.object({
-    status_code: operations.CreateNoteNotFoundStatusCode$inboundSchema,
-    type: operations.CreateNoteNotFoundType$inboundSchema,
-    code: operations.CreateNoteNotFoundCode$inboundSchema,
+    type: types.literal("invalid_request_error"),
+    status_code: types.literal(404),
+    code: types.literal("not_found"),
     message: types.string(),
     request$: z.custom<Request>(x => x instanceof Request),
     response$: z.custom<Response>(x => x instanceof Response),

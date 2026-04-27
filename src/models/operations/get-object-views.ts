@@ -5,7 +5,6 @@
 import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import * as types from "../../types/primitives.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
@@ -17,23 +16,6 @@ export type GetObjectViewsRequest = {
   limit?: number | undefined;
   cursor?: string | undefined;
 };
-
-export const GetObjectViewsStatusCode = {
-  FourHundredAndFour: 404,
-} as const;
-export type GetObjectViewsStatusCode = ClosedEnum<
-  typeof GetObjectViewsStatusCode
->;
-
-export const GetObjectViewsType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type GetObjectViewsType = ClosedEnum<typeof GetObjectViewsType>;
-
-export const GetObjectViewsCode = {
-  NotFound: "not_found",
-} as const;
-export type GetObjectViewsCode = ClosedEnum<typeof GetObjectViewsCode>;
 
 export type GetObjectViewsPagination = {
   nextCursor: string | null;
@@ -80,21 +62,6 @@ export function getObjectViewsRequestToJSON(
     GetObjectViewsRequest$outboundSchema.parse(getObjectViewsRequest),
   );
 }
-
-/** @internal */
-export const GetObjectViewsStatusCode$inboundSchema: z.ZodMiniEnum<
-  typeof GetObjectViewsStatusCode
-> = z.enum(GetObjectViewsStatusCode);
-
-/** @internal */
-export const GetObjectViewsType$inboundSchema: z.ZodMiniEnum<
-  typeof GetObjectViewsType
-> = z.enum(GetObjectViewsType);
-
-/** @internal */
-export const GetObjectViewsCode$inboundSchema: z.ZodMiniEnum<
-  typeof GetObjectViewsCode
-> = z.enum(GetObjectViewsCode);
 
 /** @internal */
 export const GetObjectViewsPagination$inboundSchema: z.ZodMiniType<

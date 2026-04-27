@@ -5,7 +5,6 @@
 import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
 import * as models from "../index.js";
@@ -33,69 +32,6 @@ export type UpdateObjectRequest = {
   object: string;
   body: UpdateObjectRequestBody;
 };
-
-export const UpdateObjectConflictStatusCode = {
-  FourHundredAndNine: 409,
-} as const;
-export type UpdateObjectConflictStatusCode = ClosedEnum<
-  typeof UpdateObjectConflictStatusCode
->;
-
-export const UpdateObjectConflictType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type UpdateObjectConflictType = ClosedEnum<
-  typeof UpdateObjectConflictType
->;
-
-export const UpdateObjectConflictCode = {
-  SlugConflict: "slug_conflict",
-} as const;
-export type UpdateObjectConflictCode = ClosedEnum<
-  typeof UpdateObjectConflictCode
->;
-
-export const UpdateObjectNotFoundStatusCode = {
-  FourHundredAndFour: 404,
-} as const;
-export type UpdateObjectNotFoundStatusCode = ClosedEnum<
-  typeof UpdateObjectNotFoundStatusCode
->;
-
-export const UpdateObjectNotFoundType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type UpdateObjectNotFoundType = ClosedEnum<
-  typeof UpdateObjectNotFoundType
->;
-
-export const UpdateObjectNotFoundCode = {
-  NotFound: "not_found",
-} as const;
-export type UpdateObjectNotFoundCode = ClosedEnum<
-  typeof UpdateObjectNotFoundCode
->;
-
-export const UpdateObjectBadRequestStatusCode = {
-  FourHundred: 400,
-} as const;
-export type UpdateObjectBadRequestStatusCode = ClosedEnum<
-  typeof UpdateObjectBadRequestStatusCode
->;
-
-export const UpdateObjectBadRequestType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type UpdateObjectBadRequestType = ClosedEnum<
-  typeof UpdateObjectBadRequestType
->;
-
-export const UpdateObjectCodeValidationType = {
-  ValidationType: "validation_type",
-} as const;
-export type UpdateObjectCodeValidationType = ClosedEnum<
-  typeof UpdateObjectCodeValidationType
->;
 
 /**
  * Success
@@ -181,51 +117,6 @@ export function updateObjectRequestToJSON(
     UpdateObjectRequest$outboundSchema.parse(updateObjectRequest),
   );
 }
-
-/** @internal */
-export const UpdateObjectConflictStatusCode$inboundSchema: z.ZodMiniEnum<
-  typeof UpdateObjectConflictStatusCode
-> = z.enum(UpdateObjectConflictStatusCode);
-
-/** @internal */
-export const UpdateObjectConflictType$inboundSchema: z.ZodMiniEnum<
-  typeof UpdateObjectConflictType
-> = z.enum(UpdateObjectConflictType);
-
-/** @internal */
-export const UpdateObjectConflictCode$inboundSchema: z.ZodMiniEnum<
-  typeof UpdateObjectConflictCode
-> = z.enum(UpdateObjectConflictCode);
-
-/** @internal */
-export const UpdateObjectNotFoundStatusCode$inboundSchema: z.ZodMiniEnum<
-  typeof UpdateObjectNotFoundStatusCode
-> = z.enum(UpdateObjectNotFoundStatusCode);
-
-/** @internal */
-export const UpdateObjectNotFoundType$inboundSchema: z.ZodMiniEnum<
-  typeof UpdateObjectNotFoundType
-> = z.enum(UpdateObjectNotFoundType);
-
-/** @internal */
-export const UpdateObjectNotFoundCode$inboundSchema: z.ZodMiniEnum<
-  typeof UpdateObjectNotFoundCode
-> = z.enum(UpdateObjectNotFoundCode);
-
-/** @internal */
-export const UpdateObjectBadRequestStatusCode$inboundSchema: z.ZodMiniEnum<
-  typeof UpdateObjectBadRequestStatusCode
-> = z.enum(UpdateObjectBadRequestStatusCode);
-
-/** @internal */
-export const UpdateObjectBadRequestType$inboundSchema: z.ZodMiniEnum<
-  typeof UpdateObjectBadRequestType
-> = z.enum(UpdateObjectBadRequestType);
-
-/** @internal */
-export const UpdateObjectCodeValidationType$inboundSchema: z.ZodMiniEnum<
-  typeof UpdateObjectCodeValidationType
-> = z.enum(UpdateObjectCodeValidationType);
 
 /** @internal */
 export const UpdateObjectResponse$inboundSchema: z.ZodMiniType<

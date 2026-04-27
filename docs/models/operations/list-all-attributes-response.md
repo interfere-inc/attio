@@ -10,15 +10,15 @@ import { ListAllAttributesResponse } from "@interfere/attio/models/operations";
 let value: ListAllAttributesResponse = {
   data: [
     {
+      type: "record-reference",
+      title: "Company",
+      description: "A company attribute",
       id: {
         workspaceId: "14beef7a-99f7-4534-a87e-70b564330a4c",
         objectId: "97052eb9-e65e-443f-a297-f2d9a4a7f795",
         attributeId: "41252299-f8c7-4b5e-99c9-4ff8321d2f96",
       },
-      title: "Company",
-      description: "A company attribute",
       apiSlug: "company",
-      type: "record-reference",
       isSystemAttribute: false,
       isWritable: true,
       isRequired: false,
@@ -28,13 +28,13 @@ let value: ListAllAttributesResponse = {
       isArchived: false,
       defaultValue: null,
       relationship: {
+        title: "Team members",
         id: {
           workspaceId: "14beef7a-99f7-4534-a87e-70b564330a4c",
           objectId: "97052eb9-e65e-443f-a297-f2d9a4a7f795",
           attributeId: "41252299-f8c7-4b5e-99c9-4ff8321d2f96",
         },
         objectSlug: "companies",
-        title: "Team members",
         apiSlug: "team_members",
         isMultiselect: true,
       },

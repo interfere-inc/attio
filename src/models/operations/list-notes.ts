@@ -5,7 +5,6 @@
 import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
 import * as models from "../index.js";
@@ -16,21 +15,6 @@ export type ListNotesRequest = {
   parentObject?: string | undefined;
   parentRecordId?: string | undefined;
 };
-
-export const ListNotesStatusCode = {
-  FourHundredAndFour: 404,
-} as const;
-export type ListNotesStatusCode = ClosedEnum<typeof ListNotesStatusCode>;
-
-export const ListNotesType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type ListNotesType = ClosedEnum<typeof ListNotesType>;
-
-export const ListNotesCode = {
-  NotFound: "not_found",
-} as const;
-export type ListNotesCode = ClosedEnum<typeof ListNotesCode>;
 
 /**
  * Success
@@ -73,19 +57,6 @@ export function listNotesRequestToJSON(
     ListNotesRequest$outboundSchema.parse(listNotesRequest),
   );
 }
-
-/** @internal */
-export const ListNotesStatusCode$inboundSchema: z.ZodMiniEnum<
-  typeof ListNotesStatusCode
-> = z.enum(ListNotesStatusCode);
-
-/** @internal */
-export const ListNotesType$inboundSchema: z.ZodMiniEnum<typeof ListNotesType> =
-  z.enum(ListNotesType);
-
-/** @internal */
-export const ListNotesCode$inboundSchema: z.ZodMiniEnum<typeof ListNotesCode> =
-  z.enum(ListNotesCode);
 
 /** @internal */
 export const ListNotesResponse$inboundSchema: z.ZodMiniType<

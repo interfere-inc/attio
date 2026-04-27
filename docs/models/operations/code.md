@@ -1,17 +1,17 @@
 # Code
 
-
-## Supported Types
-
-### `operations.CreateCallRecordingCodeBillingError`
+## Example Usage
 
 ```typescript
-const value: operations.CreateCallRecordingCodeBillingError = "billing_error";
+import { Code } from "@interfere/attio/models/operations";
+
+let value: Code = "billing_error";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
-### `operations.CodeQuotaExceeded`
+## Values
 
 ```typescript
-const value: operations.CodeQuotaExceeded = "quota_exceeded";
+"billing_error" | "quota_exceeded" | Unrecognized<string>
 ```
-

@@ -27,7 +27,7 @@ export type CreateNewAttributeTarget = ClosedEnum<
 /**
  * The type of the attribute. This value affects the possible `config` values. Attributes of type "status" are not supported on objects.
  */
-export const CreateNewAttributeTypeRequestEnum = {
+export const CreateNewAttributeType = {
   Text: "text",
   Number: "number",
   Checkbox: "checkbox",
@@ -47,31 +47,16 @@ export const CreateNewAttributeTypeRequestEnum = {
 /**
  * The type of the attribute. This value affects the possible `config` values. Attributes of type "status" are not supported on objects.
  */
-export type CreateNewAttributeTypeRequestEnum = ClosedEnum<
-  typeof CreateNewAttributeTypeRequestEnum
->;
+export type CreateNewAttributeType = ClosedEnum<typeof CreateNewAttributeType>;
 
 export type CreateNewAttributeDefaultValueStatic = {
   type: "static";
-  template: Array<models.InputValueUnion>;
+  template: Array<models.InputValue>;
 };
-
-/**
- * For actor reference attributes, you may pass a dynamic value of `"current-user"`. When creating new records or entries, this will cause the actor reference value to be populated with either the workspace member or API token that created the record/entry.
- */
-export const CreateNewAttributeTemplate = {
-  CurrentUser: "current-user",
-} as const;
-/**
- * For actor reference attributes, you may pass a dynamic value of `"current-user"`. When creating new records or entries, this will cause the actor reference value to be populated with either the workspace member or API token that created the record/entry.
- */
-export type CreateNewAttributeTemplate = ClosedEnum<
-  typeof CreateNewAttributeTemplate
->;
 
 export type CreateNewAttributeDefaultValueDynamic = {
   type: "dynamic";
-  template: any;
+  template: "current-user";
 };
 
 /**
@@ -86,13 +71,13 @@ export type CreateNewAttributeDefaultValueUnion =
  */
 export type Relationship = {
   /**
-   * The slug or UUID of the object to create the reverse relationship attribute on.
-   */
-  object: string;
-  /**
    * The title for the reverse relationship attribute.
    */
   title: string;
+  /**
+   * The slug or UUID of the object to create the reverse relationship attribute on.
+   */
+  object: string;
   /**
    * The API slug for the reverse relationship attribute.
    */
@@ -209,6 +194,10 @@ export type CreateNewAttributeConfig = {
 
 export type CreateNewAttributeData = {
   /**
+   * The type of the attribute. This value affects the possible `config` values. Attributes of type "status" are not supported on objects.
+   */
+  type: CreateNewAttributeType;
+  /**
    * The name of the attribute. The title will be visible across Attio's UI.
    */
   title: string;
@@ -220,10 +209,6 @@ export type CreateNewAttributeData = {
    * A unique, human-readable slug to access the attribute through URLs and API calls. Formatted in snake case.
    */
   apiSlug: string;
-  /**
-   * The type of the attribute. This value affects the possible `config` values. Attributes of type "status" are not supported on objects.
-   */
-  type: CreateNewAttributeTypeRequestEnum;
   /**
    * When `is_required` is `true`, new records/entries must have a value for this attribute. If `false`, values may be `null`. This value does not affect existing data and you do not need to backfill `null` values if changing `is_required` from `false` to `true`.
    */
@@ -264,69 +249,6 @@ export type CreateNewAttributeRequest = {
   body: CreateNewAttributeRequestBody;
 };
 
-export const CreateNewAttributeConflictStatusCode = {
-  FourHundredAndNine: 409,
-} as const;
-export type CreateNewAttributeConflictStatusCode = ClosedEnum<
-  typeof CreateNewAttributeConflictStatusCode
->;
-
-export const CreateNewAttributeConflictType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type CreateNewAttributeConflictType = ClosedEnum<
-  typeof CreateNewAttributeConflictType
->;
-
-export const CreateNewAttributeConflictCode = {
-  SlugConflict: "slug_conflict",
-} as const;
-export type CreateNewAttributeConflictCode = ClosedEnum<
-  typeof CreateNewAttributeConflictCode
->;
-
-export const CreateNewAttributeNotFoundStatusCode = {
-  FourHundredAndFour: 404,
-} as const;
-export type CreateNewAttributeNotFoundStatusCode = ClosedEnum<
-  typeof CreateNewAttributeNotFoundStatusCode
->;
-
-export const CreateNewAttributeNotFoundType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type CreateNewAttributeNotFoundType = ClosedEnum<
-  typeof CreateNewAttributeNotFoundType
->;
-
-export const CreateNewAttributeNotFoundCode = {
-  NotFound: "not_found",
-} as const;
-export type CreateNewAttributeNotFoundCode = ClosedEnum<
-  typeof CreateNewAttributeNotFoundCode
->;
-
-export const CreateNewAttributeBadRequestStatusCode = {
-  FourHundred: 400,
-} as const;
-export type CreateNewAttributeBadRequestStatusCode = ClosedEnum<
-  typeof CreateNewAttributeBadRequestStatusCode
->;
-
-export const CreateNewAttributeBadRequestType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type CreateNewAttributeBadRequestType = ClosedEnum<
-  typeof CreateNewAttributeBadRequestType
->;
-
-export const CreateNewAttributeCodeValidationType = {
-  ValidationType: "validation_type",
-} as const;
-export type CreateNewAttributeCodeValidationType = ClosedEnum<
-  typeof CreateNewAttributeCodeValidationType
->;
-
 /**
  * Success
  */
@@ -340,14 +262,14 @@ export const CreateNewAttributeTarget$outboundSchema: z.ZodMiniEnum<
 > = z.enum(CreateNewAttributeTarget);
 
 /** @internal */
-export const CreateNewAttributeTypeRequestEnum$outboundSchema: z.ZodMiniEnum<
-  typeof CreateNewAttributeTypeRequestEnum
-> = z.enum(CreateNewAttributeTypeRequestEnum);
+export const CreateNewAttributeType$outboundSchema: z.ZodMiniEnum<
+  typeof CreateNewAttributeType
+> = z.enum(CreateNewAttributeType);
 
 /** @internal */
 export type CreateNewAttributeDefaultValueStatic$Outbound = {
   type: "static";
-  template: Array<models.InputValueUnion$Outbound>;
+  template: Array<models.InputValue$Outbound>;
 };
 
 /** @internal */
@@ -356,7 +278,7 @@ export const CreateNewAttributeDefaultValueStatic$outboundSchema: z.ZodMiniType<
   CreateNewAttributeDefaultValueStatic
 > = z.object({
   type: z.literal("static"),
-  template: z.array(models.InputValueUnion$outboundSchema),
+  template: z.array(models.InputValue$outboundSchema),
 });
 
 export function createNewAttributeDefaultValueStaticToJSON(
@@ -370,14 +292,9 @@ export function createNewAttributeDefaultValueStaticToJSON(
 }
 
 /** @internal */
-export const CreateNewAttributeTemplate$outboundSchema: z.ZodMiniEnum<
-  typeof CreateNewAttributeTemplate
-> = z.enum(CreateNewAttributeTemplate);
-
-/** @internal */
 export type CreateNewAttributeDefaultValueDynamic$Outbound = {
   type: "dynamic";
-  template: any;
+  template: "current-user";
 };
 
 /** @internal */
@@ -387,7 +304,7 @@ export const CreateNewAttributeDefaultValueDynamic$outboundSchema:
     CreateNewAttributeDefaultValueDynamic
   > = z.object({
     type: z.literal("dynamic"),
-    template: z.any(),
+    template: z.literal("current-user"),
   });
 
 export function createNewAttributeDefaultValueDynamicToJSON(
@@ -426,8 +343,8 @@ export function createNewAttributeDefaultValueUnionToJSON(
 
 /** @internal */
 export type Relationship$Outbound = {
-  object: string;
   title: string;
+  object: string;
   api_slug: string;
   is_multiselect: boolean;
 };
@@ -438,8 +355,8 @@ export const Relationship$outboundSchema: z.ZodMiniType<
   Relationship
 > = z.pipe(
   z.object({
-    object: z.string(),
     title: z.string(),
+    object: z.string(),
     apiSlug: z.string(),
     isMultiselect: z.boolean(),
   }),
@@ -563,10 +480,10 @@ export function createNewAttributeConfigToJSON(
 
 /** @internal */
 export type CreateNewAttributeData$Outbound = {
+  type: string;
   title: string;
   description: string | null;
   api_slug: string;
-  type: string;
   is_required: boolean;
   is_unique: boolean;
   is_multiselect: boolean;
@@ -585,10 +502,10 @@ export const CreateNewAttributeData$outboundSchema: z.ZodMiniType<
   CreateNewAttributeData
 > = z.pipe(
   z.object({
+    type: CreateNewAttributeType$outboundSchema,
     title: z.string(),
     description: z.nullable(z.string()),
     apiSlug: z.string(),
-    type: CreateNewAttributeTypeRequestEnum$outboundSchema,
     isRequired: z.boolean(),
     isUnique: z.boolean(),
     isMultiselect: z.boolean(),
@@ -671,52 +588,6 @@ export function createNewAttributeRequestToJSON(
     CreateNewAttributeRequest$outboundSchema.parse(createNewAttributeRequest),
   );
 }
-
-/** @internal */
-export const CreateNewAttributeConflictStatusCode$inboundSchema: z.ZodMiniEnum<
-  typeof CreateNewAttributeConflictStatusCode
-> = z.enum(CreateNewAttributeConflictStatusCode);
-
-/** @internal */
-export const CreateNewAttributeConflictType$inboundSchema: z.ZodMiniEnum<
-  typeof CreateNewAttributeConflictType
-> = z.enum(CreateNewAttributeConflictType);
-
-/** @internal */
-export const CreateNewAttributeConflictCode$inboundSchema: z.ZodMiniEnum<
-  typeof CreateNewAttributeConflictCode
-> = z.enum(CreateNewAttributeConflictCode);
-
-/** @internal */
-export const CreateNewAttributeNotFoundStatusCode$inboundSchema: z.ZodMiniEnum<
-  typeof CreateNewAttributeNotFoundStatusCode
-> = z.enum(CreateNewAttributeNotFoundStatusCode);
-
-/** @internal */
-export const CreateNewAttributeNotFoundType$inboundSchema: z.ZodMiniEnum<
-  typeof CreateNewAttributeNotFoundType
-> = z.enum(CreateNewAttributeNotFoundType);
-
-/** @internal */
-export const CreateNewAttributeNotFoundCode$inboundSchema: z.ZodMiniEnum<
-  typeof CreateNewAttributeNotFoundCode
-> = z.enum(CreateNewAttributeNotFoundCode);
-
-/** @internal */
-export const CreateNewAttributeBadRequestStatusCode$inboundSchema:
-  z.ZodMiniEnum<typeof CreateNewAttributeBadRequestStatusCode> = z.enum(
-    CreateNewAttributeBadRequestStatusCode,
-  );
-
-/** @internal */
-export const CreateNewAttributeBadRequestType$inboundSchema: z.ZodMiniEnum<
-  typeof CreateNewAttributeBadRequestType
-> = z.enum(CreateNewAttributeBadRequestType);
-
-/** @internal */
-export const CreateNewAttributeCodeValidationType$inboundSchema: z.ZodMiniEnum<
-  typeof CreateNewAttributeCodeValidationType
-> = z.enum(CreateNewAttributeCodeValidationType);
 
 /** @internal */
 export const CreateNewAttributeResponse$inboundSchema: z.ZodMiniType<

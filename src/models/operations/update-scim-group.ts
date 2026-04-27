@@ -14,8 +14,8 @@ export type UpdateScimGroupRequest = {
 };
 
 export type UpdateScimGroupMember = {
-  value: string;
   dollarRef: string;
+  value: string;
   display?: string | undefined;
 };
 
@@ -70,8 +70,8 @@ export const UpdateScimGroupMember$inboundSchema: z.ZodMiniType<
   unknown
 > = z.pipe(
   z.object({
-    value: types.string(),
     $ref: types.string(),
+    value: types.string(),
     display: types.optional(types.string()),
   }),
   z.transform((v) => {

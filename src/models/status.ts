@@ -29,11 +29,11 @@ export type StatusId = {
 };
 
 export type Status = {
-  id: StatusId;
   /**
    * The title of the status
    */
   title: string;
+  id: StatusId;
   /**
    * Whether or not to archive the status. See our [archiving guide](/docs/archiving-vs-deleting) for more information on archiving.
    */
@@ -79,8 +79,8 @@ export function statusIdFromJSON(
 /** @internal */
 export const Status$inboundSchema: z.ZodMiniType<Status, unknown> = z.pipe(
   z.object({
-    id: z.lazy(() => StatusId$inboundSchema),
     title: types.string(),
+    id: z.lazy(() => StatusId$inboundSchema),
     is_archived: types.boolean(),
     celebration_enabled: types.boolean(),
     target_time_in_status: types.nullable(types.string()),

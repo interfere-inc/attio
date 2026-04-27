@@ -10,9 +10,9 @@ Records are individual instances of objects e.g. a specific [person](/rest-api/e
 * [create](#create) - Create a record
 * [assert](#assert) - Assert a record
 * [get](#get) - Get a record
-* [updateAppend](#updateappend) - Update a record (append multiselect values)
 * [update](#update) - Update a record (overwrite multiselect values)
 * [delete](#delete) - Delete a record
+* [updateAppend](#updateappend) - Update a record (append multiselect values)
 * [listAttributeValues](#listattributevalues) - List record attribute values
 * [listEntries](#listentries) - List record entries
 * [search](#search) - Search records
@@ -483,111 +483,6 @@ run();
 | errors.GetRecordNotFoundError | 404                           | application/json              |
 | errors.AttioError             | 4XX, 5XX                      | \*/\*                         |
 
-## updateAppend
-
-Use this endpoint to update people, companies, and other records by `record_id`. If the update payload includes multiselect attributes, the values supplied will be created and prepended to the list of values that already exist (if any). Use the `PUT` endpoint to overwrite or remove multiselect attribute values.
-
-Required scopes: `record_permission:read-write`, `object_configuration:read`.
-
-### Example Usage
-
-<!-- UsageSnippet language="typescript" operationID="updateAppendRecord" method="patch" path="/v2/objects/{object}/records/{record_id}" -->
-```typescript
-import { Attio } from "@interfere/attio";
-
-const attio = new Attio({
-  oauth2: process.env["ATTIO_OAUTH2"] ?? "",
-});
-
-async function run() {
-  const result = await attio.records.updateAppend({
-    object: "people",
-    recordId: "891dcbfc-9141-415d-9b2a-2238a6cc012d",
-    body: {
-      data: {
-        values: {
-          "41252299-f8c7-4b5e-99c9-4ff8321d2f96": [
-            "Text value",
-          ],
-          "multiselect_attribute": [
-            "Select option 1",
-            "Select option 2",
-          ],
-        },
-      },
-    },
-  });
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { AttioCore } from "@interfere/attio/core.js";
-import { recordsUpdateAppend } from "@interfere/attio/funcs/records-update-append.js";
-
-// Use `AttioCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const attio = new AttioCore({
-  oauth2: process.env["ATTIO_OAUTH2"] ?? "",
-});
-
-async function run() {
-  const res = await recordsUpdateAppend(attio, {
-    object: "people",
-    recordId: "891dcbfc-9141-415d-9b2a-2238a6cc012d",
-    body: {
-      data: {
-        values: {
-          "41252299-f8c7-4b5e-99c9-4ff8321d2f96": [
-            "Text value",
-          ],
-          "multiselect_attribute": [
-            "Select option 1",
-            "Select option 2",
-          ],
-        },
-      },
-    },
-  });
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("recordsUpdateAppend failed:", res.error);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.UpdateAppendRecordRequest](../../models/operations/update-append-record-request.md)                                                                                | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-
-### Response
-
-**Promise\<[operations.UpdateAppendRecordResponse](../../models/operations/update-append-record-response.md)\>**
-
-### Errors
-
-| Error Type                                 | Status Code                                | Content Type                               |
-| ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
-| errors.UpdateAppendRecordMissingValueError | 400                                        | application/json                           |
-| errors.UpdateAppendRecordNotFoundError     | 404                                        | application/json                           |
-| errors.AttioError                          | 4XX, 5XX                                   | \*/\*                                      |
-
 ## update
 
 Use this endpoint to update people, companies, and other records by `record_id`. If the update payload includes multiselect attributes, the values supplied will overwrite/remove the list of values that already exist (if any). Use the `PATCH` endpoint to append multiselect values without removing those that already exist.
@@ -770,6 +665,111 @@ run();
 | -------------------------------- | -------------------------------- | -------------------------------- |
 | errors.DeleteRecordNotFoundError | 404                              | application/json                 |
 | errors.AttioError                | 4XX, 5XX                         | \*/\*                            |
+
+## updateAppend
+
+Use this endpoint to update people, companies, and other records by `record_id`. If the update payload includes multiselect attributes, the values supplied will be created and prepended to the list of values that already exist (if any). Use the `PUT` endpoint to overwrite or remove multiselect attribute values.
+
+Required scopes: `record_permission:read-write`, `object_configuration:read`.
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="updateAppendRecord" method="patch" path="/v2/objects/{object}/records/{record_id}" -->
+```typescript
+import { Attio } from "@interfere/attio";
+
+const attio = new Attio({
+  oauth2: process.env["ATTIO_OAUTH2"] ?? "",
+});
+
+async function run() {
+  const result = await attio.records.updateAppend({
+    object: "people",
+    recordId: "891dcbfc-9141-415d-9b2a-2238a6cc012d",
+    body: {
+      data: {
+        values: {
+          "41252299-f8c7-4b5e-99c9-4ff8321d2f96": [
+            "Text value",
+          ],
+          "multiselect_attribute": [
+            "Select option 1",
+            "Select option 2",
+          ],
+        },
+      },
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { AttioCore } from "@interfere/attio/core.js";
+import { recordsUpdateAppend } from "@interfere/attio/funcs/records-update-append.js";
+
+// Use `AttioCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const attio = new AttioCore({
+  oauth2: process.env["ATTIO_OAUTH2"] ?? "",
+});
+
+async function run() {
+  const res = await recordsUpdateAppend(attio, {
+    object: "people",
+    recordId: "891dcbfc-9141-415d-9b2a-2238a6cc012d",
+    body: {
+      data: {
+        values: {
+          "41252299-f8c7-4b5e-99c9-4ff8321d2f96": [
+            "Text value",
+          ],
+          "multiselect_attribute": [
+            "Select option 1",
+            "Select option 2",
+          ],
+        },
+      },
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("recordsUpdateAppend failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.UpdateAppendRecordRequest](../../models/operations/update-append-record-request.md)                                                                                | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.UpdateAppendRecordResponse](../../models/operations/update-append-record-response.md)\>**
+
+### Errors
+
+| Error Type                                 | Status Code                                | Content Type                               |
+| ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
+| errors.UpdateAppendRecordMissingValueError | 400                                        | application/json                           |
+| errors.UpdateAppendRecordNotFoundError     | 404                                        | application/json                           |
+| errors.AttioError                          | 4XX, 5XX                                   | \*/\*                                      |
 
 ## listAttributeValues
 

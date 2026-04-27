@@ -78,25 +78,25 @@ export type ListType = OpenEnum<typeof ListType>;
  */
 export type ListCreatedByActor = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: ListType | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type List = {
+  /**
+   * The name of the list, as viewed in the UI.
+   */
+  name: string;
   id: ListId;
   /**
    * A human-readable slug for use in URLs and responses.
    */
   apiSlug: string;
-  /**
-   * The name of the list, as viewed in the UI.
-   */
-  name: string;
   /**
    * A UUID or slug to identify the allowed object type for records added to this list. All new Lists are expected to have exactly one parent object. However, some legacy lists may have multiple allowed parents so the return type of this field is an array.
    */
@@ -188,8 +188,8 @@ export const ListCreatedByActor$inboundSchema: z.ZodMiniType<
   ListCreatedByActor,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(z.nullable(ListType$inboundSchema)),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function listCreatedByActorFromJSON(
@@ -205,9 +205,9 @@ export function listCreatedByActorFromJSON(
 /** @internal */
 export const List$inboundSchema: z.ZodMiniType<List, unknown> = z.pipe(
   z.object({
+    name: types.string(),
     id: z.lazy(() => ListId$inboundSchema),
     api_slug: types.string(),
-    name: types.string(),
     parent_object: z.array(types.string()),
     workspace_access: types.nullable(WorkspaceAccess$inboundSchema),
     workspace_member_access: z.array(z.lazy(() =>

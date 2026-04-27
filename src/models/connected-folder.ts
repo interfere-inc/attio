@@ -58,13 +58,13 @@ export type ConnectedFolderType = OpenEnum<typeof ConnectedFolderType>;
  */
 export type ConnectedFolderCreatedByActor = {
   /**
-   * An ID to identify the actor.
-   */
-  id?: string | null | undefined;
-  /**
    * The type of actor. [Read more information on actor types here](/docs/actors).
    */
   type?: ConnectedFolderType | null | undefined;
+  /**
+   * An ID to identify the actor.
+   */
+  id?: string | null | undefined;
 };
 
 export type ConnectedFolder = {
@@ -151,8 +151,8 @@ export const ConnectedFolderCreatedByActor$inboundSchema: z.ZodMiniType<
   ConnectedFolderCreatedByActor,
   unknown
 > = z.object({
-  id: z.optional(z.nullable(types.string())),
   type: z.optional(z.nullable(ConnectedFolderType$inboundSchema)),
+  id: z.optional(z.nullable(types.string())),
 });
 
 export function connectedFolderCreatedByActorFromJSON(

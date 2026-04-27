@@ -8,8 +8,8 @@ Who wrote this comment. Note that the API provides the ability for API tokens to
 import { Author } from "@interfere/attio/models";
 
 let value: Author = {
-  id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
   type: "workspace-member",
+  id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
 };
 ```
 
@@ -17,5 +17,5 @@ let value: Author = {
 
 | Field                                                                         | Type                                                                          | Required                                                                      | Description                                                                   |
 | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
-| `id`                                                                          | *string*                                                                      | :heavy_minus_sign:                                                            | An ID to identify the actor.                                                  |
 | `type`                                                                        | [models.AuthorType](../models/author-type.md)                                 | :heavy_minus_sign:                                                            | The type of actor. [Read more information on actor types here](/docs/actors). |
+| `id`                                                                          | *string*                                                                      | :heavy_minus_sign:                                                            | An ID to identify the actor.                                                  |

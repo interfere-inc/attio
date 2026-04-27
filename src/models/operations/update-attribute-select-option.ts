@@ -50,69 +50,6 @@ export type UpdateAttributeSelectOptionRequest = {
   body: UpdateAttributeSelectOptionRequestBody;
 };
 
-export const UpdateAttributeSelectOptionConflictStatusCode = {
-  FourHundredAndNine: 409,
-} as const;
-export type UpdateAttributeSelectOptionConflictStatusCode = ClosedEnum<
-  typeof UpdateAttributeSelectOptionConflictStatusCode
->;
-
-export const UpdateAttributeSelectOptionConflictType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type UpdateAttributeSelectOptionConflictType = ClosedEnum<
-  typeof UpdateAttributeSelectOptionConflictType
->;
-
-export const UpdateAttributeSelectOptionConflictCode = {
-  SlugConflict: "slug_conflict",
-} as const;
-export type UpdateAttributeSelectOptionConflictCode = ClosedEnum<
-  typeof UpdateAttributeSelectOptionConflictCode
->;
-
-export const UpdateAttributeSelectOptionNotFoundStatusCode = {
-  FourHundredAndFour: 404,
-} as const;
-export type UpdateAttributeSelectOptionNotFoundStatusCode = ClosedEnum<
-  typeof UpdateAttributeSelectOptionNotFoundStatusCode
->;
-
-export const UpdateAttributeSelectOptionNotFoundType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type UpdateAttributeSelectOptionNotFoundType = ClosedEnum<
-  typeof UpdateAttributeSelectOptionNotFoundType
->;
-
-export const UpdateAttributeSelectOptionNotFoundCode = {
-  NotFound: "not_found",
-} as const;
-export type UpdateAttributeSelectOptionNotFoundCode = ClosedEnum<
-  typeof UpdateAttributeSelectOptionNotFoundCode
->;
-
-export const UpdateAttributeSelectOptionBadRequestStatusCode = {
-  FourHundred: 400,
-} as const;
-export type UpdateAttributeSelectOptionBadRequestStatusCode = ClosedEnum<
-  typeof UpdateAttributeSelectOptionBadRequestStatusCode
->;
-
-export const UpdateAttributeSelectOptionBadRequestType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type UpdateAttributeSelectOptionBadRequestType = ClosedEnum<
-  typeof UpdateAttributeSelectOptionBadRequestType
->;
-
-export const UpdateAttributeSelectOptionCodeValueNotFound = {
-  ValueNotFound: "value_not_found",
-} as const;
-export type UpdateAttributeSelectOptionCodeValueNotFound = ClosedEnum<
-  typeof UpdateAttributeSelectOptionCodeValueNotFound
->;
-
 /**
  * Success
  */
@@ -212,59 +149,6 @@ export function updateAttributeSelectOptionRequestToJSON(
     ),
   );
 }
-
-/** @internal */
-export const UpdateAttributeSelectOptionConflictStatusCode$inboundSchema:
-  z.ZodMiniEnum<typeof UpdateAttributeSelectOptionConflictStatusCode> = z.enum(
-    UpdateAttributeSelectOptionConflictStatusCode,
-  );
-
-/** @internal */
-export const UpdateAttributeSelectOptionConflictType$inboundSchema:
-  z.ZodMiniEnum<typeof UpdateAttributeSelectOptionConflictType> = z.enum(
-    UpdateAttributeSelectOptionConflictType,
-  );
-
-/** @internal */
-export const UpdateAttributeSelectOptionConflictCode$inboundSchema:
-  z.ZodMiniEnum<typeof UpdateAttributeSelectOptionConflictCode> = z.enum(
-    UpdateAttributeSelectOptionConflictCode,
-  );
-
-/** @internal */
-export const UpdateAttributeSelectOptionNotFoundStatusCode$inboundSchema:
-  z.ZodMiniEnum<typeof UpdateAttributeSelectOptionNotFoundStatusCode> = z.enum(
-    UpdateAttributeSelectOptionNotFoundStatusCode,
-  );
-
-/** @internal */
-export const UpdateAttributeSelectOptionNotFoundType$inboundSchema:
-  z.ZodMiniEnum<typeof UpdateAttributeSelectOptionNotFoundType> = z.enum(
-    UpdateAttributeSelectOptionNotFoundType,
-  );
-
-/** @internal */
-export const UpdateAttributeSelectOptionNotFoundCode$inboundSchema:
-  z.ZodMiniEnum<typeof UpdateAttributeSelectOptionNotFoundCode> = z.enum(
-    UpdateAttributeSelectOptionNotFoundCode,
-  );
-
-/** @internal */
-export const UpdateAttributeSelectOptionBadRequestStatusCode$inboundSchema:
-  z.ZodMiniEnum<typeof UpdateAttributeSelectOptionBadRequestStatusCode> = z
-    .enum(UpdateAttributeSelectOptionBadRequestStatusCode);
-
-/** @internal */
-export const UpdateAttributeSelectOptionBadRequestType$inboundSchema:
-  z.ZodMiniEnum<typeof UpdateAttributeSelectOptionBadRequestType> = z.enum(
-    UpdateAttributeSelectOptionBadRequestType,
-  );
-
-/** @internal */
-export const UpdateAttributeSelectOptionCodeValueNotFound$inboundSchema:
-  z.ZodMiniEnum<typeof UpdateAttributeSelectOptionCodeValueNotFound> = z.enum(
-    UpdateAttributeSelectOptionCodeValueNotFound,
-  );
 
 /** @internal */
 export const UpdateAttributeSelectOptionResponse$inboundSchema: z.ZodMiniType<

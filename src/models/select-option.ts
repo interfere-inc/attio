@@ -29,11 +29,11 @@ export type SelectOptionId = {
 };
 
 export type SelectOption = {
-  id: SelectOptionId;
   /**
    * The title of the select option
    */
   title: string;
+  id: SelectOptionId;
   /**
    * Whether or not to archive the select option. See our [archiving guide](/docs/archiving-vs-deleting) for more information on archiving.
    */
@@ -75,8 +75,8 @@ export function selectOptionIdFromJSON(
 export const SelectOption$inboundSchema: z.ZodMiniType<SelectOption, unknown> =
   z.pipe(
     z.object({
-      id: z.lazy(() => SelectOptionId$inboundSchema),
       title: types.string(),
+      id: z.lazy(() => SelectOptionId$inboundSchema),
       is_archived: types.boolean(),
     }),
     z.transform((v) => {

@@ -5,16 +5,15 @@
 import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import * as types from "../../types/primitives.js";
-import * as operations from "../operations/index.js";
 import { AttioBaseError } from "./attio-base-error.js";
 
 /**
  * Conflict
  */
 export type UpdateObjectSlugConflictErrorData = {
-  statusCode: operations.UpdateObjectConflictStatusCode;
-  type: operations.UpdateObjectConflictType;
-  code: operations.UpdateObjectConflictCode;
+  type: "invalid_request_error";
+  statusCode: 409;
+  code: "slug_conflict";
   message: string;
 };
 
@@ -22,8 +21,8 @@ export type UpdateObjectSlugConflictErrorData = {
  * Conflict
  */
 export class UpdateObjectSlugConflictError extends AttioBaseError {
-  type: operations.UpdateObjectConflictType;
-  code: operations.UpdateObjectConflictCode;
+  type: "invalid_request_error";
+  code: "slug_conflict";
 
   /** The original data that was passed to this error instance. */
   data$: UpdateObjectSlugConflictErrorData;
@@ -46,9 +45,9 @@ export class UpdateObjectSlugConflictError extends AttioBaseError {
  * Not Found
  */
 export type UpdateObjectNotFoundErrorData = {
-  statusCode: operations.UpdateObjectNotFoundStatusCode;
-  type: operations.UpdateObjectNotFoundType;
-  code: operations.UpdateObjectNotFoundCode;
+  type: "invalid_request_error";
+  statusCode: 404;
+  code: "not_found";
   message: string;
 };
 
@@ -56,8 +55,8 @@ export type UpdateObjectNotFoundErrorData = {
  * Not Found
  */
 export class UpdateObjectNotFoundError extends AttioBaseError {
-  type: operations.UpdateObjectNotFoundType;
-  code: operations.UpdateObjectNotFoundCode;
+  type: "invalid_request_error";
+  code: "not_found";
 
   /** The original data that was passed to this error instance. */
   data$: UpdateObjectNotFoundErrorData;
@@ -80,9 +79,9 @@ export class UpdateObjectNotFoundError extends AttioBaseError {
  * Bad Request
  */
 export type UpdateObjectValidationTypeErrorData = {
-  statusCode: operations.UpdateObjectBadRequestStatusCode;
-  type: operations.UpdateObjectBadRequestType;
-  code: operations.UpdateObjectCodeValidationType;
+  type: "invalid_request_error";
+  statusCode: 400;
+  code: "validation_type";
   message: string;
 };
 
@@ -90,8 +89,8 @@ export type UpdateObjectValidationTypeErrorData = {
  * Bad Request
  */
 export class UpdateObjectValidationTypeError extends AttioBaseError {
-  type: operations.UpdateObjectBadRequestType;
-  code: operations.UpdateObjectCodeValidationType;
+  type: "invalid_request_error";
+  code: "validation_type";
 
   /** The original data that was passed to this error instance. */
   data$: UpdateObjectValidationTypeErrorData;
@@ -116,9 +115,9 @@ export const UpdateObjectSlugConflictError$inboundSchema: z.ZodMiniType<
   unknown
 > = z.pipe(
   z.object({
-    status_code: operations.UpdateObjectConflictStatusCode$inboundSchema,
-    type: operations.UpdateObjectConflictType$inboundSchema,
-    code: operations.UpdateObjectConflictCode$inboundSchema,
+    type: types.literal("invalid_request_error"),
+    status_code: types.literal(409),
+    code: types.literal("slug_conflict"),
     message: types.string(),
     request$: z.custom<Request>(x => x instanceof Request),
     response$: z.custom<Response>(x => x instanceof Response),
@@ -143,9 +142,9 @@ export const UpdateObjectNotFoundError$inboundSchema: z.ZodMiniType<
   unknown
 > = z.pipe(
   z.object({
-    status_code: operations.UpdateObjectNotFoundStatusCode$inboundSchema,
-    type: operations.UpdateObjectNotFoundType$inboundSchema,
-    code: operations.UpdateObjectNotFoundCode$inboundSchema,
+    type: types.literal("invalid_request_error"),
+    status_code: types.literal(404),
+    code: types.literal("not_found"),
     message: types.string(),
     request$: z.custom<Request>(x => x instanceof Request),
     response$: z.custom<Response>(x => x instanceof Response),
@@ -170,9 +169,9 @@ export const UpdateObjectValidationTypeError$inboundSchema: z.ZodMiniType<
   unknown
 > = z.pipe(
   z.object({
-    status_code: operations.UpdateObjectBadRequestStatusCode$inboundSchema,
-    type: operations.UpdateObjectBadRequestType$inboundSchema,
-    code: operations.UpdateObjectCodeValidationType$inboundSchema,
+    type: types.literal("invalid_request_error"),
+    status_code: types.literal(400),
+    code: types.literal("validation_type"),
     message: types.string(),
     request$: z.custom<Request>(x => x instanceof Request),
     response$: z.custom<Response>(x => x instanceof Response),

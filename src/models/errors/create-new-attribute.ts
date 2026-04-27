@@ -5,16 +5,15 @@
 import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import * as types from "../../types/primitives.js";
-import * as operations from "../operations/index.js";
 import { AttioBaseError } from "./attio-base-error.js";
 
 /**
  * Conflict
  */
 export type CreateNewAttributeSlugConflictErrorData = {
-  statusCode: operations.CreateNewAttributeConflictStatusCode;
-  type: operations.CreateNewAttributeConflictType;
-  code: operations.CreateNewAttributeConflictCode;
+  type: "invalid_request_error";
+  statusCode: 409;
+  code: "slug_conflict";
   message: string;
 };
 
@@ -22,8 +21,8 @@ export type CreateNewAttributeSlugConflictErrorData = {
  * Conflict
  */
 export class CreateNewAttributeSlugConflictError extends AttioBaseError {
-  type: operations.CreateNewAttributeConflictType;
-  code: operations.CreateNewAttributeConflictCode;
+  type: "invalid_request_error";
+  code: "slug_conflict";
 
   /** The original data that was passed to this error instance. */
   data$: CreateNewAttributeSlugConflictErrorData;
@@ -46,9 +45,9 @@ export class CreateNewAttributeSlugConflictError extends AttioBaseError {
  * Not Found
  */
 export type CreateNewAttributeNotFoundErrorData = {
-  statusCode: operations.CreateNewAttributeNotFoundStatusCode;
-  type: operations.CreateNewAttributeNotFoundType;
-  code: operations.CreateNewAttributeNotFoundCode;
+  type: "invalid_request_error";
+  statusCode: 404;
+  code: "not_found";
   message: string;
 };
 
@@ -56,8 +55,8 @@ export type CreateNewAttributeNotFoundErrorData = {
  * Not Found
  */
 export class CreateNewAttributeNotFoundError extends AttioBaseError {
-  type: operations.CreateNewAttributeNotFoundType;
-  code: operations.CreateNewAttributeNotFoundCode;
+  type: "invalid_request_error";
+  code: "not_found";
 
   /** The original data that was passed to this error instance. */
   data$: CreateNewAttributeNotFoundErrorData;
@@ -80,9 +79,9 @@ export class CreateNewAttributeNotFoundError extends AttioBaseError {
  * Bad Request
  */
 export type CreateNewAttributeValidationTypeErrorData = {
-  statusCode: operations.CreateNewAttributeBadRequestStatusCode;
-  type: operations.CreateNewAttributeBadRequestType;
-  code: operations.CreateNewAttributeCodeValidationType;
+  type: "invalid_request_error";
+  statusCode: 400;
+  code: "validation_type";
   message: string;
 };
 
@@ -90,8 +89,8 @@ export type CreateNewAttributeValidationTypeErrorData = {
  * Bad Request
  */
 export class CreateNewAttributeValidationTypeError extends AttioBaseError {
-  type: operations.CreateNewAttributeBadRequestType;
-  code: operations.CreateNewAttributeCodeValidationType;
+  type: "invalid_request_error";
+  code: "validation_type";
 
   /** The original data that was passed to this error instance. */
   data$: CreateNewAttributeValidationTypeErrorData;
@@ -116,9 +115,9 @@ export const CreateNewAttributeSlugConflictError$inboundSchema: z.ZodMiniType<
   unknown
 > = z.pipe(
   z.object({
-    status_code: operations.CreateNewAttributeConflictStatusCode$inboundSchema,
-    type: operations.CreateNewAttributeConflictType$inboundSchema,
-    code: operations.CreateNewAttributeConflictCode$inboundSchema,
+    type: types.literal("invalid_request_error"),
+    status_code: types.literal(409),
+    code: types.literal("slug_conflict"),
     message: types.string(),
     request$: z.custom<Request>(x => x instanceof Request),
     response$: z.custom<Response>(x => x instanceof Response),
@@ -143,9 +142,9 @@ export const CreateNewAttributeNotFoundError$inboundSchema: z.ZodMiniType<
   unknown
 > = z.pipe(
   z.object({
-    status_code: operations.CreateNewAttributeNotFoundStatusCode$inboundSchema,
-    type: operations.CreateNewAttributeNotFoundType$inboundSchema,
-    code: operations.CreateNewAttributeNotFoundCode$inboundSchema,
+    type: types.literal("invalid_request_error"),
+    status_code: types.literal(404),
+    code: types.literal("not_found"),
     message: types.string(),
     request$: z.custom<Request>(x => x instanceof Request),
     response$: z.custom<Response>(x => x instanceof Response),
@@ -170,10 +169,9 @@ export const CreateNewAttributeValidationTypeError$inboundSchema: z.ZodMiniType<
   unknown
 > = z.pipe(
   z.object({
-    status_code:
-      operations.CreateNewAttributeBadRequestStatusCode$inboundSchema,
-    type: operations.CreateNewAttributeBadRequestType$inboundSchema,
-    code: operations.CreateNewAttributeCodeValidationType$inboundSchema,
+    type: types.literal("invalid_request_error"),
+    status_code: types.literal(400),
+    code: types.literal("validation_type"),
     message: types.string(),
     request$: z.custom<Request>(x => x instanceof Request),
     response$: z.custom<Response>(x => x instanceof Response),

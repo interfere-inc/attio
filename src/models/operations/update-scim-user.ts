@@ -7,11 +7,17 @@ import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import * as types from "../../types/primitives.js";
+import { smartUnion } from "../../types/smart-union.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
 
 export type UpdateScimUserRequest = {
   userId: string;
 };
+
+/**
+ * No Content
+ */
+export type UpdateScimUserResponseBody2 = {};
 
 export type UpdateScimUserName = {
   givenName: string;
@@ -19,9 +25,9 @@ export type UpdateScimUserName = {
 };
 
 export type UpdateScimUserEmail = {
+  type?: string | undefined;
   value: string;
   primary: boolean;
-  type?: string | undefined;
 };
 
 export type UpdateScimUserRole = {
@@ -38,7 +44,7 @@ export type UpdateScimUserMeta = {
 /**
  * Success
  */
-export type UpdateScimUserResponse = {
+export type UpdateScimUserResponseBody1 = {
   schemas: Array<string>;
   id: string;
   userName: string;
@@ -49,6 +55,10 @@ export type UpdateScimUserResponse = {
   active: boolean;
   meta: UpdateScimUserMeta;
 };
+
+export type UpdateScimUserResponse =
+  | UpdateScimUserResponseBody1
+  | UpdateScimUserResponseBody2;
 
 /** @internal */
 export type UpdateScimUserRequest$Outbound = {
@@ -79,6 +89,22 @@ export function updateScimUserRequestToJSON(
 }
 
 /** @internal */
+export const UpdateScimUserResponseBody2$inboundSchema: z.ZodMiniType<
+  UpdateScimUserResponseBody2,
+  unknown
+> = z.object({});
+
+export function updateScimUserResponseBody2FromJSON(
+  jsonString: string,
+): SafeParseResult<UpdateScimUserResponseBody2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => UpdateScimUserResponseBody2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'UpdateScimUserResponseBody2' from JSON`,
+  );
+}
+
+/** @internal */
 export const UpdateScimUserName$inboundSchema: z.ZodMiniType<
   UpdateScimUserName,
   unknown
@@ -102,9 +128,9 @@ export const UpdateScimUserEmail$inboundSchema: z.ZodMiniType<
   UpdateScimUserEmail,
   unknown
 > = z.object({
+  type: types.optional(types.string()),
   value: types.string(),
   primary: types.boolean(),
-  type: types.optional(types.string()),
 });
 
 export function updateScimUserEmailFromJSON(
@@ -157,8 +183,8 @@ export function updateScimUserMetaFromJSON(
 }
 
 /** @internal */
-export const UpdateScimUserResponse$inboundSchema: z.ZodMiniType<
-  UpdateScimUserResponse,
+export const UpdateScimUserResponseBody1$inboundSchema: z.ZodMiniType<
+  UpdateScimUserResponseBody1,
   unknown
 > = z.object({
   schemas: z.array(types.string()),
@@ -171,6 +197,25 @@ export const UpdateScimUserResponse$inboundSchema: z.ZodMiniType<
   active: types.boolean(),
   meta: z.lazy(() => UpdateScimUserMeta$inboundSchema),
 });
+
+export function updateScimUserResponseBody1FromJSON(
+  jsonString: string,
+): SafeParseResult<UpdateScimUserResponseBody1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => UpdateScimUserResponseBody1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'UpdateScimUserResponseBody1' from JSON`,
+  );
+}
+
+/** @internal */
+export const UpdateScimUserResponse$inboundSchema: z.ZodMiniType<
+  UpdateScimUserResponse,
+  unknown
+> = smartUnion([
+  z.lazy(() => UpdateScimUserResponseBody1$inboundSchema),
+  z.lazy(() => UpdateScimUserResponseBody2$inboundSchema),
+]);
 
 export function updateScimUserResponseFromJSON(
   jsonString: string,

@@ -5,7 +5,6 @@
 import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
 import * as models from "../index.js";
@@ -13,23 +12,6 @@ import * as models from "../index.js";
 export type GetWorkspaceMemberRequest = {
   workspaceMemberId: string;
 };
-
-export const GetWorkspaceMemberStatusCode = {
-  FourHundredAndFour: 404,
-} as const;
-export type GetWorkspaceMemberStatusCode = ClosedEnum<
-  typeof GetWorkspaceMemberStatusCode
->;
-
-export const GetWorkspaceMemberType = {
-  InvalidRequestError: "invalid_request_error",
-} as const;
-export type GetWorkspaceMemberType = ClosedEnum<typeof GetWorkspaceMemberType>;
-
-export const GetWorkspaceMemberCode = {
-  NotFound: "not_found",
-} as const;
-export type GetWorkspaceMemberCode = ClosedEnum<typeof GetWorkspaceMemberCode>;
 
 /**
  * Success
@@ -65,21 +47,6 @@ export function getWorkspaceMemberRequestToJSON(
     GetWorkspaceMemberRequest$outboundSchema.parse(getWorkspaceMemberRequest),
   );
 }
-
-/** @internal */
-export const GetWorkspaceMemberStatusCode$inboundSchema: z.ZodMiniEnum<
-  typeof GetWorkspaceMemberStatusCode
-> = z.enum(GetWorkspaceMemberStatusCode);
-
-/** @internal */
-export const GetWorkspaceMemberType$inboundSchema: z.ZodMiniEnum<
-  typeof GetWorkspaceMemberType
-> = z.enum(GetWorkspaceMemberType);
-
-/** @internal */
-export const GetWorkspaceMemberCode$inboundSchema: z.ZodMiniEnum<
-  typeof GetWorkspaceMemberCode
-> = z.enum(GetWorkspaceMemberCode);
 
 /** @internal */
 export const GetWorkspaceMemberResponse$inboundSchema: z.ZodMiniType<
