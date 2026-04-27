@@ -330,7 +330,7 @@ export type CreateTaskSlugOrIdOfMatchingAttributeUnion =
   | CreateTaskSlugOrIdOfMatchingAttribute4
   | CreateTaskSlugOrIdOfMatchingAttribute5;
 
-export type CreateTaskLinkedRecord2 = {
+export type CreateTaskLinkedRecords2 = {
   /**
    * A UUID or slug to identify the object that the referenced record belongs to.
    */
@@ -347,7 +347,7 @@ export type CreateTaskLinkedRecord2 = {
   >;
 };
 
-export type CreateTaskLinkedRecord1 = {
+export type CreateTaskLinkedRecords1 = {
   /**
    * The ID or slug of the parent object the tasks refers to. This can reference both standard and custom objects.`
    */
@@ -358,9 +358,16 @@ export type CreateTaskLinkedRecord1 = {
   targetRecordId: string;
 };
 
-export type CreateTaskLinkedRecordUnion =
-  | CreateTaskLinkedRecord1
-  | CreateTaskLinkedRecord2;
+export type CreateTaskLinkedRecordsUnion2 =
+  | CreateTaskLinkedRecords1
+  | CreateTaskLinkedRecords2;
+
+/**
+ * Records linked to the task. Records can be linked by domain (for companies), email address (for people), record ID (for all objects) or by a unique matching attribute (for all objects). Creating record links within task content text is not possible via the API at present.
+ */
+export type CreateTaskLinkedRecordsUnion1 =
+  | Array<string>
+  | Array<CreateTaskLinkedRecords1 | CreateTaskLinkedRecords2>;
 
 export type CreateTaskAssignee = {
   /**
@@ -415,9 +422,11 @@ export type CreateTaskData = {
    */
   isCompleted: boolean;
   /**
-   * Records linked to the task. Creating record links within task content text is not possible via the API at present.
+   * Records linked to the task. Records can be linked by domain (for companies), email address (for people), record ID (for all objects) or by a unique matching attribute (for all objects). Creating record links within task content text is not possible via the API at present.
    */
-  linkedRecords: Array<CreateTaskLinkedRecord1 | CreateTaskLinkedRecord2>;
+  linkedRecords:
+    | Array<string>
+    | Array<CreateTaskLinkedRecords1 | CreateTaskLinkedRecords2>;
   /**
    * Workspace members assigned to this task.
    */
@@ -658,7 +667,7 @@ export function createTaskSlugOrIdOfMatchingAttributeUnionToJSON(
 }
 
 /** @internal */
-export type CreateTaskLinkedRecord2$Outbound = {
+export type CreateTaskLinkedRecords2$Outbound = {
   target_object: string;
   "[slug_or_id_of_matching_attribute]": Array<
     | CreateTaskSlugOrIdOfMatchingAttribute1$Outbound
@@ -670,9 +679,9 @@ export type CreateTaskLinkedRecord2$Outbound = {
 };
 
 /** @internal */
-export const CreateTaskLinkedRecord2$outboundSchema: z.ZodMiniType<
-  CreateTaskLinkedRecord2$Outbound,
-  CreateTaskLinkedRecord2
+export const CreateTaskLinkedRecords2$outboundSchema: z.ZodMiniType<
+  CreateTaskLinkedRecords2$Outbound,
+  CreateTaskLinkedRecords2
 > = z.pipe(
   z.object({
     targetObject: z.string(),
@@ -692,24 +701,24 @@ export const CreateTaskLinkedRecord2$outboundSchema: z.ZodMiniType<
   }),
 );
 
-export function createTaskLinkedRecord2ToJSON(
-  createTaskLinkedRecord2: CreateTaskLinkedRecord2,
+export function createTaskLinkedRecords2ToJSON(
+  createTaskLinkedRecords2: CreateTaskLinkedRecords2,
 ): string {
   return JSON.stringify(
-    CreateTaskLinkedRecord2$outboundSchema.parse(createTaskLinkedRecord2),
+    CreateTaskLinkedRecords2$outboundSchema.parse(createTaskLinkedRecords2),
   );
 }
 
 /** @internal */
-export type CreateTaskLinkedRecord1$Outbound = {
+export type CreateTaskLinkedRecords1$Outbound = {
   target_object: string;
   target_record_id: string;
 };
 
 /** @internal */
-export const CreateTaskLinkedRecord1$outboundSchema: z.ZodMiniType<
-  CreateTaskLinkedRecord1$Outbound,
-  CreateTaskLinkedRecord1
+export const CreateTaskLinkedRecords1$outboundSchema: z.ZodMiniType<
+  CreateTaskLinkedRecords1$Outbound,
+  CreateTaskLinkedRecords1
 > = z.pipe(
   z.object({
     targetObject: z.string(),
@@ -723,34 +732,63 @@ export const CreateTaskLinkedRecord1$outboundSchema: z.ZodMiniType<
   }),
 );
 
-export function createTaskLinkedRecord1ToJSON(
-  createTaskLinkedRecord1: CreateTaskLinkedRecord1,
+export function createTaskLinkedRecords1ToJSON(
+  createTaskLinkedRecords1: CreateTaskLinkedRecords1,
 ): string {
   return JSON.stringify(
-    CreateTaskLinkedRecord1$outboundSchema.parse(createTaskLinkedRecord1),
+    CreateTaskLinkedRecords1$outboundSchema.parse(createTaskLinkedRecords1),
   );
 }
 
 /** @internal */
-export type CreateTaskLinkedRecordUnion$Outbound =
-  | CreateTaskLinkedRecord1$Outbound
-  | CreateTaskLinkedRecord2$Outbound;
+export type CreateTaskLinkedRecordsUnion2$Outbound =
+  | CreateTaskLinkedRecords1$Outbound
+  | CreateTaskLinkedRecords2$Outbound;
 
 /** @internal */
-export const CreateTaskLinkedRecordUnion$outboundSchema: z.ZodMiniType<
-  CreateTaskLinkedRecordUnion$Outbound,
-  CreateTaskLinkedRecordUnion
+export const CreateTaskLinkedRecordsUnion2$outboundSchema: z.ZodMiniType<
+  CreateTaskLinkedRecordsUnion2$Outbound,
+  CreateTaskLinkedRecordsUnion2
 > = smartUnion([
-  z.lazy(() => CreateTaskLinkedRecord1$outboundSchema),
-  z.lazy(() => CreateTaskLinkedRecord2$outboundSchema),
+  z.lazy(() => CreateTaskLinkedRecords1$outboundSchema),
+  z.lazy(() => CreateTaskLinkedRecords2$outboundSchema),
 ]);
 
-export function createTaskLinkedRecordUnionToJSON(
-  createTaskLinkedRecordUnion: CreateTaskLinkedRecordUnion,
+export function createTaskLinkedRecordsUnion2ToJSON(
+  createTaskLinkedRecordsUnion2: CreateTaskLinkedRecordsUnion2,
 ): string {
   return JSON.stringify(
-    CreateTaskLinkedRecordUnion$outboundSchema.parse(
-      createTaskLinkedRecordUnion,
+    CreateTaskLinkedRecordsUnion2$outboundSchema.parse(
+      createTaskLinkedRecordsUnion2,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateTaskLinkedRecordsUnion1$Outbound =
+  | Array<string>
+  | Array<
+    CreateTaskLinkedRecords1$Outbound | CreateTaskLinkedRecords2$Outbound
+  >;
+
+/** @internal */
+export const CreateTaskLinkedRecordsUnion1$outboundSchema: z.ZodMiniType<
+  CreateTaskLinkedRecordsUnion1$Outbound,
+  CreateTaskLinkedRecordsUnion1
+> = smartUnion([
+  z.array(z.string()),
+  z.array(smartUnion([
+    z.lazy(() => CreateTaskLinkedRecords1$outboundSchema),
+    z.lazy(() => CreateTaskLinkedRecords2$outboundSchema),
+  ])),
+]);
+
+export function createTaskLinkedRecordsUnion1ToJSON(
+  createTaskLinkedRecordsUnion1: CreateTaskLinkedRecordsUnion1,
+): string {
+  return JSON.stringify(
+    CreateTaskLinkedRecordsUnion1$outboundSchema.parse(
+      createTaskLinkedRecordsUnion1,
     ),
   );
 }
@@ -849,9 +887,11 @@ export type CreateTaskData$Outbound = {
   format: string;
   deadline_at: string | null;
   is_completed: boolean;
-  linked_records: Array<
-    CreateTaskLinkedRecord1$Outbound | CreateTaskLinkedRecord2$Outbound
-  >;
+  linked_records:
+    | Array<string>
+    | Array<
+      CreateTaskLinkedRecords1$Outbound | CreateTaskLinkedRecords2$Outbound
+    >;
   assignees: Array<
     CreateTaskAssigneeWorkspaceMember$Outbound | CreateTaskAssignee$Outbound
   >;
@@ -867,16 +907,21 @@ export const CreateTaskData$outboundSchema: z.ZodMiniType<
     format: CreateTaskFormat$outboundSchema,
     deadlineAt: z.nullable(z.string()),
     isCompleted: z.boolean(),
-    linkedRecords: z.array(smartUnion([
-      z.lazy(() => CreateTaskLinkedRecord1$outboundSchema),
-      z.lazy(() => CreateTaskLinkedRecord2$outboundSchema),
-    ])),
-    assignees: z.array(smartUnion([
-      z.lazy(() => CreateTaskAssigneeWorkspaceMember$outboundSchema),
-      z.lazy(() =>
-        CreateTaskAssignee$outboundSchema
+    linkedRecords: smartUnion([
+      z.array(z.string()),
+      z.array(
+        smartUnion([
+          z.lazy(() => CreateTaskLinkedRecords1$outboundSchema),
+          z.lazy(() => CreateTaskLinkedRecords2$outboundSchema),
+        ]),
       ),
-    ])),
+    ]),
+    assignees: z.array(
+      smartUnion([
+        z.lazy(() => CreateTaskAssigneeWorkspaceMember$outboundSchema),
+        z.lazy(() => CreateTaskAssignee$outboundSchema),
+      ]),
+    ),
   }),
   z.transform((v) => {
     return remap$(v, {

@@ -14,7 +14,7 @@ export class ScimSchemas extends ClientSDK {
    * @remarks
    * Lists the SCIM schemas supported by this service provider.
    *
-   * Required scopes: `scim_management:read`.
+   * Required scopes: `user_management:read`.
    */
   async list(
     options?: RequestOptions,

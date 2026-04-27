@@ -17,6 +17,7 @@ let value: ListTasksResponse = {
       contentPlaintext: "Follow up on current software solutions",
       deadlineAt: "2023-01-01",
       isCompleted: false,
+      completedAt: "2022-11-21T13:22:49.061281000Z",
       linkedRecords: [
         {
           targetObjectId: "people",
