@@ -3,6 +3,8 @@
  */
 
 import { scimUsersCreate } from "../funcs/scim-users-create.js";
+import { scimUsersDeleteScimV2UsersUserId } from "../funcs/scim-users-delete-scim-v2-users-user-id.js";
+import { scimUsersGetScimV2UsersUserId } from "../funcs/scim-users-get-scim-v2-users-user-id.js";
 import { scimUsersList } from "../funcs/scim-users-list.js";
 import { scimUsersPatch } from "../funcs/scim-users-patch.js";
 import { scimUsersUpdate } from "../funcs/scim-users-update.js";
@@ -17,7 +19,7 @@ export class ScimUsers extends ClientSDK {
    * @remarks
    * Lists SCIM users for the workspace.
    *
-   * Required scopes: `scim_management:read`.
+   * Required scopes: `user_management:read`.
    */
   async list(
     options?: RequestOptions,
@@ -34,7 +36,7 @@ export class ScimUsers extends ClientSDK {
    * @remarks
    * Creates a SCIM user in the workspace.
    *
-   * Required scopes: `scim_management:read-write`.
+   * Required scopes: `user_management:read-write`.
    */
   async create(
     options?: RequestOptions,
@@ -51,7 +53,7 @@ export class ScimUsers extends ClientSDK {
    * @remarks
    * Patches a SCIM user in the workspace.
    *
-   * Required scopes: `scim_management:read-write`.
+   * Required scopes: `user_management:read-write`.
    */
   async patch(
     request: operations.PatchScimUserRequest,
@@ -70,13 +72,51 @@ export class ScimUsers extends ClientSDK {
    * @remarks
    * Updates a SCIM user in the workspace.
    *
-   * Required scopes: `scim_management:read-write`.
+   * Required scopes: `user_management:read-write`.
    */
   async update(
     request: operations.UpdateScimUserRequest,
     options?: RequestOptions,
   ): Promise<operations.UpdateScimUserResponse> {
     return unwrapAsync(scimUsersUpdate(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Get SCIM user
+   *
+   * @remarks
+   * Gets a SCIM user by ID.
+   *
+   * Required scopes: `user_management:read`.
+   */
+  async getScimV2UsersUserId(
+    request: operations.GetScimV2UsersUserIdRequest,
+    options?: RequestOptions,
+  ): Promise<operations.GetScimV2UsersUserIdResponse> {
+    return unwrapAsync(scimUsersGetScimV2UsersUserId(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Delete SCIM user
+   *
+   * @remarks
+   * Deletes a SCIM user from the workspace.
+   *
+   * Required scopes: `user_management:read-write`.
+   */
+  async deleteScimV2UsersUserId(
+    request: operations.DeleteScimV2UsersUserIdRequest,
+    options?: RequestOptions,
+  ): Promise<operations.DeleteScimV2UsersUserIdResponse> {
+    return unwrapAsync(scimUsersDeleteScimV2UsersUserId(
       this,
       request,
       options,

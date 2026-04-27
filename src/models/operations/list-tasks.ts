@@ -11,14 +11,16 @@ import { SDKValidationError } from "../errors/sdk-validation-error.js";
 import * as models from "../index.js";
 
 /**
- * Optionally sort the results. "created_at:asc" returns oldest results first, "created_at:desc" returns the newest results first. If unspecified, defaults to "created_at:asc" (oldest results first).
+ * Optionally sort the results. "created_at:asc" returns oldest results first, "created_at:desc" returns the newest results first. "completed_at:asc" and "completed_at:desc" sort by completion time. With "completed_at:asc", incomplete tasks (no completion date) appear first, followed by completed tasks oldest-first. With "completed_at:desc", completed tasks appear first (newest-first), followed by incomplete tasks. To exclude incomplete tasks, filter by is_completed. If unspecified, defaults to "created_at:asc" (oldest results first).
  */
 export const ListTasksSort = {
   CreatedAtAsc: "created_at:asc",
   CreatedAtDesc: "created_at:desc",
+  CompletedAtAsc: "completed_at:asc",
+  CompletedAtDesc: "completed_at:desc",
 } as const;
 /**
- * Optionally sort the results. "created_at:asc" returns oldest results first, "created_at:desc" returns the newest results first. If unspecified, defaults to "created_at:asc" (oldest results first).
+ * Optionally sort the results. "created_at:asc" returns oldest results first, "created_at:desc" returns the newest results first. "completed_at:asc" and "completed_at:desc" sort by completion time. With "completed_at:asc", incomplete tasks (no completion date) appear first, followed by completed tasks oldest-first. With "completed_at:desc", completed tasks appear first (newest-first), followed by incomplete tasks. To exclude incomplete tasks, filter by is_completed. If unspecified, defaults to "created_at:asc" (oldest results first).
  */
 export type ListTasksSort = ClosedEnum<typeof ListTasksSort>;
 
@@ -26,7 +28,7 @@ export type ListTasksRequest = {
   limit?: number | undefined;
   offset?: number | undefined;
   /**
-   * Optionally sort the results. "created_at:asc" returns oldest results first, "created_at:desc" returns the newest results first. If unspecified, defaults to "created_at:asc" (oldest results first).
+   * Optionally sort the results. "created_at:asc" returns oldest results first, "created_at:desc" returns the newest results first. "completed_at:asc" and "completed_at:desc" sort by completion time. With "completed_at:asc", incomplete tasks (no completion date) appear first, followed by completed tasks oldest-first. With "completed_at:desc", completed tasks appear first (newest-first), followed by incomplete tasks. To exclude incomplete tasks, filter by is_completed. If unspecified, defaults to "created_at:asc" (oldest results first).
    */
   sort?: ListTasksSort | undefined;
   linkedObject?: string | undefined;

@@ -103,7 +103,7 @@ export type Participant = {
   status: FindOrCreateMeetingStatus;
 };
 
-export type FindOrCreateMeetingLinkedRecord = {
+export type LinkedRecord = {
   /**
    * The slug or UUID of the object that the record being linked belongs to.
    */
@@ -175,7 +175,7 @@ export type FindOrCreateMeetingData = {
   /**
    * A list of records to link to the meeting. Each record is specified by its object (slug or UUID) and record ID (UUID). Attio will automatically link the meeting participants' companies to the meeting; this behavior is asynchronous.
    */
-  linkedRecords?: Array<FindOrCreateMeetingLinkedRecord> | undefined;
+  linkedRecords?: Array<LinkedRecord> | undefined;
   /**
    * A consistent external reference used to match and de-duplicate meetings. Can be either a plain string (for external system IDs) or an object with `ical_uid` and `provider`. If you are writing data into Attio which is based upon calendar events that you have synced from a Google or Microsoft calendar, you must use the iCal format to avoid creating duplicate meetings inside Attio.
    */
@@ -378,15 +378,15 @@ export function participantToJSON(participant: Participant): string {
 }
 
 /** @internal */
-export type FindOrCreateMeetingLinkedRecord$Outbound = {
+export type LinkedRecord$Outbound = {
   object: string;
   record_id: string;
 };
 
 /** @internal */
-export const FindOrCreateMeetingLinkedRecord$outboundSchema: z.ZodMiniType<
-  FindOrCreateMeetingLinkedRecord$Outbound,
-  FindOrCreateMeetingLinkedRecord
+export const LinkedRecord$outboundSchema: z.ZodMiniType<
+  LinkedRecord$Outbound,
+  LinkedRecord
 > = z.pipe(
   z.object({
     object: z.string(),
@@ -399,14 +399,8 @@ export const FindOrCreateMeetingLinkedRecord$outboundSchema: z.ZodMiniType<
   }),
 );
 
-export function findOrCreateMeetingLinkedRecordToJSON(
-  findOrCreateMeetingLinkedRecord: FindOrCreateMeetingLinkedRecord,
-): string {
-  return JSON.stringify(
-    FindOrCreateMeetingLinkedRecord$outboundSchema.parse(
-      findOrCreateMeetingLinkedRecord,
-    ),
-  );
+export function linkedRecordToJSON(linkedRecord: LinkedRecord): string {
+  return JSON.stringify(LinkedRecord$outboundSchema.parse(linkedRecord));
 }
 
 /** @internal */
@@ -471,7 +465,7 @@ export type FindOrCreateMeetingData$Outbound = {
   end: End1$Outbound | End2$Outbound;
   is_all_day: boolean;
   participants: Array<Participant$Outbound>;
-  linked_records?: Array<FindOrCreateMeetingLinkedRecord$Outbound> | undefined;
+  linked_records?: Array<LinkedRecord$Outbound> | undefined;
   external_ref: ExternalRef$Outbound | string;
 };
 
@@ -494,7 +488,7 @@ export const FindOrCreateMeetingData$outboundSchema: z.ZodMiniType<
     isAllDay: z.boolean(),
     participants: z.array(z.lazy(() => Participant$outboundSchema)),
     linkedRecords: z.optional(
-      z.array(z.lazy(() => FindOrCreateMeetingLinkedRecord$outboundSchema)),
+      z.array(z.lazy(() => LinkedRecord$outboundSchema)),
     ),
     externalRef: smartUnion([
       z.lazy(() => ExternalRef$outboundSchema),

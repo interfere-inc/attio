@@ -101,6 +101,10 @@ export type Task = {
    */
   isCompleted: boolean;
   /**
+   * When the task was completed, or null if it has not been completed.
+   */
+  completedAt: string | null;
+  /**
    * Records linked to the task. Creating record links within task content text is not possible via the API at present.
    */
   linkedRecords: Array<TaskLinkedRecord>;
@@ -229,6 +233,7 @@ export const Task$inboundSchema: z.ZodMiniType<Task, unknown> = z.pipe(
     content_plaintext: types.string(),
     deadline_at: types.nullable(types.string()),
     is_completed: types.boolean(),
+    completed_at: types.nullable(types.string()),
     linked_records: z.array(z.lazy(() => TaskLinkedRecord$inboundSchema)),
     assignees: z.array(z.lazy(() => Assignee$inboundSchema)),
     created_by_actor: z.lazy(() => TaskCreatedByActor$inboundSchema),
@@ -239,6 +244,7 @@ export const Task$inboundSchema: z.ZodMiniType<Task, unknown> = z.pipe(
       "content_plaintext": "contentPlaintext",
       "deadline_at": "deadlineAt",
       "is_completed": "isCompleted",
+      "completed_at": "completedAt",
       "linked_records": "linkedRecords",
       "created_by_actor": "createdByActor",
       "created_at": "createdAt",

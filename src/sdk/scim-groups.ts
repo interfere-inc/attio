@@ -3,6 +3,8 @@
  */
 
 import { scimGroupsCreate } from "../funcs/scim-groups-create.js";
+import { scimGroupsDeleteScimV2GroupsWorkspaceTeamId } from "../funcs/scim-groups-delete-scim-v2-groups-workspace-team-id.js";
+import { scimGroupsGetScimV2GroupsWorkspaceTeamId } from "../funcs/scim-groups-get-scim-v2-groups-workspace-team-id.js";
 import { scimGroupsList } from "../funcs/scim-groups-list.js";
 import { scimGroupsPatch } from "../funcs/scim-groups-patch.js";
 import { scimGroupsUpdate } from "../funcs/scim-groups-update.js";
@@ -17,7 +19,7 @@ export class ScimGroups extends ClientSDK {
    * @remarks
    * Lists SCIM groups for the workspace.
    *
-   * Required scopes: `scim_management:read`.
+   * Required scopes: `user_management:read`.
    */
   async list(
     options?: RequestOptions,
@@ -34,7 +36,7 @@ export class ScimGroups extends ClientSDK {
    * @remarks
    * Creates a SCIM group for the workspace.
    *
-   * Required scopes: `scim_management:read-write`.
+   * Required scopes: `user_management:read-write`.
    */
   async create(
     options?: RequestOptions,
@@ -51,7 +53,7 @@ export class ScimGroups extends ClientSDK {
    * @remarks
    * Patches a SCIM group in the workspace.
    *
-   * Required scopes: `scim_management:read-write`.
+   * Required scopes: `user_management:read-write`.
    */
   async patch(
     request: operations.PatchScimGroupRequest,
@@ -70,13 +72,51 @@ export class ScimGroups extends ClientSDK {
    * @remarks
    * Updates a SCIM group in the workspace.
    *
-   * Required scopes: `scim_management:read-write`.
+   * Required scopes: `user_management:read-write`.
    */
   async update(
     request: operations.UpdateScimGroupRequest,
     options?: RequestOptions,
   ): Promise<operations.UpdateScimGroupResponse> {
     return unwrapAsync(scimGroupsUpdate(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Get SCIM group
+   *
+   * @remarks
+   * Gets a SCIM group by ID.
+   *
+   * Required scopes: `user_management:read`.
+   */
+  async getScimV2GroupsWorkspaceTeamId(
+    request: operations.GetScimV2GroupsWorkspaceTeamIdRequest,
+    options?: RequestOptions,
+  ): Promise<operations.GetScimV2GroupsWorkspaceTeamIdResponse> {
+    return unwrapAsync(scimGroupsGetScimV2GroupsWorkspaceTeamId(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Delete SCIM group
+   *
+   * @remarks
+   * Deletes a SCIM group from the workspace.
+   *
+   * Required scopes: `user_management:read-write`.
+   */
+  async deleteScimV2GroupsWorkspaceTeamId(
+    request: operations.DeleteScimV2GroupsWorkspaceTeamIdRequest,
+    options?: RequestOptions,
+  ): Promise<operations.DeleteScimV2GroupsWorkspaceTeamIdResponse> {
+    return unwrapAsync(scimGroupsDeleteScimV2GroupsWorkspaceTeamId(
       this,
       request,
       options,

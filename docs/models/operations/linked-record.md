@@ -1,11 +1,11 @@
-# FindOrCreateMeetingLinkedRecord
+# LinkedRecord
 
 ## Example Usage
 
 ```typescript
-import { FindOrCreateMeetingLinkedRecord } from "@interfere/attio/models/operations";
+import { LinkedRecord } from "@interfere/attio/models/operations";
 
-let value: FindOrCreateMeetingLinkedRecord = {
+let value: LinkedRecord = {
   object: "people",
   recordId: "891dcbfc-9141-415d-9b2a-2238a6cc012d",
 };

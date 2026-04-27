@@ -120,12 +120,4 @@ export type OAuth2Scope =
   /**
    * View, and upload files.
    */
-  | "file:read-write"
-  /**
-   * View and manage users via SCIM.
-   */
-  | "scim_management:read"
-  /**
-   * View and manage users via SCIM.
-   */
-  | "scim_management:read-write";
+  | "file:read-write";

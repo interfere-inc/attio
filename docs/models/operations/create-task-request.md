@@ -11,13 +11,11 @@ let value: CreateTaskRequest = {
     format: "plaintext",
     deadlineAt: "2023-01-01T15:00:00.000000000Z",
     isCompleted: false,
-    linkedRecords: [],
-    assignees: [
-      {
-        referencedActorType: "workspace-member",
-        referencedActorId: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
-      },
+    linkedRecords: [
+      "person@company.com",
+      "fundstack.com",
     ],
+    assignees: [],
   },
 };
 ```

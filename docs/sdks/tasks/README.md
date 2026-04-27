@@ -125,15 +125,8 @@ async function run() {
       deadlineAt: "2023-01-01T15:00:00.000000000Z",
       isCompleted: false,
       linkedRecords: [
-        {
-          targetObject: "people",
-          slugOrIdOfMatchingAttribute: [
-            {
-              originalPhoneNumber: "07234172834",
-              countryCode: "GB",
-            },
-          ],
-        },
+        "person@company.com",
+        "fundstack.com",
       ],
       assignees: [
         {
@@ -171,15 +164,8 @@ async function run() {
       deadlineAt: "2023-01-01T15:00:00.000000000Z",
       isCompleted: false,
       linkedRecords: [
-        {
-          targetObject: "people",
-          slugOrIdOfMatchingAttribute: [
-            {
-              originalPhoneNumber: "07234172834",
-              countryCode: "GB",
-            },
-          ],
-        },
+        "person@company.com",
+        "fundstack.com",
       ],
       assignees: [
         {
@@ -320,10 +306,8 @@ async function run() {
         deadlineAt: "2023-01-01T15:00:00.000000000Z",
         isCompleted: false,
         linkedRecords: [
-          {
-            targetObject: "people",
-            targetRecordId: "891dcbfc-9141-415d-9b2a-2238a6cc012d",
-          },
+          "person@company.com",
+          "fundstack.com",
         ],
         assignees: [
           {
@@ -363,10 +347,8 @@ async function run() {
         deadlineAt: "2023-01-01T15:00:00.000000000Z",
         isCompleted: false,
         linkedRecords: [
-          {
-            targetObject: "people",
-            targetRecordId: "891dcbfc-9141-415d-9b2a-2238a6cc012d",
-          },
+          "person@company.com",
+          "fundstack.com",
         ],
         assignees: [
           {

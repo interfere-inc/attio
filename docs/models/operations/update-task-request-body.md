@@ -10,14 +10,13 @@ let value: UpdateTaskRequestBody = {
     deadlineAt: "2023-01-01T15:00:00.000000000Z",
     isCompleted: false,
     linkedRecords: [
-      {
-        targetObject: "people",
-        targetRecordId: "891dcbfc-9141-415d-9b2a-2238a6cc012d",
-      },
+      "person@company.com",
+      "fundstack.com",
     ],
     assignees: [
       {
-        workspaceMemberEmailAddress: "alice@attio.com",
+        referencedActorType: "workspace-member",
+        referencedActorId: "50cf242c-7fa3-4cad-87d0-75b1af71c57b",
       },
     ],
   },

@@ -1,11 +1,11 @@
-# CreateTaskLinkedRecord1
+# CreateTaskLinkedRecords1
 
 ## Example Usage
 
 ```typescript
-import { CreateTaskLinkedRecord1 } from "@interfere/attio/models/operations";
+import { CreateTaskLinkedRecords1 } from "@interfere/attio/models/operations";
 
-let value: CreateTaskLinkedRecord1 = {
+let value: CreateTaskLinkedRecords1 = {
   targetObject: "people",
   targetRecordId: "891dcbfc-9141-415d-9b2a-2238a6cc012d",
 };

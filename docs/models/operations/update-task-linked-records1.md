@@ -1,11 +1,11 @@
-# UpdateTaskLinkedRecord1
+# UpdateTaskLinkedRecords1
 
 ## Example Usage
 
 ```typescript
-import { UpdateTaskLinkedRecord1 } from "@interfere/attio/models/operations";
+import { UpdateTaskLinkedRecords1 } from "@interfere/attio/models/operations";
 
-let value: UpdateTaskLinkedRecord1 = {
+let value: UpdateTaskLinkedRecords1 = {
   targetObject: "people",
   targetRecordId: "891dcbfc-9141-415d-9b2a-2238a6cc012d",
 };
