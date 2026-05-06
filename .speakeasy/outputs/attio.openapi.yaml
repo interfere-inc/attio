@@ -31239,8 +31239,6 @@ paths:
                           type: "string"
                         value:
                           type: "string"
-                        display:
-                          type: "string"
                   meta:
                     type: "object"
                     required:
@@ -31288,7 +31286,6 @@ paths:
                   - "schemas"
                   - "id"
                   - "userName"
-                  - "displayName"
                   - "name"
                   - "emails"
                   - "active"
@@ -31303,17 +31300,12 @@ paths:
                     type: "string"
                   userName:
                     type: "string"
-                  displayName:
-                    type: "string"
                   name:
                     type: "object"
                     required:
-                      - "formatted"
                       - "familyName"
                       - "givenName"
                     properties:
-                      formatted:
-                        type: "string"
                       familyName:
                         type: "string"
                       givenName:
@@ -31711,8 +31703,6 @@ paths:
                           type: "string"
                         value:
                           type: "string"
-                        display:
-                          type: "string"
                   meta:
                     type: "object"
                     required:
@@ -31775,8 +31765,6 @@ paths:
                         $ref:
                           type: "string"
                         value:
-                          type: "string"
-                        display:
                           type: "string"
                   meta:
                     type: "object"

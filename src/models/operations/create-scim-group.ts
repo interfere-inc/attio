@@ -12,7 +12,6 @@ import { SDKValidationError } from "../errors/sdk-validation-error.js";
 export type CreateScimGroupMember = {
   dollarRef: string;
   value: string;
-  display?: string | undefined;
 };
 
 export type CreateScimGroupMeta = {
@@ -40,7 +39,6 @@ export const CreateScimGroupMember$inboundSchema: z.ZodMiniType<
   z.object({
     $ref: types.string(),
     value: types.string(),
-    display: types.optional(types.string()),
   }),
   z.transform((v) => {
     return remap$(v, {

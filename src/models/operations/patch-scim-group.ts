@@ -16,7 +16,6 @@ export type PatchScimGroupRequest = {
 export type PatchScimGroupMember = {
   dollarRef: string;
   value: string;
-  display?: string | undefined;
 };
 
 export type PatchScimGroupMeta = {
@@ -72,7 +71,6 @@ export const PatchScimGroupMember$inboundSchema: z.ZodMiniType<
   z.object({
     $ref: types.string(),
     value: types.string(),
-    display: types.optional(types.string()),
   }),
   z.transform((v) => {
     return remap$(v, {

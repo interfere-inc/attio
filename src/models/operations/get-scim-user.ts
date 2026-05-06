@@ -14,7 +14,6 @@ export type GetScimUserRequest = {
 };
 
 export type GetScimUserName = {
-  formatted: string;
   familyName: string;
   givenName: string;
 };
@@ -42,7 +41,6 @@ export type GetScimUserResponse = {
   schemas: Array<string>;
   id: string;
   userName: string;
-  displayName: string;
   name: GetScimUserName;
   emails: Array<GetScimUserEmail>;
   active: boolean;
@@ -83,7 +81,6 @@ export const GetScimUserName$inboundSchema: z.ZodMiniType<
   GetScimUserName,
   unknown
 > = z.object({
-  formatted: types.string(),
   familyName: types.string(),
   givenName: types.string(),
 });
@@ -164,7 +161,6 @@ export const GetScimUserResponse$inboundSchema: z.ZodMiniType<
   schemas: z.array(types.string()),
   id: types.string(),
   userName: types.string(),
-  displayName: types.string(),
   name: z.lazy(() => GetScimUserName$inboundSchema),
   emails: z.array(z.lazy(() => GetScimUserEmail$inboundSchema)),
   active: types.boolean(),

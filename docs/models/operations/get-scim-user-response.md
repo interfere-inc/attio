@@ -13,9 +13,7 @@ let value: GetScimUserResponse = {
   ],
   id: "<id>",
   userName: "Berta6",
-  displayName: "Lilla61",
   name: {
-    formatted: "<value>",
     familyName: "<value>",
     givenName: "<value>",
   },
@@ -25,13 +23,8 @@ let value: GetScimUserResponse = {
       primary: false,
     },
   ],
-  active: false,
-  roles: [
-    {
-      value: "<value>",
-      primary: true,
-    },
-  ],
+  active: true,
+  roles: [],
   meta: {
     resourceType: "<value>",
     created: "<value>",
@@ -47,7 +40,6 @@ let value: GetScimUserResponse = {
 | `schemas`                                                                       | *string*[]                                                                      | :heavy_check_mark:                                                              | N/A                                                                             |
 | `id`                                                                            | *string*                                                                        | :heavy_check_mark:                                                              | N/A                                                                             |
 | `userName`                                                                      | *string*                                                                        | :heavy_check_mark:                                                              | N/A                                                                             |
-| `displayName`                                                                   | *string*                                                                        | :heavy_check_mark:                                                              | N/A                                                                             |
 | `name`                                                                          | [operations.GetScimUserName](../../models/operations/get-scim-user-name.md)     | :heavy_check_mark:                                                              | N/A                                                                             |
 | `emails`                                                                        | [operations.GetScimUserEmail](../../models/operations/get-scim-user-email.md)[] | :heavy_check_mark:                                                              | N/A                                                                             |
 | `active`                                                                        | *boolean*                                                                       | :heavy_check_mark:                                                              | N/A                                                                             |
