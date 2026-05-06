@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 794fcaa0-15b6-4542-ad50-1c9ffc9e2dde
 management:
-  docChecksum: 8531441a07cc5043392b86df2745f72f
+  docChecksum: d73b44af631a5a995621e9e7dd1fcfcc
   docVersion: 2.0.0
-  speakeasyVersion: 1.761.9
-  generationVersion: 2.881.4
-  releaseVersion: 0.2.15
-  configChecksum: 8d2bb3f820132728a18c06c6840f6763
+  speakeasyVersion: 1.762.0
+  generationVersion: 2.882.0
+  releaseVersion: 0.2.16
+  configChecksum: cbe0cd6684fe3ccf8e83ee31f749a222
   repoURL: https://github.com/interfere-inc/attio.git
   installationURL: https://github.com/interfere-inc/attio
   published: true
@@ -18,7 +18,7 @@ features:
   typescript:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.14
-    core: 3.26.49
+    core: 3.26.50
     defaultEnabledRetries: 0.1.0
     devContainers: 2.90.1
     enumUnions: 0.1.0
@@ -61,7 +61,7 @@ trackedFiles:
     last_write_checksum: sha1:f14bd09c455fa2de0d94641369b7888d23ee62f2
   FUNCTIONS.md:
     id: 21b9df02aaeb
-    last_write_checksum: sha1:08de8b6ff0debac079b3644d5610757cb6fe40cb
+    last_write_checksum: sha1:23051f914a8aa03a74cf8c22d46e3af5bdbf3a53
     pristine_git_object: 4bf4935f5b1567639eb94d2d1e6ee538376fe187
   RUNTIMES.md:
     id: 620c490847b6
@@ -1184,7 +1184,7 @@ trackedFiles:
   docs/models/operations/create-record-value-union.md:
     last_write_checksum: sha1:946eecd21cb32fc6252576d28f1135448fb72929
   docs/models/operations/create-scim-group-member.md:
-    last_write_checksum: sha1:c9af02ab3b47a21bfcd2d40acc9cb5197932914c
+    last_write_checksum: sha1:61f9b2c39c5ca7e0057446e8fed1376c4cb96233
   docs/models/operations/create-scim-group-meta.md:
     last_write_checksum: sha1:567ff18777743b5ff028db82892a04f2e94a361d
   docs/models/operations/create-scim-group-response.md:
@@ -1710,11 +1710,11 @@ trackedFiles:
   docs/models/operations/get-scim-user-meta.md:
     last_write_checksum: sha1:86d6a6d2b2889224603e1eb67c6fbb64892db25c
   docs/models/operations/get-scim-user-name.md:
-    last_write_checksum: sha1:67162a3b68f17d9a68a6570de2a748a74b3d7b40
+    last_write_checksum: sha1:8e83daaca770b93e57f76921009a7db85fe668f3
   docs/models/operations/get-scim-user-request.md:
     last_write_checksum: sha1:b18690e261657669139663fbcec15a6fc4bd5350
   docs/models/operations/get-scim-user-response.md:
-    last_write_checksum: sha1:5239a3df9317506654c6fdeb505a100afde41750
+    last_write_checksum: sha1:b10b6e1040aaad887858febeb3a94728f3befe3b
   docs/models/operations/get-scim-user-role.md:
     last_write_checksum: sha1:c94f1dab45a5807a49535d3be759e1da106a0a8b
   docs/models/operations/get-task-request.md:
@@ -2138,7 +2138,7 @@ trackedFiles:
     last_write_checksum: sha1:8ad8c34ba287ed3f7801ff31e563a4ad5ad8d3d1
     pristine_git_object: 969d0084516f37800f824a2a224fd2c5ddd7cd3a
   docs/models/operations/patch-scim-group-member.md:
-    last_write_checksum: sha1:98b5060cacf1ce4ca48c48f74be836d03a909f61
+    last_write_checksum: sha1:d62e79172f101c5fe73c036498c37b94f9833f29
   docs/models/operations/patch-scim-group-meta.md:
     last_write_checksum: sha1:04666da5e0b43dd9d0eec8438f4c90a6dee4d35a
   docs/models/operations/patch-scim-group-request.md:
@@ -3082,7 +3082,7 @@ trackedFiles:
   docs/models/operations/update-record-value-union.md:
     last_write_checksum: sha1:cc5a7ff1339768b91f7e08ec541a1e715aace249
   docs/models/operations/update-scim-group-member.md:
-    last_write_checksum: sha1:2dc73b267f8c8780b547df9ee8dd139400bd3732
+    last_write_checksum: sha1:0abcbc2469356c0a0bb57ec8a88bfbae47583a14
   docs/models/operations/update-scim-group-meta.md:
     last_write_checksum: sha1:e45243a4dcce7c705f5499a11b97d363097e2caf
   docs/models/operations/update-scim-group-request.md:
@@ -3505,11 +3505,11 @@ trackedFiles:
     pristine_git_object: 4aac7f082ee4396f40475ecb18a68d391b316054
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:fcdde7727635246221a5027ba1d21d217af36182
+    last_write_checksum: sha1:596d51bf3c3de6f5144d16a462d27c681ddbebbf
     pristine_git_object: 3765d52f293dd40e215660e3eec0f095107c6299
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:8029c762a8689e0d1bb1ebb84a06e998ce5d95cc
+    last_write_checksum: sha1:9cbcb64f4240bdbd717a111a6183a293f5e44186
     pristine_git_object: e2078100dc17afe81ba89a6439a3788096f2a176
   src/core.ts:
     id: f431fdbcd144
@@ -3823,7 +3823,7 @@ trackedFiles:
     pristine_git_object: 44be0eae8246521b230e8e711a88eff738fc015d
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:fddee5d8db4e4bb5149d58b0d2105d350a1a947f
+    last_write_checksum: sha1:b74f6311c15e25b0c540e38228b7f13b78adfcf6
     pristine_git_object: 5e129f5c009a3a571402fc9c45c1889a890edf54
   src/lib/dlv.ts:
     id: b1988214835a
@@ -4090,7 +4090,7 @@ trackedFiles:
   src/models/operations/create-record.ts:
     last_write_checksum: sha1:ce5c0a181466dc20e4489f31657cb68ca3a2e1e6
   src/models/operations/create-scim-group.ts:
-    last_write_checksum: sha1:0e62cc13c949383c311c10a4d1e14bb109d61b00
+    last_write_checksum: sha1:bd48b97842727b046672074d4d7b00c94b4842c8
   src/models/operations/create-scim-user.ts:
     last_write_checksum: sha1:31bb869bac1fdc6cbe5a267ba71968f0935b570c
   src/models/operations/create-task.ts:
@@ -4150,7 +4150,7 @@ trackedFiles:
   src/models/operations/get-scim-group.ts:
     last_write_checksum: sha1:173d66497d2123edf8ebf7de835ada673b3a1bed
   src/models/operations/get-scim-user.ts:
-    last_write_checksum: sha1:5bce0411d519cd5fef4327b8152ec5fad14f919e
+    last_write_checksum: sha1:aa3ed4c3f7933c7c068f0ce2ff6d04fd97b7cbbb
   src/models/operations/get-task.ts:
     last_write_checksum: sha1:3943dc0de9d8f740e90c359737585072834b8671
   src/models/operations/get-thread.ts:
@@ -4204,7 +4204,7 @@ trackedFiles:
   src/models/operations/list-workspace-members.ts:
     last_write_checksum: sha1:27571ccf00a8009e1f25eee77406782985ea5ef2
   src/models/operations/patch-scim-group.ts:
-    last_write_checksum: sha1:a3d33da4358329d18cb2158998157bc82b09a46e
+    last_write_checksum: sha1:1221370183cfa4e85c8217896dab08d4e4736bd4
   src/models/operations/patch-scim-user.ts:
     last_write_checksum: sha1:b79aac2c47ee51ecdd62a8a7e02505060ce8857e
   src/models/operations/query-entries.ts:
@@ -4232,7 +4232,7 @@ trackedFiles:
   src/models/operations/update-record.ts:
     last_write_checksum: sha1:5c3549d6a13fec6a899d3a5394916b484fe8678a
   src/models/operations/update-scim-group.ts:
-    last_write_checksum: sha1:cf9ad02692672c328f130465b6338c1ec07dbe0f
+    last_write_checksum: sha1:964e664e35dfb4b5e314d54152c97400f5df362e
   src/models/operations/update-scim-user.ts:
     last_write_checksum: sha1:57ea47101df9c8f7a4dd0c5303d3e8b61243a9c1
   src/models/operations/update-task.ts:
@@ -4387,7 +4387,7 @@ trackedFiles:
     pristine_git_object: beb81e10f0b9eee2ed398a853fe6f737b743f818
   src/types/primitives.ts:
     id: 0cd7f4ac625d
-    last_write_checksum: sha1:7bdf6c790bdbcb8e369088557c42878f5270a701
+    last_write_checksum: sha1:c3ce85778bf82bc0f0d464067b04856d99ff4365
     pristine_git_object: 6180991492b8b6afccb3bb808010d4a15823168f
   src/types/rfcdate.ts:
     id: 9eb64906dcd6
@@ -6427,7 +6427,7 @@ examples:
           user_id: "<id>"
       responses:
         "200":
-          application/json: {"schemas": ["<value 1>", "<value 2>", "<value 3>"], "id": "<id>", "userName": "Laverna_Reichel54", "displayName": "Alexzander.Ritchie", "name": {"formatted": "<value>", "familyName": "<value>", "givenName": "<value>"}, "emails": [], "active": false, "roles": [], "meta": {"resourceType": "<value>", "created": "<value>", "lastModified": "<value>"}}
+          application/json: {"schemas": ["<value 1>", "<value 2>", "<value 3>"], "id": "<id>", "userName": "Laverna_Reichel54", "name": {"familyName": "<value>", "givenName": "<value>"}, "emails": [], "active": false, "roles": [], "meta": {"resourceType": "<value>", "created": "<value>", "lastModified": "<value>"}}
   deleteScimUser:
     speakeasy-default-delete-scim-user:
       parameters:
@@ -6453,3 +6453,9 @@ examples:
         "204":
           application/json: {}
 examplesVersion: 1.0.2
+releaseNotes: |
+  ## Typescript SDK Changes:
+  * `attio.scimUsers.get()`:  `response` **Changed** (Breaking ⚠️)
+  * `attio.scimGroups.create()`:  `response.members[].display` **Removed** (Breaking ⚠️)
+  * `attio.scimGroups.patch()`:  `response.members[].display` **Removed** (Breaking ⚠️)
+  * `attio.scimGroups.update()`:  `response.members[].display` **Removed** (Breaking ⚠️)

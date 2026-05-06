@@ -29,3 +29,13 @@ Based on:
 - [typescript v0.2.10] .
 ### Releases
 - [NPM v0.2.10] https://www.npmjs.com/package/@interfere/attio/v/0.2.10 - .
+
+## 2026-05-06 00:47:40
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.762.0 (2.882.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [typescript v0.2.16] .
+### Releases
+- [NPM v0.2.16] https://www.npmjs.com/package/@interfere/attio/v/0.2.16 - .
