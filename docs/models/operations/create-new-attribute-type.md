@@ -1,6 +1,6 @@
 # CreateNewAttributeType
 
-The type of the attribute. This value affects the possible `config` values. Attributes of type "status" are not supported on objects.
+The type of the attribute. This value affects the possible `config` values.
 
 ## Example Usage
 

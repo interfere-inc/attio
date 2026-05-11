@@ -11,14 +11,14 @@ import { SDKValidationError } from "../errors/sdk-validation-error.js";
 import * as models from "../index.js";
 
 /**
- * Whether the attribute is on an object or a list. Please note that company and person objects do not support status attributes at this time.
+ * Whether the attribute is on an object or a list.
  */
 export const CreateAttributeStatusTarget = {
   Lists: "lists",
   Objects: "objects",
 } as const;
 /**
- * Whether the attribute is on an object or a list. Please note that company and person objects do not support status attributes at this time.
+ * Whether the attribute is on an object or a list.
  */
 export type CreateAttributeStatusTarget = ClosedEnum<
   typeof CreateAttributeStatusTarget
@@ -45,7 +45,7 @@ export type CreateAttributeStatusRequestBody = {
 
 export type CreateAttributeStatusRequest = {
   /**
-   * Whether the attribute is on an object or a list. Please note that company and person objects do not support status attributes at this time.
+   * Whether the attribute is on an object or a list.
    */
   target: CreateAttributeStatusTarget;
   identifier: string;

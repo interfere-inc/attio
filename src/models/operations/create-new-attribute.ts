@@ -25,7 +25,7 @@ export type CreateNewAttributeTarget = ClosedEnum<
 >;
 
 /**
- * The type of the attribute. This value affects the possible `config` values. Attributes of type "status" are not supported on objects.
+ * The type of the attribute. This value affects the possible `config` values.
  */
 export const CreateNewAttributeType = {
   Text: "text",
@@ -45,7 +45,7 @@ export const CreateNewAttributeType = {
   PhoneNumber: "phone-number",
 } as const;
 /**
- * The type of the attribute. This value affects the possible `config` values. Attributes of type "status" are not supported on objects.
+ * The type of the attribute. This value affects the possible `config` values.
  */
 export type CreateNewAttributeType = ClosedEnum<typeof CreateNewAttributeType>;
 
@@ -194,7 +194,7 @@ export type CreateNewAttributeConfig = {
 
 export type CreateNewAttributeData = {
   /**
-   * The type of the attribute. This value affects the possible `config` values. Attributes of type "status" are not supported on objects.
+   * The type of the attribute. This value affects the possible `config` values.
    */
   type: CreateNewAttributeType;
   /**

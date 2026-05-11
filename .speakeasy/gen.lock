@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 794fcaa0-15b6-4542-ad50-1c9ffc9e2dde
 management:
-  docChecksum: d73b44af631a5a995621e9e7dd1fcfcc
+  docChecksum: d947f419cc77cfd7a995e68fa8c99f6b
   docVersion: 2.0.0
   speakeasyVersion: 1.762.0
   generationVersion: 2.882.0
-  releaseVersion: 0.2.16
-  configChecksum: cbe0cd6684fe3ccf8e83ee31f749a222
+  releaseVersion: 0.2.17
+  configChecksum: 30310c40c812aec741b3d92bed3a330e
   repoURL: https://github.com/interfere-inc/attio.git
   installationURL: https://github.com/interfere-inc/attio
   published: true
@@ -824,11 +824,11 @@ trackedFiles:
   docs/models/operations/create-attribute-status-request-body.md:
     last_write_checksum: sha1:199a14aa2ab53b4344310d4327ad4fe7138358a3
   docs/models/operations/create-attribute-status-request.md:
-    last_write_checksum: sha1:bac726954b852a54df3a7c27828f23210e028b3f
+    last_write_checksum: sha1:f8af1acb65f5b9e5cda2ed50c1a417f7a6263b8d
   docs/models/operations/create-attribute-status-response.md:
     last_write_checksum: sha1:28843819cdf38c346100b45ef42d69daf81e6fd9
   docs/models/operations/create-attribute-status-target.md:
-    last_write_checksum: sha1:1c3dae742bff0b7c811d119127f46b4db270c0de
+    last_write_checksum: sha1:772adde8cec16fa085795c975eb32409e1b8397a
   docs/models/operations/create-call-recording-created-by-actor.md:
     last_write_checksum: sha1:3e61184afbabb6c697d44622d060bffa7c038b63
   docs/models/operations/create-call-recording-data-request.md:
@@ -1018,7 +1018,7 @@ trackedFiles:
   docs/models/operations/create-new-attribute-currency.md:
     last_write_checksum: sha1:d640069877eb168493209c53a1acfb54791dc53a
   docs/models/operations/create-new-attribute-data.md:
-    last_write_checksum: sha1:32def34816c372cee8f052fa7d523804fe464c86
+    last_write_checksum: sha1:eb1e4ff03f04891736488bf017dcb58fa7fcc1a6
   docs/models/operations/create-new-attribute-default-currency-code.md:
     last_write_checksum: sha1:f7b440a61e727125195ab2781ed955cc71219089
   docs/models/operations/create-new-attribute-default-value-dynamic.md:
@@ -1040,7 +1040,7 @@ trackedFiles:
   docs/models/operations/create-new-attribute-target.md:
     last_write_checksum: sha1:4f254bc78e7eb592e1a097312bd8c83d4bbccde2
   docs/models/operations/create-new-attribute-type.md:
-    last_write_checksum: sha1:be0e2c4c1e07bcc5e9fd30f432c259dd4d635fa5
+    last_write_checksum: sha1:f2c3a4afae08882fcb45e15eefceafbb2d55bb57
   docs/models/operations/create-note-data.md:
     last_write_checksum: sha1:6071d62774e1f3a008602855a59af537c1d25226
   docs/models/operations/create-note-request.md:
@@ -1782,11 +1782,11 @@ trackedFiles:
   docs/models/operations/list-attribute-options-target.md:
     last_write_checksum: sha1:3e3f1e1db7fb5ed5d1327e71e8ff74daaa490c46
   docs/models/operations/list-attribute-statuses-request.md:
-    last_write_checksum: sha1:4bd4e4a1b62f155e86209faaa3cbc3425ac636e3
+    last_write_checksum: sha1:6d7324d5e4c222e8e76a140e2a3a16ddcdf8bb76
   docs/models/operations/list-attribute-statuses-response.md:
     last_write_checksum: sha1:dbfb2e6916ef4534aca46d7d3d45c7a8aefa0013
   docs/models/operations/list-attribute-statuses-target.md:
-    last_write_checksum: sha1:0d0a6e1a81d95c8a8aa0c4896ce7db76efe394ed
+    last_write_checksum: sha1:3e7714f0c738d64a8e690382c9db89bd4dd3b67d
   docs/models/operations/list-call-recordings-created-by-actor.md:
     last_write_checksum: sha1:b323645c352ea7f82ee95daea957dee239dd92d6
   docs/models/operations/list-call-recordings-data.md:
@@ -2792,11 +2792,11 @@ trackedFiles:
   docs/models/operations/update-attribute-status-request-body.md:
     last_write_checksum: sha1:081e23534fd1d184b224329b9a9364c69cf19749
   docs/models/operations/update-attribute-status-request.md:
-    last_write_checksum: sha1:220844a8e4fd68aafa6fa0940537de5588fd564e
+    last_write_checksum: sha1:fef764e36b85aec23f84c1f3119459903a603aeb
   docs/models/operations/update-attribute-status-response.md:
     last_write_checksum: sha1:b6cf272c37fbae8e31a9e4aaa3e435317a9394b6
   docs/models/operations/update-attribute-status-target.md:
-    last_write_checksum: sha1:6a937377887803fb159217dbcb9c67bf89bff9e3
+    last_write_checksum: sha1:6e8ef641946ea11015534f06e884399d9ceceaae
   docs/models/operations/update-attribute-target.md:
     last_write_checksum: sha1:a7e50151f3c679619835f2846038011f40b8bc85
   docs/models/operations/update-entry-country-code1.md:
@@ -3505,11 +3505,11 @@ trackedFiles:
     pristine_git_object: 4aac7f082ee4396f40475ecb18a68d391b316054
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:596d51bf3c3de6f5144d16a462d27c681ddbebbf
+    last_write_checksum: sha1:028aa287bf5551adef9416a0b96e0a9ec1d353af
     pristine_git_object: 3765d52f293dd40e215660e3eec0f095107c6299
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:9cbcb64f4240bdbd717a111a6183a293f5e44186
+    last_write_checksum: sha1:fca93670366865048c389c4424b5131fcb066280
     pristine_git_object: e2078100dc17afe81ba89a6439a3788096f2a176
   src/core.ts:
     id: f431fdbcd144
@@ -3823,7 +3823,7 @@ trackedFiles:
     pristine_git_object: 44be0eae8246521b230e8e711a88eff738fc015d
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:b74f6311c15e25b0c540e38228b7f13b78adfcf6
+    last_write_checksum: sha1:841be16fe2cf83d26380c69fac8c1f41ef1efede
     pristine_git_object: 5e129f5c009a3a571402fc9c45c1889a890edf54
   src/lib/dlv.ts:
     id: b1988214835a
@@ -4070,7 +4070,7 @@ trackedFiles:
   src/models/operations/create-attribute-option.ts:
     last_write_checksum: sha1:aa2c54e7d2abda5696dfdbf4550edb4d2df9702f
   src/models/operations/create-attribute-status.ts:
-    last_write_checksum: sha1:54198d8b1e075d8e4b32968072a5a6e8377fbf13
+    last_write_checksum: sha1:38362d380b386e15e5aa73545bfdc373cc7bf6bd
   src/models/operations/create-call-recording.ts:
     last_write_checksum: sha1:dc1e1604e58d07acd393b40d5285e03efd5a01ea
   src/models/operations/create-comment.ts:
@@ -4082,7 +4082,7 @@ trackedFiles:
   src/models/operations/create-list.ts:
     last_write_checksum: sha1:e59fcffb47e19753d89b0f4756cfdadba6a16a6e
   src/models/operations/create-new-attribute.ts:
-    last_write_checksum: sha1:a89a8e36fb491fdfcb82b992b4f8b57b5531d1f2
+    last_write_checksum: sha1:1eb4dd94b9dd636482592cfa20c89ed5a83aedf6
   src/models/operations/create-note.ts:
     last_write_checksum: sha1:f87a9abc176a1ce16675c3b8490b97abbd6a0bc1
   src/models/operations/create-object.ts:
@@ -4172,7 +4172,7 @@ trackedFiles:
   src/models/operations/list-attribute-options.ts:
     last_write_checksum: sha1:54025fa61a6316a594fa8d94bdcbec5a1a6a7438
   src/models/operations/list-attribute-statuses.ts:
-    last_write_checksum: sha1:bf905fb7ed733f2942094665184b6a0b83f38365
+    last_write_checksum: sha1:42d480f93ca271b3aaec6f465f5ef812beb3e5d9
   src/models/operations/list-call-recordings.ts:
     last_write_checksum: sha1:2f416401f8784b3e1cb527d0078916db3cb41b8c
   src/models/operations/list-entry-attribute-values.ts:
@@ -4220,7 +4220,7 @@ trackedFiles:
   src/models/operations/update-attribute-select-option.ts:
     last_write_checksum: sha1:8adde841dcef8d57034daaf262965077250889b7
   src/models/operations/update-attribute-status.ts:
-    last_write_checksum: sha1:e31392e505717ce74ff6baef8057c186d9fa263c
+    last_write_checksum: sha1:5f7f972cd630fc98b46b940258dacf28f14d0060
   src/models/operations/update-attribute.ts:
     last_write_checksum: sha1:e0f5b289d256ccc2cf442f57029df9ccf21afdca
   src/models/operations/update-entry.ts:
@@ -6453,9 +6453,3 @@ examples:
         "204":
           application/json: {}
 examplesVersion: 1.0.2
-releaseNotes: |
-  ## Typescript SDK Changes:
-  * `attio.scimUsers.get()`:  `response` **Changed** (Breaking ⚠️)
-  * `attio.scimGroups.create()`:  `response.members[].display` **Removed** (Breaking ⚠️)
-  * `attio.scimGroups.patch()`:  `response.members[].display` **Removed** (Breaking ⚠️)
-  * `attio.scimGroups.update()`:  `response.members[].display` **Removed** (Breaking ⚠️)
