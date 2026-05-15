@@ -41,6 +41,40 @@ export class CreateObjectSlugConflictError extends AttioBaseError {
   }
 }
 
+/**
+ * Bad Request
+ */
+export type QuotaExceededErrorData = {
+  type: "invalid_request_error";
+  statusCode: 400;
+  code: "quota_exceeded";
+  message: string;
+};
+
+/**
+ * Bad Request
+ */
+export class QuotaExceededError extends AttioBaseError {
+  type: "invalid_request_error";
+  code: "quota_exceeded";
+
+  /** The original data that was passed to this error instance. */
+  data$: QuotaExceededErrorData;
+
+  constructor(
+    err: QuotaExceededErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    this.type = err.type;
+    this.code = err.code;
+
+    this.name = "QuotaExceededError";
+  }
+}
+
 /** @internal */
 export const CreateObjectSlugConflictError$inboundSchema: z.ZodMiniType<
   CreateObjectSlugConflictError,
@@ -61,6 +95,33 @@ export const CreateObjectSlugConflictError$inboundSchema: z.ZodMiniType<
     });
 
     return new CreateObjectSlugConflictError(remapped, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
+  }),
+);
+
+/** @internal */
+export const QuotaExceededError$inboundSchema: z.ZodMiniType<
+  QuotaExceededError,
+  unknown
+> = z.pipe(
+  z.object({
+    type: types.literal("invalid_request_error"),
+    status_code: types.literal(400),
+    code: types.literal("quota_exceeded"),
+    message: types.string(),
+    request$: z.custom<Request>(x => x instanceof Request),
+    response$: z.custom<Response>(x => x instanceof Response),
+    body$: z.string(),
+  }),
+  z.transform((v) => {
+    const remapped = remap$(v, {
+      "status_code": "statusCode",
+    });
+
+    return new QuotaExceededError(remapped, {
       request: v.request$,
       response: v.response$,
       body: v.body$,

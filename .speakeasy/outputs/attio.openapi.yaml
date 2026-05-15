@@ -146,6 +146,31 @@ paths:
                 properties:
                   data:
                     $ref: "#/components/schemas/object"
+        400:
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                description: "Bad Request"
+                required:
+                  - "status_code"
+                  - "type"
+                  - "code"
+                  - "message"
+                properties:
+                  type:
+                    type: "string"
+                    const: invalid_request_error
+                  status_code:
+                    type: "integer"
+                    const: 400
+                  code:
+                    type: "string"
+                    const: quota_exceeded
+                  message:
+                    type: "string"
+                    example: "You have met your plan's object limit. Please upgrade your plan to create more objects."
         409:
           description: "Conflict"
           content:
@@ -3799,7 +3824,7 @@ paths:
       summary: "Create a record"
       operationId: createRecord
       description: |-
-        Creates a new person, company or other record. This endpoint will throw on conflicts of unique attributes. If you would prefer to update records on conflicts, please use the [Assert record endpoint](/rest-api/endpoint-reference/records/assert-a-record) instead.
+        Creates a new person, company or other record. This endpoint will throw on conflicts of unique attributes. If you would prefer to update records on conflicts, please use the [Upsert record endpoint](/rest-api/endpoint-reference/records/upsert-a-record) instead.
 
         Required scopes: `record_permission:read-write`, `object_configuration:read`.
       parameters:
@@ -5502,7 +5527,7 @@ paths:
     put:
       tags:
         - "Records"
-      summary: "Assert a record"
+      summary: "Upsert a record"
       operationId: assertRecord
       description: |-
         Use this endpoint to create or update people, companies and other records. A matching attribute is used to search for existing records. If a record is found with the same value for the matching attribute, that record will be updated. If no record with the same value for the matching attribute is found, a new record will be created instead. If you would like to avoid matching, please use the [Create record endpoint](/rest-api/endpoint-reference/records/create-a-record).
@@ -18495,7 +18520,7 @@ paths:
     put:
       tags:
         - "Entries"
-      summary: "Assert a list entry by parent"
+      summary: "Upsert a list entry by parent"
       operationId: assertEntry
       description: |-
         Use this endpoint to create or update a list entry for a given parent record. If an entry with the specified parent record is found, that entry will be updated. If no such entry is found, a new entry will be created instead. If there are multiple entries with the same parent record, this endpoint with return the "MULTIPLE_MATCH_RESULTS" error. When writing to multi-select attributes, all values will be either created or deleted as necessary to match the list of values supplied in the request body.

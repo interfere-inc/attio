@@ -165,7 +165,7 @@ run();
 
 * [query](docs/sdks/entries/README.md#query) - List entries
 * [create](docs/sdks/entries/README.md#create) - Create an entry (add record to list)
-* [assert](docs/sdks/entries/README.md#assert) - Assert a list entry by parent
+* [assert](docs/sdks/entries/README.md#assert) - Upsert a list entry by parent
 * [get](docs/sdks/entries/README.md#get) - Get a list entry
 * [update](docs/sdks/entries/README.md#update) - Update a list entry (overwrite multiselect values)
 * [delete](docs/sdks/entries/README.md#delete) - Delete a list entry
@@ -218,7 +218,7 @@ run();
 
 * [query](docs/sdks/records/README.md#query) - List records
 * [create](docs/sdks/records/README.md#create) - Create a record
-* [assert](docs/sdks/records/README.md#assert) - Assert a record
+* [assert](docs/sdks/records/README.md#assert) - Upsert a record
 * [get](docs/sdks/records/README.md#get) - Get a record
 * [update](docs/sdks/records/README.md#update) - Update a record (overwrite multiselect values)
 * [delete](docs/sdks/records/README.md#delete) - Delete a record
@@ -314,7 +314,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`commentsCreate`](docs/sdks/comments/README.md#create) - Create a comment
 - [`commentsDelete`](docs/sdks/comments/README.md#delete) - Delete a comment
 - [`commentsGet`](docs/sdks/comments/README.md#get) - Get a comment
-- [`entriesAssert`](docs/sdks/entries/README.md#assert) - Assert a list entry by parent
+- [`entriesAssert`](docs/sdks/entries/README.md#assert) - Upsert a list entry by parent
 - [`entriesCreate`](docs/sdks/entries/README.md#create) - Create an entry (add record to list)
 - [`entriesDelete`](docs/sdks/entries/README.md#delete) - Delete a list entry
 - [`entriesGet`](docs/sdks/entries/README.md#get) - Get a list entry
@@ -346,7 +346,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`objectsGetViews`](docs/sdks/objects/README.md#getviews) - List views for object
 - [`objectsList`](docs/sdks/objects/README.md#list) - List objects
 - [`objectsUpdate`](docs/sdks/objects/README.md#update) - Update an object
-- [`recordsAssert`](docs/sdks/records/README.md#assert) - Assert a record
+- [`recordsAssert`](docs/sdks/records/README.md#assert) - Upsert a record
 - [`recordsCreate`](docs/sdks/records/README.md#create) - Create a record
 - [`recordsDelete`](docs/sdks/records/README.md#delete) - Delete a record
 - [`recordsGet`](docs/sdks/records/README.md#get) - Get a record
@@ -532,7 +532,7 @@ async function run() {
       console.log(error.headers);
 
       // Depending on the method different errors may be thrown
-      if (error instanceof errors.CreateObjectSlugConflictError) {
+      if (error instanceof errors.QuotaExceededError) {
         console.log(error.data$.type); // string
         console.log(error.data$.statusCode); // number
         console.log(error.data$.code); // string
@@ -550,7 +550,7 @@ run();
 **Primary error:**
 * [`AttioBaseError`](./src/models/errors/attio-base-error.ts): The base class for HTTP error responses.
 
-<details><summary>Less common errors (96)</summary>
+<details><summary>Less common errors (97)</summary>
 
 <br />
 
@@ -563,6 +563,7 @@ run();
 
 
 **Inherit from [`AttioBaseError`](./src/models/errors/attio-base-error.ts)**:
+* [`QuotaExceededError`](./src/models/errors/quota-exceeded-error.ts): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
 * [`UpdateObjectValidationTypeError`](./src/models/errors/update-object-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
 * [`CreateNewAttributeValidationTypeError`](./src/models/errors/create-new-attribute-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
 * [`SystemEditUnauthorizedError`](./src/models/errors/system-edit-unauthorized-error.ts): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*

@@ -163,6 +163,7 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.QuotaExceededError            | 400                                  | application/json                     |
 | errors.CreateObjectSlugConflictError | 409                                  | application/json                     |
 | errors.AttioError                    | 4XX, 5XX                             | \*/\*                                |
 

@@ -8,7 +8,7 @@ Entries are elements in a list that reference a single parent record. Entries co
 
 * [query](#query) - List entries
 * [create](#create) - Create an entry (add record to list)
-* [assert](#assert) - Assert a list entry by parent
+* [assert](#assert) - Upsert a list entry by parent
 * [get](#get) - Get a list entry
 * [update](#update) - Update a list entry (overwrite multiselect values)
 * [delete](#delete) - Delete a list entry

@@ -40,7 +40,7 @@ export class Records extends ClientSDK {
    * Create a record
    *
    * @remarks
-   * Creates a new person, company or other record. This endpoint will throw on conflicts of unique attributes. If you would prefer to update records on conflicts, please use the [Assert record endpoint](/rest-api/endpoint-reference/records/assert-a-record) instead.
+   * Creates a new person, company or other record. This endpoint will throw on conflicts of unique attributes. If you would prefer to update records on conflicts, please use the [Upsert record endpoint](/rest-api/endpoint-reference/records/upsert-a-record) instead.
    *
    * Required scopes: `record_permission:read-write`, `object_configuration:read`.
    */
@@ -56,7 +56,7 @@ export class Records extends ClientSDK {
   }
 
   /**
-   * Assert a record
+   * Upsert a record
    *
    * @remarks
    * Use this endpoint to create or update people, companies and other records. A matching attribute is used to search for existing records. If a record is found with the same value for the matching attribute, that record will be updated. If no record with the same value for the matching attribute is found, a new record will be created instead. If you would like to avoid matching, please use the [Create record endpoint](/rest-api/endpoint-reference/records/create-a-record).

@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 794fcaa0-15b6-4542-ad50-1c9ffc9e2dde
 management:
-  docChecksum: d947f419cc77cfd7a995e68fa8c99f6b
+  docChecksum: 467ec143a95d83a77dce309f1d2d5537
   docVersion: 2.0.0
-  speakeasyVersion: 1.762.0
-  generationVersion: 2.882.0
-  releaseVersion: 0.2.17
-  configChecksum: 30310c40c812aec741b3d92bed3a330e
+  speakeasyVersion: 1.763.1
+  generationVersion: 2.884.4
+  releaseVersion: 0.2.18
+  configChecksum: 594bb92477188c839fb77e2e894e7967
   repoURL: https://github.com/interfere-inc/attio.git
   installationURL: https://github.com/interfere-inc/attio
   published: true
@@ -307,6 +307,8 @@ trackedFiles:
     last_write_checksum: sha1:2fad3abb47a34ae180583bcc45f1fa7df6a0c07c
   docs/models/errors/query-records-not-found-error.md:
     last_write_checksum: sha1:ffa248aaf9fe894190424f6ce25a7d4925c9564b
+  docs/models/errors/quota-exceeded-error.md:
+    last_write_checksum: sha1:18a4447ca7cd328f13d6f1094509b476be5c33cb
   docs/models/errors/search-records-value-not-found-error.md:
     last_write_checksum: sha1:6dd152d2c93e857f443958526645970912eb3b98
   docs/models/errors/system-edit-unauthorized-error.md:
@@ -3425,7 +3427,7 @@ trackedFiles:
     pristine_git_object: dea028630d73ab00c776e30c3c73ed0960ce6058
   docs/sdks/entries/README.md:
     id: ee225fcb942a
-    last_write_checksum: sha1:354462c7b21834f5b7a3a15beee1573e8bf76eea
+    last_write_checksum: sha1:198496ba66d1169b54fbe73934243433b0357700
     pristine_git_object: f09072e8339fbacfe8baf9717380cdad6a532b25
   docs/sdks/files/README.md:
     last_write_checksum: sha1:9c7cdac0f038c6679f1ea269a5ae3ab2709caedc
@@ -3447,13 +3449,13 @@ trackedFiles:
     pristine_git_object: d654ae32421e94ad26d678c14e857cdd3351c3e2
   docs/sdks/objects/README.md:
     id: 50857b20f22c
-    last_write_checksum: sha1:740da00f440c07547b0436971c545d1df687ba59
+    last_write_checksum: sha1:d1786201741cfcd23ad2cdda9aad7f3d090f7fee
     pristine_git_object: 46e9d9866f94791abc6da1c14d6b3913217a5e71
   docs/sdks/options/README.md:
     last_write_checksum: sha1:ddfb312ffbd71b9bcef8d765e85f445b7adc16d5
   docs/sdks/records/README.md:
     id: db86bab024d3
-    last_write_checksum: sha1:d667767a83e9ffee79f4d93d271457b8ff36c33c
+    last_write_checksum: sha1:3402544a7309b3ffc10327bca13e24fc11a75c17
     pristine_git_object: 3013817e3ba4092db933dc6605bc28f360878276
   docs/sdks/scimgroups/README.md:
     last_write_checksum: sha1:db1d75c17c9ccdfabc4c386e808dfabb9f1e6551
@@ -3505,11 +3507,11 @@ trackedFiles:
     pristine_git_object: 4aac7f082ee4396f40475ecb18a68d391b316054
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:028aa287bf5551adef9416a0b96e0a9ec1d353af
+    last_write_checksum: sha1:0dceff85dc65995ac5694d12264a9dd83a232b9c
     pristine_git_object: 3765d52f293dd40e215660e3eec0f095107c6299
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:fca93670366865048c389c4424b5131fcb066280
+    last_write_checksum: sha1:d1ed276b18496660a48b5864ffd36fa6f14112ec
     pristine_git_object: e2078100dc17afe81ba89a6439a3788096f2a176
   src/core.ts:
     id: f431fdbcd144
@@ -3572,7 +3574,7 @@ trackedFiles:
     last_write_checksum: sha1:9877920b8e11413cae59d4a29450b95df2ddaa37
     pristine_git_object: 65733f89099e0e57b767db441e084315bc6053c4
   src/funcs/entries-assert.ts:
-    last_write_checksum: sha1:3d0f5c151b6d5d8cee3074d20e1014c35bd2004a
+    last_write_checksum: sha1:d7b2349d5f66145eabd188a6641790c58deb7f2e
   src/funcs/entries-create.ts:
     id: 99471731187f
     last_write_checksum: sha1:39bc713a308e62e1240e22597be90b219f6c3ca7
@@ -3661,7 +3663,7 @@ trackedFiles:
     pristine_git_object: f4061ab37a24899b41db8e556b734625155e5711
   src/funcs/objects-create.ts:
     id: df6e5e953e06
-    last_write_checksum: sha1:238c6d72fb71070dcabe1b85f48af625b7dfacc1
+    last_write_checksum: sha1:68d3096757d9d9fa62cf05420095a97dece500bb
     pristine_git_object: 94870c7d4bd393ad640a693f822b52f69293cb0e
   src/funcs/objects-get-views.ts:
     last_write_checksum: sha1:2bfeafa4fb06849d6957ad4633e8eca47e299ad6
@@ -3679,11 +3681,11 @@ trackedFiles:
     pristine_git_object: 73c0c2d7203b33b29b3ec3758006a57baa7b80b3
   src/funcs/records-assert.ts:
     id: e03850796913
-    last_write_checksum: sha1:d8f0878cd663411ba177c6ac40e869df6ceb16fc
+    last_write_checksum: sha1:824ad616de8b5a724c580c0d58f32fdc5ac37557
     pristine_git_object: 78b881a2edfd1aa8c4f3c2381871de888fc0bd67
   src/funcs/records-create.ts:
     id: e89aff612176
-    last_write_checksum: sha1:84b61b0caa8d1f985f5cddbdc720b7b63c01fd0c
+    last_write_checksum: sha1:3b2497c71eb3d4a54e3bc27fc35c0d1f69cd4b42
     pristine_git_object: a7921e993a28a94929a291574a89f50ddf02fafd
   src/funcs/records-delete.ts:
     id: b41c63920fc4
@@ -3823,7 +3825,7 @@ trackedFiles:
     pristine_git_object: 44be0eae8246521b230e8e711a88eff738fc015d
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:841be16fe2cf83d26380c69fac8c1f41ef1efede
+    last_write_checksum: sha1:0421b445c3139e39c5467b8831d8780e09605d3c
     pristine_git_object: 5e129f5c009a3a571402fc9c45c1889a890edf54
   src/lib/dlv.ts:
     id: b1988214835a
@@ -3922,7 +3924,7 @@ trackedFiles:
   src/models/errors/create-note.ts:
     last_write_checksum: sha1:a10c3070d202b35452fb0c50aabcfb93d9e82fa5
   src/models/errors/create-object.ts:
-    last_write_checksum: sha1:b4ef70b09a72030916c2d0f66bb2f57ae400df75
+    last_write_checksum: sha1:feb1c1301e053554f5ac7982723c2e3e45bad92d
   src/models/errors/create-record.ts:
     last_write_checksum: sha1:152f88bad75f77d0bd5a0b1ced7bfc0d1ce2b744
   src/models/errors/create-task.ts:
@@ -4283,7 +4285,7 @@ trackedFiles:
     pristine_git_object: 065ff90a43ab3a8735d582a522d591ea727cce7f
   src/sdk/entries.ts:
     id: 0b5a3a679c57
-    last_write_checksum: sha1:6b0d8ec3830810d53eb9e3c3ec67e6e22163eb5a
+    last_write_checksum: sha1:581d51a8984b58a2bd4a1179be6ac0e0265a89b2
     pristine_git_object: 745c57c0d52013946bf6897199ac7f3145f98a74
   src/sdk/files.ts:
     last_write_checksum: sha1:85f9e5449cdfc27fb3e215c0db2e41a6a172de42
@@ -4315,7 +4317,7 @@ trackedFiles:
     last_write_checksum: sha1:ed855eee95124988c090cd18b935b5af84c519ff
   src/sdk/records.ts:
     id: 6c95f11fdf04
-    last_write_checksum: sha1:19a154e4a3bbfa50df550f715c783f006a2d00c8
+    last_write_checksum: sha1:1fb26b35802c12e449de6d3c4f7d8f450cd47eb9
     pristine_git_object: 8cbcb4b3af7a1f6d9f6067eb0642ec83c23bd51b
   src/sdk/scim-groups.ts:
     last_write_checksum: sha1:31426c06cf53b670e21b621f8952a1f50c6de5ea
@@ -5411,6 +5413,8 @@ examples:
           application/json: {"data": {"id": {"workspace_id": "14beef7a-99f7-4534-a87e-70b564330a4c", "object_id": "97052eb9-e65e-443f-a297-f2d9a4a7f795"}, "api_slug": "people", "singular_noun": "Person", "plural_noun": "People", "created_at": "2022-11-21T13:22:49.061281000Z"}}
         "409":
           application/json: {"type": "invalid_request_error", "status_code": 409, "code": "slug_conflict", "message": "Failed to create object. Please ensure your api_slug and names are unique."}
+        "400":
+          application/json: {"type": "invalid_request_error", "status_code": 400, "code": "quota_exceeded", "message": "You have met your plan's object limit. Please upgrade your plan to create more objects."}
   getObject:
     speakeasy-default-get-object:
       parameters:

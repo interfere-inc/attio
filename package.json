@@ -1,6 +1,6 @@
 {
   "name": "@interfere/attio",
-  "version": "0.2.17",
+  "version": "0.2.18",
   "author": "Interfere, Inc. <support@interfere.com>",
   "private": false,
   "type": "module",
@@ -51,7 +51,7 @@
   "scripts": {
     "lint": "oxlint --max-warnings=0 --deny-warnings src/**/*.ts src/**/*.tsx",
     "build": "tsgo",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "node ./scripts/reorder-exports.mjs && npm run build"
   },
   "peerDependencies": {
     

@@ -31,7 +31,7 @@ import { Result } from "../types/fp.js";
  * Create a record
  *
  * @remarks
- * Creates a new person, company or other record. This endpoint will throw on conflicts of unique attributes. If you would prefer to update records on conflicts, please use the [Assert record endpoint](/rest-api/endpoint-reference/records/assert-a-record) instead.
+ * Creates a new person, company or other record. This endpoint will throw on conflicts of unique attributes. If you would prefer to update records on conflicts, please use the [Upsert record endpoint](/rest-api/endpoint-reference/records/upsert-a-record) instead.
  *
  * Required scopes: `record_permission:read-write`, `object_configuration:read`.
  */

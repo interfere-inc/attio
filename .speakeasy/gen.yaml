@@ -35,7 +35,7 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: false
 typescript:
-  version: 0.2.17
+  version: 0.2.18
   acceptHeaderEnum: false
   additionalDependencies:
     dependencies: {}
@@ -43,7 +43,8 @@ typescript:
     peerDependencies: {}
   additionalPackageJSON:
     private: false
-  additionalScripts: {}
+  additionalScripts:
+    prepublishOnly: node ./scripts/reorder-exports.mjs && npm run build
   alwaysIncludeInboundAndOutbound: false
   author: Interfere, Inc. <support@interfere.com>
   baseErrorName: AttioBaseError

@@ -8,7 +8,7 @@ Records are individual instances of objects e.g. a specific [person](/rest-api/e
 
 * [query](#query) - List records
 * [create](#create) - Create a record
-* [assert](#assert) - Assert a record
+* [assert](#assert) - Upsert a record
 * [get](#get) - Get a record
 * [update](#update) - Update a record (overwrite multiselect values)
 * [delete](#delete) - Delete a record
@@ -197,7 +197,7 @@ run();
 
 ## create
 
-Creates a new person, company or other record. This endpoint will throw on conflicts of unique attributes. If you would prefer to update records on conflicts, please use the [Assert record endpoint](/rest-api/endpoint-reference/records/assert-a-record) instead.
+Creates a new person, company or other record. This endpoint will throw on conflicts of unique attributes. If you would prefer to update records on conflicts, please use the [Upsert record endpoint](/rest-api/endpoint-reference/records/upsert-a-record) instead.
 
 Required scopes: `record_permission:read-write`, `object_configuration:read`.
 
