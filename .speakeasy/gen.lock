@@ -5,7 +5,7 @@ management:
   docVersion: 2.0.0
   speakeasyVersion: 1.763.1
   generationVersion: 2.884.4
-  releaseVersion: 0.2.18
+  releaseVersion: 0.2.19
   configChecksum: 594bb92477188c839fb77e2e894e7967
   repoURL: https://github.com/interfere-inc/attio.git
   installationURL: https://github.com/interfere-inc/attio
