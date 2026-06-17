@@ -1490,6 +1490,7 @@ export const UpdateRecordCurrencyCode = {
   Sek: "SEK",
   Chf: "CHF",
   Thb: "THB",
+  Try: "TRY",
   Aed: "AED",
   Uyu: "UYU",
   Usd: "USD",

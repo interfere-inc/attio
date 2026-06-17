@@ -1493,6 +1493,7 @@ export const AssertEntryCurrencyCode = {
   Sek: "SEK",
   Chf: "CHF",
   Thb: "THB",
+  Try: "TRY",
   Aed: "AED",
   Uyu: "UYU",
   Usd: "USD",

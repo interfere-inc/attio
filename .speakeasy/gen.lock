@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 794fcaa0-15b6-4542-ad50-1c9ffc9e2dde
 management:
-  docChecksum: 467ec143a95d83a77dce309f1d2d5537
+  docChecksum: 66031616eddf9433c2512406850a2ca4
   docVersion: 2.0.0
-  speakeasyVersion: 1.763.1
-  generationVersion: 2.884.4
-  releaseVersion: 0.2.19
-  configChecksum: 594bb92477188c839fb77e2e894e7967
+  speakeasyVersion: 1.781.0
+  generationVersion: 2.907.0
+  releaseVersion: 0.3.0
+  configChecksum: 93252009198713bb225b6b3a86c0f063
   repoURL: https://github.com/interfere-inc/attio.git
   installationURL: https://github.com/interfere-inc/attio
   published: true
@@ -18,7 +18,7 @@ features:
   typescript:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.14
-    core: 3.26.50
+    core: 3.31.1
     defaultEnabledRetries: 0.1.0
     devContainers: 2.90.1
     enumUnions: 0.1.0
@@ -32,7 +32,7 @@ features:
     nameOverrides: 2.81.4
     nullables: 0.1.1
     responseFormat: 0.3.0
-    retries: 2.83.0
+    retries: 2.83.1
     sdkHooks: 0.4.0
     unions: 2.86.4
     uploadStreams: 0.1.1
@@ -137,7 +137,7 @@ trackedFiles:
     last_write_checksum: sha1:38b2bd8bf22d6429faec564341472f62dc9acdab
   docs/models/currency-code.md:
     id: 269c79bbd1f2
-    last_write_checksum: sha1:e9f627e4292d869f693cf5ebb5b95d4cc1cfa5a1
+    last_write_checksum: sha1:e6904420488849e64f138a3d8a68abff040a3dfe
     pristine_git_object: e4fe4a8ffe71858ac3b1801b88018a1c75cab3c6
   docs/models/currency.md:
     id: e2c3e8f80fcd
@@ -145,7 +145,7 @@ trackedFiles:
     pristine_git_object: 42b91e1821256a2910806d3ea29f66a8db51d257
   docs/models/default-currency-code.md:
     id: d3a585f23498
-    last_write_checksum: sha1:40c2c3c1d109ed7e22eb850073c5b519e586700e
+    last_write_checksum: sha1:9fa2a716628311e1065c0c45ba09357f210f3a00
     pristine_git_object: c09115b3fbb901853a00fb8ed90dbd9036167357
   docs/models/default-value-dynamic.md:
     id: 9862758dc7c7
@@ -600,7 +600,7 @@ trackedFiles:
   docs/models/operations/assert-entry-created-by-actor9.md:
     last_write_checksum: sha1:e2ff97aa2affa51dde207fe1b5401d5ed02641e6
   docs/models/operations/assert-entry-currency-code.md:
-    last_write_checksum: sha1:6f309fabd1d35f8734bf2f0ddd450a0641510914
+    last_write_checksum: sha1:2128e00dfddb2e43e4783f8d788ad5a5215fcb82
   docs/models/operations/assert-entry-data-request.md:
     last_write_checksum: sha1:8c3a34c9515ee9dde7cc9652b0a1c0b72c5d32cb
   docs/models/operations/assert-entry-data-response.md:
@@ -730,7 +730,7 @@ trackedFiles:
   docs/models/operations/assert-record-created-by-actor9.md:
     last_write_checksum: sha1:44427e90f6efef14ca6ba517d4479937e0234115
   docs/models/operations/assert-record-currency-code.md:
-    last_write_checksum: sha1:4535fcd8a6e082d51a6138c6222f28340c8549b6
+    last_write_checksum: sha1:538a680e64b35d007f153c786d57baea3528228a
   docs/models/operations/assert-record-data-request.md:
     last_write_checksum: sha1:aea112cfa96a01686dc8642f372c9f676fed4c4b
   docs/models/operations/assert-record-data-response.md:
@@ -934,7 +934,7 @@ trackedFiles:
   docs/models/operations/create-entry-created-by-actor9.md:
     last_write_checksum: sha1:00c7fde0ff5ca29a20bc893a2aab01a9fbc26db8
   docs/models/operations/create-entry-currency-code.md:
-    last_write_checksum: sha1:5db3a00b0d0b4ec9e0556157fa00ffc5768c1e0e
+    last_write_checksum: sha1:6e64703985d9dffb54fffd37b70473a328953320
   docs/models/operations/create-entry-data-request.md:
     last_write_checksum: sha1:269ec370a2323dd7931fb65e5c33d201154e0f6b
   docs/models/operations/create-entry-data-response.md:
@@ -1022,7 +1022,7 @@ trackedFiles:
   docs/models/operations/create-new-attribute-data.md:
     last_write_checksum: sha1:eb1e4ff03f04891736488bf017dcb58fa7fcc1a6
   docs/models/operations/create-new-attribute-default-currency-code.md:
-    last_write_checksum: sha1:f7b440a61e727125195ab2781ed955cc71219089
+    last_write_checksum: sha1:05c82adcb385c0537f2db7172f26a7e5d9ad45e2
   docs/models/operations/create-new-attribute-default-value-dynamic.md:
     last_write_checksum: sha1:ab499a5efebd351e90f4530ee5eb9f754a8c086b
   docs/models/operations/create-new-attribute-default-value-static.md:
@@ -1128,7 +1128,7 @@ trackedFiles:
   docs/models/operations/create-record-created-by-actor9.md:
     last_write_checksum: sha1:42a6864a11457cd7e550bc4798fa9b23a6422267
   docs/models/operations/create-record-currency-code.md:
-    last_write_checksum: sha1:618c6cfd9488bd2f27884a5b59b77c81996af3d9
+    last_write_checksum: sha1:951af67847f85b101245c7bcb431a83eedd31102
   docs/models/operations/create-record-data-request.md:
     last_write_checksum: sha1:098643d8ab623ca8734182391d9f810633432363
   docs/models/operations/create-record-data-response.md:
@@ -1185,22 +1185,6 @@ trackedFiles:
     last_write_checksum: sha1:efb1e1784c9436bb9efe97e89f07a8bf8591d5da
   docs/models/operations/create-record-value-union.md:
     last_write_checksum: sha1:946eecd21cb32fc6252576d28f1135448fb72929
-  docs/models/operations/create-scim-group-member.md:
-    last_write_checksum: sha1:61f9b2c39c5ca7e0057446e8fed1376c4cb96233
-  docs/models/operations/create-scim-group-meta.md:
-    last_write_checksum: sha1:567ff18777743b5ff028db82892a04f2e94a361d
-  docs/models/operations/create-scim-group-response.md:
-    last_write_checksum: sha1:dd6e4ecb2a8eeab40a27ccf5dbb2a181411f243d
-  docs/models/operations/create-scim-user-email.md:
-    last_write_checksum: sha1:ff4d60ace9a45e5cca9fbcade9843d69a84fc604
-  docs/models/operations/create-scim-user-meta.md:
-    last_write_checksum: sha1:b51ac82b6474e090c12eb60144b2ad73e17ab34b
-  docs/models/operations/create-scim-user-name.md:
-    last_write_checksum: sha1:1686d77978ca4ca4defee1361b20e1950daf62fb
-  docs/models/operations/create-scim-user-response.md:
-    last_write_checksum: sha1:dc4a73447aa49dec071ced490b90a3e0756a481b
-  docs/models/operations/create-scim-user-role.md:
-    last_write_checksum: sha1:39cf49954890d0a59859b143f3b93f535f2b09da
   docs/models/operations/create-task-assignee-union.md:
     last_write_checksum: sha1:8bca12580b904418e3b85073946b8217dcb9da51
   docs/models/operations/create-task-assignee-workspace-member.md:
@@ -1323,14 +1307,6 @@ trackedFiles:
     last_write_checksum: sha1:9cc4aa7fc9c39db9334ce7651fd5e4d2c49f2cc6
   docs/models/operations/delete-record-response.md:
     last_write_checksum: sha1:aa5bed0dce018afa45cb4933648a0ea28cbfb9e2
-  docs/models/operations/delete-scim-group-request.md:
-    last_write_checksum: sha1:f1d7d4235e2305408716f6a285187df9e7d7558e
-  docs/models/operations/delete-scim-group-response.md:
-    last_write_checksum: sha1:9529aa2f3daa540610919d8a51a8ce44eee8063c
-  docs/models/operations/delete-scim-user-request.md:
-    last_write_checksum: sha1:1a9ec6ac1197ce87ef9d43dd362f7d40b9e5e180
-  docs/models/operations/delete-scim-user-response.md:
-    last_write_checksum: sha1:8b1db7d72b96dab060de78db9e50422e455836e9
   docs/models/operations/delete-task-request.md:
     last_write_checksum: sha1:3b3adb434dbf617b4dfd512ec0c380d1f2a7b95b
   docs/models/operations/delete-task-response.md:
@@ -1476,7 +1452,7 @@ trackedFiles:
   docs/models/operations/get-entry-created-by-actor9.md:
     last_write_checksum: sha1:425f5cd9132728bc8934f2a43eece9494cb4df6b
   docs/models/operations/get-entry-currency-code.md:
-    last_write_checksum: sha1:a8673c4b8e5b295c2d253bed99cb50d327eaedc8
+    last_write_checksum: sha1:ea803efe831f74d8298d904befca62adf1cbeaa2
   docs/models/operations/get-entry-data.md:
     last_write_checksum: sha1:26faf52e8e043edc34428c1db6ef4001f58c1288
   docs/models/operations/get-entry-entry-value-actor-reference.md:
@@ -1646,7 +1622,7 @@ trackedFiles:
   docs/models/operations/get-record-created-by-actor9.md:
     last_write_checksum: sha1:46cbf7cdf8b164d568188891caa184377d7ee8c3
   docs/models/operations/get-record-currency-code.md:
-    last_write_checksum: sha1:f1fdf02b1e887a869b2ea288a8d08a198ba92c65
+    last_write_checksum: sha1:37c1938f295c4ff4b880940f77157d86209a19eb
   docs/models/operations/get-record-data.md:
     last_write_checksum: sha1:55532ce2d08c780359e92fd9848185ccae84f62a
   docs/models/operations/get-record-id.md:
@@ -1699,26 +1675,6 @@ trackedFiles:
     last_write_checksum: sha1:4ba74cb63cccd7c94efb89fb55bb9794eaff7041
   docs/models/operations/get-record-value-union.md:
     last_write_checksum: sha1:7aae618c9d594376d228ec43d4e50019f5d73e09
-  docs/models/operations/get-scim-group-member.md:
-    last_write_checksum: sha1:d4449d30802c034c12cf7025f41fe0d1e887e26b
-  docs/models/operations/get-scim-group-meta.md:
-    last_write_checksum: sha1:27fa12576f54e69cd165ebb775c96e5282db78b3
-  docs/models/operations/get-scim-group-request.md:
-    last_write_checksum: sha1:48a543083419b7d8354da2daea39139a1023a8b1
-  docs/models/operations/get-scim-group-response.md:
-    last_write_checksum: sha1:97ef743b849883c63b95662a10555ecec157e08b
-  docs/models/operations/get-scim-user-email.md:
-    last_write_checksum: sha1:0db09fb93ad877232b1059b6d7de5ed6a0131409
-  docs/models/operations/get-scim-user-meta.md:
-    last_write_checksum: sha1:86d6a6d2b2889224603e1eb67c6fbb64892db25c
-  docs/models/operations/get-scim-user-name.md:
-    last_write_checksum: sha1:8e83daaca770b93e57f76921009a7db85fe668f3
-  docs/models/operations/get-scim-user-request.md:
-    last_write_checksum: sha1:b18690e261657669139663fbcec15a6fc4bd5350
-  docs/models/operations/get-scim-user-response.md:
-    last_write_checksum: sha1:b10b6e1040aaad887858febeb3a94728f3befe3b
-  docs/models/operations/get-scim-user-role.md:
-    last_write_checksum: sha1:c94f1dab45a5807a49535d3be759e1da106a0a8b
   docs/models/operations/get-task-request.md:
     last_write_checksum: sha1:780f295681072cf76b095deb899efb5c1118839f
   docs/models/operations/get-task-response.md:
@@ -1878,7 +1834,7 @@ trackedFiles:
   docs/models/operations/list-entry-attribute-values-created-by-actor9.md:
     last_write_checksum: sha1:5025d9f90bfb725b8bb91b2b7b1e92ffed8952b1
   docs/models/operations/list-entry-attribute-values-currency-code.md:
-    last_write_checksum: sha1:f60fb9ce80143887053baa8e1d3b0d6faf37b5f9
+    last_write_checksum: sha1:8bd66005a191a5d4b2ef5586506293a268e4a847
   docs/models/operations/list-entry-attribute-values-data-actor-reference.md:
     last_write_checksum: sha1:62971d4e1fa72071a27a39884d35d70f2cf55c2a
   docs/models/operations/list-entry-attribute-values-data-checkbox.md:
@@ -2026,7 +1982,7 @@ trackedFiles:
   docs/models/operations/list-record-attribute-values-created-by-actor9.md:
     last_write_checksum: sha1:47805c99719cdf3551be0c8531a80ec1e1dc32b9
   docs/models/operations/list-record-attribute-values-currency-code.md:
-    last_write_checksum: sha1:e5790173f6927ea7745cc45d1c2944b4e556330d
+    last_write_checksum: sha1:203b5c6451aa7053ad82ca9ff23eb7cce0bd7345
   docs/models/operations/list-record-attribute-values-data-actor-reference.md:
     last_write_checksum: sha1:bbba93c9add93eca2aec109dd3b9510b4f3078de
   docs/models/operations/list-record-attribute-values-data-checkbox.md:
@@ -2081,12 +2037,6 @@ trackedFiles:
     last_write_checksum: sha1:d641c1bb9240ac548311189a3f486c9ccd74d55e
   docs/models/operations/list-record-entries-response.md:
     last_write_checksum: sha1:82ab866dd52dd973063c47c0da32611302b31fee
-  docs/models/operations/list-scim-groups-response.md:
-    last_write_checksum: sha1:50d9eefbc72ac1992f02340fcfee7fb7357a9d27
-  docs/models/operations/list-scim-schemas-response.md:
-    last_write_checksum: sha1:957c0d6687e8631a970cba41f3215ab08b33cae3
-  docs/models/operations/list-scim-users-response.md:
-    last_write_checksum: sha1:4e1629c5191e064ca97ec80a17d4fd70b579d864
   docs/models/operations/list-tasks-request.md:
     last_write_checksum: sha1:b3a404d096f0233343af3555d66c51201b9537a6
   docs/models/operations/list-tasks-response.md:
@@ -2139,30 +2089,6 @@ trackedFiles:
     id: 75c97d03d71c
     last_write_checksum: sha1:8ad8c34ba287ed3f7801ff31e563a4ad5ad8d3d1
     pristine_git_object: 969d0084516f37800f824a2a224fd2c5ddd7cd3a
-  docs/models/operations/patch-scim-group-member.md:
-    last_write_checksum: sha1:d62e79172f101c5fe73c036498c37b94f9833f29
-  docs/models/operations/patch-scim-group-meta.md:
-    last_write_checksum: sha1:04666da5e0b43dd9d0eec8438f4c90a6dee4d35a
-  docs/models/operations/patch-scim-group-request.md:
-    last_write_checksum: sha1:e6b2e0432f46ed6e67cb2253d1d9867ba7edb091
-  docs/models/operations/patch-scim-group-response.md:
-    last_write_checksum: sha1:af782858f04eeca5de6aa0bdb93db397b9b604a6
-  docs/models/operations/patch-scim-user-email.md:
-    last_write_checksum: sha1:5997e99d27bc44792f7d4b26bd4850e10b61342f
-  docs/models/operations/patch-scim-user-meta.md:
-    last_write_checksum: sha1:285ff1be4602324c30c8a5a234f94960b70cb0d0
-  docs/models/operations/patch-scim-user-name.md:
-    last_write_checksum: sha1:0f3d00cb9c1b5471f3d21dc9c1376554d83c2384
-  docs/models/operations/patch-scim-user-request.md:
-    last_write_checksum: sha1:353c743dc704e93991b41f1ab63f0780226bd902
-  docs/models/operations/patch-scim-user-response-body1.md:
-    last_write_checksum: sha1:f2b2f379d0ab829a89bd517afab0b9d1c3bc77fc
-  docs/models/operations/patch-scim-user-response-body2.md:
-    last_write_checksum: sha1:2a48ab3266670806f42fdddb50470a6aa2ce97b3
-  docs/models/operations/patch-scim-user-response.md:
-    last_write_checksum: sha1:ca601e9e4ae88ae134195754e439c9b5752a8511
-  docs/models/operations/patch-scim-user-role.md:
-    last_write_checksum: sha1:bd3045414e1a1cbf111c9b4d8e33d36f77c91ace
   docs/models/operations/provider.md:
     id: c28b3c085f4e
     last_write_checksum: sha1:9176443687149a9b3b9d71a9c16332005d83e123
@@ -2240,7 +2166,7 @@ trackedFiles:
   docs/models/operations/query-entries-created-by-actor9.md:
     last_write_checksum: sha1:b7f0c677e25ab23b56538c9693b7b241925cc5ca
   docs/models/operations/query-entries-currency-code.md:
-    last_write_checksum: sha1:d757e5a17b4fb57143f8e83000e69d6c813150aa
+    last_write_checksum: sha1:0a11acb804a65c535b8f3e87e73850ca0dd0e5a8
   docs/models/operations/query-entries-data.md:
     last_write_checksum: sha1:9a225a3d721a6ffa0ecacc0e8dcf6a7e6de7be08
   docs/models/operations/query-entries-direction1.md:
@@ -2378,7 +2304,7 @@ trackedFiles:
   docs/models/operations/query-records-created-by-actor9.md:
     last_write_checksum: sha1:75aca408d34547c4e877dd04cf3463ce29b66513
   docs/models/operations/query-records-currency-code.md:
-    last_write_checksum: sha1:6a18dc5221f749f15c10001197ba7f778dac7ff9
+    last_write_checksum: sha1:cdff7d13948d0981b2594810f88e232bf3d2eac0
   docs/models/operations/query-records-data.md:
     last_write_checksum: sha1:e8bf53d19fef43307e588dd4c8842d6a6bd227cb
   docs/models/operations/query-records-direction1.md:
@@ -2568,7 +2494,7 @@ trackedFiles:
   docs/models/operations/update-append-record-created-by-actor9.md:
     last_write_checksum: sha1:fdc001d97f372d5df3bea940087b2cf9acaa13a8
   docs/models/operations/update-append-record-currency-code.md:
-    last_write_checksum: sha1:296da330aaa9e84dab7ba0557cf475b09b33e0a2
+    last_write_checksum: sha1:86dbfd6f3e27a92a877b163d45cb865b175e68d2
   docs/models/operations/update-append-record-data-request.md:
     last_write_checksum: sha1:82b958f0029d6d2271649af1b12ea00bf5d79fff
   docs/models/operations/update-append-record-data-response.md:
@@ -2698,7 +2624,7 @@ trackedFiles:
   docs/models/operations/update-appending-entry-created-by-actor9.md:
     last_write_checksum: sha1:21b862da54700b519a30ccaac00abb4313c1d9e6
   docs/models/operations/update-appending-entry-currency-code.md:
-    last_write_checksum: sha1:54bcb7624f90685b69039e17a77c5da5bc6936f5
+    last_write_checksum: sha1:75e930c7b5b2838fc6418f9c16c2b0fac5829abb
   docs/models/operations/update-appending-entry-data-request.md:
     last_write_checksum: sha1:548c62ee4b604e97e62ab02000e4d2ee81cd64bd
   docs/models/operations/update-appending-entry-data-response.md:
@@ -2762,7 +2688,7 @@ trackedFiles:
   docs/models/operations/update-attribute-data.md:
     last_write_checksum: sha1:70396b2db13bbb3916ed1ea78ca543ee9f4804e3
   docs/models/operations/update-attribute-default-currency-code.md:
-    last_write_checksum: sha1:1bd6139b755e2be208e759561465174209033c0a
+    last_write_checksum: sha1:c51bbd0ad06c65d1e5a2acdea236b94d13a242a9
   docs/models/operations/update-attribute-default-value-dynamic.md:
     last_write_checksum: sha1:4d8cf49f4186fe14a9832f3c5ac9b1498efa3902
   docs/models/operations/update-attribute-default-value-static.md:
@@ -2874,7 +2800,7 @@ trackedFiles:
   docs/models/operations/update-entry-created-by-actor9.md:
     last_write_checksum: sha1:d7def3e9df4f6f5e14b4f2cf2ff445bbd913a934
   docs/models/operations/update-entry-currency-code.md:
-    last_write_checksum: sha1:b8737dbcde4059537c5d99c34ec4620d7d5e8faa
+    last_write_checksum: sha1:a3bc8a43aab68d111510a0aa30beb76e55dc680d
   docs/models/operations/update-entry-data-request.md:
     last_write_checksum: sha1:c56e590869721cb869baebaf0add5c7d7961690e
   docs/models/operations/update-entry-data-response.md:
@@ -3026,7 +2952,7 @@ trackedFiles:
   docs/models/operations/update-record-created-by-actor9.md:
     last_write_checksum: sha1:85bb75d6127c68f75660960aef1506a02f4e2204
   docs/models/operations/update-record-currency-code.md:
-    last_write_checksum: sha1:472986443b62c71260fb164bcdefd557cd9fc37b
+    last_write_checksum: sha1:ba9c7c2c67e2eb7d2d32431d21d5a7e4b04d8b77
   docs/models/operations/update-record-data-request.md:
     last_write_checksum: sha1:a9952d7c6c8ecf11ec46dfface66fc03a53e7abe
   docs/models/operations/update-record-data-response.md:
@@ -3083,30 +3009,6 @@ trackedFiles:
     last_write_checksum: sha1:df0afc64be32a2ac816be0940accc2e58345f43a
   docs/models/operations/update-record-value-union.md:
     last_write_checksum: sha1:cc5a7ff1339768b91f7e08ec541a1e715aace249
-  docs/models/operations/update-scim-group-member.md:
-    last_write_checksum: sha1:0abcbc2469356c0a0bb57ec8a88bfbae47583a14
-  docs/models/operations/update-scim-group-meta.md:
-    last_write_checksum: sha1:e45243a4dcce7c705f5499a11b97d363097e2caf
-  docs/models/operations/update-scim-group-request.md:
-    last_write_checksum: sha1:719f62ad4a81065e7f4a3e9c19fdb15c0ed63703
-  docs/models/operations/update-scim-group-response.md:
-    last_write_checksum: sha1:c80b4fd4b569c3013cfac1f6ab77b115e23ffe04
-  docs/models/operations/update-scim-user-email.md:
-    last_write_checksum: sha1:01ed0a53dd65644bff660d236b701f530fdab41f
-  docs/models/operations/update-scim-user-meta.md:
-    last_write_checksum: sha1:cc925591aa1fd1dc3c06a10ea1e29022ddeed227
-  docs/models/operations/update-scim-user-name.md:
-    last_write_checksum: sha1:5bee4bf178e212c82d752cc9266567824e725f84
-  docs/models/operations/update-scim-user-request.md:
-    last_write_checksum: sha1:a49b4b2df8123ba6ebd160e67d302b13f79e1a23
-  docs/models/operations/update-scim-user-response-body1.md:
-    last_write_checksum: sha1:b9c9e37eebf6c96bc77202892fa431ac3514b5bc
-  docs/models/operations/update-scim-user-response-body2.md:
-    last_write_checksum: sha1:d2cb4bd2909360410241666a6229d15b879ab324
-  docs/models/operations/update-scim-user-response.md:
-    last_write_checksum: sha1:21014241447d32da0af82556b6c64899cd18c046
-  docs/models/operations/update-scim-user-role.md:
-    last_write_checksum: sha1:776c5f035aae6a7527be538a20b1089dabb4822b
   docs/models/operations/update-task-assignee-union.md:
     last_write_checksum: sha1:250ad02974aa03cb48fb7f26f9b874f154099f9f
   docs/models/operations/update-task-assignee-workspace-member.md:
@@ -3430,7 +3332,7 @@ trackedFiles:
     last_write_checksum: sha1:198496ba66d1169b54fbe73934243433b0357700
     pristine_git_object: f09072e8339fbacfe8baf9717380cdad6a532b25
   docs/sdks/files/README.md:
-    last_write_checksum: sha1:9c7cdac0f038c6679f1ea269a5ae3ab2709caedc
+    last_write_checksum: sha1:b108114ec0294c457696dd0a371534a52013fe64
   docs/sdks/lists/README.md:
     id: 2bf91000d730
     last_write_checksum: sha1:76fda1baa7c1038770b76f32c0b10cc7ec081f27
@@ -3457,14 +3359,6 @@ trackedFiles:
     id: db86bab024d3
     last_write_checksum: sha1:3402544a7309b3ffc10327bca13e24fc11a75c17
     pristine_git_object: 3013817e3ba4092db933dc6605bc28f360878276
-  docs/sdks/scimgroups/README.md:
-    last_write_checksum: sha1:db1d75c17c9ccdfabc4c386e808dfabb9f1e6551
-  docs/sdks/scimschemas/README.md:
-    id: 128d02578a55
-    last_write_checksum: sha1:4da89226c261ad24ed41ff8bb87b5335830c3e23
-    pristine_git_object: f88d8bcaedac7ae73ef2a10a1422d18a95a160b2
-  docs/sdks/scimusers/README.md:
-    last_write_checksum: sha1:8cb3547c03405ab65d5f2ec9440122658372f150
   docs/sdks/tasks/README.md:
     id: 939441bde134
     last_write_checksum: sha1:cb42a50347c96b468b3298c89ff54a42828284f2
@@ -3507,11 +3401,11 @@ trackedFiles:
     pristine_git_object: 4aac7f082ee4396f40475ecb18a68d391b316054
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:0dceff85dc65995ac5694d12264a9dd83a232b9c
+    last_write_checksum: sha1:c77102c7df5bcdd5ce8d0b470b1dfc15f89145d9
     pristine_git_object: 3765d52f293dd40e215660e3eec0f095107c6299
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:d1ed276b18496660a48b5864ffd36fa6f14112ec
+    last_write_checksum: sha1:5afb200830727ff7814c291bc0b4c5ae66f5ac4c
     pristine_git_object: e2078100dc17afe81ba89a6439a3788096f2a176
   src/core.ts:
     id: f431fdbcd144
@@ -3610,7 +3504,7 @@ trackedFiles:
   src/funcs/files-get.ts:
     last_write_checksum: sha1:d509081f4b8d5ad8dffb2678f36f2e5250b1edf0
   src/funcs/files-list.ts:
-    last_write_checksum: sha1:3aa5c298996d5a2b318c02efe60c0d81f4be6a69
+    last_write_checksum: sha1:5f6997619a407395f9416743aef75b7b12a6603e
   src/funcs/files-upload.ts:
     last_write_checksum: sha1:01c28f3ba2ea37474e1e370f46d27a48963b88f9
   src/funcs/lists-create.ts:
@@ -3715,34 +3609,6 @@ trackedFiles:
     id: 7d5e8c07c783
     last_write_checksum: sha1:6bfe27c6cc314056124b7f0f039b66a125068306
     pristine_git_object: 539abfa38f7bbced5256d7b9953eef8ec73eb4cf
-  src/funcs/scim-groups-create.ts:
-    last_write_checksum: sha1:bd7fdc7972b236be80d8dae3ebeef61542d07569
-  src/funcs/scim-groups-delete.ts:
-    last_write_checksum: sha1:64ba54c783e978898ffe19351e9d8049d8366038
-  src/funcs/scim-groups-get.ts:
-    last_write_checksum: sha1:4acfc8dcbc030f5e240f6cadddd231569f14ddad
-  src/funcs/scim-groups-list.ts:
-    last_write_checksum: sha1:9ebbb9c51bb1d17a7d40aa50ac3b27ccb658d949
-  src/funcs/scim-groups-patch.ts:
-    last_write_checksum: sha1:77a8108bf9c19fdb2d89a572b5d6dbdd88521fec
-  src/funcs/scim-groups-update.ts:
-    last_write_checksum: sha1:61238ae25be6e8184846322a2ea2c1ede33b573e
-  src/funcs/scim-schemas-list.ts:
-    id: 9d10813c1a84
-    last_write_checksum: sha1:e0bcc093122dbb62a3ed0d0ebd98881965d7e3b0
-    pristine_git_object: e98cdbb9b2c1de414084f542838b7fae2589e7ca
-  src/funcs/scim-users-create.ts:
-    last_write_checksum: sha1:d061e11aada57b262d6e904252e0f4b375b76c75
-  src/funcs/scim-users-delete.ts:
-    last_write_checksum: sha1:b60e1d1f08b648dbe1e1da58787177e70019654e
-  src/funcs/scim-users-get.ts:
-    last_write_checksum: sha1:6664f2751d1bf00b7d39e8da211c76a8f2a44f86
-  src/funcs/scim-users-list.ts:
-    last_write_checksum: sha1:dd53fb1413cd095805906d89908a3744b6008e20
-  src/funcs/scim-users-patch.ts:
-    last_write_checksum: sha1:bdb1ee233ae9a9c542a396bf0a170a2cdb431105
-  src/funcs/scim-users-update.ts:
-    last_write_checksum: sha1:efa2e43339e73b5a1cdcea93ed8e6d64f5a47480
   src/funcs/tasks-create.ts:
     id: 40c4c3ae75d4
     last_write_checksum: sha1:60d752cd13a64ef69f5548f6baabcaa43510242b
@@ -3813,7 +3679,7 @@ trackedFiles:
     pristine_git_object: 97ac89318862e96353a6ec7b4eeb7dbe45b844eb
   src/hooks/types.ts:
     id: 2a02d86ec24f
-    last_write_checksum: sha1:27a3444c4839bec58ae89820fd8c2483edafc3f4
+    last_write_checksum: sha1:8e6a1813e04a0a32009cb07e9772e4166658be1b
     pristine_git_object: 9c36bf01332084f735909a71036c3544cc4c7e3a
   src/index.ts:
     id: c5fb850250c7
@@ -3825,19 +3691,15 @@ trackedFiles:
     pristine_git_object: 44be0eae8246521b230e8e711a88eff738fc015d
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:0421b445c3139e39c5467b8831d8780e09605d3c
+    last_write_checksum: sha1:26aa80aba3b0a5d64e2ae8048e8da355673e863d
     pristine_git_object: 5e129f5c009a3a571402fc9c45c1889a890edf54
-  src/lib/dlv.ts:
-    id: b1988214835a
-    last_write_checksum: sha1:1dd3e3fbb4550c4bf31f5ef997faff355d6f3250
-    pristine_git_object: e81091f5e536f82739f71379b1fddc2d147c49e2
   src/lib/encodings.ts:
     id: 3bd8ead98afd
-    last_write_checksum: sha1:3e6784ec96431e0d8f98f67b3eae38d7b368264c
+    last_write_checksum: sha1:7533dcb79b22b8c84ac7b90aec94317d12bad5f8
     pristine_git_object: 25d1d8032a69f56da1ac1df00a48ecf73457a1ef
   src/lib/env.ts:
     id: c52972a3b198
-    last_write_checksum: sha1:bc3c5663c789055b3a60a6faa426047a83cb2e83
+    last_write_checksum: sha1:aa41017a189c95e2ec340fa4ba1672856cce697a
     pristine_git_object: 95efc8dbddb16302c49f69cc591ff31ae0a2f4f4
   src/lib/files.ts:
     id: e5efa54fcb95
@@ -3847,25 +3709,21 @@ trackedFiles:
     id: 63a80782d37e
     last_write_checksum: sha1:797cbf16d3c7c4d62d3ba0eedb08617524938457
     pristine_git_object: 13cf1fd7894a89f727b8d2db2ad24313a94f68c7
-  src/lib/is-plain-object.ts:
-    id: b9862591096a
-    last_write_checksum: sha1:df687f25a9590b6fd95d39df41a652ae3fd4e517
-    pristine_git_object: 61070d3d7c7e5e95b1ed7e7ea21869eb0767db77
   src/lib/logger.ts:
     id: 7ee7741a02bf
     last_write_checksum: sha1:0ec9d3a2a34c362746b767e4f9a746c055d57a7b
     pristine_git_object: d181f2937d4128afbe9b0327e0f81d1fa9c877b7
   src/lib/matchers.ts:
     id: d54b2253b719
-    last_write_checksum: sha1:ed19b6a3f84666c8513c2a20adb78c1a45ae3619
+    last_write_checksum: sha1:8ec565d056443324229dd3d8c403e80c2d49d00e
     pristine_git_object: 237bfade931472e6e35f942c417f55c25b8efd90
   src/lib/primitives.ts:
     id: 74859f750b28
-    last_write_checksum: sha1:987869fc54790b9c22e9182099103d6aa7c67016
+    last_write_checksum: sha1:fe3abb7d6b61596e346873519bcec9b2eaa61467
     pristine_git_object: d21f1dc49affa4e6d324bdd60811b470fdfa7eb6
   src/lib/retries.ts:
     id: b24a69d15639
-    last_write_checksum: sha1:f3da74dffcbe2756c69393f8600205aa1dc06e68
+    last_write_checksum: sha1:42c8f6cc4c875be236230a8c760f4f32d8c1ab68
     pristine_git_object: e3ce9aba72150fc3c18f3105d39b21aba809377b
   src/lib/schemas.ts:
     id: deb4b531fae1
@@ -3873,7 +3731,7 @@ trackedFiles:
     pristine_git_object: cf280491bf54dbd4d78e5c071c3b85cf5ca9e35e
   src/lib/sdks.ts:
     id: 8a6d91f1218d
-    last_write_checksum: sha1:4f517a862c2f91fc73342bf38eb8b63bef7df6fb
+    last_write_checksum: sha1:f0743d4e3827ae82d238be0b5f73d7824ebc89fd
     pristine_git_object: adb9e0a7ed39316c92f0d68490c54c5a9362a0be
   src/lib/security.ts:
     id: 0502afa7922e
@@ -3885,7 +3743,7 @@ trackedFiles:
     pristine_git_object: f3a8de6c021de59c991707946cd294596cae954d
   src/models/attribute.ts:
     id: 672ea0c76df6
-    last_write_checksum: sha1:73e00d01a1438be9c8a047052ae23ae0e9278003
+    last_write_checksum: sha1:97376e1fadb4fbfe8e777186073eb896051f08c9
     pristine_git_object: e6ad63809ac3e49f6bc1f6ca4744b5de3dea2f77
   src/models/comment.ts:
     id: 31da50e38c51
@@ -4066,9 +3924,9 @@ trackedFiles:
     last_write_checksum: sha1:d72eaad518afb5eccc5d2953177c7092cd02195a
     pristine_git_object: 64bede8fc9f36634f34d6f0820fdd15474921b2c
   src/models/operations/assert-entry.ts:
-    last_write_checksum: sha1:ba4357724e27efe1631096b776ffcc57e2b6e755
+    last_write_checksum: sha1:5f0bf805bea7048db18522efc1bfe7e0ce9356be
   src/models/operations/assert-record.ts:
-    last_write_checksum: sha1:885f0cb15a7480a93889b59dbf822996a21d8b4e
+    last_write_checksum: sha1:ad5a0cdbbbb54d171b57382307922d92faa9a13f
   src/models/operations/create-attribute-option.ts:
     last_write_checksum: sha1:aa2c54e7d2abda5696dfdbf4550edb4d2df9702f
   src/models/operations/create-attribute-status.ts:
@@ -4078,23 +3936,19 @@ trackedFiles:
   src/models/operations/create-comment.ts:
     last_write_checksum: sha1:4a6f23bcbe6c1a2ca90ce6d913bf49f3d7d575ae
   src/models/operations/create-entry.ts:
-    last_write_checksum: sha1:c1299306e9cc92e2b8bd5135983ee036b1c61a11
+    last_write_checksum: sha1:9e377ad633848ab51ef85533db474ab1553a6c89
   src/models/operations/create-file.ts:
     last_write_checksum: sha1:50a81fa3d8c2450c94332c2b30de5ebbf05717e3
   src/models/operations/create-list.ts:
     last_write_checksum: sha1:e59fcffb47e19753d89b0f4756cfdadba6a16a6e
   src/models/operations/create-new-attribute.ts:
-    last_write_checksum: sha1:1eb4dd94b9dd636482592cfa20c89ed5a83aedf6
+    last_write_checksum: sha1:ade24f961bac94419d94f6974a9201b287bc4661
   src/models/operations/create-note.ts:
     last_write_checksum: sha1:f87a9abc176a1ce16675c3b8490b97abbd6a0bc1
   src/models/operations/create-object.ts:
     last_write_checksum: sha1:ecdc7b2bf5bc2383da3e82577348fdc73f2d3fd4
   src/models/operations/create-record.ts:
-    last_write_checksum: sha1:ce5c0a181466dc20e4489f31657cb68ca3a2e1e6
-  src/models/operations/create-scim-group.ts:
-    last_write_checksum: sha1:bd48b97842727b046672074d4d7b00c94b4842c8
-  src/models/operations/create-scim-user.ts:
-    last_write_checksum: sha1:31bb869bac1fdc6cbe5a267ba71968f0935b570c
+    last_write_checksum: sha1:b853c03fcd6b88563327c2c95b6638c5063b26fc
   src/models/operations/create-task.ts:
     last_write_checksum: sha1:4a4970dfb80acd51fcb99b80f975e782d8c038fc
   src/models/operations/create-webhook.ts:
@@ -4111,10 +3965,6 @@ trackedFiles:
     last_write_checksum: sha1:93c959d84d24e2c93ba34e088bd0d7bb230b28b0
   src/models/operations/delete-record.ts:
     last_write_checksum: sha1:54174b55e881d4579eed54bc0f8f414ce5b7d444
-  src/models/operations/delete-scim-group.ts:
-    last_write_checksum: sha1:6a32a135248b00da717359356b2b4b32b8ebaaa3
-  src/models/operations/delete-scim-user.ts:
-    last_write_checksum: sha1:a3b08068cc6fe266b93c96548ec9ce4bec0c2327
   src/models/operations/delete-task.ts:
     last_write_checksum: sha1:10a4d04cbaeb2ed8bb4830e01d52a6755708837c
   src/models/operations/delete-webhook.ts:
@@ -4132,7 +3982,7 @@ trackedFiles:
   src/models/operations/get-comment.ts:
     last_write_checksum: sha1:67d7389b1fe28cb5bbb77721b82c20d0b02985c1
   src/models/operations/get-entry.ts:
-    last_write_checksum: sha1:e305e1efda3cda4f00459ef9e00515e4acd00bce
+    last_write_checksum: sha1:502d18c5057e8a859e99976e066221b368e60395
   src/models/operations/get-file.ts:
     last_write_checksum: sha1:d3e8547b26c81e746d31ecacc425b62f40f11a26
   src/models/operations/get-list-views.ts:
@@ -4148,11 +3998,7 @@ trackedFiles:
   src/models/operations/get-object.ts:
     last_write_checksum: sha1:ebeeaf5169c4e101ade06d8c1481f41c4e1c6829
   src/models/operations/get-record.ts:
-    last_write_checksum: sha1:9bf5fccac48a8eaf26fee7dead39e5c773cbbd09
-  src/models/operations/get-scim-group.ts:
-    last_write_checksum: sha1:173d66497d2123edf8ebf7de835ada673b3a1bed
-  src/models/operations/get-scim-user.ts:
-    last_write_checksum: sha1:aa3ed4c3f7933c7c068f0ce2ff6d04fd97b7cbbb
+    last_write_checksum: sha1:fd0be3ccbd43bc16e2eea081d3af596381435592
   src/models/operations/get-task.ts:
     last_write_checksum: sha1:3943dc0de9d8f740e90c359737585072834b8671
   src/models/operations/get-thread.ts:
@@ -4165,7 +4011,7 @@ trackedFiles:
     last_write_checksum: sha1:3ef4495c01083ed80a2baf7c0280b340cec7a3c7
   src/models/operations/index.ts:
     id: 0d9ffaf774d2
-    last_write_checksum: sha1:1fc9165357f1da2abdf3d4be2c5fdd43a2b64db9
+    last_write_checksum: sha1:e979f96d56298d7574d93476918a5168d1a94025
     pristine_git_object: a9c10efc25eca66a20c60248f3b18033fd144111
   src/models/operations/list-all-attributes.ts:
     last_write_checksum: sha1:3fc94d5b731123f506781e4234b4d922a9b6aa58
@@ -4178,7 +4024,7 @@ trackedFiles:
   src/models/operations/list-call-recordings.ts:
     last_write_checksum: sha1:2f416401f8784b3e1cb527d0078916db3cb41b8c
   src/models/operations/list-entry-attribute-values.ts:
-    last_write_checksum: sha1:bc90258be518eb450e929e1471a31eea5c13e2f3
+    last_write_checksum: sha1:3fba4a3c2c74a1ac6eb6441b46468c26f2621622
   src/models/operations/list-files.ts:
     last_write_checksum: sha1:f633f6f3d47baa5c3709aeb986e4675638b2468b
   src/models/operations/list-lists.ts:
@@ -4190,53 +4036,39 @@ trackedFiles:
   src/models/operations/list-objects.ts:
     last_write_checksum: sha1:40cc6e6fb1ad1f87694a646df7eec68d366c1ae0
   src/models/operations/list-record-attribute-values.ts:
-    last_write_checksum: sha1:6d59059a7c3669cd8592c5d55fc554a59a3020ed
+    last_write_checksum: sha1:c3fffb5844a29268a461a15993b72969d86f1e1c
   src/models/operations/list-record-entries.ts:
     last_write_checksum: sha1:c03c8bc708f64a6bd91da2a1b397c108fb86e95b
-  src/models/operations/list-scim-groups.ts:
-    last_write_checksum: sha1:dfcd41b51d819df7f4de3ca0d33fb72ca36993ee
-  src/models/operations/list-scim-schemas.ts:
-    last_write_checksum: sha1:b5b807682efb07fb79188f4ba2e665dde8fe5323
-  src/models/operations/list-scim-users.ts:
-    last_write_checksum: sha1:0b463ffe36916bd859b1b5c97665da36d311b540
   src/models/operations/list-tasks.ts:
     last_write_checksum: sha1:2b11adad427b69523e96548390387eec9596fb40
   src/models/operations/list-webhooks.ts:
     last_write_checksum: sha1:0e9667ad6dd97f7e1bafd352bb3ddc80a5719d9e
   src/models/operations/list-workspace-members.ts:
     last_write_checksum: sha1:27571ccf00a8009e1f25eee77406782985ea5ef2
-  src/models/operations/patch-scim-group.ts:
-    last_write_checksum: sha1:1221370183cfa4e85c8217896dab08d4e4736bd4
-  src/models/operations/patch-scim-user.ts:
-    last_write_checksum: sha1:b79aac2c47ee51ecdd62a8a7e02505060ce8857e
   src/models/operations/query-entries.ts:
-    last_write_checksum: sha1:297467b4633de6c05dd86dfd61ec8b8d44bbb5a9
+    last_write_checksum: sha1:9bc0b6b64401c1101b9b744b4c38ad7870a8fc8e
   src/models/operations/query-records.ts:
-    last_write_checksum: sha1:244912d28b9f8b8e9a1761c53170fba9113fd218
+    last_write_checksum: sha1:6849bfff04880c6cacf76df8299297cd17c26bce
   src/models/operations/search-records.ts:
     last_write_checksum: sha1:c51ce2fb9749e94679f9b65c2b49fe2704f0093e
   src/models/operations/update-append-record.ts:
-    last_write_checksum: sha1:61ff399cc762704ee7a9d8270a2100f192e0b228
+    last_write_checksum: sha1:179f7081034128c14d68e01f86b9b4a98c2d507e
   src/models/operations/update-appending-entry.ts:
-    last_write_checksum: sha1:5990d8cc4a79ae77c7f2c694006987ba9bee179c
+    last_write_checksum: sha1:811a6ef30fee2139abf180a3e7816ccf2542c76c
   src/models/operations/update-attribute-select-option.ts:
     last_write_checksum: sha1:8adde841dcef8d57034daaf262965077250889b7
   src/models/operations/update-attribute-status.ts:
     last_write_checksum: sha1:5f7f972cd630fc98b46b940258dacf28f14d0060
   src/models/operations/update-attribute.ts:
-    last_write_checksum: sha1:e0f5b289d256ccc2cf442f57029df9ccf21afdca
+    last_write_checksum: sha1:56719d31c31056611413cddfbc9a3496a324f782
   src/models/operations/update-entry.ts:
-    last_write_checksum: sha1:c0b28e187beb4dfc95dbefe66740060463f9700f
+    last_write_checksum: sha1:394d725187f140838d8150584c53e4fb5f4c094d
   src/models/operations/update-list.ts:
     last_write_checksum: sha1:1bbdbf934bef1af88f04b7ba92bdb76a063b05af
   src/models/operations/update-object.ts:
     last_write_checksum: sha1:2ceec8f37e2256230a8a59a45b3516fa37c76f62
   src/models/operations/update-record.ts:
-    last_write_checksum: sha1:5c3549d6a13fec6a899d3a5394916b484fe8678a
-  src/models/operations/update-scim-group.ts:
-    last_write_checksum: sha1:964e664e35dfb4b5e314d54152c97400f5df362e
-  src/models/operations/update-scim-user.ts:
-    last_write_checksum: sha1:57ea47101df9c8f7a4dd0c5303d3e8b61243a9c1
+    last_write_checksum: sha1:1f3645c0dcd823cd67c63d7b8fd73c7076e47806
   src/models/operations/update-task.ts:
     last_write_checksum: sha1:9d8e7e6a37df2f0624b85ed6ec0b692346f3b829
   src/models/operations/update-webhook.ts:
@@ -4245,7 +4077,7 @@ trackedFiles:
     last_write_checksum: sha1:ba6b75d8b0faa2f9de5e607722ac913b3eb1b4bb
   src/models/output-value.ts:
     id: f045782242ce
-    last_write_checksum: sha1:0028cd2b042e529cb2447df2774f379e63326c9b
+    last_write_checksum: sha1:07c9bc2a0283f68025e468be042e423d13e8594d
     pristine_git_object: 85ceb924c6cbb8fd5f59e9fabca1ccbd341723e9
   src/models/security.ts:
     id: d90c6c784ca5
@@ -4288,7 +4120,7 @@ trackedFiles:
     last_write_checksum: sha1:581d51a8984b58a2bd4a1179be6ac0e0265a89b2
     pristine_git_object: 745c57c0d52013946bf6897199ac7f3145f98a74
   src/sdk/files.ts:
-    last_write_checksum: sha1:85f9e5449cdfc27fb3e215c0db2e41a6a172de42
+    last_write_checksum: sha1:65c45d36c8862797bafc3a5f89178e639ecba42d
   src/sdk/index.ts:
     id: a857902a703f
     last_write_checksum: sha1:ed6d64f2a6135349aa8498b8d8cff9ba85c7fb8f
@@ -4319,17 +4151,9 @@ trackedFiles:
     id: 6c95f11fdf04
     last_write_checksum: sha1:1fb26b35802c12e449de6d3c4f7d8f450cd47eb9
     pristine_git_object: 8cbcb4b3af7a1f6d9f6067eb0642ec83c23bd51b
-  src/sdk/scim-groups.ts:
-    last_write_checksum: sha1:31426c06cf53b670e21b621f8952a1f50c6de5ea
-  src/sdk/scim-schemas.ts:
-    id: 403c54f40969
-    last_write_checksum: sha1:5031f000a816689d24318dcb655e50955c13990d
-    pristine_git_object: 148d94c2e39771038eb7d07ae4bba344cc79f103
-  src/sdk/scim-users.ts:
-    last_write_checksum: sha1:f13dc41d6c4d1142da4d16bf68f4bd123964e34c
   src/sdk/sdk.ts:
     id: 784571af2f69
-    last_write_checksum: sha1:f3c8ed7cbf1a0b78a86bd11484aaec7e266023f7
+    last_write_checksum: sha1:fff846e4c3d920146633d412897b59922cd41c6e
     pristine_git_object: 14fc36b6bb2e59e5a2ade69dd3dc7a3e3362ec72
   src/sdk/tasks.ts:
     id: 998c61887b99
@@ -4353,7 +4177,7 @@ trackedFiles:
     pristine_git_object: a2eed65b8dbb74b32d9ef70af5cf41ceac276c72
   src/types/async.ts:
     id: fac8da972f86
-    last_write_checksum: sha1:3ff07b3feaf390ec1aeb18ff938e139c6c4a9585
+    last_write_checksum: sha1:675d04bb4b4081dc3482f18de98674f9b446e7b4
     pristine_git_object: 689dba5de50e8769e5f3bb913e3f42a146d15bc1
   src/types/blobs.ts:
     id: f8ab9b326c86
@@ -4389,7 +4213,7 @@ trackedFiles:
     pristine_git_object: beb81e10f0b9eee2ed398a853fe6f737b743f818
   src/types/primitives.ts:
     id: 0cd7f4ac625d
-    last_write_checksum: sha1:c3ce85778bf82bc0f0d464067b04856d99ff4365
+    last_write_checksum: sha1:a521a09fa18b1af857d29477d3aa7007b42583ed
     pristine_git_object: 6180991492b8b6afccb3bb808010d4a15823168f
   src/types/rfcdate.ts:
     id: 9eb64906dcd6
@@ -6457,3 +6281,4 @@ examples:
         "204":
           application/json: {}
 examplesVersion: 1.0.2
+releaseNotes: "## Typescript SDK Changes:\n* `attio.scimSchemas.list()`: **Removed** (Breaking ⚠️)\n* `attio.scimUsers.list()`: **Removed** (Breaking ⚠️)\n* `attio.scimUsers.create()`: **Removed** (Breaking ⚠️)\n* `attio.scimUsers.get()`: **Removed** (Breaking ⚠️)\n* `attio.scimUsers.patch()`: **Removed** (Breaking ⚠️)\n* `attio.scimUsers.update()`: **Removed** (Breaking ⚠️)\n* `attio.scimUsers.delete()`: **Removed** (Breaking ⚠️)\n* `attio.scimGroups.list()`: **Removed** (Breaking ⚠️)\n* `attio.scimGroups.create()`: **Removed** (Breaking ⚠️)\n* `attio.scimGroups.get()`: **Removed** (Breaking ⚠️)\n* `attio.scimGroups.patch()`: **Removed** (Breaking ⚠️)\n* `attio.scimGroups.update()`: **Removed** (Breaking ⚠️)\n* `attio.scimGroups.delete()`: **Removed** (Breaking ⚠️)\n* `attio.attributes.listAll()`:  `response.data[]` **Changed**\n* `attio.attributes.createNew()`: \n  *  `request.body.data.config.currency.defaultCurrencyCode.enum(try)` **Added**\n  *  `response.data` **Changed**\n* `attio.attributes.get()`:  `response.data` **Changed**\n* `attio.attributes.update()`: \n  *  `request.body.data.config.currency.defaultCurrencyCode.enum(try)` **Added**\n  *  `response.data` **Changed**\n* `attio.records.query()`:  `response.data[].values.Map<Array<value>>[].union(currency).currencyCode.enum(try)` **Added**\n* `attio.records.create()`:  `response.data.values.Map<Array<value>>[].union(currency).currencyCode.enum(try)` **Added**\n* `attio.records.assert()`:  `response.data.values.Map<Array<value>>[].union(currency).currencyCode.enum(try)` **Added**\n* `attio.records.get()`:  `response.data.values.Map<Array<value>>[].union(currency).currencyCode.enum(try)` **Added**\n* `attio.records.update()`:  `response.data.values.Map<Array<value>>[].union(currency).currencyCode.enum(try)` **Added**\n* `attio.records.updateAppend()`:  `response.data.values.Map<Array<value>>[].union(currency).currencyCode.enum(try)` **Added**\n* `attio.records.listAttributeValues()`:  `response.data[].union(currency).currencyCode.enum(try)` **Added**\n* `attio.entries.query()`:  `response.data[].entryValues.Map<Array<entry_value>>[].union(currency).currencyCode.enum(try)` **Added**\n* `attio.entries.create()`:  `response.data.entryValues.Map<Array<entry_value>>[].union(currency).currencyCode.enum(try)` **Added**\n* `attio.entries.assert()`:  `response.data.entryValues.Map<Array<entry_value>>[].union(currency).currencyCode.enum(try)` **Added**\n* `attio.entries.get()`:  `response.data.entryValues.Map<Array<entry_value>>[].union(currency).currencyCode.enum(try)` **Added**\n* `attio.entries.update()`:  `response.data.entryValues.Map<Array<entry_value>>[].union(currency).currencyCode.enum(try)` **Added**\n* `attio.entries.updateAppending()`:  `response.data.entryValues.Map<Array<entry_value>>[].union(currency).currencyCode.enum(try)` **Added**\n* `attio.entries.listAttributeValues()`:  `response.data[].union(currency).currencyCode.enum(try)` **Added**\n"

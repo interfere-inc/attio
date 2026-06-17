@@ -14,9 +14,6 @@ import { Meta } from "./meta.js";
 import { Notes } from "./notes.js";
 import { Objects } from "./objects.js";
 import { Records } from "./records.js";
-import { ScimGroups } from "./scim-groups.js";
-import { ScimSchemas } from "./scim-schemas.js";
-import { ScimUsers } from "./scim-users.js";
 import { Tasks } from "./tasks.js";
 import { Threads } from "./threads.js";
 import { Transcripts } from "./transcripts.js";
@@ -92,21 +89,6 @@ export class Attio extends ClientSDK {
   private _files?: Files;
   get files(): Files {
     return (this._files ??= new Files(this._options));
-  }
-
-  private _scimSchemas?: ScimSchemas;
-  get scimSchemas(): ScimSchemas {
-    return (this._scimSchemas ??= new ScimSchemas(this._options));
-  }
-
-  private _scimUsers?: ScimUsers;
-  get scimUsers(): ScimUsers {
-    return (this._scimUsers ??= new ScimUsers(this._options));
-  }
-
-  private _scimGroups?: ScimGroups;
-  get scimGroups(): ScimGroups {
-    return (this._scimGroups ??= new ScimGroups(this._options));
   }
 
   private _webhooks?: Webhooks;

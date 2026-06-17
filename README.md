@@ -227,28 +227,6 @@ run();
 * [listEntries](docs/sdks/records/README.md#listentries) - List record entries
 * [search](docs/sdks/records/README.md#search) - Search records
 
-### [ScimGroups](docs/sdks/scimgroups/README.md)
-
-* [list](docs/sdks/scimgroups/README.md#list) - List SCIM groups
-* [create](docs/sdks/scimgroups/README.md#create) - Create SCIM group
-* [get](docs/sdks/scimgroups/README.md#get) - Get SCIM group
-* [patch](docs/sdks/scimgroups/README.md#patch) - Patch SCIM group
-* [update](docs/sdks/scimgroups/README.md#update) - Update SCIM group
-* [delete](docs/sdks/scimgroups/README.md#delete) - Delete SCIM group
-
-### [ScimSchemas](docs/sdks/scimschemas/README.md)
-
-* [list](docs/sdks/scimschemas/README.md#list) - List SCIM schemas
-
-### [ScimUsers](docs/sdks/scimusers/README.md)
-
-* [list](docs/sdks/scimusers/README.md#list) - List SCIM users
-* [create](docs/sdks/scimusers/README.md#create) - Create SCIM user
-* [get](docs/sdks/scimusers/README.md#get) - Get SCIM user
-* [patch](docs/sdks/scimusers/README.md#patch) - Patch SCIM user
-* [update](docs/sdks/scimusers/README.md#update) - Update SCIM user
-* [delete](docs/sdks/scimusers/README.md#delete) - Delete SCIM user
-
 ### [Tasks](docs/sdks/tasks/README.md)
 
 * [list](docs/sdks/tasks/README.md#list) - List tasks
@@ -356,19 +334,6 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`recordsSearch`](docs/sdks/records/README.md#search) - Search records
 - [`recordsUpdate`](docs/sdks/records/README.md#update) - Update a record (overwrite multiselect values)
 - [`recordsUpdateAppend`](docs/sdks/records/README.md#updateappend) - Update a record (append multiselect values)
-- [`scimGroupsCreate`](docs/sdks/scimgroups/README.md#create) - Create SCIM group
-- [`scimGroupsDelete`](docs/sdks/scimgroups/README.md#delete) - Delete SCIM group
-- [`scimGroupsGet`](docs/sdks/scimgroups/README.md#get) - Get SCIM group
-- [`scimGroupsList`](docs/sdks/scimgroups/README.md#list) - List SCIM groups
-- [`scimGroupsPatch`](docs/sdks/scimgroups/README.md#patch) - Patch SCIM group
-- [`scimGroupsUpdate`](docs/sdks/scimgroups/README.md#update) - Update SCIM group
-- [`scimSchemasList`](docs/sdks/scimschemas/README.md#list) - List SCIM schemas
-- [`scimUsersCreate`](docs/sdks/scimusers/README.md#create) - Create SCIM user
-- [`scimUsersDelete`](docs/sdks/scimusers/README.md#delete) - Delete SCIM user
-- [`scimUsersGet`](docs/sdks/scimusers/README.md#get) - Get SCIM user
-- [`scimUsersList`](docs/sdks/scimusers/README.md#list) - List SCIM users
-- [`scimUsersPatch`](docs/sdks/scimusers/README.md#patch) - Patch SCIM user
-- [`scimUsersUpdate`](docs/sdks/scimusers/README.md#update) - Update SCIM user
 - [`tasksCreate`](docs/sdks/tasks/README.md#create) - Create a task
 - [`tasksDelete`](docs/sdks/tasks/README.md#delete) - Delete a task
 - [`tasksGet`](docs/sdks/tasks/README.md#get) - Get a task
@@ -563,97 +528,97 @@ run();
 
 
 **Inherit from [`AttioBaseError`](./src/models/errors/attio-base-error.ts)**:
-* [`QuotaExceededError`](./src/models/errors/quota-exceeded-error.ts): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`UpdateObjectValidationTypeError`](./src/models/errors/update-object-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`CreateNewAttributeValidationTypeError`](./src/models/errors/create-new-attribute-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`SystemEditUnauthorizedError`](./src/models/errors/system-edit-unauthorized-error.ts): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`UpdateAttributeSelectOptionValueNotFoundError`](./src/models/errors/update-attribute-select-option-value-not-found-error.ts): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`CreateAttributeStatusValidationTypeError`](./src/models/errors/create-attribute-status-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`UpdateAttributeStatusValueNotFoundError`](./src/models/errors/update-attribute-status-value-not-found-error.ts): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`FilterError`](./src/models/errors/filter-error.ts): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`CreateRecordValueNotFoundError`](./src/models/errors/create-record-value-not-found-error.ts): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`AssertRecordValueNotFoundError`](./src/models/errors/assert-record-value-not-found-error.ts): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`UpdateRecordMissingValueError`](./src/models/errors/update-record-missing-value-error.ts): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`UpdateAppendRecordMissingValueError`](./src/models/errors/update-append-record-missing-value-error.ts): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`ListRecordAttributeValuesValidationTypeError`](./src/models/errors/list-record-attribute-values-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`SearchRecordsValueNotFoundError`](./src/models/errors/search-records-value-not-found-error.ts): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`CreateListValueNotFoundError`](./src/models/errors/create-list-value-not-found-error.ts): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`UpdateListValueNotFoundError`](./src/models/errors/update-list-value-not-found-error.ts): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`CreateEntryValueNotFoundError`](./src/models/errors/create-entry-value-not-found-error.ts): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`MultipleMatchResultsError`](./src/models/errors/multiple-match-results-error.ts): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`UpdateEntryImmutableValueError`](./src/models/errors/update-entry-immutable-value-error.ts): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`UpdateAppendingEntryImmutableValueError`](./src/models/errors/update-appending-entry-immutable-value-error.ts): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`CreateTaskValidationTypeError`](./src/models/errors/create-task-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`UpdateTaskValidationTypeError`](./src/models/errors/update-task-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`CreateCommentValueNotFoundError`](./src/models/errors/create-comment-value-not-found-error.ts): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`FindOrCreateMeetingValidationTypeError`](./src/models/errors/find-or-create-meeting-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`CreateCallRecordingValidationTypeError`](./src/models/errors/create-call-recording-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`CreateWebhookValidationTypeError`](./src/models/errors/create-webhook-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`CreateAttributeOptionValidationTypeError`](./src/models/errors/create-attribute-option-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`BillingError`](./src/models/errors/billing-error.ts): Forbidden. Status code `403`. Applicable to 1 of 87 methods.*
-* [`AuthError`](./src/models/errors/auth-error.ts): Forbidden. Status code `403`. Applicable to 1 of 87 methods.*
-* [`GetObjectNotFoundError`](./src/models/errors/get-object-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`UpdateObjectNotFoundError`](./src/models/errors/update-object-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`GetObjectViewsNotFoundError`](./src/models/errors/get-object-views-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`CreateNewAttributeNotFoundError`](./src/models/errors/create-new-attribute-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`GetAttributeNotFoundError`](./src/models/errors/get-attribute-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`UpdateAttributeNotFoundError`](./src/models/errors/update-attribute-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`UpdateAttributeSelectOptionNotFoundError`](./src/models/errors/update-attribute-select-option-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`ListAttributeStatusesNotFoundError`](./src/models/errors/list-attribute-statuses-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`CreateAttributeStatusNotFoundError`](./src/models/errors/create-attribute-status-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`UpdateAttributeStatusNotFoundError`](./src/models/errors/update-attribute-status-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`QueryRecordsNotFoundError`](./src/models/errors/query-records-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`CreateRecordNotFoundError`](./src/models/errors/create-record-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`AssertRecordNotFoundError`](./src/models/errors/assert-record-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`GetRecordNotFoundError`](./src/models/errors/get-record-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`UpdateRecordNotFoundError`](./src/models/errors/update-record-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`DeleteRecordNotFoundError`](./src/models/errors/delete-record-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`UpdateAppendRecordNotFoundError`](./src/models/errors/update-append-record-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`ListRecordAttributeValuesNotFoundError`](./src/models/errors/list-record-attribute-values-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`CreateListNotFoundError`](./src/models/errors/create-list-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`GetListNotFoundError`](./src/models/errors/get-list-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`UpdateListNotFoundError`](./src/models/errors/update-list-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`GetListViewsNotFoundError`](./src/models/errors/get-list-views-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`QueryEntriesNotFoundError`](./src/models/errors/query-entries-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`CreateEntryNotFoundError`](./src/models/errors/create-entry-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`AssertEntryNotFoundError`](./src/models/errors/assert-entry-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`GetEntryNotFoundError`](./src/models/errors/get-entry-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`UpdateEntryNotFoundError`](./src/models/errors/update-entry-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`DeleteEntryNotFoundError`](./src/models/errors/delete-entry-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`UpdateAppendingEntryNotFoundError`](./src/models/errors/update-appending-entry-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`ListEntryAttributeValuesNotFoundError`](./src/models/errors/list-entry-attribute-values-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`GetWorkspaceMemberNotFoundError`](./src/models/errors/get-workspace-member-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`ListNotesNotFoundError`](./src/models/errors/list-notes-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`CreateNoteNotFoundError`](./src/models/errors/create-note-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`GetNoteNotFoundError`](./src/models/errors/get-note-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`DeleteNoteNotFoundError`](./src/models/errors/delete-note-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`CreateTaskNotFoundError`](./src/models/errors/create-task-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`GetTaskNotFoundError`](./src/models/errors/get-task-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`DeleteTaskNotFoundError`](./src/models/errors/delete-task-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`UpdateTaskNotFoundError`](./src/models/errors/update-task-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`GetThreadNotFoundError`](./src/models/errors/get-thread-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`GetCommentNotFoundError`](./src/models/errors/get-comment-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`DeleteCommentNotFoundError`](./src/models/errors/delete-comment-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`GetMeetingNotFoundError`](./src/models/errors/get-meeting-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`CreateCallRecordingNotFoundError`](./src/models/errors/create-call-recording-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`GetCallRecordingNotFoundError`](./src/models/errors/get-call-recording-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`DeleteCallRecordingNotFoundError`](./src/models/errors/delete-call-recording-not-found-error.ts): Call recording not found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`GetFileNotFoundError`](./src/models/errors/get-file-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`DeleteFileNotFoundError`](./src/models/errors/delete-file-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`GetWebhookNotFoundError`](./src/models/errors/get-webhook-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`DeleteWebhookNotFoundError`](./src/models/errors/delete-webhook-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`UpdateWebhookNotFoundError`](./src/models/errors/update-webhook-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`ListAttributeOptionsNotFoundError`](./src/models/errors/list-attribute-options-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`CreateAttributeOptionNotFoundError`](./src/models/errors/create-attribute-option-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`CreateObjectSlugConflictError`](./src/models/errors/create-object-slug-conflict-error.ts): Conflict. Status code `409`. Applicable to 1 of 87 methods.*
-* [`UpdateObjectSlugConflictError`](./src/models/errors/update-object-slug-conflict-error.ts): Conflict. Status code `409`. Applicable to 1 of 87 methods.*
-* [`CreateNewAttributeSlugConflictError`](./src/models/errors/create-new-attribute-slug-conflict-error.ts): Conflict. Status code `409`. Applicable to 1 of 87 methods.*
-* [`UpdateAttributeSelectOptionSlugConflictError`](./src/models/errors/update-attribute-select-option-slug-conflict-error.ts): Conflict. Status code `409`. Applicable to 1 of 87 methods.*
-* [`CreateAttributeStatusSlugConflictError`](./src/models/errors/create-attribute-status-slug-conflict-error.ts): Conflict. Status code `409`. Applicable to 1 of 87 methods.*
-* [`UpdateAttributeStatusSlugConflictError`](./src/models/errors/update-attribute-status-slug-conflict-error.ts): Conflict. Status code `409`. Applicable to 1 of 87 methods.*
-* [`CreateListSlugConflictError`](./src/models/errors/create-list-slug-conflict-error.ts): Conflict. Status code `409`. Applicable to 1 of 87 methods.*
-* [`CreateAttributeOptionSlugConflictError`](./src/models/errors/create-attribute-option-slug-conflict-error.ts): Conflict. Status code `409`. Applicable to 1 of 87 methods.*
-* [`CreateNoteValidationTypeError`](./src/models/errors/create-note-validation-type-error.ts): Content Too Large. Status code `413`. Applicable to 1 of 87 methods.*
+* [`QuotaExceededError`](./src/models/errors/quota-exceeded-error.ts): Bad Request. Status code `400`. Applicable to 1 of 74 methods.*
+* [`UpdateObjectValidationTypeError`](./src/models/errors/update-object-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 74 methods.*
+* [`CreateNewAttributeValidationTypeError`](./src/models/errors/create-new-attribute-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 74 methods.*
+* [`SystemEditUnauthorizedError`](./src/models/errors/system-edit-unauthorized-error.ts): Bad Request. Status code `400`. Applicable to 1 of 74 methods.*
+* [`UpdateAttributeSelectOptionValueNotFoundError`](./src/models/errors/update-attribute-select-option-value-not-found-error.ts): Bad Request. Status code `400`. Applicable to 1 of 74 methods.*
+* [`CreateAttributeStatusValidationTypeError`](./src/models/errors/create-attribute-status-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 74 methods.*
+* [`UpdateAttributeStatusValueNotFoundError`](./src/models/errors/update-attribute-status-value-not-found-error.ts): Bad Request. Status code `400`. Applicable to 1 of 74 methods.*
+* [`FilterError`](./src/models/errors/filter-error.ts): Bad Request. Status code `400`. Applicable to 1 of 74 methods.*
+* [`CreateRecordValueNotFoundError`](./src/models/errors/create-record-value-not-found-error.ts): Bad Request. Status code `400`. Applicable to 1 of 74 methods.*
+* [`AssertRecordValueNotFoundError`](./src/models/errors/assert-record-value-not-found-error.ts): Bad Request. Status code `400`. Applicable to 1 of 74 methods.*
+* [`UpdateRecordMissingValueError`](./src/models/errors/update-record-missing-value-error.ts): Bad Request. Status code `400`. Applicable to 1 of 74 methods.*
+* [`UpdateAppendRecordMissingValueError`](./src/models/errors/update-append-record-missing-value-error.ts): Bad Request. Status code `400`. Applicable to 1 of 74 methods.*
+* [`ListRecordAttributeValuesValidationTypeError`](./src/models/errors/list-record-attribute-values-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 74 methods.*
+* [`SearchRecordsValueNotFoundError`](./src/models/errors/search-records-value-not-found-error.ts): Bad Request. Status code `400`. Applicable to 1 of 74 methods.*
+* [`CreateListValueNotFoundError`](./src/models/errors/create-list-value-not-found-error.ts): Bad Request. Status code `400`. Applicable to 1 of 74 methods.*
+* [`UpdateListValueNotFoundError`](./src/models/errors/update-list-value-not-found-error.ts): Bad Request. Status code `400`. Applicable to 1 of 74 methods.*
+* [`CreateEntryValueNotFoundError`](./src/models/errors/create-entry-value-not-found-error.ts): Bad Request. Status code `400`. Applicable to 1 of 74 methods.*
+* [`MultipleMatchResultsError`](./src/models/errors/multiple-match-results-error.ts): Bad Request. Status code `400`. Applicable to 1 of 74 methods.*
+* [`UpdateEntryImmutableValueError`](./src/models/errors/update-entry-immutable-value-error.ts): Bad Request. Status code `400`. Applicable to 1 of 74 methods.*
+* [`UpdateAppendingEntryImmutableValueError`](./src/models/errors/update-appending-entry-immutable-value-error.ts): Bad Request. Status code `400`. Applicable to 1 of 74 methods.*
+* [`CreateTaskValidationTypeError`](./src/models/errors/create-task-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 74 methods.*
+* [`UpdateTaskValidationTypeError`](./src/models/errors/update-task-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 74 methods.*
+* [`CreateCommentValueNotFoundError`](./src/models/errors/create-comment-value-not-found-error.ts): Bad Request. Status code `400`. Applicable to 1 of 74 methods.*
+* [`FindOrCreateMeetingValidationTypeError`](./src/models/errors/find-or-create-meeting-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 74 methods.*
+* [`CreateCallRecordingValidationTypeError`](./src/models/errors/create-call-recording-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 74 methods.*
+* [`CreateWebhookValidationTypeError`](./src/models/errors/create-webhook-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 74 methods.*
+* [`CreateAttributeOptionValidationTypeError`](./src/models/errors/create-attribute-option-validation-type-error.ts): Bad Request. Status code `400`. Applicable to 1 of 74 methods.*
+* [`BillingError`](./src/models/errors/billing-error.ts): Forbidden. Status code `403`. Applicable to 1 of 74 methods.*
+* [`AuthError`](./src/models/errors/auth-error.ts): Forbidden. Status code `403`. Applicable to 1 of 74 methods.*
+* [`GetObjectNotFoundError`](./src/models/errors/get-object-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 74 methods.*
+* [`UpdateObjectNotFoundError`](./src/models/errors/update-object-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 74 methods.*
+* [`GetObjectViewsNotFoundError`](./src/models/errors/get-object-views-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 74 methods.*
+* [`CreateNewAttributeNotFoundError`](./src/models/errors/create-new-attribute-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 74 methods.*
+* [`GetAttributeNotFoundError`](./src/models/errors/get-attribute-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 74 methods.*
+* [`UpdateAttributeNotFoundError`](./src/models/errors/update-attribute-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 74 methods.*
+* [`UpdateAttributeSelectOptionNotFoundError`](./src/models/errors/update-attribute-select-option-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 74 methods.*
+* [`ListAttributeStatusesNotFoundError`](./src/models/errors/list-attribute-statuses-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 74 methods.*
+* [`CreateAttributeStatusNotFoundError`](./src/models/errors/create-attribute-status-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 74 methods.*
+* [`UpdateAttributeStatusNotFoundError`](./src/models/errors/update-attribute-status-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 74 methods.*
+* [`QueryRecordsNotFoundError`](./src/models/errors/query-records-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 74 methods.*
+* [`CreateRecordNotFoundError`](./src/models/errors/create-record-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 74 methods.*
+* [`AssertRecordNotFoundError`](./src/models/errors/assert-record-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 74 methods.*
+* [`GetRecordNotFoundError`](./src/models/errors/get-record-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 74 methods.*
+* [`UpdateRecordNotFoundError`](./src/models/errors/update-record-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 74 methods.*
+* [`DeleteRecordNotFoundError`](./src/models/errors/delete-record-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 74 methods.*
+* [`UpdateAppendRecordNotFoundError`](./src/models/errors/update-append-record-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 74 methods.*
+* [`ListRecordAttributeValuesNotFoundError`](./src/models/errors/list-record-attribute-values-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 74 methods.*
+* [`CreateListNotFoundError`](./src/models/errors/create-list-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 74 methods.*
+* [`GetListNotFoundError`](./src/models/errors/get-list-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 74 methods.*
+* [`UpdateListNotFoundError`](./src/models/errors/update-list-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 74 methods.*
+* [`GetListViewsNotFoundError`](./src/models/errors/get-list-views-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 74 methods.*
+* [`QueryEntriesNotFoundError`](./src/models/errors/query-entries-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 74 methods.*
+* [`CreateEntryNotFoundError`](./src/models/errors/create-entry-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 74 methods.*
+* [`AssertEntryNotFoundError`](./src/models/errors/assert-entry-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 74 methods.*
+* [`GetEntryNotFoundError`](./src/models/errors/get-entry-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 74 methods.*
+* [`UpdateEntryNotFoundError`](./src/models/errors/update-entry-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 74 methods.*
+* [`DeleteEntryNotFoundError`](./src/models/errors/delete-entry-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 74 methods.*
+* [`UpdateAppendingEntryNotFoundError`](./src/models/errors/update-appending-entry-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 74 methods.*
+* [`ListEntryAttributeValuesNotFoundError`](./src/models/errors/list-entry-attribute-values-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 74 methods.*
+* [`GetWorkspaceMemberNotFoundError`](./src/models/errors/get-workspace-member-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 74 methods.*
+* [`ListNotesNotFoundError`](./src/models/errors/list-notes-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 74 methods.*
+* [`CreateNoteNotFoundError`](./src/models/errors/create-note-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 74 methods.*
+* [`GetNoteNotFoundError`](./src/models/errors/get-note-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 74 methods.*
+* [`DeleteNoteNotFoundError`](./src/models/errors/delete-note-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 74 methods.*
+* [`CreateTaskNotFoundError`](./src/models/errors/create-task-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 74 methods.*
+* [`GetTaskNotFoundError`](./src/models/errors/get-task-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 74 methods.*
+* [`DeleteTaskNotFoundError`](./src/models/errors/delete-task-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 74 methods.*
+* [`UpdateTaskNotFoundError`](./src/models/errors/update-task-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 74 methods.*
+* [`GetThreadNotFoundError`](./src/models/errors/get-thread-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 74 methods.*
+* [`GetCommentNotFoundError`](./src/models/errors/get-comment-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 74 methods.*
+* [`DeleteCommentNotFoundError`](./src/models/errors/delete-comment-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 74 methods.*
+* [`GetMeetingNotFoundError`](./src/models/errors/get-meeting-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 74 methods.*
+* [`CreateCallRecordingNotFoundError`](./src/models/errors/create-call-recording-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 74 methods.*
+* [`GetCallRecordingNotFoundError`](./src/models/errors/get-call-recording-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 74 methods.*
+* [`DeleteCallRecordingNotFoundError`](./src/models/errors/delete-call-recording-not-found-error.ts): Call recording not found. Status code `404`. Applicable to 1 of 74 methods.*
+* [`GetFileNotFoundError`](./src/models/errors/get-file-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 74 methods.*
+* [`DeleteFileNotFoundError`](./src/models/errors/delete-file-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 74 methods.*
+* [`GetWebhookNotFoundError`](./src/models/errors/get-webhook-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 74 methods.*
+* [`DeleteWebhookNotFoundError`](./src/models/errors/delete-webhook-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 74 methods.*
+* [`UpdateWebhookNotFoundError`](./src/models/errors/update-webhook-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 74 methods.*
+* [`ListAttributeOptionsNotFoundError`](./src/models/errors/list-attribute-options-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 74 methods.*
+* [`CreateAttributeOptionNotFoundError`](./src/models/errors/create-attribute-option-not-found-error.ts): Not Found. Status code `404`. Applicable to 1 of 74 methods.*
+* [`CreateObjectSlugConflictError`](./src/models/errors/create-object-slug-conflict-error.ts): Conflict. Status code `409`. Applicable to 1 of 74 methods.*
+* [`UpdateObjectSlugConflictError`](./src/models/errors/update-object-slug-conflict-error.ts): Conflict. Status code `409`. Applicable to 1 of 74 methods.*
+* [`CreateNewAttributeSlugConflictError`](./src/models/errors/create-new-attribute-slug-conflict-error.ts): Conflict. Status code `409`. Applicable to 1 of 74 methods.*
+* [`UpdateAttributeSelectOptionSlugConflictError`](./src/models/errors/update-attribute-select-option-slug-conflict-error.ts): Conflict. Status code `409`. Applicable to 1 of 74 methods.*
+* [`CreateAttributeStatusSlugConflictError`](./src/models/errors/create-attribute-status-slug-conflict-error.ts): Conflict. Status code `409`. Applicable to 1 of 74 methods.*
+* [`UpdateAttributeStatusSlugConflictError`](./src/models/errors/update-attribute-status-slug-conflict-error.ts): Conflict. Status code `409`. Applicable to 1 of 74 methods.*
+* [`CreateListSlugConflictError`](./src/models/errors/create-list-slug-conflict-error.ts): Conflict. Status code `409`. Applicable to 1 of 74 methods.*
+* [`CreateAttributeOptionSlugConflictError`](./src/models/errors/create-attribute-option-slug-conflict-error.ts): Conflict. Status code `409`. Applicable to 1 of 74 methods.*
+* [`CreateNoteValidationTypeError`](./src/models/errors/create-note-validation-type-error.ts): Content Too Large. Status code `413`. Applicable to 1 of 74 methods.*
 * [`ResponseValidationError`](./src/models/errors/response-validation-error.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>
