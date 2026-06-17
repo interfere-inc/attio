@@ -35,7 +35,7 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: false
 typescript:
-  version: 0.2.19
+  version: 0.3.0
   acceptHeaderEnum: false
   additionalDependencies:
     dependencies: {}
@@ -46,6 +46,7 @@ typescript:
   additionalScripts:
     prepublishOnly: node ./scripts/reorder-exports.mjs && npm run build
   alwaysIncludeInboundAndOutbound: false
+  apiPromiseHelpers: false
   author: Interfere, Inc. <support@interfere.com>
   baseErrorName: AttioBaseError
   clientServerStatusCodesAsErrors: true
@@ -56,6 +57,7 @@ typescript:
   enableReactQuery: false
   enumFormat: union
   envVarPrefix: ATTIO
+  eventStreamClassName: EventStream
   exportZodModelNamespace: false
   fixEnumNameSanitization: false
   flatAdditionalProperties: true
@@ -87,6 +89,8 @@ typescript:
   packageName: '@interfere/attio'
   preApplyUnionDiscriminators: true
   preserveModelFieldNames: false
+  privateIdentifierPrefix: '#'
+  requestExtras: false
   responseFormat: flat
   sseFlatResponse: false
   templateVersion: v2
