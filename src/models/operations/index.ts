@@ -61,6 +61,7 @@ export * from "./list-record-entries.js";
 export * from "./list-tasks.js";
 export * from "./list-webhooks.js";
 export * from "./list-workspace-members.js";
+export * from "./post-v2-sql.js";
 export * from "./query-entries.js";
 export * from "./query-records.js";
 export * from "./search-records.js";

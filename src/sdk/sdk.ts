@@ -14,6 +14,7 @@ import { Meta } from "./meta.js";
 import { Notes } from "./notes.js";
 import { Objects } from "./objects.js";
 import { Records } from "./records.js";
+import { Sql } from "./sql.js";
 import { Tasks } from "./tasks.js";
 import { Threads } from "./threads.js";
 import { Transcripts } from "./transcripts.js";
@@ -34,6 +35,11 @@ export class Attio extends ClientSDK {
   private _records?: Records;
   get records(): Records {
     return (this._records ??= new Records(this._options));
+  }
+
+  private _sql?: Sql;
+  get sql(): Sql {
+    return (this._sql ??= new Sql(this._options));
   }
 
   private _lists?: Lists;

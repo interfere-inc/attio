@@ -64,6 +64,8 @@ tags:
     description: "Deals are an optional standard object that represent a deal or opportunity."
   - name: "Workspaces"
     description: "Workspaces are an optional standard object that represent a workspace or account in your system. Workspaces have many users and can be used to model a multi-tenant system. A company record can optionally have multiple workspaces."
+  - name: "SQL"
+    description: "Query records and list entries across your workspace using SQL. A single query can reference any object or list in the workspace."
 paths:
   /v2/objects:
     get:
@@ -14452,6 +14454,103 @@ paths:
         metadata:
           tag: "BETA"
       x-speakeasy-name-override: search
+  /v2/sql:
+    post:
+      tags:
+        - "SQL"
+      summary: "Query SQL"
+      description: |-
+        Query records and lists with SQL.
+
+        This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
+
+        Required scopes: `record_permission:read`, `object_configuration:read`.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: "object"
+              required:
+                - "sql"
+              properties:
+                sql:
+                  type: "string"
+                  description: "The SQL query to be executed."
+                  example: "SELECT * FROM companies WHERE companies.name = 'Fundstack'"
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                description: "Success"
+                required:
+                  - "data"
+                properties:
+                  data:
+                    type: "object"
+                    required:
+                      - "rows"
+                    properties:
+                      rows:
+                        type: "array"
+                        items:
+                          type: "object"
+                          additionalProperties:
+                            description: "A record containing the properties that have been selected in the SQL query."
+                            example:
+                              name: "Fundstack"
+                              record_id: "bf071e1f-6035-429d-b874-d83ea64ea13b"
+                              created_at: "2023-01-01T15:00:00.000000000Z"
+                              created_by:
+                                type: "workspace-member"
+                                id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b"
+                              domains:
+                                - "fundstack.com"
+                    example:
+                      rows:
+                        - name: "Fundstack"
+                          record_id: "bf071e1f-6035-429d-b874-d83ea64ea13b"
+                          created_at: "2023-01-01T15:00:00.000000000Z"
+                          created_by:
+                            type: "workspace-member"
+                            id: "50cf242c-7fa3-4cad-87d0-75b1af71c57b"
+                          domains:
+                            - "fundstack.com"
+        400:
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                description: "Bad Request"
+                required:
+                  - "status_code"
+                  - "type"
+                  - "code"
+                  - "message"
+                properties:
+                  type:
+                    type: "string"
+                    const: invalid_request_error
+                  status_code:
+                    type: "integer"
+                    const: 400
+                  code:
+                    type: "string"
+                    const: filter_error
+                  message:
+                    type: "string"
+                    example: "SQL syntax error."
+      security:
+        - oauth2:
+            - "record_permission:read"
+            - "object_configuration:read"
+      x-mint:
+        metadata:
+          tag: "BETA"
   /v2/lists:
     get:
       tags:

@@ -49,6 +49,7 @@ export * from "./list-attribute-statuses.js";
 export * from "./list-entry-attribute-values.js";
 export * from "./list-notes.js";
 export * from "./list-record-attribute-values.js";
+export * from "./post-v2-sql.js";
 export * from "./query-entries.js";
 export * from "./query-records.js";
 export * from "./response-validation-error.js";

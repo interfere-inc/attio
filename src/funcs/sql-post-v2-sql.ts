@@ -4,7 +4,7 @@
 
 import * as z from "zod/v4-mini";
 import { AttioCore } from "../core.js";
-import { encodeJSON, encodeSimple } from "../lib/encodings.js";
+import { encodeJSON } from "../lib/encodings.js";
 import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
@@ -28,22 +28,23 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * List records
+ * Query SQL
  *
  * @remarks
- * Lists people, company or other records, with the option to filter and sort results.
+ * Query records and lists with SQL.
+ *
+ * This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
  *
  * Required scopes: `record_permission:read`, `object_configuration:read`.
  */
-export function recordsQuery(
+export function sqlPostV2SQL(
   client: AttioCore,
-  request: operations.QueryRecordsRequest,
+  request: operations.PostV2SqlRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.QueryRecordsResponse,
-    | errors.QueryRecordsFilterError
-    | errors.QueryRecordsNotFoundError
+    operations.PostV2SqlResponse,
+    | errors.PostV2SqlFilterError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -63,14 +64,13 @@ export function recordsQuery(
 
 async function $do(
   client: AttioCore,
-  request: operations.QueryRecordsRequest,
+  request: operations.PostV2SqlRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.QueryRecordsResponse,
-      | errors.QueryRecordsFilterError
-      | errors.QueryRecordsNotFoundError
+      operations.PostV2SqlResponse,
+      | errors.PostV2SqlFilterError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -85,22 +85,16 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => z.parse(operations.QueryRecordsRequest$outboundSchema, value),
+    (value) => z.parse(operations.PostV2SqlRequest$outboundSchema, value),
     "Input validation failed",
   );
   if (!parsed.ok) {
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = encodeJSON("body", payload.body, { explode: true });
+  const body = encodeJSON("body", payload, { explode: true });
 
-  const pathParams = {
-    object: encodeSimple("object", payload.object, {
-      explode: false,
-      charEncoding: "percent",
-    }),
-  };
-  const path = pathToFunc("/v2/objects/{object}/records/query")(pathParams);
+  const path = pathToFunc("/v2/sql")();
 
   const headers = new Headers(compactMap({
     "Content-Type": "application/json",
@@ -114,7 +108,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "queryRecords",
+    operationID: "post_/v2/sql",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -158,9 +152,8 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.QueryRecordsResponse,
-    | errors.QueryRecordsFilterError
-    | errors.QueryRecordsNotFoundError
+    operations.PostV2SqlResponse,
+    | errors.PostV2SqlFilterError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -170,9 +163,8 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.QueryRecordsResponse$inboundSchema),
-    M.jsonErr(400, errors.QueryRecordsFilterError$inboundSchema),
-    M.jsonErr(404, errors.QueryRecordsNotFoundError$inboundSchema),
+    M.json(200, operations.PostV2SqlResponse$inboundSchema),
+    M.jsonErr(400, errors.PostV2SqlFilterError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

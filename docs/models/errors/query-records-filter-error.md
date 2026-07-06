@@ -1,11 +1,11 @@
-# FilterError
+# QueryRecordsFilterError
 
 Bad Request
 
 ## Example Usage
 
 ```typescript
-import { FilterError } from "@interfere/attio/models/errors";
+import { QueryRecordsFilterError } from "@interfere/attio/models/errors";
 
 // No examples available for this model
 ```

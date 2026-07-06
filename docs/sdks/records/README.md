@@ -191,7 +191,7 @@ run();
 
 | Error Type                       | Status Code                      | Content Type                     |
 | -------------------------------- | -------------------------------- | -------------------------------- |
-| errors.FilterError               | 400                              | application/json                 |
+| errors.QueryRecordsFilterError   | 400                              | application/json                 |
 | errors.QueryRecordsNotFoundError | 404                              | application/json                 |
 | errors.AttioError                | 4XX, 5XX                         | \*/\*                            |
 
