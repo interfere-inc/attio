@@ -42,6 +42,7 @@ export function entriesDelete(
 ): APIPromise<
   Result<
     operations.DeleteEntryResponse,
+    | errors.DeleteEntryAuthError
     | errors.DeleteEntryNotFoundError
     | AttioBaseError
     | ResponseValidationError
@@ -68,6 +69,7 @@ async function $do(
   [
     Result<
       operations.DeleteEntryResponse,
+      | errors.DeleteEntryAuthError
       | errors.DeleteEntryNotFoundError
       | AttioBaseError
       | ResponseValidationError
@@ -160,6 +162,7 @@ async function $do(
 
   const [result] = await M.match<
     operations.DeleteEntryResponse,
+    | errors.DeleteEntryAuthError
     | errors.DeleteEntryNotFoundError
     | AttioBaseError
     | ResponseValidationError
@@ -171,6 +174,7 @@ async function $do(
     | SDKValidationError
   >(
     M.json(200, operations.DeleteEntryResponse$inboundSchema),
+    M.jsonErr(403, errors.DeleteEntryAuthError$inboundSchema),
     M.jsonErr(404, errors.DeleteEntryNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),

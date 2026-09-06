@@ -7,6 +7,7 @@ import { entriesCreate } from "../funcs/entries-create.js";
 import { entriesDelete } from "../funcs/entries-delete.js";
 import { entriesGet } from "../funcs/entries-get.js";
 import { entriesListAttributeValues } from "../funcs/entries-list-attribute-values.js";
+import { entriesPutV2ListsListEntriesEntryIdAttributesAttributeValues } from "../funcs/entries-put-v2-lists-list-entries-entry-id-attributes-attribute-values.js";
 import { entriesQuery } from "../funcs/entries-query.js";
 import { entriesUpdateAppending } from "../funcs/entries-update-appending.js";
 import { entriesUpdate } from "../funcs/entries-update.js";
@@ -165,5 +166,37 @@ export class Entries extends ClientSDK {
       request,
       options,
     ));
+  }
+
+  /**
+   * Write list entry attribute values
+   *
+   * @remarks
+   * Replaces the entire value history of a single attribute on a list entry, primarily to migrate historic data from an external source. Every value the attribute currently has is destroyed, including values not present in the request, and the supplied values are written with the `active_from` and `active_until` timestamps given.
+   *
+   * Values may be supplied in any order and gaps between intervals are allowed. For attributes that accept a single value, at most one value may be active at a time, so intervals may not overlap and at most one may have a `null` `active_until`. At least one value is required.
+   *
+   * Webhooks and workflow triggers do not fire for these writes, so migrating history does not replay automations. Search indexes and caches are still updated, and formula attributes that depend on this attribute are still recalculated.
+   *
+   * Value history cannot be written for relationship attributes, formula attributes, enriched attributes, or immutable system attributes such as the entry's parent record.
+   *
+   * This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
+   *
+   * Required scopes: `list_entry:read-write`, `list_configuration:read`.
+   */
+  async putV2ListsListEntriesEntryIdAttributesAttributeValues(
+    request:
+      operations.PutV2ListsListEntriesEntryIdAttributesAttributeValuesRequest,
+    options?: RequestOptions,
+  ): Promise<
+    operations.PutV2ListsListEntriesEntryIdAttributesAttributeValuesResponse
+  > {
+    return unwrapAsync(
+      entriesPutV2ListsListEntriesEntryIdAttributesAttributeValues(
+        this,
+        request,
+        options,
+      ),
+    );
   }
 }

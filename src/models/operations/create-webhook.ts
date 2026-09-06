@@ -99,6 +99,10 @@ export type CreateWebhookFilterRequest1 = {
 
 /**
  * Filters to determine whether the webhook event should be sent. If null, the filter always passes.
+ *
+ * @remarks
+ *
+ * When filters are compared for uniqueness, key order and the order of operations are ignored.
  */
 export type CreateWebhookFilterRequestUnion =
   | CreateWebhookFilterRequest1
@@ -111,6 +115,10 @@ export type CreateWebhookSubscriptionRequest = {
   eventType: CreateWebhookEventTypeRequest;
   /**
    * Filters to determine whether the webhook event should be sent. If null, the filter always passes.
+   *
+   * @remarks
+   *
+   * When filters are compared for uniqueness, key order and the order of operations are ignored.
    */
   filter: CreateWebhookFilterRequest1 | CreateWebhookFilterRequest2 | null;
 };
@@ -122,6 +130,10 @@ export type CreateWebhookDataRequest = {
   targetUrl: string;
   /**
    * One or more events the webhook is subscribed to.
+   *
+   * @remarks
+   *
+   * Within a workspace, the combination of target URL, event type and filter must be unique across all of your webhooks. A duplicate — whether against another webhook or repeated within a single request — is rejected with a `409 uniqueness_conflict`.
    */
   subscriptions: Array<CreateWebhookSubscriptionRequest>;
 };
@@ -221,6 +233,10 @@ export type CreateWebhookFilterResponse1 = {
 
 /**
  * Filters to determine whether the webhook event should be sent. If null, the filter always passes.
+ *
+ * @remarks
+ *
+ * When filters are compared for uniqueness, key order and the order of operations are ignored.
  */
 export type CreateWebhookFilterResponseUnion =
   | CreateWebhookFilterResponse1
@@ -233,6 +249,10 @@ export type CreateWebhookSubscriptionResponse = {
   eventType: CreateWebhookEventTypeResponse;
   /**
    * Filters to determine whether the webhook event should be sent. If null, the filter always passes.
+   *
+   * @remarks
+   *
+   * When filters are compared for uniqueness, key order and the order of operations are ignored.
    */
   filter: CreateWebhookFilterResponse1 | CreateWebhookFilterResponse2 | null;
 };
@@ -268,6 +288,10 @@ export type CreateWebhookDataResponse = {
   targetUrl: string;
   /**
    * One or more events the webhook is subscribed to.
+   *
+   * @remarks
+   *
+   * Within a workspace, the combination of target URL, event type and filter must be unique across all of your webhooks. A duplicate — whether against another webhook or repeated within a single request — is rejected with a `409 uniqueness_conflict`.
    */
   subscriptions: Array<CreateWebhookSubscriptionResponse>;
   id: CreateWebhookId;

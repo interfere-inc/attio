@@ -43,6 +43,7 @@ export function recordsCreate(
   Result<
     operations.CreateRecordResponse,
     | errors.CreateRecordValueNotFoundError
+    | errors.CreateRecordAuthError
     | errors.CreateRecordNotFoundError
     | AttioBaseError
     | ResponseValidationError
@@ -70,6 +71,7 @@ async function $do(
     Result<
       operations.CreateRecordResponse,
       | errors.CreateRecordValueNotFoundError
+      | errors.CreateRecordAuthError
       | errors.CreateRecordNotFoundError
       | AttioBaseError
       | ResponseValidationError
@@ -160,6 +162,7 @@ async function $do(
   const [result] = await M.match<
     operations.CreateRecordResponse,
     | errors.CreateRecordValueNotFoundError
+    | errors.CreateRecordAuthError
     | errors.CreateRecordNotFoundError
     | AttioBaseError
     | ResponseValidationError
@@ -172,6 +175,7 @@ async function $do(
   >(
     M.json(200, operations.CreateRecordResponse$inboundSchema),
     M.jsonErr(400, errors.CreateRecordValueNotFoundError$inboundSchema),
+    M.jsonErr(403, errors.CreateRecordAuthError$inboundSchema),
     M.jsonErr(404, errors.CreateRecordNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),

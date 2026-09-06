@@ -42,7 +42,8 @@ export function recordsUpdate(
 ): APIPromise<
   Result<
     operations.UpdateRecordResponse,
-    | errors.UpdateRecordMissingValueError
+    | errors.UpdateRecordInvalidRequestError
+    | errors.UpdateRecordAuthError
     | errors.UpdateRecordNotFoundError
     | AttioBaseError
     | ResponseValidationError
@@ -69,7 +70,8 @@ async function $do(
   [
     Result<
       operations.UpdateRecordResponse,
-      | errors.UpdateRecordMissingValueError
+      | errors.UpdateRecordInvalidRequestError
+      | errors.UpdateRecordAuthError
       | errors.UpdateRecordNotFoundError
       | AttioBaseError
       | ResponseValidationError
@@ -165,7 +167,8 @@ async function $do(
 
   const [result] = await M.match<
     operations.UpdateRecordResponse,
-    | errors.UpdateRecordMissingValueError
+    | errors.UpdateRecordInvalidRequestError
+    | errors.UpdateRecordAuthError
     | errors.UpdateRecordNotFoundError
     | AttioBaseError
     | ResponseValidationError
@@ -177,7 +180,8 @@ async function $do(
     | SDKValidationError
   >(
     M.json(200, operations.UpdateRecordResponse$inboundSchema),
-    M.jsonErr(400, errors.UpdateRecordMissingValueError$inboundSchema),
+    M.jsonErr(400, errors.UpdateRecordInvalidRequestError$inboundSchema),
+    M.jsonErr(403, errors.UpdateRecordAuthError$inboundSchema),
     M.jsonErr(404, errors.UpdateRecordNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),

@@ -42,9 +42,43 @@ export class UpdateAppendRecordNotFoundError extends AttioBaseError {
 }
 
 /**
+ * Forbidden
+ */
+export type UpdateAppendRecordAuthErrorData = {
+  type: "auth_error";
+  statusCode: 403;
+  code: string;
+  message: string;
+};
+
+/**
+ * Forbidden
+ */
+export class UpdateAppendRecordAuthError extends AttioBaseError {
+  type: "auth_error";
+  code: string;
+
+  /** The original data that was passed to this error instance. */
+  data$: UpdateAppendRecordAuthErrorData;
+
+  constructor(
+    err: UpdateAppendRecordAuthErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    this.type = err.type;
+    this.code = err.code;
+
+    this.name = "UpdateAppendRecordAuthError";
+  }
+}
+
+/**
  * Bad Request
  */
-export type UpdateAppendRecordMissingValueErrorData = {
+export type UpdateAppendRecordInvalidRequestErrorData = {
   type: "invalid_request_error";
   statusCode: 400;
   code: "missing_value";
@@ -54,15 +88,15 @@ export type UpdateAppendRecordMissingValueErrorData = {
 /**
  * Bad Request
  */
-export class UpdateAppendRecordMissingValueError extends AttioBaseError {
+export class UpdateAppendRecordInvalidRequestError extends AttioBaseError {
   type: "invalid_request_error";
   code: "missing_value";
 
   /** The original data that was passed to this error instance. */
-  data$: UpdateAppendRecordMissingValueErrorData;
+  data$: UpdateAppendRecordInvalidRequestErrorData;
 
   constructor(
-    err: UpdateAppendRecordMissingValueErrorData,
+    err: UpdateAppendRecordInvalidRequestErrorData,
     httpMeta: { response: Response; request: Request; body: string },
   ) {
     const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
@@ -71,7 +105,7 @@ export class UpdateAppendRecordMissingValueError extends AttioBaseError {
     this.type = err.type;
     this.code = err.code;
 
-    this.name = "UpdateAppendRecordMissingValueError";
+    this.name = "UpdateAppendRecordInvalidRequestError";
   }
 }
 
@@ -103,8 +137,35 @@ export const UpdateAppendRecordNotFoundError$inboundSchema: z.ZodMiniType<
 );
 
 /** @internal */
-export const UpdateAppendRecordMissingValueError$inboundSchema: z.ZodMiniType<
-  UpdateAppendRecordMissingValueError,
+export const UpdateAppendRecordAuthError$inboundSchema: z.ZodMiniType<
+  UpdateAppendRecordAuthError,
+  unknown
+> = z.pipe(
+  z.object({
+    type: types.literal("auth_error"),
+    status_code: types.literal(403),
+    code: types.string(),
+    message: types.string(),
+    request$: z.custom<Request>(x => x instanceof Request),
+    response$: z.custom<Response>(x => x instanceof Response),
+    body$: z.string(),
+  }),
+  z.transform((v) => {
+    const remapped = remap$(v, {
+      "status_code": "statusCode",
+    });
+
+    return new UpdateAppendRecordAuthError(remapped, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
+  }),
+);
+
+/** @internal */
+export const UpdateAppendRecordInvalidRequestError$inboundSchema: z.ZodMiniType<
+  UpdateAppendRecordInvalidRequestError,
   unknown
 > = z.pipe(
   z.object({
@@ -121,7 +182,7 @@ export const UpdateAppendRecordMissingValueError$inboundSchema: z.ZodMiniType<
       "status_code": "statusCode",
     });
 
-    return new UpdateAppendRecordMissingValueError(remapped, {
+    return new UpdateAppendRecordInvalidRequestError(remapped, {
       request: v.request$,
       response: v.response$,
       body: v.body$,

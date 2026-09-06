@@ -14,7 +14,7 @@ let value: UpdateListResponse = {
       workspaceId: "14beef7a-99f7-4534-a87e-70b564330a4c",
       listId: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0",
     },
-    apiSlug: "hiring-engineering",
+    apiSlug: "enterprise_sales",
     parentObject: [
       "people",
     ],

@@ -42,9 +42,43 @@ export class UpdateEntryNotFoundError extends AttioBaseError {
 }
 
 /**
+ * Forbidden
+ */
+export type UpdateEntryAuthErrorData = {
+  type: "auth_error";
+  statusCode: 403;
+  code: string;
+  message: string;
+};
+
+/**
+ * Forbidden
+ */
+export class UpdateEntryAuthError extends AttioBaseError {
+  type: "auth_error";
+  code: string;
+
+  /** The original data that was passed to this error instance. */
+  data$: UpdateEntryAuthErrorData;
+
+  constructor(
+    err: UpdateEntryAuthErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    this.type = err.type;
+    this.code = err.code;
+
+    this.name = "UpdateEntryAuthError";
+  }
+}
+
+/**
  * Bad Request
  */
-export type UpdateEntryImmutableValueErrorData = {
+export type UpdateEntryInvalidRequestErrorData = {
   type: "invalid_request_error";
   statusCode: 400;
   code: "immutable_value";
@@ -54,15 +88,15 @@ export type UpdateEntryImmutableValueErrorData = {
 /**
  * Bad Request
  */
-export class UpdateEntryImmutableValueError extends AttioBaseError {
+export class UpdateEntryInvalidRequestError extends AttioBaseError {
   type: "invalid_request_error";
   code: "immutable_value";
 
   /** The original data that was passed to this error instance. */
-  data$: UpdateEntryImmutableValueErrorData;
+  data$: UpdateEntryInvalidRequestErrorData;
 
   constructor(
-    err: UpdateEntryImmutableValueErrorData,
+    err: UpdateEntryInvalidRequestErrorData,
     httpMeta: { response: Response; request: Request; body: string },
   ) {
     const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
@@ -71,7 +105,7 @@ export class UpdateEntryImmutableValueError extends AttioBaseError {
     this.type = err.type;
     this.code = err.code;
 
-    this.name = "UpdateEntryImmutableValueError";
+    this.name = "UpdateEntryInvalidRequestError";
   }
 }
 
@@ -103,8 +137,35 @@ export const UpdateEntryNotFoundError$inboundSchema: z.ZodMiniType<
 );
 
 /** @internal */
-export const UpdateEntryImmutableValueError$inboundSchema: z.ZodMiniType<
-  UpdateEntryImmutableValueError,
+export const UpdateEntryAuthError$inboundSchema: z.ZodMiniType<
+  UpdateEntryAuthError,
+  unknown
+> = z.pipe(
+  z.object({
+    type: types.literal("auth_error"),
+    status_code: types.literal(403),
+    code: types.string(),
+    message: types.string(),
+    request$: z.custom<Request>(x => x instanceof Request),
+    response$: z.custom<Response>(x => x instanceof Response),
+    body$: z.string(),
+  }),
+  z.transform((v) => {
+    const remapped = remap$(v, {
+      "status_code": "statusCode",
+    });
+
+    return new UpdateEntryAuthError(remapped, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
+  }),
+);
+
+/** @internal */
+export const UpdateEntryInvalidRequestError$inboundSchema: z.ZodMiniType<
+  UpdateEntryInvalidRequestError,
   unknown
 > = z.pipe(
   z.object({
@@ -121,7 +182,7 @@ export const UpdateEntryImmutableValueError$inboundSchema: z.ZodMiniType<
       "status_code": "statusCode",
     });
 
-    return new UpdateEntryImmutableValueError(remapped, {
+    return new UpdateEntryInvalidRequestError(remapped, {
       request: v.request$,
       response: v.response$,
       body: v.body$,

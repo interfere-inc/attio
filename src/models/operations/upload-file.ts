@@ -6,6 +6,8 @@ import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { blobLikeSchema } from "../../types/blobs.js";
+import * as openEnums from "../../types/enums.js";
+import { OpenEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
 import * as models from "../index.js";
@@ -33,6 +35,12 @@ export type UploadFileRequest = {
    */
   parentFolderId?: string | undefined;
 };
+
+export const UploadFileCode = {
+  BillingError: "billing_error",
+  QuotaExceeded: "quota_exceeded",
+} as const;
+export type UploadFileCode = OpenEnum<typeof UploadFileCode>;
 
 /**
  * Created
@@ -97,6 +105,12 @@ export function uploadFileRequestToJSON(
     UploadFileRequest$outboundSchema.parse(uploadFileRequest),
   );
 }
+
+/** @internal */
+export const UploadFileCode$inboundSchema: z.ZodMiniType<
+  UploadFileCode,
+  unknown
+> = openEnums.inboundSchema(UploadFileCode);
 
 /** @internal */
 export const UploadFileResponse$inboundSchema: z.ZodMiniType<
