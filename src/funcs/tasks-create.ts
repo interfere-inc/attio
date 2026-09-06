@@ -44,7 +44,7 @@ export function tasksCreate(
 ): APIPromise<
   Result<
     operations.CreateTaskResponse,
-    | errors.CreateTaskValidationTypeError
+    | errors.CreateTaskInvalidRequestError
     | errors.CreateTaskNotFoundError
     | AttioBaseError
     | ResponseValidationError
@@ -71,7 +71,7 @@ async function $do(
   [
     Result<
       operations.CreateTaskResponse,
-      | errors.CreateTaskValidationTypeError
+      | errors.CreateTaskInvalidRequestError
       | errors.CreateTaskNotFoundError
       | AttioBaseError
       | ResponseValidationError
@@ -155,7 +155,7 @@ async function $do(
 
   const [result] = await M.match<
     operations.CreateTaskResponse,
-    | errors.CreateTaskValidationTypeError
+    | errors.CreateTaskInvalidRequestError
     | errors.CreateTaskNotFoundError
     | AttioBaseError
     | ResponseValidationError
@@ -167,7 +167,7 @@ async function $do(
     | SDKValidationError
   >(
     M.json(200, operations.CreateTaskResponse$inboundSchema),
-    M.jsonErr(400, errors.CreateTaskValidationTypeError$inboundSchema),
+    M.jsonErr(400, errors.CreateTaskInvalidRequestError$inboundSchema),
     M.jsonErr(404, errors.CreateTaskNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),

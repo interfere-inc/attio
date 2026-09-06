@@ -9,6 +9,7 @@ Objects are the core data models inside of Attio. They contain standard objects,
 * [list](#list) - List objects
 * [create](#create) - Create an object
 * [get](#get) - Get an object
+* [deleteV2ObjectsObject](#deletev2objectsobject) - Delete an object
 * [update](#update) - Update an object
 * [getViews](#getviews) - List views for object
 
@@ -164,6 +165,7 @@ run();
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
 | errors.QuotaExceededError            | 400                                  | application/json                     |
+| errors.CreateObjectAuthError         | 403                                  | application/json                     |
 | errors.CreateObjectSlugConflictError | 409                                  | application/json                     |
 | errors.AttioError                    | 4XX, 5XX                             | \*/\*                                |
 
@@ -242,6 +244,86 @@ run();
 | ----------------------------- | ----------------------------- | ----------------------------- |
 | errors.GetObjectNotFoundError | 404                           | application/json              |
 | errors.AttioError             | 4XX, 5XX                      | \*/\*                         |
+
+## deleteV2ObjectsObject
+
+Deletes a single object by its `object_id` or slug, along with all of its records. Only custom objects can be deleted; system objects, such as people and companies, cannot.
+
+This endpoint should be used with caution as it has the potential to remove a large amount of potentially valuable data.
+
+Required scopes: `object_configuration:read-write`, `record_permission:read-write`.
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="delete_/v2/objects/{object}" method="delete" path="/v2/objects/{object}" -->
+```typescript
+import { Attio } from "@interfere/attio";
+
+const attio = new Attio({
+  oauth2: process.env["ATTIO_OAUTH2"] ?? "",
+});
+
+async function run() {
+  const result = await attio.objects.deleteV2ObjectsObject({
+    object: "people",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { AttioCore } from "@interfere/attio/core.js";
+import { objectsDeleteV2ObjectsObject } from "@interfere/attio/funcs/objects-delete-v2-objects-object.js";
+
+// Use `AttioCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const attio = new AttioCore({
+  oauth2: process.env["ATTIO_OAUTH2"] ?? "",
+});
+
+async function run() {
+  const res = await objectsDeleteV2ObjectsObject(attio, {
+    object: "people",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("objectsDeleteV2ObjectsObject failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.DeleteV2ObjectsObjectRequest](../../models/operations/delete-v2-objects-object-request.md)                                                                         | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.DeleteV2ObjectsObjectResponse](../../models/operations/delete-v2-objects-object-response.md)\>**
+
+### Errors
+
+| Error Type                                              | Status Code                                             | Content Type                                            |
+| ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- |
+| errors.DeleteV2ObjectsObjectSystemEditUnauthorizedError | 400                                                     | application/json                                        |
+| errors.DeleteV2ObjectsObjectAuthError                   | 403                                                     | application/json                                        |
+| errors.DeleteV2ObjectsObjectNotFoundError               | 404                                                     | application/json                                        |
+| errors.AttioError                                       | 4XX, 5XX                                                | \*/\*                                                   |
 
 ## update
 
@@ -331,6 +413,7 @@ run();
 | Error Type                             | Status Code                            | Content Type                           |
 | -------------------------------------- | -------------------------------------- | -------------------------------------- |
 | errors.UpdateObjectValidationTypeError | 400                                    | application/json                       |
+| errors.UpdateObjectAuthError           | 403                                    | application/json                       |
 | errors.UpdateObjectNotFoundError       | 404                                    | application/json                       |
 | errors.UpdateObjectSlugConflictError   | 409                                    | application/json                       |
 | errors.AttioError                      | 4XX, 5XX                               | \*/\*                                  |

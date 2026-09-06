@@ -25,7 +25,6 @@ let value: FindOrCreateMeetingRequest = {
         recordId: "891dcbfc-9141-415d-9b2a-2238a6cc012d",
       },
     ],
-    externalRef: "external_meeting_12345",
   },
 };
 ```

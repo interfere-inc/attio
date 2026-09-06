@@ -24,13 +24,13 @@ export type ThreadId = {
 export type Thread = {
   id: ThreadId;
   /**
-   * An array of comments in the thread, sorted by `created_at`.
-   */
-  comments: Array<Comment>;
-  /**
    * When the thread was created.
    */
   createdAt: string;
+  /**
+   * The requested page of comments in the thread, sorted by `created_at`, oldest first. Keep paginating for as long as a `next_cursor` is returned.
+   */
+  comments: Array<Comment>;
 };
 
 /** @internal */
@@ -61,8 +61,8 @@ export function threadIdFromJSON(
 export const Thread$inboundSchema: z.ZodMiniType<Thread, unknown> = z.pipe(
   z.object({
     id: z.lazy(() => ThreadId$inboundSchema),
-    comments: z.array(Comment$inboundSchema),
     created_at: types.string(),
+    comments: z.array(Comment$inboundSchema),
   }),
   z.transform((v) => {
     return remap$(v, {

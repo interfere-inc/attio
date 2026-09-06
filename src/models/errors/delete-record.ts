@@ -41,6 +41,40 @@ export class DeleteRecordNotFoundError extends AttioBaseError {
   }
 }
 
+/**
+ * Forbidden
+ */
+export type DeleteRecordAuthErrorData = {
+  type: "auth_error";
+  statusCode: 403;
+  code: string;
+  message: string;
+};
+
+/**
+ * Forbidden
+ */
+export class DeleteRecordAuthError extends AttioBaseError {
+  type: "auth_error";
+  code: string;
+
+  /** The original data that was passed to this error instance. */
+  data$: DeleteRecordAuthErrorData;
+
+  constructor(
+    err: DeleteRecordAuthErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    this.type = err.type;
+    this.code = err.code;
+
+    this.name = "DeleteRecordAuthError";
+  }
+}
+
 /** @internal */
 export const DeleteRecordNotFoundError$inboundSchema: z.ZodMiniType<
   DeleteRecordNotFoundError,
@@ -61,6 +95,33 @@ export const DeleteRecordNotFoundError$inboundSchema: z.ZodMiniType<
     });
 
     return new DeleteRecordNotFoundError(remapped, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
+  }),
+);
+
+/** @internal */
+export const DeleteRecordAuthError$inboundSchema: z.ZodMiniType<
+  DeleteRecordAuthError,
+  unknown
+> = z.pipe(
+  z.object({
+    type: types.literal("auth_error"),
+    status_code: types.literal(403),
+    code: types.string(),
+    message: types.string(),
+    request$: z.custom<Request>(x => x instanceof Request),
+    response$: z.custom<Response>(x => x instanceof Response),
+    body$: z.string(),
+  }),
+  z.transform((v) => {
+    const remapped = remap$(v, {
+      "status_code": "statusCode",
+    });
+
+    return new DeleteRecordAuthError(remapped, {
       request: v.request$,
       response: v.response$,
       body: v.body$,

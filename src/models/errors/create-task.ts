@@ -44,7 +44,7 @@ export class CreateTaskNotFoundError extends AttioBaseError {
 /**
  * Bad Request
  */
-export type CreateTaskValidationTypeErrorData = {
+export type CreateTaskInvalidRequestErrorData = {
   type: "invalid_request_error";
   statusCode: 400;
   code: "validation_type";
@@ -54,15 +54,15 @@ export type CreateTaskValidationTypeErrorData = {
 /**
  * Bad Request
  */
-export class CreateTaskValidationTypeError extends AttioBaseError {
+export class CreateTaskInvalidRequestError extends AttioBaseError {
   type: "invalid_request_error";
   code: "validation_type";
 
   /** The original data that was passed to this error instance. */
-  data$: CreateTaskValidationTypeErrorData;
+  data$: CreateTaskInvalidRequestErrorData;
 
   constructor(
-    err: CreateTaskValidationTypeErrorData,
+    err: CreateTaskInvalidRequestErrorData,
     httpMeta: { response: Response; request: Request; body: string },
   ) {
     const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
@@ -71,7 +71,7 @@ export class CreateTaskValidationTypeError extends AttioBaseError {
     this.type = err.type;
     this.code = err.code;
 
-    this.name = "CreateTaskValidationTypeError";
+    this.name = "CreateTaskInvalidRequestError";
   }
 }
 
@@ -103,8 +103,8 @@ export const CreateTaskNotFoundError$inboundSchema: z.ZodMiniType<
 );
 
 /** @internal */
-export const CreateTaskValidationTypeError$inboundSchema: z.ZodMiniType<
-  CreateTaskValidationTypeError,
+export const CreateTaskInvalidRequestError$inboundSchema: z.ZodMiniType<
+  CreateTaskInvalidRequestError,
   unknown
 > = z.pipe(
   z.object({
@@ -121,7 +121,7 @@ export const CreateTaskValidationTypeError$inboundSchema: z.ZodMiniType<
       "status_code": "statusCode",
     });
 
-    return new CreateTaskValidationTypeError(remapped, {
+    return new CreateTaskInvalidRequestError(remapped, {
       request: v.request$,
       response: v.response$,
       body: v.body$,

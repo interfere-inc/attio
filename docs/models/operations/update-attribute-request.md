@@ -13,7 +13,7 @@ let value: UpdateAttributeRequest = {
     data: {
       title: "Your Attribute",
       description: "Lorem ipsum",
-      apiSlug: "my-attribute",
+      apiSlug: "my_attribute",
       isRequired: true,
       isUnique: true,
       defaultValue: {

@@ -250,6 +250,7 @@ run();
 | Error Type                                   | Status Code                                  | Content Type                                 |
 | -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
 | errors.CreateNewAttributeValidationTypeError | 400                                          | application/json                             |
+| errors.CreateNewAttributeAuthError           | 403                                          | application/json                             |
 | errors.CreateNewAttributeNotFoundError       | 404                                          | application/json                             |
 | errors.CreateNewAttributeSlugConflictError   | 409                                          | application/json                             |
 | errors.AttioError                            | 4XX, 5XX                                     | \*/\*                                        |
@@ -467,11 +468,12 @@ run();
 
 ### Errors
 
-| Error Type                          | Status Code                         | Content Type                        |
-| ----------------------------------- | ----------------------------------- | ----------------------------------- |
-| errors.SystemEditUnauthorizedError  | 400                                 | application/json                    |
-| errors.UpdateAttributeNotFoundError | 404                                 | application/json                    |
-| errors.AttioError                   | 4XX, 5XX                            | \*/\*                               |
+| Error Type                                        | Status Code                                       | Content Type                                      |
+| ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- |
+| errors.UpdateAttributeSystemEditUnauthorizedError | 400                                               | application/json                                  |
+| errors.UpdateAttributeAuthError                   | 403                                               | application/json                                  |
+| errors.UpdateAttributeNotFoundError               | 404                                               | application/json                                  |
+| errors.AttioError                                 | 4XX, 5XX                                          | \*/\*                                             |
 
 ## updateSelectOption
 
@@ -565,6 +567,7 @@ run();
 | Error Type                                           | Status Code                                          | Content Type                                         |
 | ---------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------- |
 | errors.UpdateAttributeSelectOptionValueNotFoundError | 400                                                  | application/json                                     |
+| errors.UpdateAttributeSelectOptionAuthError          | 403                                                  | application/json                                     |
 | errors.UpdateAttributeSelectOptionNotFoundError      | 404                                                  | application/json                                     |
 | errors.UpdateAttributeSelectOptionSlugConflictError  | 409                                                  | application/json                                     |
 | errors.AttioError                                    | 4XX, 5XX                                             | \*/\*                                                |
@@ -743,6 +746,7 @@ run();
 | Error Type                                      | Status Code                                     | Content Type                                    |
 | ----------------------------------------------- | ----------------------------------------------- | ----------------------------------------------- |
 | errors.CreateAttributeStatusValidationTypeError | 400                                             | application/json                                |
+| errors.CreateAttributeStatusAuthError           | 403                                             | application/json                                |
 | errors.CreateAttributeStatusNotFoundError       | 404                                             | application/json                                |
 | errors.CreateAttributeStatusSlugConflictError   | 409                                             | application/json                                |
 | errors.AttioError                               | 4XX, 5XX                                        | \*/\*                                           |
@@ -843,6 +847,7 @@ run();
 | Error Type                                     | Status Code                                    | Content Type                                   |
 | ---------------------------------------------- | ---------------------------------------------- | ---------------------------------------------- |
 | errors.UpdateAttributeStatusValueNotFoundError | 400                                            | application/json                               |
+| errors.UpdateAttributeStatusAuthError          | 403                                            | application/json                               |
 | errors.UpdateAttributeStatusNotFoundError      | 404                                            | application/json                               |
 | errors.UpdateAttributeStatusSlugConflictError  | 409                                            | application/json                               |
 | errors.AttioError                              | 4XX, 5XX                                       | \*/\*                                          |

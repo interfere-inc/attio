@@ -6,6 +6,7 @@ import { notesCreate } from "../funcs/notes-create.js";
 import { notesDelete } from "../funcs/notes-delete.js";
 import { notesGet } from "../funcs/notes-get.js";
 import { notesList } from "../funcs/notes-list.js";
+import { notesPatchV2NotesNoteId } from "../funcs/notes-patch-v2-notes-note-id.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
@@ -16,6 +17,8 @@ export class Notes extends ClientSDK {
    *
    * @remarks
    * List notes for all records or for a specific record.
+   *
+   * This endpoint is temporarily rate limited to 10 requests per second.
    *
    * Required scopes: `note:read`, `object_configuration:read`, `record_permission:read`.
    */
@@ -81,6 +84,25 @@ export class Notes extends ClientSDK {
     options?: RequestOptions,
   ): Promise<operations.DeleteNoteResponse> {
     return unwrapAsync(notesDelete(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Update a note
+   *
+   * @remarks
+   * Updates an existing note's title and/or content. Only the fields you provide are changed, and any field you omit is left untouched. Providing `content` replaces the note's entire content. A note's parent record cannot be changed.
+   *
+   * Required scopes: `note:read-write`, `object_configuration:read`, `record_permission:read`.
+   */
+  async patchV2NotesNoteId(
+    request: operations.PatchV2NotesNoteIdRequest,
+    options?: RequestOptions,
+  ): Promise<operations.PatchV2NotesNoteIdResponse> {
+    return unwrapAsync(notesPatchV2NotesNoteId(
       this,
       request,
       options,

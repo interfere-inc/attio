@@ -43,6 +43,7 @@ export function attributesOptionsCreate(
   Result<
     operations.CreateAttributeOptionResponse,
     | errors.CreateAttributeOptionValidationTypeError
+    | errors.CreateAttributeOptionAuthError
     | errors.CreateAttributeOptionNotFoundError
     | errors.CreateAttributeOptionSlugConflictError
     | AttioBaseError
@@ -71,6 +72,7 @@ async function $do(
     Result<
       operations.CreateAttributeOptionResponse,
       | errors.CreateAttributeOptionValidationTypeError
+      | errors.CreateAttributeOptionAuthError
       | errors.CreateAttributeOptionNotFoundError
       | errors.CreateAttributeOptionSlugConflictError
       | AttioBaseError
@@ -173,6 +175,7 @@ async function $do(
   const [result] = await M.match<
     operations.CreateAttributeOptionResponse,
     | errors.CreateAttributeOptionValidationTypeError
+    | errors.CreateAttributeOptionAuthError
     | errors.CreateAttributeOptionNotFoundError
     | errors.CreateAttributeOptionSlugConflictError
     | AttioBaseError
@@ -189,6 +192,7 @@ async function $do(
       400,
       errors.CreateAttributeOptionValidationTypeError$inboundSchema,
     ),
+    M.jsonErr(403, errors.CreateAttributeOptionAuthError$inboundSchema),
     M.jsonErr(404, errors.CreateAttributeOptionNotFoundError$inboundSchema),
     M.jsonErr(409, errors.CreateAttributeOptionSlugConflictError$inboundSchema),
     M.fail("4XX"),

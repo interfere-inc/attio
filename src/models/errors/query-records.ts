@@ -44,7 +44,7 @@ export class QueryRecordsNotFoundError extends AttioBaseError {
 /**
  * Bad Request
  */
-export type FilterErrorData = {
+export type QueryRecordsFilterErrorData = {
   type: "invalid_request_error";
   statusCode: 400;
   code: "filter_error";
@@ -54,15 +54,15 @@ export type FilterErrorData = {
 /**
  * Bad Request
  */
-export class FilterError extends AttioBaseError {
+export class QueryRecordsFilterError extends AttioBaseError {
   type: "invalid_request_error";
   code: "filter_error";
 
   /** The original data that was passed to this error instance. */
-  data$: FilterErrorData;
+  data$: QueryRecordsFilterErrorData;
 
   constructor(
-    err: FilterErrorData,
+    err: QueryRecordsFilterErrorData,
     httpMeta: { response: Response; request: Request; body: string },
   ) {
     const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
@@ -71,7 +71,7 @@ export class FilterError extends AttioBaseError {
     this.type = err.type;
     this.code = err.code;
 
-    this.name = "FilterError";
+    this.name = "QueryRecordsFilterError";
   }
 }
 
@@ -103,26 +103,28 @@ export const QueryRecordsNotFoundError$inboundSchema: z.ZodMiniType<
 );
 
 /** @internal */
-export const FilterError$inboundSchema: z.ZodMiniType<FilterError, unknown> = z
-  .pipe(
-    z.object({
-      type: types.literal("invalid_request_error"),
-      status_code: types.literal(400),
-      code: types.literal("filter_error"),
-      message: types.string(),
-      request$: z.custom<Request>(x => x instanceof Request),
-      response$: z.custom<Response>(x => x instanceof Response),
-      body$: z.string(),
-    }),
-    z.transform((v) => {
-      const remapped = remap$(v, {
-        "status_code": "statusCode",
-      });
+export const QueryRecordsFilterError$inboundSchema: z.ZodMiniType<
+  QueryRecordsFilterError,
+  unknown
+> = z.pipe(
+  z.object({
+    type: types.literal("invalid_request_error"),
+    status_code: types.literal(400),
+    code: types.literal("filter_error"),
+    message: types.string(),
+    request$: z.custom<Request>(x => x instanceof Request),
+    response$: z.custom<Response>(x => x instanceof Response),
+    body$: z.string(),
+  }),
+  z.transform((v) => {
+    const remapped = remap$(v, {
+      "status_code": "statusCode",
+    });
 
-      return new FilterError(remapped, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    }),
-  );
+    return new QueryRecordsFilterError(remapped, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
+  }),
+);

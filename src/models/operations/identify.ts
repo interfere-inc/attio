@@ -20,15 +20,15 @@ export type AttioCom = {
    */
   scope: string;
   /**
-   * The app ID of the OAuth application that requested this token
+   * Identifies the client the token was issued to. For app access tokens this is the app ID. Workspace access tokens have no OAuth client, so this is the workspace access token ID.
    */
   clientId: string;
   /**
-   * The type of token, always Bearer for tokens acquired via the OAuth 2.0 flow.
+   * The type of token, always Bearer.
    */
   tokenType: "Bearer";
   /**
-   * The time at which this token will expire, if set, as a number of seconds since January 1 1970 UTC.
+   * The time at which this token will expire, if set, as a number of seconds since January 1 1970 UTC. Attio access tokens do not currently expire, so this is always null.
    */
   exp: number | null;
   /**
@@ -48,9 +48,9 @@ export type AttioCom = {
    */
   iss: "attio.com";
   /**
-   * The ID of the workspace member who authorised this token initially.
+   * The ID of the workspace member who authorized this token initially. Almost every token has one, but it is omitted for the app access tokens that Attio created itself rather than on a member's behalf.
    */
-  authorizedByWorkspaceMemberId: string;
+  authorizedByWorkspaceMemberId?: string | undefined;
   /**
    * The ID of the workspace the token is scoped to.
    */
@@ -90,7 +90,7 @@ export const AttioCom$inboundSchema: z.ZodMiniType<AttioCom, unknown> = z.pipe(
     sub: types.string(),
     aud: types.string(),
     iss: types.literal("attio.com"),
-    authorized_by_workspace_member_id: types.string(),
+    authorized_by_workspace_member_id: types.optional(types.string()),
     workspace_id: types.string(),
     workspace_name: types.string(),
     workspace_slug: types.string(),

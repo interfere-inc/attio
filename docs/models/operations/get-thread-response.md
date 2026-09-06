@@ -13,6 +13,7 @@ let value: GetThreadResponse = {
       workspaceId: "14beef7a-99f7-4534-a87e-70b564330a4c",
       threadId: "a649e4d9-435c-43fb-83ba-847b4876f27a",
     },
+    createdAt: "2023-01-01T15:00:00.000000000Z",
     comments: [
       {
         id: {
@@ -42,13 +43,16 @@ let value: GetThreadResponse = {
         },
       },
     ],
-    createdAt: "2023-01-01T15:00:00.000000000Z",
+  },
+  pagination: {
+    nextCursor: "<value>",
   },
 };
 ```
 
 ## Fields
 
-| Field                                   | Type                                    | Required                                | Description                             |
-| --------------------------------------- | --------------------------------------- | --------------------------------------- | --------------------------------------- |
-| `data`                                  | [models.Thread](../../models/thread.md) | :heavy_check_mark:                      | N/A                                     |
+| Field                                                                              | Type                                                                               | Required                                                                           | Description                                                                        |
+| ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `data`                                                                             | [models.Thread](../../models/thread.md)                                            | :heavy_check_mark:                                                                 | N/A                                                                                |
+| `pagination`                                                                       | [operations.GetThreadPagination](../../models/operations/get-thread-pagination.md) | :heavy_check_mark:                                                                 | N/A                                                                                |

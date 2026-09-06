@@ -43,6 +43,7 @@ export function entriesCreate(
   Result<
     operations.CreateEntryResponse,
     | errors.CreateEntryValueNotFoundError
+    | errors.CreateEntryAuthError
     | errors.CreateEntryNotFoundError
     | AttioBaseError
     | ResponseValidationError
@@ -70,6 +71,7 @@ async function $do(
     Result<
       operations.CreateEntryResponse,
       | errors.CreateEntryValueNotFoundError
+      | errors.CreateEntryAuthError
       | errors.CreateEntryNotFoundError
       | AttioBaseError
       | ResponseValidationError
@@ -160,6 +162,7 @@ async function $do(
   const [result] = await M.match<
     operations.CreateEntryResponse,
     | errors.CreateEntryValueNotFoundError
+    | errors.CreateEntryAuthError
     | errors.CreateEntryNotFoundError
     | AttioBaseError
     | ResponseValidationError
@@ -172,6 +175,7 @@ async function $do(
   >(
     M.json(200, operations.CreateEntryResponse$inboundSchema),
     M.jsonErr(400, errors.CreateEntryValueNotFoundError$inboundSchema),
+    M.jsonErr(403, errors.CreateEntryAuthError$inboundSchema),
     M.jsonErr(404, errors.CreateEntryNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),

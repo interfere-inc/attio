@@ -26,11 +26,10 @@ const value: operations.AttioCom = {
   sub: "e62ad58d-f815-4dde-b855-af4c6ce52a9f",
   aud: "<value>",
   iss: "attio.com",
-  authorizedByWorkspaceMemberId: "40807272-ffee-4bd8-8b9d-fb37aafb6a12",
-  workspaceId: "ad73f441-cf38-4e5a-8d53-5cb08f6fbd35",
+  workspaceId: "40807272-ffee-4bd8-8b9d-fb37aafb6a12",
   workspaceName: "<value>",
   workspaceSlug: "<value>",
-  workspaceLogoUrl: "https://mixed-omelet.org",
+  workspaceLogoUrl: "https://male-cornet.org",
 };
 ```
 

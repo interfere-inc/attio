@@ -4,7 +4,7 @@
 
 import * as z from "zod/v4-mini";
 import { AttioCore } from "../core.js";
-import { encodeSimple } from "../lib/encodings.js";
+import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
 import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
@@ -28,10 +28,14 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Get a thread
+ * Get a thread and its comments
  *
  * @remarks
- * Get all comments in a thread.
+ * Get a thread and page through its comments, oldest first, starting with the comment that opened it.
+ *
+ * Comments are paginated: at most `250` are returned per request. Keep paginating for as long as a `next_cursor` is returned.
+ *
+ * Supply `created_after` to return only the comments created after a timestamp, which is useful when polling a thread for new replies. The comment that opened the thread is returned only when it also satisfies the filter.
  *
  * To view threads on records, you will need the `object_configuration:read` and `record_permission:read` scopes.
  *
@@ -104,6 +108,12 @@ async function $do(
   };
   const path = pathToFunc("/v2/threads/{thread_id}")(pathParams);
 
+  const query = encodeFormQuery({
+    "created_after": payload.created_after,
+    "cursor": payload.cursor,
+    "limit": payload.limit,
+  });
+
   const headers = new Headers(compactMap({
     Accept: "application/json",
   }));
@@ -133,6 +143,7 @@ async function $do(
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
+    query: query,
     body: body,
     userAgent: client._options.userAgent,
     timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,
