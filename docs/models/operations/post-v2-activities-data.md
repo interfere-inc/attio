@@ -1,0 +1,23 @@
+# PostV2ActivitiesData
+
+## Example Usage
+
+```typescript
+import { PostV2ActivitiesData } from "@interfere/attio/models/operations";
+
+let value: PostV2ActivitiesData = {
+  apiSlug: "site_visits",
+  singularNoun: "Site visit",
+  pluralNoun: "Site visits",
+  extends: "interactions",
+};
+```
+
+## Fields
+
+| Field                                                                                                                                   | Type                                                                                                                                    | Required                                                                                                                                | Description                                                                                                                             | Example                                                                                                                                 |
+| --------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `apiSlug`                                                                                                                               | *string*                                                                                                                                | :heavy_check_mark:                                                                                                                      | A unique, human-readable slug to access the activity through URLs and API calls. Should be formatted in snake case.                     | site_visits                                                                                                                             |
+| `singularNoun`                                                                                                                          | *string*                                                                                                                                | :heavy_check_mark:                                                                                                                      | The singular form of the activity's name.                                                                                               | Site visit                                                                                                                              |
+| `pluralNoun`                                                                                                                            | *string*                                                                                                                                | :heavy_check_mark:                                                                                                                      | The plural form of the activity's name.                                                                                                 | Site visits                                                                                                                             |
+| `extends`                                                                                                                               | [operations.Extends](../../models/operations/extends.md)                                                                                | :heavy_check_mark:                                                                                                                      | The schema the new activity extends, which supplies its inherited attributes. One of `activities`, `interactions`, `calls` or `emails`. | interactions                                                                                                                            |

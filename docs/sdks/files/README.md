@@ -258,9 +258,10 @@ run();
 
 ### Errors
 
-| Error Type        | Status Code       | Content Type      |
-| ----------------- | ----------------- | ----------------- |
-| errors.AttioError | 4XX, 5XX          | \*/\*             |
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.UploadFileAuthError | 403                        | application/json           |
+| errors.AttioError          | 4XX, 5XX                   | \*/\*                      |
 
 ## get
 

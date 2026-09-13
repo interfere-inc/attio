@@ -8,6 +8,40 @@ import * as types from "../../types/primitives.js";
 import { AttioBaseError } from "./attio-base-error.js";
 
 /**
+ * Conflict
+ */
+export type UpdateWebhookInvalidRequestErrorData = {
+  type: "invalid_request_error";
+  statusCode: 409;
+  code: string;
+  message: string;
+};
+
+/**
+ * Conflict
+ */
+export class UpdateWebhookInvalidRequestError extends AttioBaseError {
+  type: "invalid_request_error";
+  code: string;
+
+  /** The original data that was passed to this error instance. */
+  data$: UpdateWebhookInvalidRequestErrorData;
+
+  constructor(
+    err: UpdateWebhookInvalidRequestErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    this.type = err.type;
+    this.code = err.code;
+
+    this.name = "UpdateWebhookInvalidRequestError";
+  }
+}
+
+/**
  * Not Found
  */
 export type UpdateWebhookNotFoundErrorData = {
@@ -40,6 +74,33 @@ export class UpdateWebhookNotFoundError extends AttioBaseError {
     this.name = "UpdateWebhookNotFoundError";
   }
 }
+
+/** @internal */
+export const UpdateWebhookInvalidRequestError$inboundSchema: z.ZodMiniType<
+  UpdateWebhookInvalidRequestError,
+  unknown
+> = z.pipe(
+  z.object({
+    type: types.literal("invalid_request_error"),
+    status_code: types.literal(409),
+    code: types.string(),
+    message: types.string(),
+    request$: z.custom<Request>(x => x instanceof Request),
+    response$: z.custom<Response>(x => x instanceof Response),
+    body$: z.string(),
+  }),
+  z.transform((v) => {
+    const remapped = remap$(v, {
+      "status_code": "statusCode",
+    });
+
+    return new UpdateWebhookInvalidRequestError(remapped, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
+  }),
+);
 
 /** @internal */
 export const UpdateWebhookNotFoundError$inboundSchema: z.ZodMiniType<

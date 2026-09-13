@@ -33,7 +33,9 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Create a call recording for a meeting. This endpoint is rate limited to 1 request per second.
  *
- * This endpoint is in alpha and may be subject to breaking changes as we gather feedback.
+ * A `transcript` should always be provided — it is technically optional for backwards compatibility, but a call recording created without one will be missing summaries and other transcript-derived features. `video_url` is optional, and a transcript-only call recording (with no video) is fully supported.
+ *
+ * This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
  *
  * Required scopes: `meeting:read`, `call_recording:read-write`.
  */
@@ -45,7 +47,7 @@ export function callRecordingsCreate(
   Result<
     operations.CreateCallRecordingResponse,
     | errors.CreateCallRecordingValidationTypeError
-    | errors.AuthError
+    | errors.CreateCallRecordingAuthError
     | errors.CreateCallRecordingNotFoundError
     | AttioBaseError
     | ResponseValidationError
@@ -73,7 +75,7 @@ async function $do(
     Result<
       operations.CreateCallRecordingResponse,
       | errors.CreateCallRecordingValidationTypeError
-      | errors.AuthError
+      | errors.CreateCallRecordingAuthError
       | errors.CreateCallRecordingNotFoundError
       | AttioBaseError
       | ResponseValidationError
@@ -167,7 +169,7 @@ async function $do(
   const [result] = await M.match<
     operations.CreateCallRecordingResponse,
     | errors.CreateCallRecordingValidationTypeError
-    | errors.AuthError
+    | errors.CreateCallRecordingAuthError
     | errors.CreateCallRecordingNotFoundError
     | AttioBaseError
     | ResponseValidationError
@@ -180,7 +182,7 @@ async function $do(
   >(
     M.json(200, operations.CreateCallRecordingResponse$inboundSchema),
     M.jsonErr(400, errors.CreateCallRecordingValidationTypeError$inboundSchema),
-    M.jsonErr(403, errors.AuthError$inboundSchema),
+    M.jsonErr(403, errors.CreateCallRecordingAuthError$inboundSchema),
     M.jsonErr(404, errors.CreateCallRecordingNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),

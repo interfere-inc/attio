@@ -42,7 +42,8 @@ export function entriesAssert(
 ): APIPromise<
   Result<
     operations.AssertEntryResponse,
-    | errors.MultipleMatchResultsError
+    | errors.AssertEntryInvalidRequestError
+    | errors.AssertEntryAuthError
     | errors.AssertEntryNotFoundError
     | AttioBaseError
     | ResponseValidationError
@@ -69,7 +70,8 @@ async function $do(
   [
     Result<
       operations.AssertEntryResponse,
-      | errors.MultipleMatchResultsError
+      | errors.AssertEntryInvalidRequestError
+      | errors.AssertEntryAuthError
       | errors.AssertEntryNotFoundError
       | AttioBaseError
       | ResponseValidationError
@@ -159,7 +161,8 @@ async function $do(
 
   const [result] = await M.match<
     operations.AssertEntryResponse,
-    | errors.MultipleMatchResultsError
+    | errors.AssertEntryInvalidRequestError
+    | errors.AssertEntryAuthError
     | errors.AssertEntryNotFoundError
     | AttioBaseError
     | ResponseValidationError
@@ -171,7 +174,8 @@ async function $do(
     | SDKValidationError
   >(
     M.json(200, operations.AssertEntryResponse$inboundSchema),
-    M.jsonErr(400, errors.MultipleMatchResultsError$inboundSchema),
+    M.jsonErr(400, errors.AssertEntryInvalidRequestError$inboundSchema),
+    M.jsonErr(403, errors.AssertEntryAuthError$inboundSchema),
     M.jsonErr(404, errors.AssertEntryNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
