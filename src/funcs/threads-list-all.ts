@@ -32,6 +32,8 @@ import { Result } from "../types/fp.js";
  * @remarks
  * List threads of comments on a record or list entry.
  *
+ * Each thread in the response includes at most `80` replies, starting with the oldest. When a thread holds more, its `has_more_comments` is `true`; use [Get a thread and its comments](/rest-api/endpoint-reference/threads/get-a-thread-and-its-comments) to page through every comment in that thread.
+ *
  * To view threads on records, you will need the `object_configuration:read` and `record_permission:read` scopes.
  *
  * To view threads on list entries, you will need the `list_configuration:read` and `list_entry:read` scopes.

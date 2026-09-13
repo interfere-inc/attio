@@ -120,4 +120,36 @@ export type OAuth2Scope =
   /**
    * View, and upload files.
    */
-  | "file:read-write";
+  | "file:read-write"
+  /**
+   * View email metadata. Email content is never exposed.
+   */
+  | "email:read"
+  /**
+   * View email metadata. Email content is never exposed.
+   */
+  | "email:read-write"
+  /**
+   * View, and optionally write, the configuration and attributes of activities.
+   */
+  | "activity_configuration:read"
+  /**
+   * View, and optionally write, the configuration and attributes of activities.
+   */
+  | "activity_configuration:read-write"
+  /**
+   * View, and optionally write, activity records.
+   */
+  | "activity_record:read"
+  /**
+   * View, and optionally write, activity records.
+   */
+  | "activity_record:read-write"
+  /**
+   * View, and optionally add to, the sequence unsubscribe list.
+   */
+  | "sequence_unsubscribe:read"
+  /**
+   * View, and optionally add to, the sequence unsubscribe list.
+   */
+  | "sequence_unsubscribe:read-write";

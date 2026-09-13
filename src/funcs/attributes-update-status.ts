@@ -43,6 +43,7 @@ export function attributesUpdateStatus(
   Result<
     operations.UpdateAttributeStatusResponse,
     | errors.UpdateAttributeStatusValueNotFoundError
+    | errors.UpdateAttributeStatusAuthError
     | errors.UpdateAttributeStatusNotFoundError
     | errors.UpdateAttributeStatusSlugConflictError
     | AttioBaseError
@@ -71,6 +72,7 @@ async function $do(
     Result<
       operations.UpdateAttributeStatusResponse,
       | errors.UpdateAttributeStatusValueNotFoundError
+      | errors.UpdateAttributeStatusAuthError
       | errors.UpdateAttributeStatusNotFoundError
       | errors.UpdateAttributeStatusSlugConflictError
       | AttioBaseError
@@ -177,6 +179,7 @@ async function $do(
   const [result] = await M.match<
     operations.UpdateAttributeStatusResponse,
     | errors.UpdateAttributeStatusValueNotFoundError
+    | errors.UpdateAttributeStatusAuthError
     | errors.UpdateAttributeStatusNotFoundError
     | errors.UpdateAttributeStatusSlugConflictError
     | AttioBaseError
@@ -193,6 +196,7 @@ async function $do(
       400,
       errors.UpdateAttributeStatusValueNotFoundError$inboundSchema,
     ),
+    M.jsonErr(403, errors.UpdateAttributeStatusAuthError$inboundSchema),
     M.jsonErr(404, errors.UpdateAttributeStatusNotFoundError$inboundSchema),
     M.jsonErr(409, errors.UpdateAttributeStatusSlugConflictError$inboundSchema),
     M.fail("4XX"),

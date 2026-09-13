@@ -7,11 +7,13 @@ Threads are groups of [comments](/rest-api/endpoint-reference/comments/get-a-com
 ### Available Operations
 
 * [listAll](#listall) - List threads
-* [get](#get) - Get a thread
+* [get](#get) - Get a thread and its comments
 
 ## listAll
 
 List threads of comments on a record or list entry.
+
+Each thread in the response includes at most `80` replies, starting with the oldest. When a thread holds more, its `has_more_comments` is `true`; use [Get a thread and its comments](/rest-api/endpoint-reference/threads/get-a-thread-and-its-comments) to page through every comment in that thread.
 
 To view threads on records, you will need the `object_configuration:read` and `record_permission:read` scopes.
 
@@ -100,7 +102,11 @@ run();
 
 ## get
 
-Get all comments in a thread.
+Get a thread and page through its comments, oldest first, starting with the comment that opened it.
+
+Comments are paginated: at most `250` are returned per request. Keep paginating for as long as a `next_cursor` is returned.
+
+Supply `created_after` to return only the comments created after a timestamp, which is useful when polling a thread for new replies. The comment that opened the thread is returned only when it also satisfies the filter.
 
 To view threads on records, you will need the `object_configuration:read` and `record_permission:read` scopes.
 
@@ -121,6 +127,9 @@ const attio = new Attio({
 async function run() {
   const result = await attio.threads.get({
     threadId: "a649e4d9-435c-43fb-83ba-847b4876f27a",
+    limit: 250,
+    cursor: "eyJkZXNjcmlwdGlvbiI6ICJ0aGlzIGlzIGEgY3Vyc29yIn0=.eM56CGbqZ6G1NHiJchTIkH4vKDr",
+    createdAfter: "2023-01-01T15:00:00.000000000Z",
   });
 
   console.log(result);
@@ -146,6 +155,9 @@ const attio = new AttioCore({
 async function run() {
   const res = await threadsGet(attio, {
     threadId: "a649e4d9-435c-43fb-83ba-847b4876f27a",
+    limit: 250,
+    cursor: "eyJkZXNjcmlwdGlvbiI6ICJ0aGlzIGlzIGEgY3Vyc29yIn0=.eM56CGbqZ6G1NHiJchTIkH4vKDr",
+    createdAfter: "2023-01-01T15:00:00.000000000Z",
   });
   if (res.ok) {
     const { value: result } = res;

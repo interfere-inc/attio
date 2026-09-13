@@ -14,7 +14,7 @@ export class Meetings extends ClientSDK {
    * List meetings
    *
    * @remarks
-   * Lists all meetings in the workspace using a deterministic sort order.
+   * Lists all meetings in the workspace using a deterministic sort order. When both the `participants` and `linked_record_id` filters are supplied, they are combined with OR: meetings that match either filter are returned.
    *
    * This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
    *
@@ -32,12 +32,12 @@ export class Meetings extends ClientSDK {
   }
 
   /**
-   * Find or create a meeting
+   * Create a meeting
    *
    * @remarks
-   * Finds an existing meeting or creates a new one if it doesn't yet exist. [Please see here](/rest-api/guides/syncing-meetings) for a full guide on syncing meetings to Attio.
+   * Creates a new meeting. [See here](/rest-api/guides/syncing-meetings) for guidance on avoiding duplicate meetings.
    *
-   * This endpoint is in alpha and may be subject to breaking changes as we gather feedback.
+   * This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
    *
    * Required scopes: `meeting:read-write`, `record_permission:read`.
    */

@@ -43,6 +43,7 @@ export function attributesUpdateSelectOption(
   Result<
     operations.UpdateAttributeSelectOptionResponse,
     | errors.UpdateAttributeSelectOptionValueNotFoundError
+    | errors.UpdateAttributeSelectOptionAuthError
     | errors.UpdateAttributeSelectOptionNotFoundError
     | errors.UpdateAttributeSelectOptionSlugConflictError
     | AttioBaseError
@@ -71,6 +72,7 @@ async function $do(
     Result<
       operations.UpdateAttributeSelectOptionResponse,
       | errors.UpdateAttributeSelectOptionValueNotFoundError
+      | errors.UpdateAttributeSelectOptionAuthError
       | errors.UpdateAttributeSelectOptionNotFoundError
       | errors.UpdateAttributeSelectOptionSlugConflictError
       | AttioBaseError
@@ -180,6 +182,7 @@ async function $do(
   const [result] = await M.match<
     operations.UpdateAttributeSelectOptionResponse,
     | errors.UpdateAttributeSelectOptionValueNotFoundError
+    | errors.UpdateAttributeSelectOptionAuthError
     | errors.UpdateAttributeSelectOptionNotFoundError
     | errors.UpdateAttributeSelectOptionSlugConflictError
     | AttioBaseError
@@ -196,6 +199,7 @@ async function $do(
       400,
       errors.UpdateAttributeSelectOptionValueNotFoundError$inboundSchema,
     ),
+    M.jsonErr(403, errors.UpdateAttributeSelectOptionAuthError$inboundSchema),
     M.jsonErr(
       404,
       errors.UpdateAttributeSelectOptionNotFoundError$inboundSchema,

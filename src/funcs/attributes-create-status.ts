@@ -43,6 +43,7 @@ export function attributesCreateStatus(
   Result<
     operations.CreateAttributeStatusResponse,
     | errors.CreateAttributeStatusValidationTypeError
+    | errors.CreateAttributeStatusAuthError
     | errors.CreateAttributeStatusNotFoundError
     | errors.CreateAttributeStatusSlugConflictError
     | AttioBaseError
@@ -71,6 +72,7 @@ async function $do(
     Result<
       operations.CreateAttributeStatusResponse,
       | errors.CreateAttributeStatusValidationTypeError
+      | errors.CreateAttributeStatusAuthError
       | errors.CreateAttributeStatusNotFoundError
       | errors.CreateAttributeStatusSlugConflictError
       | AttioBaseError
@@ -173,6 +175,7 @@ async function $do(
   const [result] = await M.match<
     operations.CreateAttributeStatusResponse,
     | errors.CreateAttributeStatusValidationTypeError
+    | errors.CreateAttributeStatusAuthError
     | errors.CreateAttributeStatusNotFoundError
     | errors.CreateAttributeStatusSlugConflictError
     | AttioBaseError
@@ -189,6 +192,7 @@ async function $do(
       400,
       errors.CreateAttributeStatusValidationTypeError$inboundSchema,
     ),
+    M.jsonErr(403, errors.CreateAttributeStatusAuthError$inboundSchema),
     M.jsonErr(404, errors.CreateAttributeStatusNotFoundError$inboundSchema),
     M.jsonErr(409, errors.CreateAttributeStatusSlugConflictError$inboundSchema),
     M.fail("4XX"),

@@ -42,7 +42,8 @@ export function entriesUpdate(
 ): APIPromise<
   Result<
     operations.UpdateEntryResponse,
-    | errors.UpdateEntryImmutableValueError
+    | errors.UpdateEntryInvalidRequestError
+    | errors.UpdateEntryAuthError
     | errors.UpdateEntryNotFoundError
     | AttioBaseError
     | ResponseValidationError
@@ -69,7 +70,8 @@ async function $do(
   [
     Result<
       operations.UpdateEntryResponse,
-      | errors.UpdateEntryImmutableValueError
+      | errors.UpdateEntryInvalidRequestError
+      | errors.UpdateEntryAuthError
       | errors.UpdateEntryNotFoundError
       | AttioBaseError
       | ResponseValidationError
@@ -163,7 +165,8 @@ async function $do(
 
   const [result] = await M.match<
     operations.UpdateEntryResponse,
-    | errors.UpdateEntryImmutableValueError
+    | errors.UpdateEntryInvalidRequestError
+    | errors.UpdateEntryAuthError
     | errors.UpdateEntryNotFoundError
     | AttioBaseError
     | ResponseValidationError
@@ -175,7 +178,8 @@ async function $do(
     | SDKValidationError
   >(
     M.json(200, operations.UpdateEntryResponse$inboundSchema),
-    M.jsonErr(400, errors.UpdateEntryImmutableValueError$inboundSchema),
+    M.jsonErr(400, errors.UpdateEntryInvalidRequestError$inboundSchema),
+    M.jsonErr(403, errors.UpdateEntryAuthError$inboundSchema),
     M.jsonErr(404, errors.UpdateEntryNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
