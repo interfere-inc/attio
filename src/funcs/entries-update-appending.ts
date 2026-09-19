@@ -42,7 +42,8 @@ export function entriesUpdateAppending(
 ): APIPromise<
   Result<
     operations.UpdateAppendingEntryResponse,
-    | errors.UpdateAppendingEntryImmutableValueError
+    | errors.UpdateAppendingEntryInvalidRequestError
+    | errors.UpdateAppendingEntryAuthError
     | errors.UpdateAppendingEntryNotFoundError
     | AttioBaseError
     | ResponseValidationError
@@ -69,7 +70,8 @@ async function $do(
   [
     Result<
       operations.UpdateAppendingEntryResponse,
-      | errors.UpdateAppendingEntryImmutableValueError
+      | errors.UpdateAppendingEntryInvalidRequestError
+      | errors.UpdateAppendingEntryAuthError
       | errors.UpdateAppendingEntryNotFoundError
       | AttioBaseError
       | ResponseValidationError
@@ -164,7 +166,8 @@ async function $do(
 
   const [result] = await M.match<
     operations.UpdateAppendingEntryResponse,
-    | errors.UpdateAppendingEntryImmutableValueError
+    | errors.UpdateAppendingEntryInvalidRequestError
+    | errors.UpdateAppendingEntryAuthError
     | errors.UpdateAppendingEntryNotFoundError
     | AttioBaseError
     | ResponseValidationError
@@ -178,8 +181,9 @@ async function $do(
     M.json(200, operations.UpdateAppendingEntryResponse$inboundSchema),
     M.jsonErr(
       400,
-      errors.UpdateAppendingEntryImmutableValueError$inboundSchema,
+      errors.UpdateAppendingEntryInvalidRequestError$inboundSchema,
     ),
+    M.jsonErr(403, errors.UpdateAppendingEntryAuthError$inboundSchema),
     M.jsonErr(404, errors.UpdateAppendingEntryNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),

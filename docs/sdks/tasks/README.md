@@ -202,7 +202,7 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
-| errors.CreateTaskValidationTypeError | 400                                  | application/json                     |
+| errors.CreateTaskInvalidRequestError | 400                                  | application/json                     |
 | errors.CreateTaskNotFoundError       | 404                                  | application/json                     |
 | errors.AttioError                    | 4XX, 5XX                             | \*/\*                                |
 
@@ -463,6 +463,6 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
-| errors.UpdateTaskValidationTypeError | 400                                  | application/json                     |
+| errors.UpdateTaskInvalidRequestError | 400                                  | application/json                     |
 | errors.UpdateTaskNotFoundError       | 404                                  | application/json                     |
 | errors.AttioError                    | 4XX, 5XX                             | \*/\*                                |

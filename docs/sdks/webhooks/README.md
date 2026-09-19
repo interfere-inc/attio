@@ -93,6 +93,8 @@ run();
 
 Create a webhook and associated subscriptions.
 
+Each combination of target URL, event type and filter must be unique within your workspace; duplicates are rejected with a 409.
+
 Required scopes: `webhook:read-write`.
 
 ### Example Usage
@@ -169,6 +171,7 @@ run();
 | Error Type                              | Status Code                             | Content Type                            |
 | --------------------------------------- | --------------------------------------- | --------------------------------------- |
 | errors.CreateWebhookValidationTypeError | 400                                     | application/json                        |
+| errors.CreateWebhookInvalidRequestError | 409                                     | application/json                        |
 | errors.AttioError                       | 4XX, 5XX                                | \*/\*                                   |
 
 ## get
@@ -327,6 +330,8 @@ run();
 
 Update a webhook and associated subscriptions.
 
+Each combination of target URL, event type and filter must be unique within your workspace; duplicates are rejected with a 409. Changing the target URL re-checks the webhook's existing subscriptions against the new URL.
+
 Required scopes: `webhook:read-write`.
 
 ### Example Usage
@@ -432,7 +437,8 @@ run();
 
 ### Errors
 
-| Error Type                        | Status Code                       | Content Type                      |
-| --------------------------------- | --------------------------------- | --------------------------------- |
-| errors.UpdateWebhookNotFoundError | 404                               | application/json                  |
-| errors.AttioError                 | 4XX, 5XX                          | \*/\*                             |
+| Error Type                              | Status Code                             | Content Type                            |
+| --------------------------------------- | --------------------------------------- | --------------------------------------- |
+| errors.UpdateWebhookNotFoundError       | 404                                     | application/json                        |
+| errors.UpdateWebhookInvalidRequestError | 409                                     | application/json                        |
+| errors.AttioError                       | 4XX, 5XX                                | \*/\*                                   |

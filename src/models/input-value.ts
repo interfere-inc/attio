@@ -650,12 +650,10 @@ export type InputValueLocation = {
  * The type of interaction e.g. calendar or email.
  */
 export const InputValueInteractionType = {
-  CalendarEvent: "calendar-event",
-  Call: "call",
-  ChatThread: "chat-thread",
+  Activity: "activity",
   Email: "email",
-  InPersonMeeting: "in-person-meeting",
   Meeting: "meeting",
+  CalendarEvent: "calendar-event",
 } as const;
 /**
  * The type of interaction e.g. calendar or email.

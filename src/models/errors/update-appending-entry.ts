@@ -42,9 +42,43 @@ export class UpdateAppendingEntryNotFoundError extends AttioBaseError {
 }
 
 /**
+ * Forbidden
+ */
+export type UpdateAppendingEntryAuthErrorData = {
+  type: "auth_error";
+  statusCode: 403;
+  code: string;
+  message: string;
+};
+
+/**
+ * Forbidden
+ */
+export class UpdateAppendingEntryAuthError extends AttioBaseError {
+  type: "auth_error";
+  code: string;
+
+  /** The original data that was passed to this error instance. */
+  data$: UpdateAppendingEntryAuthErrorData;
+
+  constructor(
+    err: UpdateAppendingEntryAuthErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    this.type = err.type;
+    this.code = err.code;
+
+    this.name = "UpdateAppendingEntryAuthError";
+  }
+}
+
+/**
  * Bad Request
  */
-export type UpdateAppendingEntryImmutableValueErrorData = {
+export type UpdateAppendingEntryInvalidRequestErrorData = {
   type: "invalid_request_error";
   statusCode: 400;
   code: "immutable_value";
@@ -54,15 +88,15 @@ export type UpdateAppendingEntryImmutableValueErrorData = {
 /**
  * Bad Request
  */
-export class UpdateAppendingEntryImmutableValueError extends AttioBaseError {
+export class UpdateAppendingEntryInvalidRequestError extends AttioBaseError {
   type: "invalid_request_error";
   code: "immutable_value";
 
   /** The original data that was passed to this error instance. */
-  data$: UpdateAppendingEntryImmutableValueErrorData;
+  data$: UpdateAppendingEntryInvalidRequestErrorData;
 
   constructor(
-    err: UpdateAppendingEntryImmutableValueErrorData,
+    err: UpdateAppendingEntryInvalidRequestErrorData,
     httpMeta: { response: Response; request: Request; body: string },
   ) {
     const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
@@ -71,7 +105,7 @@ export class UpdateAppendingEntryImmutableValueError extends AttioBaseError {
     this.type = err.type;
     this.code = err.code;
 
-    this.name = "UpdateAppendingEntryImmutableValueError";
+    this.name = "UpdateAppendingEntryInvalidRequestError";
   }
 }
 
@@ -103,8 +137,35 @@ export const UpdateAppendingEntryNotFoundError$inboundSchema: z.ZodMiniType<
 );
 
 /** @internal */
-export const UpdateAppendingEntryImmutableValueError$inboundSchema:
-  z.ZodMiniType<UpdateAppendingEntryImmutableValueError, unknown> = z.pipe(
+export const UpdateAppendingEntryAuthError$inboundSchema: z.ZodMiniType<
+  UpdateAppendingEntryAuthError,
+  unknown
+> = z.pipe(
+  z.object({
+    type: types.literal("auth_error"),
+    status_code: types.literal(403),
+    code: types.string(),
+    message: types.string(),
+    request$: z.custom<Request>(x => x instanceof Request),
+    response$: z.custom<Response>(x => x instanceof Response),
+    body$: z.string(),
+  }),
+  z.transform((v) => {
+    const remapped = remap$(v, {
+      "status_code": "statusCode",
+    });
+
+    return new UpdateAppendingEntryAuthError(remapped, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
+  }),
+);
+
+/** @internal */
+export const UpdateAppendingEntryInvalidRequestError$inboundSchema:
+  z.ZodMiniType<UpdateAppendingEntryInvalidRequestError, unknown> = z.pipe(
     z.object({
       type: types.literal("invalid_request_error"),
       status_code: types.literal(400),
@@ -119,7 +180,7 @@ export const UpdateAppendingEntryImmutableValueError$inboundSchema:
         "status_code": "statusCode",
       });
 
-      return new UpdateAppendingEntryImmutableValueError(remapped, {
+      return new UpdateAppendingEntryInvalidRequestError(remapped, {
         request: v.request$,
         response: v.response$,
         body: v.body$,

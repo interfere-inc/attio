@@ -7,12 +7,13 @@ Meetings are events synced from your calendar, added manually or added from thir
 ### Available Operations
 
 * [list](#list) - List meetings
-* [findOrCreate](#findorcreate) - Find or create a meeting
+* [findOrCreate](#findorcreate) - Create a meeting
 * [get](#get) - Get a meeting
+* [deleteV2MeetingsMeetingId](#deletev2meetingsmeetingid) - Delete a meeting
 
 ## list
 
-Lists all meetings in the workspace using a deterministic sort order.
+Lists all meetings in the workspace using a deterministic sort order. When both the `participants` and `linked_record_id` filters are supplied, they are combined with OR: meetings that match either filter are returned.
 
 This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
 
@@ -85,9 +86,9 @@ run();
 
 ## findOrCreate
 
-Finds an existing meeting or creates a new one if it doesn't yet exist. [Please see here](/rest-api/guides/syncing-meetings) for a full guide on syncing meetings to Attio.
+Creates a new meeting. [See here](/rest-api/guides/syncing-meetings) for guidance on avoiding duplicate meetings.
 
-This endpoint is in alpha and may be subject to breaking changes as we gather feedback.
+This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
 
 Required scopes: `meeting:read-write`, `record_permission:read`.
 
@@ -127,7 +128,6 @@ async function run() {
           recordId: "891dcbfc-9141-415d-9b2a-2238a6cc012d",
         },
       ],
-      externalRef: "external_meeting_12345",
     },
   });
 
@@ -177,7 +177,6 @@ async function run() {
           recordId: "891dcbfc-9141-415d-9b2a-2238a6cc012d",
         },
       ],
-      externalRef: "external_meeting_12345",
     },
   });
   if (res.ok) {
@@ -288,3 +287,84 @@ run();
 | ------------------------------ | ------------------------------ | ------------------------------ |
 | errors.GetMeetingNotFoundError | 404                            | application/json               |
 | errors.AttioError              | 4XX, 5XX                       | \*/\*                          |
+
+## deleteV2MeetingsMeetingId
+
+Deletes a single meeting by ID.
+
+Meetings created by calendar sync cannot be deleted through the API. Delete the underlying calendar event, or disconnect the calendar, instead.
+
+This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
+
+Required scopes: `meeting:read-write`.
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="delete_/v2/meetings/{meeting_id}" method="delete" path="/v2/meetings/{meeting_id}" -->
+```typescript
+import { Attio } from "@interfere/attio";
+
+const attio = new Attio({
+  oauth2: process.env["ATTIO_OAUTH2"] ?? "",
+});
+
+async function run() {
+  const result = await attio.meetings.deleteV2MeetingsMeetingId({
+    meetingId: "cb59ab17-ad15-460c-a126-0715617c0853",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { AttioCore } from "@interfere/attio/core.js";
+import { meetingsDeleteV2MeetingsMeetingId } from "@interfere/attio/funcs/meetings-delete-v2-meetings-meeting-id.js";
+
+// Use `AttioCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const attio = new AttioCore({
+  oauth2: process.env["ATTIO_OAUTH2"] ?? "",
+});
+
+async function run() {
+  const res = await meetingsDeleteV2MeetingsMeetingId(attio, {
+    meetingId: "cb59ab17-ad15-460c-a126-0715617c0853",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("meetingsDeleteV2MeetingsMeetingId failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.DeleteV2MeetingsMeetingIdRequest](../../models/operations/delete-v2-meetings-meeting-id-request.md)                                                                | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.DeleteV2MeetingsMeetingIdResponse](../../models/operations/delete-v2-meetings-meeting-id-response.md)\>**
+
+### Errors
+
+| Error Type                                                  | Status Code                                                 | Content Type                                                |
+| ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- |
+| errors.DeleteV2MeetingsMeetingIdSystemEditUnauthorizedError | 400                                                         | application/json                                            |
+| errors.DeleteV2MeetingsMeetingIdNotFoundError               | 404                                                         | application/json                                            |
+| errors.AttioError                                           | 4XX, 5XX                                                    | \*/\*                                                       |

@@ -1112,12 +1112,10 @@ export type GetRecordCreatedByActor8 = {
  * The type of interaction e.g. calendar or email.
  */
 export const GetRecordInteractionType = {
-  CalendarEvent: "calendar-event",
-  Call: "call",
-  ChatThread: "chat-thread",
+  Activity: "activity",
   Email: "email",
-  InPersonMeeting: "in-person-meeting",
   Meeting: "meeting",
+  CalendarEvent: "calendar-event",
 } as const;
 /**
  * The type of interaction e.g. calendar or email.
@@ -1444,12 +1442,15 @@ export const GetRecordCurrencyCode = {
   Cop: "COP",
   Czk: "CZK",
   Dkk: "DKK",
+  Egp: "EGP",
   Eur: "EUR",
   Fjd: "FJD",
+  Ghs: "GHS",
   Hkd: "HKD",
   Huf: "HUF",
   Isk: "ISK",
   Inr: "INR",
+  Idr: "IDR",
   Ils: "ILS",
   Jpy: "JPY",
   Kes: "KES",
@@ -1460,11 +1461,13 @@ export const GetRecordCurrencyCode = {
   Nzd: "NZD",
   Ngn: "NGN",
   Nok: "NOK",
+  Omr: "OMR",
   Xpf: "XPF",
   Pen: "PEN",
   Php: "PHP",
   Pln: "PLN",
   Gbp: "GBP",
+  Qar: "QAR",
   Rwf: "RWF",
   Sar: "SAR",
   Sgd: "SGD",

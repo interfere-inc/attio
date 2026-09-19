@@ -33,6 +33,8 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Update a webhook and associated subscriptions.
  *
+ * Each combination of target URL, event type and filter must be unique within your workspace; duplicates are rejected with a 409. Changing the target URL re-checks the webhook's existing subscriptions against the new URL.
+ *
  * Required scopes: `webhook:read-write`.
  */
 export function webhooksUpdate(
@@ -43,6 +45,7 @@ export function webhooksUpdate(
   Result<
     operations.UpdateWebhookResponse,
     | errors.UpdateWebhookNotFoundError
+    | errors.UpdateWebhookInvalidRequestError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -69,6 +72,7 @@ async function $do(
     Result<
       operations.UpdateWebhookResponse,
       | errors.UpdateWebhookNotFoundError
+      | errors.UpdateWebhookInvalidRequestError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -158,6 +162,7 @@ async function $do(
   const [result] = await M.match<
     operations.UpdateWebhookResponse,
     | errors.UpdateWebhookNotFoundError
+    | errors.UpdateWebhookInvalidRequestError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -169,6 +174,7 @@ async function $do(
   >(
     M.json(200, operations.UpdateWebhookResponse$inboundSchema),
     M.jsonErr(404, errors.UpdateWebhookNotFoundError$inboundSchema),
+    M.jsonErr(409, errors.UpdateWebhookInvalidRequestError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

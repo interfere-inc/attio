@@ -3,6 +3,7 @@
  */
 
 import { objectsCreate } from "../funcs/objects-create.js";
+import { objectsDeleteV2ObjectsObject } from "../funcs/objects-delete-v2-objects-object.js";
 import { objectsGetViews } from "../funcs/objects-get-views.js";
 import { objectsGet } from "../funcs/objects-get.js";
 import { objectsList } from "../funcs/objects-list.js";
@@ -61,6 +62,27 @@ export class Objects extends ClientSDK {
     options?: RequestOptions,
   ): Promise<operations.GetObjectResponse> {
     return unwrapAsync(objectsGet(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Delete an object
+   *
+   * @remarks
+   * Deletes a single object by its `object_id` or slug, along with all of its records. Only custom objects can be deleted; system objects, such as people and companies, cannot.
+   *
+   * This endpoint should be used with caution as it has the potential to remove a large amount of potentially valuable data.
+   *
+   * Required scopes: `object_configuration:read-write`, `record_permission:read-write`.
+   */
+  async deleteV2ObjectsObject(
+    request: operations.DeleteV2ObjectsObjectRequest,
+    options?: RequestOptions,
+  ): Promise<operations.DeleteV2ObjectsObjectResponse> {
+    return unwrapAsync(objectsDeleteV2ObjectsObject(
       this,
       request,
       options,

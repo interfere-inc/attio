@@ -42,7 +42,8 @@ export function attributesUpdate(
 ): APIPromise<
   Result<
     operations.UpdateAttributeResponse,
-    | errors.SystemEditUnauthorizedError
+    | errors.UpdateAttributeSystemEditUnauthorizedError
+    | errors.UpdateAttributeAuthError
     | errors.UpdateAttributeNotFoundError
     | AttioBaseError
     | ResponseValidationError
@@ -69,7 +70,8 @@ async function $do(
   [
     Result<
       operations.UpdateAttributeResponse,
-      | errors.SystemEditUnauthorizedError
+      | errors.UpdateAttributeSystemEditUnauthorizedError
+      | errors.UpdateAttributeAuthError
       | errors.UpdateAttributeNotFoundError
       | AttioBaseError
       | ResponseValidationError
@@ -169,7 +171,8 @@ async function $do(
 
   const [result] = await M.match<
     operations.UpdateAttributeResponse,
-    | errors.SystemEditUnauthorizedError
+    | errors.UpdateAttributeSystemEditUnauthorizedError
+    | errors.UpdateAttributeAuthError
     | errors.UpdateAttributeNotFoundError
     | AttioBaseError
     | ResponseValidationError
@@ -181,7 +184,11 @@ async function $do(
     | SDKValidationError
   >(
     M.json(200, operations.UpdateAttributeResponse$inboundSchema),
-    M.jsonErr(400, errors.SystemEditUnauthorizedError$inboundSchema),
+    M.jsonErr(
+      400,
+      errors.UpdateAttributeSystemEditUnauthorizedError$inboundSchema,
+    ),
+    M.jsonErr(403, errors.UpdateAttributeAuthError$inboundSchema),
     M.jsonErr(404, errors.UpdateAttributeNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),

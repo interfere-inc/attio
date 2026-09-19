@@ -42,9 +42,43 @@ export class AssertRecordNotFoundError extends AttioBaseError {
 }
 
 /**
+ * Forbidden
+ */
+export type AssertRecordAuthErrorData = {
+  type: "auth_error";
+  statusCode: 403;
+  code: string;
+  message: string;
+};
+
+/**
+ * Forbidden
+ */
+export class AssertRecordAuthError extends AttioBaseError {
+  type: "auth_error";
+  code: string;
+
+  /** The original data that was passed to this error instance. */
+  data$: AssertRecordAuthErrorData;
+
+  constructor(
+    err: AssertRecordAuthErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    this.type = err.type;
+    this.code = err.code;
+
+    this.name = "AssertRecordAuthError";
+  }
+}
+
+/**
  * Bad Request
  */
-export type AssertRecordValueNotFoundErrorData = {
+export type AssertRecordInvalidRequestErrorData = {
   type: "invalid_request_error";
   statusCode: 400;
   code: "value_not_found";
@@ -54,15 +88,15 @@ export type AssertRecordValueNotFoundErrorData = {
 /**
  * Bad Request
  */
-export class AssertRecordValueNotFoundError extends AttioBaseError {
+export class AssertRecordInvalidRequestError extends AttioBaseError {
   type: "invalid_request_error";
   code: "value_not_found";
 
   /** The original data that was passed to this error instance. */
-  data$: AssertRecordValueNotFoundErrorData;
+  data$: AssertRecordInvalidRequestErrorData;
 
   constructor(
-    err: AssertRecordValueNotFoundErrorData,
+    err: AssertRecordInvalidRequestErrorData,
     httpMeta: { response: Response; request: Request; body: string },
   ) {
     const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
@@ -71,7 +105,7 @@ export class AssertRecordValueNotFoundError extends AttioBaseError {
     this.type = err.type;
     this.code = err.code;
 
-    this.name = "AssertRecordValueNotFoundError";
+    this.name = "AssertRecordInvalidRequestError";
   }
 }
 
@@ -103,8 +137,35 @@ export const AssertRecordNotFoundError$inboundSchema: z.ZodMiniType<
 );
 
 /** @internal */
-export const AssertRecordValueNotFoundError$inboundSchema: z.ZodMiniType<
-  AssertRecordValueNotFoundError,
+export const AssertRecordAuthError$inboundSchema: z.ZodMiniType<
+  AssertRecordAuthError,
+  unknown
+> = z.pipe(
+  z.object({
+    type: types.literal("auth_error"),
+    status_code: types.literal(403),
+    code: types.string(),
+    message: types.string(),
+    request$: z.custom<Request>(x => x instanceof Request),
+    response$: z.custom<Response>(x => x instanceof Response),
+    body$: z.string(),
+  }),
+  z.transform((v) => {
+    const remapped = remap$(v, {
+      "status_code": "statusCode",
+    });
+
+    return new AssertRecordAuthError(remapped, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
+  }),
+);
+
+/** @internal */
+export const AssertRecordInvalidRequestError$inboundSchema: z.ZodMiniType<
+  AssertRecordInvalidRequestError,
   unknown
 > = z.pipe(
   z.object({
@@ -121,7 +182,7 @@ export const AssertRecordValueNotFoundError$inboundSchema: z.ZodMiniType<
       "status_code": "statusCode",
     });
 
-    return new AssertRecordValueNotFoundError(remapped, {
+    return new AssertRecordInvalidRequestError(remapped, {
       request: v.request$,
       response: v.response$,
       body: v.body$,
