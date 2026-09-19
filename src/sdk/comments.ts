@@ -62,6 +62,8 @@ export class Comments extends ClientSDK {
    * @remarks
    * Deletes a comment by ID. If deleting a comment at the head of a thread, all messages in the thread are also deleted.
    *
+   * A workspace-level access token may delete any comment. A user-level access token may only delete comments authored by the member it acts for.
+   *
    * Required scopes: `comment:read-write`.
    */
   async delete(

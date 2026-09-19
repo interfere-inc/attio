@@ -42,6 +42,7 @@ export function recordsDelete(
 ): APIPromise<
   Result<
     operations.DeleteRecordResponse,
+    | errors.DeleteRecordAuthError
     | errors.DeleteRecordNotFoundError
     | AttioBaseError
     | ResponseValidationError
@@ -68,6 +69,7 @@ async function $do(
   [
     Result<
       operations.DeleteRecordResponse,
+      | errors.DeleteRecordAuthError
       | errors.DeleteRecordNotFoundError
       | AttioBaseError
       | ResponseValidationError
@@ -162,6 +164,7 @@ async function $do(
 
   const [result] = await M.match<
     operations.DeleteRecordResponse,
+    | errors.DeleteRecordAuthError
     | errors.DeleteRecordNotFoundError
     | AttioBaseError
     | ResponseValidationError
@@ -173,6 +176,7 @@ async function $do(
     | SDKValidationError
   >(
     M.json(200, operations.DeleteRecordResponse$inboundSchema),
+    M.jsonErr(403, errors.DeleteRecordAuthError$inboundSchema),
     M.jsonErr(404, errors.DeleteRecordNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),

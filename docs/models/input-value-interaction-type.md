@@ -13,5 +13,5 @@ let value: InputValueInteractionType = "email";
 ## Values
 
 ```typescript
-"calendar-event" | "call" | "chat-thread" | "email" | "in-person-meeting" | "meeting"
+"activity" | "email" | "meeting" | "calendar-event"
 ```

@@ -6,11 +6,19 @@ import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
+import * as types from "../../types/primitives.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
 import * as models from "../index.js";
 
 export type GetThreadRequest = {
   threadId: string;
+  limit?: number | undefined;
+  cursor?: string | undefined;
+  createdAfter?: string | null | undefined;
+};
+
+export type GetThreadPagination = {
+  nextCursor: string | null;
 };
 
 /**
@@ -18,11 +26,15 @@ export type GetThreadRequest = {
  */
 export type GetThreadResponse = {
   data: models.Thread;
+  pagination: GetThreadPagination;
 };
 
 /** @internal */
 export type GetThreadRequest$Outbound = {
   thread_id: string;
+  limit?: number | undefined;
+  cursor?: string | undefined;
+  created_after?: string | null | undefined;
 };
 
 /** @internal */
@@ -32,10 +44,14 @@ export const GetThreadRequest$outboundSchema: z.ZodMiniType<
 > = z.pipe(
   z.object({
     threadId: z.string(),
+    limit: z.optional(z.int()),
+    cursor: z.optional(z.string()),
+    createdAfter: z.optional(z.nullable(z.string())),
   }),
   z.transform((v) => {
     return remap$(v, {
       threadId: "thread_id",
+      createdAfter: "created_after",
     });
   }),
 );
@@ -49,11 +65,37 @@ export function getThreadRequestToJSON(
 }
 
 /** @internal */
+export const GetThreadPagination$inboundSchema: z.ZodMiniType<
+  GetThreadPagination,
+  unknown
+> = z.pipe(
+  z.object({
+    next_cursor: types.nullable(types.string()),
+  }),
+  z.transform((v) => {
+    return remap$(v, {
+      "next_cursor": "nextCursor",
+    });
+  }),
+);
+
+export function getThreadPaginationFromJSON(
+  jsonString: string,
+): SafeParseResult<GetThreadPagination, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetThreadPagination$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetThreadPagination' from JSON`,
+  );
+}
+
+/** @internal */
 export const GetThreadResponse$inboundSchema: z.ZodMiniType<
   GetThreadResponse,
   unknown
 > = z.object({
   data: models.Thread$inboundSchema,
+  pagination: z.lazy(() => GetThreadPagination$inboundSchema),
 });
 
 export function getThreadResponseFromJSON(

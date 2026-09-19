@@ -177,6 +177,7 @@ run();
 | Error Type                                      | Status Code                                     | Content Type                                    |
 | ----------------------------------------------- | ----------------------------------------------- | ----------------------------------------------- |
 | errors.CreateAttributeOptionValidationTypeError | 400                                             | application/json                                |
+| errors.CreateAttributeOptionAuthError           | 403                                             | application/json                                |
 | errors.CreateAttributeOptionNotFoundError       | 404                                             | application/json                                |
 | errors.CreateAttributeOptionSlugConflictError   | 409                                             | application/json                                |
 | errors.AttioError                               | 4XX, 5XX                                        | \*/\*                                           |

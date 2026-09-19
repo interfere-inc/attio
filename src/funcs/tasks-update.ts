@@ -42,7 +42,7 @@ export function tasksUpdate(
 ): APIPromise<
   Result<
     operations.UpdateTaskResponse,
-    | errors.UpdateTaskValidationTypeError
+    | errors.UpdateTaskInvalidRequestError
     | errors.UpdateTaskNotFoundError
     | AttioBaseError
     | ResponseValidationError
@@ -69,7 +69,7 @@ async function $do(
   [
     Result<
       operations.UpdateTaskResponse,
-      | errors.UpdateTaskValidationTypeError
+      | errors.UpdateTaskInvalidRequestError
       | errors.UpdateTaskNotFoundError
       | AttioBaseError
       | ResponseValidationError
@@ -159,7 +159,7 @@ async function $do(
 
   const [result] = await M.match<
     operations.UpdateTaskResponse,
-    | errors.UpdateTaskValidationTypeError
+    | errors.UpdateTaskInvalidRequestError
     | errors.UpdateTaskNotFoundError
     | AttioBaseError
     | ResponseValidationError
@@ -171,7 +171,7 @@ async function $do(
     | SDKValidationError
   >(
     M.json(200, operations.UpdateTaskResponse$inboundSchema),
-    M.jsonErr(400, errors.UpdateTaskValidationTypeError$inboundSchema),
+    M.jsonErr(400, errors.UpdateTaskInvalidRequestError$inboundSchema),
     M.jsonErr(404, errors.UpdateTaskNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),

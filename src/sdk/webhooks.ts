@@ -37,6 +37,8 @@ export class Webhooks extends ClientSDK {
    * @remarks
    * Create a webhook and associated subscriptions.
    *
+   * Each combination of target URL, event type and filter must be unique within your workspace; duplicates are rejected with a 409.
+   *
    * Required scopes: `webhook:read-write`.
    */
   async create(
@@ -93,6 +95,8 @@ export class Webhooks extends ClientSDK {
    *
    * @remarks
    * Update a webhook and associated subscriptions.
+   *
+   * Each combination of target URL, event type and filter must be unique within your workspace; duplicates are rejected with a 409. Changing the target URL re-checks the webhook's existing subscriptions against the new URL.
    *
    * Required scopes: `webhook:read-write`.
    */

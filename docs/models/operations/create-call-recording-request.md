@@ -10,6 +10,17 @@ let value: CreateCallRecordingRequest = {
   body: {
     data: {
       videoUrl: "https://example.com/recording.mp4",
+      transcript: [
+        {
+          speech: "Hello everyone, welcome to the meeting.",
+          startTime: 0.5123,
+          endTime: 3.2123,
+          speaker: {
+            name: "Simon Mitchell",
+            emailAddress: "person@company.com",
+          },
+        },
+      ],
     },
   },
 };

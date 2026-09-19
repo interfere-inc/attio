@@ -33,7 +33,7 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Deletes the specified call recording. This will remove the call recording and all associated data.
  *
- * This endpoint is in alpha and may be subject to breaking changes as we gather feedback.
+ * This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
  *
  * Required scopes: `meeting:read`, `call_recording:read-write`.
  */
