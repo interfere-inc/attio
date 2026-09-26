@@ -23,7 +23,7 @@ import * as models from "../index.js";
  *
  *   *Note: While the Attio interface supports image embeds, they cannot currently be added or retrieved via the API's markdown format.*
  */
-export const Format = {
+export const CreateNoteFormat = {
   Plaintext: "plaintext",
   Markdown: "markdown",
 } as const;
@@ -40,7 +40,7 @@ export const Format = {
  *
  *   *Note: While the Attio interface supports image embeds, they cannot currently be added or retrieved via the API's markdown format.*
  */
-export type Format = ClosedEnum<typeof Format>;
+export type CreateNoteFormat = ClosedEnum<typeof CreateNoteFormat>;
 
 export type CreateNoteData = {
   /**
@@ -68,7 +68,7 @@ export type CreateNoteData = {
    *
    *   *Note: While the Attio interface supports image embeds, they cannot currently be added or retrieved via the API's markdown format.*
    */
-  format: Format;
+  format: CreateNoteFormat;
   /**
    * The main content of the note, formatted according to the value provided in the `format` field. Use `\n` for line breaks in `plaintext`. For `markdown`, utilize the supported syntax elements to structure and style your note.
    */
@@ -95,9 +95,9 @@ export type CreateNoteResponse = {
 };
 
 /** @internal */
-export const Format$outboundSchema: z.ZodMiniEnum<typeof Format> = z.enum(
-  Format,
-);
+export const CreateNoteFormat$outboundSchema: z.ZodMiniEnum<
+  typeof CreateNoteFormat
+> = z.enum(CreateNoteFormat);
 
 /** @internal */
 export type CreateNoteData$Outbound = {
@@ -119,7 +119,7 @@ export const CreateNoteData$outboundSchema: z.ZodMiniType<
     title: z.string(),
     parentObject: z.string(),
     parentRecordId: z.string(),
-    format: Format$outboundSchema,
+    format: CreateNoteFormat$outboundSchema,
     content: z.string(),
     createdAt: z.optional(z.string()),
     meetingId: z.optional(z.nullable(z.string())),

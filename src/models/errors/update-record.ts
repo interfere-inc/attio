@@ -8,6 +8,40 @@ import * as types from "../../types/primitives.js";
 import { AttioBaseError } from "./attio-base-error.js";
 
 /**
+ * Conflict
+ */
+export type UpdateRecordConflictInvalidRequestErrorData = {
+  type: "invalid_request_error";
+  statusCode: 409;
+  code: string;
+  message: string;
+};
+
+/**
+ * Conflict
+ */
+export class UpdateRecordConflictInvalidRequestError extends AttioBaseError {
+  type: "invalid_request_error";
+  code: string;
+
+  /** The original data that was passed to this error instance. */
+  data$: UpdateRecordConflictInvalidRequestErrorData;
+
+  constructor(
+    err: UpdateRecordConflictInvalidRequestErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    this.type = err.type;
+    this.code = err.code;
+
+    this.name = "UpdateRecordConflictInvalidRequestError";
+  }
+}
+
+/**
  * Not Found
  */
 export type UpdateRecordNotFoundErrorData = {
@@ -42,9 +76,43 @@ export class UpdateRecordNotFoundError extends AttioBaseError {
 }
 
 /**
+ * Forbidden
+ */
+export type UpdateRecordAuthErrorData = {
+  type: "auth_error";
+  statusCode: 403;
+  code: string;
+  message: string;
+};
+
+/**
+ * Forbidden
+ */
+export class UpdateRecordAuthError extends AttioBaseError {
+  type: "auth_error";
+  code: string;
+
+  /** The original data that was passed to this error instance. */
+  data$: UpdateRecordAuthErrorData;
+
+  constructor(
+    err: UpdateRecordAuthErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    this.type = err.type;
+    this.code = err.code;
+
+    this.name = "UpdateRecordAuthError";
+  }
+}
+
+/**
  * Bad Request
  */
-export type UpdateRecordMissingValueErrorData = {
+export type UpdateRecordBadRequestInvalidRequestErrorData = {
   type: "invalid_request_error";
   statusCode: 400;
   code: "missing_value";
@@ -54,15 +122,15 @@ export type UpdateRecordMissingValueErrorData = {
 /**
  * Bad Request
  */
-export class UpdateRecordMissingValueError extends AttioBaseError {
+export class UpdateRecordBadRequestInvalidRequestError extends AttioBaseError {
   type: "invalid_request_error";
   code: "missing_value";
 
   /** The original data that was passed to this error instance. */
-  data$: UpdateRecordMissingValueErrorData;
+  data$: UpdateRecordBadRequestInvalidRequestErrorData;
 
   constructor(
-    err: UpdateRecordMissingValueErrorData,
+    err: UpdateRecordBadRequestInvalidRequestErrorData,
     httpMeta: { response: Response; request: Request; body: string },
   ) {
     const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
@@ -71,9 +139,34 @@ export class UpdateRecordMissingValueError extends AttioBaseError {
     this.type = err.type;
     this.code = err.code;
 
-    this.name = "UpdateRecordMissingValueError";
+    this.name = "UpdateRecordBadRequestInvalidRequestError";
   }
 }
+
+/** @internal */
+export const UpdateRecordConflictInvalidRequestError$inboundSchema:
+  z.ZodMiniType<UpdateRecordConflictInvalidRequestError, unknown> = z.pipe(
+    z.object({
+      type: types.literal("invalid_request_error"),
+      status_code: types.literal(409),
+      code: types.string(),
+      message: types.string(),
+      request$: z.custom<Request>(x => x instanceof Request),
+      response$: z.custom<Response>(x => x instanceof Response),
+      body$: z.string(),
+    }),
+    z.transform((v) => {
+      const remapped = remap$(v, {
+        "status_code": "statusCode",
+      });
+
+      return new UpdateRecordConflictInvalidRequestError(remapped, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
+      });
+    }),
+  );
 
 /** @internal */
 export const UpdateRecordNotFoundError$inboundSchema: z.ZodMiniType<
@@ -103,14 +196,14 @@ export const UpdateRecordNotFoundError$inboundSchema: z.ZodMiniType<
 );
 
 /** @internal */
-export const UpdateRecordMissingValueError$inboundSchema: z.ZodMiniType<
-  UpdateRecordMissingValueError,
+export const UpdateRecordAuthError$inboundSchema: z.ZodMiniType<
+  UpdateRecordAuthError,
   unknown
 > = z.pipe(
   z.object({
-    type: types.literal("invalid_request_error"),
-    status_code: types.literal(400),
-    code: types.literal("missing_value"),
+    type: types.literal("auth_error"),
+    status_code: types.literal(403),
+    code: types.string(),
     message: types.string(),
     request$: z.custom<Request>(x => x instanceof Request),
     response$: z.custom<Response>(x => x instanceof Response),
@@ -121,10 +214,35 @@ export const UpdateRecordMissingValueError$inboundSchema: z.ZodMiniType<
       "status_code": "statusCode",
     });
 
-    return new UpdateRecordMissingValueError(remapped, {
+    return new UpdateRecordAuthError(remapped, {
       request: v.request$,
       response: v.response$,
       body: v.body$,
     });
   }),
 );
+
+/** @internal */
+export const UpdateRecordBadRequestInvalidRequestError$inboundSchema:
+  z.ZodMiniType<UpdateRecordBadRequestInvalidRequestError, unknown> = z.pipe(
+    z.object({
+      type: types.literal("invalid_request_error"),
+      status_code: types.literal(400),
+      code: types.literal("missing_value"),
+      message: types.string(),
+      request$: z.custom<Request>(x => x instanceof Request),
+      response$: z.custom<Response>(x => x instanceof Response),
+      body$: z.string(),
+    }),
+    z.transform((v) => {
+      const remapped = remap$(v, {
+        "status_code": "statusCode",
+      });
+
+      return new UpdateRecordBadRequestInvalidRequestError(remapped, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
+      });
+    }),
+  );

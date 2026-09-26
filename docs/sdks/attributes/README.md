@@ -21,6 +21,8 @@ Lists all attributes defined on a specific object or list. Attributes are return
 
 When `target` is `objects`, the required scopes are `object_configuration:read`. When `target` is `lists`, the required scopes are `list_configuration:read`.
 
+Supported token levels: `workspace`, `user`.
+
 ### Example Usage
 
 <!-- UsageSnippet language="typescript" operationID="listAllAttributes" method="get" path="/v2/{target}/{identifier}/attributes" -->
@@ -107,6 +109,8 @@ For record-reference attributes, you can optionally create a bidirectional relat
 To create an attribute on an object, you must also have the `object_configuration:read-write` scope.
 
 To create an attribute on a list, you must also have the `list_configuration:read-write` scope.
+
+Supported token levels: `workspace`, `user`.
 
 ### Example Usage
 
@@ -250,6 +254,7 @@ run();
 | Error Type                                   | Status Code                                  | Content Type                                 |
 | -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
 | errors.CreateNewAttributeValidationTypeError | 400                                          | application/json                             |
+| errors.CreateNewAttributeAuthError           | 403                                          | application/json                             |
 | errors.CreateNewAttributeNotFoundError       | 404                                          | application/json                             |
 | errors.CreateNewAttributeSlugConflictError   | 409                                          | application/json                             |
 | errors.AttioError                            | 4XX, 5XX                                     | \*/\*                                        |
@@ -259,6 +264,8 @@ run();
 Gets information about a single attribute on either an object or a list.
 
 When `target` is `objects`, the required scopes are `object_configuration:read`. When `target` is `lists`, the required scopes are `list_configuration:read`.
+
+Supported token levels: `workspace`, `user`.
 
 ### Example Usage
 
@@ -339,6 +346,8 @@ run();
 Updates a single attribute on a given object or list.
 
 When `target` is `objects`, the required scopes are `object_configuration:read-write`. When `target` is `lists`, the required scopes are `list_configuration:read-write`.
+
+Supported token levels: `workspace`, `user`.
 
 ### Example Usage
 
@@ -467,17 +476,20 @@ run();
 
 ### Errors
 
-| Error Type                          | Status Code                         | Content Type                        |
-| ----------------------------------- | ----------------------------------- | ----------------------------------- |
-| errors.SystemEditUnauthorizedError  | 400                                 | application/json                    |
-| errors.UpdateAttributeNotFoundError | 404                                 | application/json                    |
-| errors.AttioError                   | 4XX, 5XX                            | \*/\*                               |
+| Error Type                                        | Status Code                                       | Content Type                                      |
+| ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- |
+| errors.UpdateAttributeSystemEditUnauthorizedError | 400                                               | application/json                                  |
+| errors.UpdateAttributeAuthError                   | 403                                               | application/json                                  |
+| errors.UpdateAttributeNotFoundError               | 404                                               | application/json                                  |
+| errors.AttioError                                 | 4XX, 5XX                                          | \*/\*                                             |
 
 ## updateSelectOption
 
 Updates a select option on an attribute on either an object or a list.
 
 When `target` is `objects`, the required scopes are `object_configuration:read-write`. When `target` is `lists`, the required scopes are `list_configuration:read-write`.
+
+Supported token levels: `workspace`, `user`.
 
 ### Example Usage
 
@@ -565,6 +577,7 @@ run();
 | Error Type                                           | Status Code                                          | Content Type                                         |
 | ---------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------- |
 | errors.UpdateAttributeSelectOptionValueNotFoundError | 400                                                  | application/json                                     |
+| errors.UpdateAttributeSelectOptionAuthError          | 403                                                  | application/json                                     |
 | errors.UpdateAttributeSelectOptionNotFoundError      | 404                                                  | application/json                                     |
 | errors.UpdateAttributeSelectOptionSlugConflictError  | 409                                                  | application/json                                     |
 | errors.AttioError                                    | 4XX, 5XX                                             | \*/\*                                                |
@@ -574,6 +587,8 @@ run();
 Lists all statuses for a particular status attribute on either an object or a list.
 
 When `target` is `objects`, the required scopes are `object_configuration:read`. When `target` is `lists`, the required scopes are `list_configuration:read`.
+
+Supported token levels: `workspace`, `user`.
 
 ### Example Usage
 
@@ -656,6 +671,8 @@ run();
 Add a new status to a status attribute on either an object or a list.
 
 When `target` is `objects`, the required scopes are `object_configuration:read-write`. When `target` is `lists`, the required scopes are `list_configuration:read-write`.
+
+Supported token levels: `workspace`, `user`.
 
 ### Example Usage
 
@@ -743,6 +760,7 @@ run();
 | Error Type                                      | Status Code                                     | Content Type                                    |
 | ----------------------------------------------- | ----------------------------------------------- | ----------------------------------------------- |
 | errors.CreateAttributeStatusValidationTypeError | 400                                             | application/json                                |
+| errors.CreateAttributeStatusAuthError           | 403                                             | application/json                                |
 | errors.CreateAttributeStatusNotFoundError       | 404                                             | application/json                                |
 | errors.CreateAttributeStatusSlugConflictError   | 409                                             | application/json                                |
 | errors.AttioError                               | 4XX, 5XX                                        | \*/\*                                           |
@@ -752,6 +770,8 @@ run();
 Update a status on an status attribute on either an object or a list.
 
 When `target` is `objects`, the required scopes are `object_configuration:read-write`. When `target` is `lists`, the required scopes are `list_configuration:read-write`.
+
+Supported token levels: `workspace`, `user`.
 
 ### Example Usage
 
@@ -843,6 +863,7 @@ run();
 | Error Type                                     | Status Code                                    | Content Type                                   |
 | ---------------------------------------------- | ---------------------------------------------- | ---------------------------------------------- |
 | errors.UpdateAttributeStatusValueNotFoundError | 400                                            | application/json                               |
+| errors.UpdateAttributeStatusAuthError          | 403                                            | application/json                               |
 | errors.UpdateAttributeStatusNotFoundError      | 404                                            | application/json                               |
 | errors.UpdateAttributeStatusSlugConflictError  | 409                                            | application/json                               |
 | errors.AttioError                              | 4XX, 5XX                                       | \*/\*                                          |

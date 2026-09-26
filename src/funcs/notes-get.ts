@@ -34,6 +34,8 @@ import { Result } from "../types/fp.js";
  * Get a single note by ID.
  *
  * Required scopes: `note:read`, `object_configuration:read`, `record_permission:read`.
+ *
+ * Supported token levels: `workspace`, `user`.
  */
 export function notesGet(
   client: AttioCore,

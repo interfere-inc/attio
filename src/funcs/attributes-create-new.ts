@@ -38,6 +38,8 @@ import { Result } from "../types/fp.js";
  * To create an attribute on an object, you must also have the `object_configuration:read-write` scope.
  *
  * To create an attribute on a list, you must also have the `list_configuration:read-write` scope.
+ *
+ * Supported token levels: `workspace`, `user`.
  */
 export function attributesCreateNew(
   client: AttioCore,
@@ -47,6 +49,7 @@ export function attributesCreateNew(
   Result<
     operations.CreateNewAttributeResponse,
     | errors.CreateNewAttributeValidationTypeError
+    | errors.CreateNewAttributeAuthError
     | errors.CreateNewAttributeNotFoundError
     | errors.CreateNewAttributeSlugConflictError
     | AttioBaseError
@@ -75,6 +78,7 @@ async function $do(
     Result<
       operations.CreateNewAttributeResponse,
       | errors.CreateNewAttributeValidationTypeError
+      | errors.CreateNewAttributeAuthError
       | errors.CreateNewAttributeNotFoundError
       | errors.CreateNewAttributeSlugConflictError
       | AttioBaseError
@@ -171,6 +175,7 @@ async function $do(
   const [result] = await M.match<
     operations.CreateNewAttributeResponse,
     | errors.CreateNewAttributeValidationTypeError
+    | errors.CreateNewAttributeAuthError
     | errors.CreateNewAttributeNotFoundError
     | errors.CreateNewAttributeSlugConflictError
     | AttioBaseError
@@ -184,6 +189,7 @@ async function $do(
   >(
     M.json(200, operations.CreateNewAttributeResponse$inboundSchema),
     M.jsonErr(400, errors.CreateNewAttributeValidationTypeError$inboundSchema),
+    M.jsonErr(403, errors.CreateNewAttributeAuthError$inboundSchema),
     M.jsonErr(404, errors.CreateNewAttributeNotFoundError$inboundSchema),
     M.jsonErr(409, errors.CreateNewAttributeSlugConflictError$inboundSchema),
     M.fail("4XX"),

@@ -33,7 +33,11 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Deletes a comment by ID. If deleting a comment at the head of a thread, all messages in the thread are also deleted.
  *
+ * A workspace-level access token may delete any comment. A user-level access token may only delete comments authored by the member it acts for.
+ *
  * Required scopes: `comment:read-write`.
+ *
+ * Supported token levels: `workspace`, `user`.
  */
 export function commentsDelete(
   client: AttioCore,
@@ -42,6 +46,7 @@ export function commentsDelete(
 ): APIPromise<
   Result<
     operations.DeleteCommentResponse,
+    | errors.DeleteCommentAuthError
     | errors.DeleteCommentNotFoundError
     | AttioBaseError
     | ResponseValidationError
@@ -68,6 +73,7 @@ async function $do(
   [
     Result<
       operations.DeleteCommentResponse,
+      | errors.DeleteCommentAuthError
       | errors.DeleteCommentNotFoundError
       | AttioBaseError
       | ResponseValidationError
@@ -156,6 +162,7 @@ async function $do(
 
   const [result] = await M.match<
     operations.DeleteCommentResponse,
+    | errors.DeleteCommentAuthError
     | errors.DeleteCommentNotFoundError
     | AttioBaseError
     | ResponseValidationError
@@ -167,6 +174,7 @@ async function $do(
     | SDKValidationError
   >(
     M.json(200, operations.DeleteCommentResponse$inboundSchema),
+    M.jsonErr(403, errors.DeleteCommentAuthError$inboundSchema),
     M.jsonErr(404, errors.DeleteCommentNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),

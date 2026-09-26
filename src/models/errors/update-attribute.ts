@@ -42,9 +42,43 @@ export class UpdateAttributeNotFoundError extends AttioBaseError {
 }
 
 /**
+ * Forbidden
+ */
+export type UpdateAttributeAuthErrorData = {
+  type: "auth_error";
+  statusCode: 403;
+  code: string;
+  message: string;
+};
+
+/**
+ * Forbidden
+ */
+export class UpdateAttributeAuthError extends AttioBaseError {
+  type: "auth_error";
+  code: string;
+
+  /** The original data that was passed to this error instance. */
+  data$: UpdateAttributeAuthErrorData;
+
+  constructor(
+    err: UpdateAttributeAuthErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    this.type = err.type;
+    this.code = err.code;
+
+    this.name = "UpdateAttributeAuthError";
+  }
+}
+
+/**
  * Bad Request
  */
-export type SystemEditUnauthorizedErrorData = {
+export type UpdateAttributeSystemEditUnauthorizedErrorData = {
   type: "invalid_request_error";
   statusCode: 400;
   code: "system_edit_unauthorized";
@@ -54,15 +88,15 @@ export type SystemEditUnauthorizedErrorData = {
 /**
  * Bad Request
  */
-export class SystemEditUnauthorizedError extends AttioBaseError {
+export class UpdateAttributeSystemEditUnauthorizedError extends AttioBaseError {
   type: "invalid_request_error";
   code: "system_edit_unauthorized";
 
   /** The original data that was passed to this error instance. */
-  data$: SystemEditUnauthorizedErrorData;
+  data$: UpdateAttributeSystemEditUnauthorizedErrorData;
 
   constructor(
-    err: SystemEditUnauthorizedErrorData,
+    err: UpdateAttributeSystemEditUnauthorizedErrorData,
     httpMeta: { response: Response; request: Request; body: string },
   ) {
     const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
@@ -71,7 +105,7 @@ export class SystemEditUnauthorizedError extends AttioBaseError {
     this.type = err.type;
     this.code = err.code;
 
-    this.name = "SystemEditUnauthorizedError";
+    this.name = "UpdateAttributeSystemEditUnauthorizedError";
   }
 }
 
@@ -103,14 +137,14 @@ export const UpdateAttributeNotFoundError$inboundSchema: z.ZodMiniType<
 );
 
 /** @internal */
-export const SystemEditUnauthorizedError$inboundSchema: z.ZodMiniType<
-  SystemEditUnauthorizedError,
+export const UpdateAttributeAuthError$inboundSchema: z.ZodMiniType<
+  UpdateAttributeAuthError,
   unknown
 > = z.pipe(
   z.object({
-    type: types.literal("invalid_request_error"),
-    status_code: types.literal(400),
-    code: types.literal("system_edit_unauthorized"),
+    type: types.literal("auth_error"),
+    status_code: types.literal(403),
+    code: types.string(),
     message: types.string(),
     request$: z.custom<Request>(x => x instanceof Request),
     response$: z.custom<Response>(x => x instanceof Response),
@@ -121,10 +155,35 @@ export const SystemEditUnauthorizedError$inboundSchema: z.ZodMiniType<
       "status_code": "statusCode",
     });
 
-    return new SystemEditUnauthorizedError(remapped, {
+    return new UpdateAttributeAuthError(remapped, {
       request: v.request$,
       response: v.response$,
       body: v.body$,
     });
   }),
 );
+
+/** @internal */
+export const UpdateAttributeSystemEditUnauthorizedError$inboundSchema:
+  z.ZodMiniType<UpdateAttributeSystemEditUnauthorizedError, unknown> = z.pipe(
+    z.object({
+      type: types.literal("invalid_request_error"),
+      status_code: types.literal(400),
+      code: types.literal("system_edit_unauthorized"),
+      message: types.string(),
+      request$: z.custom<Request>(x => x instanceof Request),
+      response$: z.custom<Response>(x => x instanceof Response),
+      body$: z.string(),
+    }),
+    z.transform((v) => {
+      const remapped = remap$(v, {
+        "status_code": "statusCode",
+      });
+
+      return new UpdateAttributeSystemEditUnauthorizedError(remapped, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
+      });
+    }),
+  );

@@ -18,6 +18,8 @@ List all tasks. Results are sorted by creation date, from oldest to newest.
 
 Required scopes: `task:read`, `object_configuration:read`, `record_permission:read`, `user_management:read`.
 
+Supported token levels: `workspace`, `user`.
+
 ### Example Usage
 
 <!-- UsageSnippet language="typescript" operationID="listTasks" method="get" path="/v2/tasks" -->
@@ -106,6 +108,8 @@ Creates a new task.
 At present, tasks can only be created from plaintext without record reference formatting.
 
 Required scopes: `task:read-write`, `object_configuration:read`, `record_permission:read`, `user_management:read`.
+
+Supported token levels: `workspace`, `user`.
 
 ### Example Usage
 
@@ -202,7 +206,7 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
-| errors.CreateTaskValidationTypeError | 400                                  | application/json                     |
+| errors.CreateTaskInvalidRequestError | 400                                  | application/json                     |
 | errors.CreateTaskNotFoundError       | 404                                  | application/json                     |
 | errors.AttioError                    | 4XX, 5XX                             | \*/\*                                |
 
@@ -211,6 +215,8 @@ run();
 Get a single task by ID.
 
 Required scopes: `task:read`, `object_configuration:read`, `record_permission:read`, `user_management:read`.
+
+Supported token levels: `workspace`, `user`.
 
 ### Example Usage
 
@@ -288,6 +294,8 @@ Delete a task by ID.
 
 Required scopes: `task:read-write`.
 
+Supported token levels: `workspace`, `user`.
+
 ### Example Usage
 
 <!-- UsageSnippet language="typescript" operationID="deleteTask" method="delete" path="/v2/tasks/{task_id}" -->
@@ -363,6 +371,8 @@ run();
 Updates an existing task by `task_id`. At present, only the `deadline_at`, `is_completed`, `linked_records`, and `assignees` fields can be updated.
 
 Required scopes: `task:read-write`, `object_configuration:read`, `record_permission:read`, `user_management:read`.
+
+Supported token levels: `workspace`, `user`.
 
 ### Example Usage
 
@@ -463,6 +473,6 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
-| errors.UpdateTaskValidationTypeError | 400                                  | application/json                     |
+| errors.UpdateTaskInvalidRequestError | 400                                  | application/json                     |
 | errors.UpdateTaskNotFoundError       | 404                                  | application/json                     |
 | errors.AttioError                    | 4XX, 5XX                             | \*/\*                                |

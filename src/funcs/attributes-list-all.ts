@@ -33,6 +33,8 @@ import { Result } from "../types/fp.js";
  * Lists all attributes defined on a specific object or list. Attributes are returned in the order that they are sorted by in the UI.
  *
  * When `target` is `objects`, the required scopes are `object_configuration:read`. When `target` is `lists`, the required scopes are `list_configuration:read`.
+ *
+ * Supported token levels: `workspace`, `user`.
  */
 export function attributesListAll(
   client: AttioCore,

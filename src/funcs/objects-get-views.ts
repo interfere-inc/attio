@@ -34,6 +34,8 @@ import { Result } from "../types/fp.js";
  * Lists saved views for an object. Results are ordered by view ID (`id.view_id` ascending).
  *
  * Required scopes: `object_configuration:read`.
+ *
+ * Supported token levels: `workspace`, `user`.
  */
 export function objectsGetViews(
   client: AttioCore,

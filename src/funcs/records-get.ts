@@ -34,6 +34,8 @@ import { Result } from "../types/fp.js";
  * Gets a single person, company or other record by its `record_id`.
  *
  * Required scopes: `record_permission:read`, `object_configuration:read`.
+ *
+ * Supported token levels: `workspace`, `user`.
  */
 export function recordsGet(
   client: AttioCore,
@@ -42,7 +44,7 @@ export function recordsGet(
 ): APIPromise<
   Result<
     operations.GetRecordResponse,
-    | errors.GetRecordNotFoundError
+    | errors.GetRecordInvalidRequestError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -68,7 +70,7 @@ async function $do(
   [
     Result<
       operations.GetRecordResponse,
-      | errors.GetRecordNotFoundError
+      | errors.GetRecordInvalidRequestError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -162,7 +164,7 @@ async function $do(
 
   const [result] = await M.match<
     operations.GetRecordResponse,
-    | errors.GetRecordNotFoundError
+    | errors.GetRecordInvalidRequestError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -173,7 +175,7 @@ async function $do(
     | SDKValidationError
   >(
     M.json(200, operations.GetRecordResponse$inboundSchema),
-    M.jsonErr(404, errors.GetRecordNotFoundError$inboundSchema),
+    M.jsonErr(404, errors.GetRecordInvalidRequestError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

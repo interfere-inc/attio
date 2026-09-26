@@ -7,6 +7,7 @@ import { entriesCreate } from "../funcs/entries-create.js";
 import { entriesDelete } from "../funcs/entries-delete.js";
 import { entriesGet } from "../funcs/entries-get.js";
 import { entriesListAttributeValues } from "../funcs/entries-list-attribute-values.js";
+import { entriesPutV2ListsListEntriesEntryIdAttributesAttributeValues } from "../funcs/entries-put-v2-lists-list-entries-entry-id-attributes-attribute-values.js";
 import { entriesQuery } from "../funcs/entries-query.js";
 import { entriesUpdateAppending } from "../funcs/entries-update-appending.js";
 import { entriesUpdate } from "../funcs/entries-update.js";
@@ -22,6 +23,8 @@ export class Entries extends ClientSDK {
    * Lists entries in a given list, with the option to filter and sort results.
    *
    * Required scopes: `list_entry:read`, `list_configuration:read`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async query(
     request: operations.QueryEntriesRequest,
@@ -41,6 +44,8 @@ export class Entries extends ClientSDK {
    * Adds a record to a list as a new list entry. This endpoint will throw on conflicts of unique attributes. Multiple list entries are allowed for the same parent record
    *
    * Required scopes: `list_entry:read-write`, `list_configuration:read`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async create(
     request: operations.CreateEntryRequest,
@@ -60,6 +65,8 @@ export class Entries extends ClientSDK {
    * Use this endpoint to create or update a list entry for a given parent record. If an entry with the specified parent record is found, that entry will be updated. If no such entry is found, a new entry will be created instead. If there are multiple entries with the same parent record, this endpoint with return the "MULTIPLE_MATCH_RESULTS" error. When writing to multi-select attributes, all values will be either created or deleted as necessary to match the list of values supplied in the request body.
    *
    * Required scopes: `list_entry:read-write`, `list_configuration:read`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async assert(
     request: operations.AssertEntryRequest,
@@ -79,6 +86,8 @@ export class Entries extends ClientSDK {
    * Gets a single list entry by its `entry_id`.
    *
    * Required scopes: `list_entry:read`, `list_configuration:read`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async get(
     request: operations.GetEntryRequest,
@@ -98,6 +107,8 @@ export class Entries extends ClientSDK {
    * Use this endpoint to update list entries by `entry_id`. If the update payload includes multiselect attributes, the values supplied will overwrite/remove the list of values that already exist (if any). Use the `PATCH` endpoint to add multiselect attribute values without removing those value that already exist.
    *
    * Required scopes: `list_entry:read-write`, `list_configuration:read`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async update(
     request: operations.UpdateEntryRequest,
@@ -117,6 +128,8 @@ export class Entries extends ClientSDK {
    * Deletes a single list entry by its `entry_id`.
    *
    * Required scopes: `list_entry:read-write`, `list_configuration:read`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async delete(
     request: operations.DeleteEntryRequest,
@@ -136,6 +149,8 @@ export class Entries extends ClientSDK {
    * Use this endpoint to update list entries by `entry_id`. If the update payload includes multiselect attributes, the values supplied will be created and prepended to the list of values that already exist (if any). Use the `PUT` endpoint to overwrite or remove multiselect attribute values.
    *
    * Required scopes: `list_entry:read-write`, `list_configuration:read`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async updateAppending(
     request: operations.UpdateAppendingEntryRequest,
@@ -155,6 +170,8 @@ export class Entries extends ClientSDK {
    * Gets all values for a given attribute on a list entry. This endpoint has the ability to return all historic values using the `show_historic` query param. Historic values are sorted from oldest to newest (by `active_from`).
    *
    * Required scopes: `list_entry:read`, `list_configuration:read`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async listAttributeValues(
     request: operations.ListEntryAttributeValuesRequest,
@@ -165,5 +182,39 @@ export class Entries extends ClientSDK {
       request,
       options,
     ));
+  }
+
+  /**
+   * Write list entry attribute values
+   *
+   * @remarks
+   * Replaces the entire value history of a single attribute on a list entry, primarily to migrate historic data from an external source. Every value the attribute currently has is destroyed, including values not present in the request, and the supplied values are written with the `active_from` and `active_until` timestamps given.
+   *
+   * Values may be supplied in any order and gaps between intervals are allowed. For attributes that accept a single value, at most one value may be active at a time, so intervals may not overlap and at most one may have a `null` `active_until`. At least one value is required.
+   *
+   * Webhooks and workflow triggers do not fire for these writes, so migrating history does not replay automations. Search indexes and caches are still updated, and formula attributes that depend on this attribute are still recalculated.
+   *
+   * Value history cannot be written for relationship attributes, formula attributes, enriched attributes, or immutable system attributes such as the entry's parent record.
+   *
+   * This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
+   *
+   * Required scopes: `list_entry:read-write`, `list_configuration:read`.
+   *
+   * Supported token levels: `workspace`, `user`.
+   */
+  async putV2ListsListEntriesEntryIdAttributesAttributeValues(
+    request:
+      operations.PutV2ListsListEntriesEntryIdAttributesAttributeValuesRequest,
+    options?: RequestOptions,
+  ): Promise<
+    operations.PutV2ListsListEntriesEntryIdAttributesAttributeValuesResponse
+  > {
+    return unwrapAsync(
+      entriesPutV2ListsListEntriesEntryIdAttributesAttributeValues(
+        this,
+        request,
+        options,
+      ),
+    );
   }
 }

@@ -34,6 +34,8 @@ import { Result } from "../types/fp.js";
  * Gets a single workspace member by ID.
  *
  * Required scopes: `user_management:read`.
+ *
+ * Supported token levels: `workspace`, `user`.
  */
 export function workspaceMembersGet(
   client: AttioCore,

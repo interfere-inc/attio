@@ -40,6 +40,8 @@ import { Result } from "../types/fp.js";
  * Please note that new lists must have either `workspace_access` set to `"full-access"` or one or more element of `workspace_member_access` with a `"full-access"` level. It is also possible to receive a `403` billing error if your workspace is not on a plan that supports either advanced workspace or workspace member-level access for lists.
  *
  * Required scopes: `list_configuration:read-write`.
+ *
+ * Supported token levels: `workspace`, `user`.
  */
 export function listsCreate(
   client: AttioCore,

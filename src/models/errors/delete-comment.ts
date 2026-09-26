@@ -41,6 +41,40 @@ export class DeleteCommentNotFoundError extends AttioBaseError {
   }
 }
 
+/**
+ * Forbidden
+ */
+export type DeleteCommentAuthErrorData = {
+  type: "auth_error";
+  statusCode: 403;
+  code: string;
+  message: string;
+};
+
+/**
+ * Forbidden
+ */
+export class DeleteCommentAuthError extends AttioBaseError {
+  type: "auth_error";
+  code: string;
+
+  /** The original data that was passed to this error instance. */
+  data$: DeleteCommentAuthErrorData;
+
+  constructor(
+    err: DeleteCommentAuthErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    this.type = err.type;
+    this.code = err.code;
+
+    this.name = "DeleteCommentAuthError";
+  }
+}
+
 /** @internal */
 export const DeleteCommentNotFoundError$inboundSchema: z.ZodMiniType<
   DeleteCommentNotFoundError,
@@ -61,6 +95,33 @@ export const DeleteCommentNotFoundError$inboundSchema: z.ZodMiniType<
     });
 
     return new DeleteCommentNotFoundError(remapped, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
+  }),
+);
+
+/** @internal */
+export const DeleteCommentAuthError$inboundSchema: z.ZodMiniType<
+  DeleteCommentAuthError,
+  unknown
+> = z.pipe(
+  z.object({
+    type: types.literal("auth_error"),
+    status_code: types.literal(403),
+    code: types.string(),
+    message: types.string(),
+    request$: z.custom<Request>(x => x instanceof Request),
+    response$: z.custom<Response>(x => x instanceof Response),
+    body$: z.string(),
+  }),
+  z.transform((v) => {
+    const remapped = remap$(v, {
+      "status_code": "statusCode",
+    });
+
+    return new DeleteCommentAuthError(remapped, {
       request: v.request$,
       response: v.response$,
       body: v.body$,

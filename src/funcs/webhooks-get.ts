@@ -34,6 +34,8 @@ import { Result } from "../types/fp.js";
  * Get a single webhook.
  *
  * Required scopes: `webhook:read`.
+ *
+ * Supported token levels: `workspace`.
  */
 export function webhooksGet(
   client: AttioCore,

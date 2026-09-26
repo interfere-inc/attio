@@ -34,6 +34,8 @@ import { Result } from "../types/fp.js";
  * Updates a select option on an attribute on either an object or a list.
  *
  * When `target` is `objects`, the required scopes are `object_configuration:read-write`. When `target` is `lists`, the required scopes are `list_configuration:read-write`.
+ *
+ * Supported token levels: `workspace`, `user`.
  */
 export function attributesUpdateSelectOption(
   client: AttioCore,
@@ -43,6 +45,7 @@ export function attributesUpdateSelectOption(
   Result<
     operations.UpdateAttributeSelectOptionResponse,
     | errors.UpdateAttributeSelectOptionValueNotFoundError
+    | errors.UpdateAttributeSelectOptionAuthError
     | errors.UpdateAttributeSelectOptionNotFoundError
     | errors.UpdateAttributeSelectOptionSlugConflictError
     | AttioBaseError
@@ -71,6 +74,7 @@ async function $do(
     Result<
       operations.UpdateAttributeSelectOptionResponse,
       | errors.UpdateAttributeSelectOptionValueNotFoundError
+      | errors.UpdateAttributeSelectOptionAuthError
       | errors.UpdateAttributeSelectOptionNotFoundError
       | errors.UpdateAttributeSelectOptionSlugConflictError
       | AttioBaseError
@@ -180,6 +184,7 @@ async function $do(
   const [result] = await M.match<
     operations.UpdateAttributeSelectOptionResponse,
     | errors.UpdateAttributeSelectOptionValueNotFoundError
+    | errors.UpdateAttributeSelectOptionAuthError
     | errors.UpdateAttributeSelectOptionNotFoundError
     | errors.UpdateAttributeSelectOptionSlugConflictError
     | AttioBaseError
@@ -196,6 +201,7 @@ async function $do(
       400,
       errors.UpdateAttributeSelectOptionValueNotFoundError$inboundSchema,
     ),
+    M.jsonErr(403, errors.UpdateAttributeSelectOptionAuthError$inboundSchema),
     M.jsonErr(
       404,
       errors.UpdateAttributeSelectOptionNotFoundError$inboundSchema,

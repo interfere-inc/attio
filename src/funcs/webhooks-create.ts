@@ -33,7 +33,11 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Create a webhook and associated subscriptions.
  *
+ * Each combination of target URL, event type and filter must be unique within your workspace; duplicates are rejected with a 409.
+ *
  * Required scopes: `webhook:read-write`.
+ *
+ * Supported token levels: `workspace`.
  */
 export function webhooksCreate(
   client: AttioCore,
@@ -43,6 +47,7 @@ export function webhooksCreate(
   Result<
     operations.CreateWebhookResponse,
     | errors.CreateWebhookValidationTypeError
+    | errors.CreateWebhookInvalidRequestError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -69,6 +74,7 @@ async function $do(
     Result<
       operations.CreateWebhookResponse,
       | errors.CreateWebhookValidationTypeError
+      | errors.CreateWebhookInvalidRequestError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -152,6 +158,7 @@ async function $do(
   const [result] = await M.match<
     operations.CreateWebhookResponse,
     | errors.CreateWebhookValidationTypeError
+    | errors.CreateWebhookInvalidRequestError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -163,6 +170,7 @@ async function $do(
   >(
     M.json(200, operations.CreateWebhookResponse$inboundSchema),
     M.jsonErr(400, errors.CreateWebhookValidationTypeError$inboundSchema),
+    M.jsonErr(409, errors.CreateWebhookInvalidRequestError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

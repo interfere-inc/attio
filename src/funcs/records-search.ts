@@ -38,6 +38,8 @@ import { Result } from "../types/fp.js";
  * This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
  *
  * Required scopes: `record_permission:read`, `object_configuration:read`.
+ *
+ * Supported token levels: `workspace`, `user`.
  */
 export function recordsSearch(
   client: AttioCore,

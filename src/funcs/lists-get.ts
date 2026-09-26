@@ -34,6 +34,8 @@ import { Result } from "../types/fp.js";
  * Gets a single list in your workspace that your access token has access to.
  *
  * Required scopes: `list_configuration:read`.
+ *
+ * Supported token levels: `workspace`, `user`.
  */
 export function listsGet(
   client: AttioCore,

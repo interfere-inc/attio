@@ -34,6 +34,8 @@ import { Result } from "../types/fp.js";
  * Use this endpoint to update people, companies, and other records by `record_id`. If the update payload includes multiselect attributes, the values supplied will overwrite/remove the list of values that already exist (if any). Use the `PATCH` endpoint to append multiselect values without removing those that already exist.
  *
  * Required scopes: `record_permission:read-write`, `object_configuration:read`.
+ *
+ * Supported token levels: `workspace`, `user`.
  */
 export function recordsUpdate(
   client: AttioCore,
@@ -42,8 +44,10 @@ export function recordsUpdate(
 ): APIPromise<
   Result<
     operations.UpdateRecordResponse,
-    | errors.UpdateRecordMissingValueError
+    | errors.UpdateRecordBadRequestInvalidRequestError
+    | errors.UpdateRecordAuthError
     | errors.UpdateRecordNotFoundError
+    | errors.UpdateRecordConflictInvalidRequestError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -69,8 +73,10 @@ async function $do(
   [
     Result<
       operations.UpdateRecordResponse,
-      | errors.UpdateRecordMissingValueError
+      | errors.UpdateRecordBadRequestInvalidRequestError
+      | errors.UpdateRecordAuthError
       | errors.UpdateRecordNotFoundError
+      | errors.UpdateRecordConflictInvalidRequestError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -165,8 +171,10 @@ async function $do(
 
   const [result] = await M.match<
     operations.UpdateRecordResponse,
-    | errors.UpdateRecordMissingValueError
+    | errors.UpdateRecordBadRequestInvalidRequestError
+    | errors.UpdateRecordAuthError
     | errors.UpdateRecordNotFoundError
+    | errors.UpdateRecordConflictInvalidRequestError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -177,8 +185,16 @@ async function $do(
     | SDKValidationError
   >(
     M.json(200, operations.UpdateRecordResponse$inboundSchema),
-    M.jsonErr(400, errors.UpdateRecordMissingValueError$inboundSchema),
+    M.jsonErr(
+      400,
+      errors.UpdateRecordBadRequestInvalidRequestError$inboundSchema,
+    ),
+    M.jsonErr(403, errors.UpdateRecordAuthError$inboundSchema),
     M.jsonErr(404, errors.UpdateRecordNotFoundError$inboundSchema),
+    M.jsonErr(
+      409,
+      errors.UpdateRecordConflictInvalidRequestError$inboundSchema,
+    ),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

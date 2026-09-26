@@ -34,6 +34,8 @@ import { Result } from "../types/fp.js";
  * Use this endpoint to update people, companies, and other records by `record_id`. If the update payload includes multiselect attributes, the values supplied will be created and prepended to the list of values that already exist (if any). Use the `PUT` endpoint to overwrite or remove multiselect attribute values.
  *
  * Required scopes: `record_permission:read-write`, `object_configuration:read`.
+ *
+ * Supported token levels: `workspace`, `user`.
  */
 export function recordsUpdateAppend(
   client: AttioCore,
@@ -42,8 +44,10 @@ export function recordsUpdateAppend(
 ): APIPromise<
   Result<
     operations.UpdateAppendRecordResponse,
-    | errors.UpdateAppendRecordMissingValueError
+    | errors.UpdateAppendRecordBadRequestInvalidRequestError
+    | errors.UpdateAppendRecordAuthError
     | errors.UpdateAppendRecordNotFoundError
+    | errors.UpdateAppendRecordConflictInvalidRequestError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -69,8 +73,10 @@ async function $do(
   [
     Result<
       operations.UpdateAppendRecordResponse,
-      | errors.UpdateAppendRecordMissingValueError
+      | errors.UpdateAppendRecordBadRequestInvalidRequestError
+      | errors.UpdateAppendRecordAuthError
       | errors.UpdateAppendRecordNotFoundError
+      | errors.UpdateAppendRecordConflictInvalidRequestError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -166,8 +172,10 @@ async function $do(
 
   const [result] = await M.match<
     operations.UpdateAppendRecordResponse,
-    | errors.UpdateAppendRecordMissingValueError
+    | errors.UpdateAppendRecordBadRequestInvalidRequestError
+    | errors.UpdateAppendRecordAuthError
     | errors.UpdateAppendRecordNotFoundError
+    | errors.UpdateAppendRecordConflictInvalidRequestError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -178,8 +186,16 @@ async function $do(
     | SDKValidationError
   >(
     M.json(200, operations.UpdateAppendRecordResponse$inboundSchema),
-    M.jsonErr(400, errors.UpdateAppendRecordMissingValueError$inboundSchema),
+    M.jsonErr(
+      400,
+      errors.UpdateAppendRecordBadRequestInvalidRequestError$inboundSchema,
+    ),
+    M.jsonErr(403, errors.UpdateAppendRecordAuthError$inboundSchema),
     M.jsonErr(404, errors.UpdateAppendRecordNotFoundError$inboundSchema),
+    M.jsonErr(
+      409,
+      errors.UpdateAppendRecordConflictInvalidRequestError$inboundSchema,
+    ),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

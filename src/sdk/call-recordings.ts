@@ -20,6 +20,8 @@ export class CallRecordings extends ClientSDK {
    * This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
    *
    * Required scopes: `meeting:read`, `call_recording:read`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async list(
     request: operations.ListCallRecordingsRequest,
@@ -38,9 +40,13 @@ export class CallRecordings extends ClientSDK {
    * @remarks
    * Create a call recording for a meeting. This endpoint is rate limited to 1 request per second.
    *
-   * This endpoint is in alpha and may be subject to breaking changes as we gather feedback.
+   * A `transcript` should always be provided — it is technically optional for backwards compatibility, but a call recording created without one will be missing summaries and other transcript-derived features. `video_url` is optional, and a transcript-only call recording (with no video) is fully supported.
+   *
+   * This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
    *
    * Required scopes: `meeting:read`, `call_recording:read-write`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async create(
     request: operations.CreateCallRecordingRequest,
@@ -62,6 +68,8 @@ export class CallRecordings extends ClientSDK {
    * This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
    *
    * Required scopes: `meeting:read`, `call_recording:read`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async get(
     request: operations.GetCallRecordingRequest,
@@ -80,9 +88,11 @@ export class CallRecordings extends ClientSDK {
    * @remarks
    * Deletes the specified call recording. This will remove the call recording and all associated data.
    *
-   * This endpoint is in alpha and may be subject to breaking changes as we gather feedback.
+   * This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
    *
    * Required scopes: `meeting:read`, `call_recording:read-write`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async delete(
     request: operations.DeleteCallRecordingRequest,

@@ -34,6 +34,8 @@ import { Result } from "../types/fp.js";
  * Deletes a single record (e.g. a company or person) by ID.
  *
  * Required scopes: `object_configuration:read`, `record_permission:read-write`.
+ *
+ * Supported token levels: `workspace`, `user`.
  */
 export function recordsDelete(
   client: AttioCore,
@@ -42,6 +44,7 @@ export function recordsDelete(
 ): APIPromise<
   Result<
     operations.DeleteRecordResponse,
+    | errors.DeleteRecordAuthError
     | errors.DeleteRecordNotFoundError
     | AttioBaseError
     | ResponseValidationError
@@ -68,6 +71,7 @@ async function $do(
   [
     Result<
       operations.DeleteRecordResponse,
+      | errors.DeleteRecordAuthError
       | errors.DeleteRecordNotFoundError
       | AttioBaseError
       | ResponseValidationError
@@ -162,6 +166,7 @@ async function $do(
 
   const [result] = await M.match<
     operations.DeleteRecordResponse,
+    | errors.DeleteRecordAuthError
     | errors.DeleteRecordNotFoundError
     | AttioBaseError
     | ResponseValidationError
@@ -173,6 +178,7 @@ async function $do(
     | SDKValidationError
   >(
     M.json(200, operations.DeleteRecordResponse$inboundSchema),
+    M.jsonErr(403, errors.DeleteRecordAuthError$inboundSchema),
     M.jsonErr(404, errors.DeleteRecordNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),

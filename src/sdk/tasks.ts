@@ -19,6 +19,8 @@ export class Tasks extends ClientSDK {
    * List all tasks. Results are sorted by creation date, from oldest to newest.
    *
    * Required scopes: `task:read`, `object_configuration:read`, `record_permission:read`, `user_management:read`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async list(
     request?: operations.ListTasksRequest | undefined,
@@ -40,6 +42,8 @@ export class Tasks extends ClientSDK {
    * At present, tasks can only be created from plaintext without record reference formatting.
    *
    * Required scopes: `task:read-write`, `object_configuration:read`, `record_permission:read`, `user_management:read`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async create(
     request: operations.CreateTaskRequest,
@@ -59,6 +63,8 @@ export class Tasks extends ClientSDK {
    * Get a single task by ID.
    *
    * Required scopes: `task:read`, `object_configuration:read`, `record_permission:read`, `user_management:read`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async get(
     request: operations.GetTaskRequest,
@@ -78,6 +84,8 @@ export class Tasks extends ClientSDK {
    * Delete a task by ID.
    *
    * Required scopes: `task:read-write`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async delete(
     request: operations.DeleteTaskRequest,
@@ -97,6 +105,8 @@ export class Tasks extends ClientSDK {
    * Updates an existing task by `task_id`. At present, only the `deadline_at`, `is_completed`, `linked_records`, and `assignees` fields can be updated.
    *
    * Required scopes: `task:read-write`, `object_configuration:read`, `record_permission:read`, `user_management:read`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async update(
     request: operations.UpdateTaskRequest,
