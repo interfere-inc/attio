@@ -44,7 +44,7 @@ export class UpdateTaskNotFoundError extends AttioBaseError {
 /**
  * Bad Request
  */
-export type UpdateTaskValidationTypeErrorData = {
+export type UpdateTaskInvalidRequestErrorData = {
   type: "invalid_request_error";
   statusCode: 400;
   code: "validation_type";
@@ -54,15 +54,15 @@ export type UpdateTaskValidationTypeErrorData = {
 /**
  * Bad Request
  */
-export class UpdateTaskValidationTypeError extends AttioBaseError {
+export class UpdateTaskInvalidRequestError extends AttioBaseError {
   type: "invalid_request_error";
   code: "validation_type";
 
   /** The original data that was passed to this error instance. */
-  data$: UpdateTaskValidationTypeErrorData;
+  data$: UpdateTaskInvalidRequestErrorData;
 
   constructor(
-    err: UpdateTaskValidationTypeErrorData,
+    err: UpdateTaskInvalidRequestErrorData,
     httpMeta: { response: Response; request: Request; body: string },
   ) {
     const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
@@ -71,7 +71,7 @@ export class UpdateTaskValidationTypeError extends AttioBaseError {
     this.type = err.type;
     this.code = err.code;
 
-    this.name = "UpdateTaskValidationTypeError";
+    this.name = "UpdateTaskInvalidRequestError";
   }
 }
 
@@ -103,8 +103,8 @@ export const UpdateTaskNotFoundError$inboundSchema: z.ZodMiniType<
 );
 
 /** @internal */
-export const UpdateTaskValidationTypeError$inboundSchema: z.ZodMiniType<
-  UpdateTaskValidationTypeError,
+export const UpdateTaskInvalidRequestError$inboundSchema: z.ZodMiniType<
+  UpdateTaskInvalidRequestError,
   unknown
 > = z.pipe(
   z.object({
@@ -121,7 +121,7 @@ export const UpdateTaskValidationTypeError$inboundSchema: z.ZodMiniType<
       "status_code": "statusCode",
     });
 
-    return new UpdateTaskValidationTypeError(remapped, {
+    return new UpdateTaskInvalidRequestError(remapped, {
       request: v.request$,
       response: v.response$,
       body: v.body$,

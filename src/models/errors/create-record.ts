@@ -8,6 +8,40 @@ import * as types from "../../types/primitives.js";
 import { AttioBaseError } from "./attio-base-error.js";
 
 /**
+ * Conflict
+ */
+export type CreateRecordConflictInvalidRequestErrorData = {
+  type: "invalid_request_error";
+  statusCode: 409;
+  code: string;
+  message: string;
+};
+
+/**
+ * Conflict
+ */
+export class CreateRecordConflictInvalidRequestError extends AttioBaseError {
+  type: "invalid_request_error";
+  code: string;
+
+  /** The original data that was passed to this error instance. */
+  data$: CreateRecordConflictInvalidRequestErrorData;
+
+  constructor(
+    err: CreateRecordConflictInvalidRequestErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    this.type = err.type;
+    this.code = err.code;
+
+    this.name = "CreateRecordConflictInvalidRequestError";
+  }
+}
+
+/**
  * Not Found
  */
 export type CreateRecordNotFoundErrorData = {
@@ -42,9 +76,43 @@ export class CreateRecordNotFoundError extends AttioBaseError {
 }
 
 /**
+ * Forbidden
+ */
+export type CreateRecordAuthErrorData = {
+  type: "auth_error";
+  statusCode: 403;
+  code: string;
+  message: string;
+};
+
+/**
+ * Forbidden
+ */
+export class CreateRecordAuthError extends AttioBaseError {
+  type: "auth_error";
+  code: string;
+
+  /** The original data that was passed to this error instance. */
+  data$: CreateRecordAuthErrorData;
+
+  constructor(
+    err: CreateRecordAuthErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    this.type = err.type;
+    this.code = err.code;
+
+    this.name = "CreateRecordAuthError";
+  }
+}
+
+/**
  * Bad Request
  */
-export type CreateRecordValueNotFoundErrorData = {
+export type CreateRecordBadRequestInvalidRequestErrorData = {
   type: "invalid_request_error";
   statusCode: 400;
   code: "value_not_found";
@@ -54,15 +122,15 @@ export type CreateRecordValueNotFoundErrorData = {
 /**
  * Bad Request
  */
-export class CreateRecordValueNotFoundError extends AttioBaseError {
+export class CreateRecordBadRequestInvalidRequestError extends AttioBaseError {
   type: "invalid_request_error";
   code: "value_not_found";
 
   /** The original data that was passed to this error instance. */
-  data$: CreateRecordValueNotFoundErrorData;
+  data$: CreateRecordBadRequestInvalidRequestErrorData;
 
   constructor(
-    err: CreateRecordValueNotFoundErrorData,
+    err: CreateRecordBadRequestInvalidRequestErrorData,
     httpMeta: { response: Response; request: Request; body: string },
   ) {
     const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
@@ -71,9 +139,34 @@ export class CreateRecordValueNotFoundError extends AttioBaseError {
     this.type = err.type;
     this.code = err.code;
 
-    this.name = "CreateRecordValueNotFoundError";
+    this.name = "CreateRecordBadRequestInvalidRequestError";
   }
 }
+
+/** @internal */
+export const CreateRecordConflictInvalidRequestError$inboundSchema:
+  z.ZodMiniType<CreateRecordConflictInvalidRequestError, unknown> = z.pipe(
+    z.object({
+      type: types.literal("invalid_request_error"),
+      status_code: types.literal(409),
+      code: types.string(),
+      message: types.string(),
+      request$: z.custom<Request>(x => x instanceof Request),
+      response$: z.custom<Response>(x => x instanceof Response),
+      body$: z.string(),
+    }),
+    z.transform((v) => {
+      const remapped = remap$(v, {
+        "status_code": "statusCode",
+      });
+
+      return new CreateRecordConflictInvalidRequestError(remapped, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
+      });
+    }),
+  );
 
 /** @internal */
 export const CreateRecordNotFoundError$inboundSchema: z.ZodMiniType<
@@ -103,14 +196,14 @@ export const CreateRecordNotFoundError$inboundSchema: z.ZodMiniType<
 );
 
 /** @internal */
-export const CreateRecordValueNotFoundError$inboundSchema: z.ZodMiniType<
-  CreateRecordValueNotFoundError,
+export const CreateRecordAuthError$inboundSchema: z.ZodMiniType<
+  CreateRecordAuthError,
   unknown
 > = z.pipe(
   z.object({
-    type: types.literal("invalid_request_error"),
-    status_code: types.literal(400),
-    code: types.literal("value_not_found"),
+    type: types.literal("auth_error"),
+    status_code: types.literal(403),
+    code: types.string(),
     message: types.string(),
     request$: z.custom<Request>(x => x instanceof Request),
     response$: z.custom<Response>(x => x instanceof Response),
@@ -121,10 +214,35 @@ export const CreateRecordValueNotFoundError$inboundSchema: z.ZodMiniType<
       "status_code": "statusCode",
     });
 
-    return new CreateRecordValueNotFoundError(remapped, {
+    return new CreateRecordAuthError(remapped, {
       request: v.request$,
       response: v.response$,
       body: v.body$,
     });
   }),
 );
+
+/** @internal */
+export const CreateRecordBadRequestInvalidRequestError$inboundSchema:
+  z.ZodMiniType<CreateRecordBadRequestInvalidRequestError, unknown> = z.pipe(
+    z.object({
+      type: types.literal("invalid_request_error"),
+      status_code: types.literal(400),
+      code: types.literal("value_not_found"),
+      message: types.string(),
+      request$: z.custom<Request>(x => x instanceof Request),
+      response$: z.custom<Response>(x => x instanceof Response),
+      body$: z.string(),
+    }),
+    z.transform((v) => {
+      const remapped = remap$(v, {
+        "status_code": "statusCode",
+      });
+
+      return new CreateRecordBadRequestInvalidRequestError(remapped, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
+      });
+    }),
+  );

@@ -33,14 +33,14 @@ export type GetCallTranscriptId = {
 /**
  * The speaker of this transcript segment.
  */
-export type Speaker = {
+export type GetCallTranscriptSpeaker = {
   /**
    * The name of the speaker.
    */
   name: string;
 };
 
-export type Transcript = {
+export type GetCallTranscriptTranscript = {
   /**
    * The spoken text for this segment of the transcript.
    */
@@ -56,7 +56,7 @@ export type Transcript = {
   /**
    * The speaker of this transcript segment.
    */
-  speaker: Speaker;
+  speaker: GetCallTranscriptSpeaker;
 };
 
 export type GetCallTranscriptData = {
@@ -64,7 +64,7 @@ export type GetCallTranscriptData = {
   /**
    * The transcript segments with speech, timing, and speaker information.
    */
-  transcript: Array<Transcript>;
+  transcript: Array<GetCallTranscriptTranscript>;
   /**
    * The raw transcript of the call recording.
    */
@@ -150,44 +150,49 @@ export function getCallTranscriptIdFromJSON(
 }
 
 /** @internal */
-export const Speaker$inboundSchema: z.ZodMiniType<Speaker, unknown> = z.object({
+export const GetCallTranscriptSpeaker$inboundSchema: z.ZodMiniType<
+  GetCallTranscriptSpeaker,
+  unknown
+> = z.object({
   name: types.string(),
 });
 
-export function speakerFromJSON(
+export function getCallTranscriptSpeakerFromJSON(
   jsonString: string,
-): SafeParseResult<Speaker, SDKValidationError> {
+): SafeParseResult<GetCallTranscriptSpeaker, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => Speaker$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Speaker' from JSON`,
+    (x) => GetCallTranscriptSpeaker$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetCallTranscriptSpeaker' from JSON`,
   );
 }
 
 /** @internal */
-export const Transcript$inboundSchema: z.ZodMiniType<Transcript, unknown> = z
-  .pipe(
-    z.object({
-      speech: types.string(),
-      start_time: types.number(),
-      end_time: types.number(),
-      speaker: z.lazy(() => Speaker$inboundSchema),
-    }),
-    z.transform((v) => {
-      return remap$(v, {
-        "start_time": "startTime",
-        "end_time": "endTime",
-      });
-    }),
-  );
+export const GetCallTranscriptTranscript$inboundSchema: z.ZodMiniType<
+  GetCallTranscriptTranscript,
+  unknown
+> = z.pipe(
+  z.object({
+    speech: types.string(),
+    start_time: types.number(),
+    end_time: types.number(),
+    speaker: z.lazy(() => GetCallTranscriptSpeaker$inboundSchema),
+  }),
+  z.transform((v) => {
+    return remap$(v, {
+      "start_time": "startTime",
+      "end_time": "endTime",
+    });
+  }),
+);
 
-export function transcriptFromJSON(
+export function getCallTranscriptTranscriptFromJSON(
   jsonString: string,
-): SafeParseResult<Transcript, SDKValidationError> {
+): SafeParseResult<GetCallTranscriptTranscript, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => Transcript$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Transcript' from JSON`,
+    (x) => GetCallTranscriptTranscript$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetCallTranscriptTranscript' from JSON`,
   );
 }
 
@@ -198,7 +203,9 @@ export const GetCallTranscriptData$inboundSchema: z.ZodMiniType<
 > = z.pipe(
   z.object({
     id: z.lazy(() => GetCallTranscriptId$inboundSchema),
-    transcript: z.array(z.lazy(() => Transcript$inboundSchema)),
+    transcript: z.array(
+      z.lazy(() => GetCallTranscriptTranscript$inboundSchema),
+    ),
     raw_transcript: types.string(),
     web_url: types.string(),
   }),

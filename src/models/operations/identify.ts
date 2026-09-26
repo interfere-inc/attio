@@ -5,10 +5,24 @@
 import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import * as openEnums from "../../types/enums.js";
+import { OpenEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import * as types from "../../types/primitives.js";
 import { smartUnion } from "../../types/smart-union.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
+
+/**
+ * Whether the token acts for the whole workspace or for a single workspace member.
+ */
+export const TokenLevel = {
+  Workspace: "workspace",
+  User: "user",
+} as const;
+/**
+ * Whether the token acts for the whole workspace or for a single workspace member.
+ */
+export type TokenLevel = OpenEnum<typeof TokenLevel>;
 
 export type AttioCom = {
   /**
@@ -20,15 +34,15 @@ export type AttioCom = {
    */
   scope: string;
   /**
-   * The app ID of the OAuth application that requested this token
+   * Identifies the client the token was issued to. For app access tokens this is the app ID. Workspace access tokens have no OAuth client, so this is the workspace access token ID.
    */
   clientId: string;
   /**
-   * The type of token, always Bearer for tokens acquired via the OAuth 2.0 flow.
+   * The type of token, always Bearer.
    */
   tokenType: "Bearer";
   /**
-   * The time at which this token will expire, if set, as a number of seconds since January 1 1970 UTC.
+   * The time at which this token will expire, if set, as a number of seconds since January 1 1970 UTC. Attio access tokens do not currently expire, so this is always null.
    */
   exp: number | null;
   /**
@@ -48,9 +62,13 @@ export type AttioCom = {
    */
   iss: "attio.com";
   /**
-   * The ID of the workspace member who authorised this token initially.
+   * Whether the token acts for the whole workspace or for a single workspace member.
    */
-  authorizedByWorkspaceMemberId: string;
+  tokenLevel: TokenLevel;
+  /**
+   * The ID of the workspace member who authorized this token initially. Almost every token has one, but it is omitted for the app access tokens that Attio created itself rather than on a member's behalf.
+   */
+  authorizedByWorkspaceMemberId?: string | undefined;
   /**
    * The ID of the workspace the token is scoped to.
    */
@@ -79,6 +97,10 @@ export type ResponseBody = {
 export type IdentifyResponse = AttioCom | ResponseBody;
 
 /** @internal */
+export const TokenLevel$inboundSchema: z.ZodMiniType<TokenLevel, unknown> =
+  openEnums.inboundSchema(TokenLevel);
+
+/** @internal */
 export const AttioCom$inboundSchema: z.ZodMiniType<AttioCom, unknown> = z.pipe(
   z.object({
     active: types.boolean(),
@@ -90,7 +112,8 @@ export const AttioCom$inboundSchema: z.ZodMiniType<AttioCom, unknown> = z.pipe(
     sub: types.string(),
     aud: types.string(),
     iss: types.literal("attio.com"),
-    authorized_by_workspace_member_id: types.string(),
+    token_level: TokenLevel$inboundSchema,
+    authorized_by_workspace_member_id: types.optional(types.string()),
     workspace_id: types.string(),
     workspace_name: types.string(),
     workspace_slug: types.string(),
@@ -100,6 +123,7 @@ export const AttioCom$inboundSchema: z.ZodMiniType<AttioCom, unknown> = z.pipe(
     return remap$(v, {
       "client_id": "clientId",
       "token_type": "tokenType",
+      "token_level": "tokenLevel",
       "authorized_by_workspace_member_id": "authorizedByWorkspaceMemberId",
       "workspace_id": "workspaceId",
       "workspace_name": "workspaceName",

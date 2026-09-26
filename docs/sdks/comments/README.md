@@ -20,6 +20,8 @@ To create comments on list entries, you will need the `list_configuration:read` 
 
 Required scopes: `comment:read-write`.
 
+Supported token levels: `workspace`, `user`.
+
 ### Example Usage
 
 <!-- UsageSnippet language="typescript" operationID="createComment" method="post" path="/v2/comments" -->
@@ -118,6 +120,8 @@ To view comments on list entries, you will need the `list_configuration:read` an
 
 Required scopes: `comment:read`.
 
+Supported token levels: `workspace`, `user`.
+
 ### Example Usage
 
 <!-- UsageSnippet language="typescript" operationID="getComment" method="get" path="/v2/comments/{comment_id}" -->
@@ -192,7 +196,11 @@ run();
 
 Deletes a comment by ID. If deleting a comment at the head of a thread, all messages in the thread are also deleted.
 
+A workspace-level access token may delete any comment. A user-level access token may only delete comments authored by the member it acts for.
+
 Required scopes: `comment:read-write`.
+
+Supported token levels: `workspace`, `user`.
 
 ### Example Usage
 
@@ -261,5 +269,6 @@ run();
 
 | Error Type                        | Status Code                       | Content Type                      |
 | --------------------------------- | --------------------------------- | --------------------------------- |
+| errors.DeleteCommentAuthError     | 403                               | application/json                  |
 | errors.DeleteCommentNotFoundError | 404                               | application/json                  |
 | errors.AttioError                 | 4XX, 5XX                          | \*/\*                             |

@@ -34,6 +34,8 @@ import { Result } from "../types/fp.js";
  * Updates a single object. The object to be updated is identified by its `object_id`.
  *
  * Required scopes: `object_configuration:read-write`.
+ *
+ * Supported token levels: `workspace`, `user`.
  */
 export function objectsUpdate(
   client: AttioCore,
@@ -43,6 +45,7 @@ export function objectsUpdate(
   Result<
     operations.UpdateObjectResponse,
     | errors.UpdateObjectValidationTypeError
+    | errors.UpdateObjectAuthError
     | errors.UpdateObjectNotFoundError
     | errors.UpdateObjectSlugConflictError
     | AttioBaseError
@@ -71,6 +74,7 @@ async function $do(
     Result<
       operations.UpdateObjectResponse,
       | errors.UpdateObjectValidationTypeError
+      | errors.UpdateObjectAuthError
       | errors.UpdateObjectNotFoundError
       | errors.UpdateObjectSlugConflictError
       | AttioBaseError
@@ -162,6 +166,7 @@ async function $do(
   const [result] = await M.match<
     operations.UpdateObjectResponse,
     | errors.UpdateObjectValidationTypeError
+    | errors.UpdateObjectAuthError
     | errors.UpdateObjectNotFoundError
     | errors.UpdateObjectSlugConflictError
     | AttioBaseError
@@ -175,6 +180,7 @@ async function $do(
   >(
     M.json(200, operations.UpdateObjectResponse$inboundSchema),
     M.jsonErr(400, errors.UpdateObjectValidationTypeError$inboundSchema),
+    M.jsonErr(403, errors.UpdateObjectAuthError$inboundSchema),
     M.jsonErr(404, errors.UpdateObjectNotFoundError$inboundSchema),
     M.jsonErr(409, errors.UpdateObjectSlugConflictError$inboundSchema),
     M.fail("4XX"),

@@ -27,6 +27,7 @@ let value: ListMeetingsResponse = {
       },
       participants: [
         {
+          name: "Simon Mitchell",
           status: "accepted",
           isOrganizer: false,
           emailAddress: "person@company.com",

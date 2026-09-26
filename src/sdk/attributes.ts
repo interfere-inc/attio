@@ -28,6 +28,8 @@ export class Attributes extends ClientSDK {
    * Lists all attributes defined on a specific object or list. Attributes are returned in the order that they are sorted by in the UI.
    *
    * When `target` is `objects`, the required scopes are `object_configuration:read`. When `target` is `lists`, the required scopes are `list_configuration:read`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async listAll(
     request: operations.ListAllAttributesRequest,
@@ -51,6 +53,8 @@ export class Attributes extends ClientSDK {
    * To create an attribute on an object, you must also have the `object_configuration:read-write` scope.
    *
    * To create an attribute on a list, you must also have the `list_configuration:read-write` scope.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async createNew(
     request: operations.CreateNewAttributeRequest,
@@ -70,6 +74,8 @@ export class Attributes extends ClientSDK {
    * Gets information about a single attribute on either an object or a list.
    *
    * When `target` is `objects`, the required scopes are `object_configuration:read`. When `target` is `lists`, the required scopes are `list_configuration:read`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async get(
     request: operations.GetAttributeRequest,
@@ -89,6 +95,8 @@ export class Attributes extends ClientSDK {
    * Updates a single attribute on a given object or list.
    *
    * When `target` is `objects`, the required scopes are `object_configuration:read-write`. When `target` is `lists`, the required scopes are `list_configuration:read-write`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async update(
     request: operations.UpdateAttributeRequest,
@@ -108,6 +116,8 @@ export class Attributes extends ClientSDK {
    * Updates a select option on an attribute on either an object or a list.
    *
    * When `target` is `objects`, the required scopes are `object_configuration:read-write`. When `target` is `lists`, the required scopes are `list_configuration:read-write`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async updateSelectOption(
     request: operations.UpdateAttributeSelectOptionRequest,
@@ -127,6 +137,8 @@ export class Attributes extends ClientSDK {
    * Lists all statuses for a particular status attribute on either an object or a list.
    *
    * When `target` is `objects`, the required scopes are `object_configuration:read`. When `target` is `lists`, the required scopes are `list_configuration:read`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async listStatuses(
     request: operations.ListAttributeStatusesRequest,
@@ -146,6 +158,8 @@ export class Attributes extends ClientSDK {
    * Add a new status to a status attribute on either an object or a list.
    *
    * When `target` is `objects`, the required scopes are `object_configuration:read-write`. When `target` is `lists`, the required scopes are `list_configuration:read-write`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async createStatus(
     request: operations.CreateAttributeStatusRequest,
@@ -165,6 +179,8 @@ export class Attributes extends ClientSDK {
    * Update a status on an status attribute on either an object or a list.
    *
    * When `target` is `objects`, the required scopes are `object_configuration:read-write`. When `target` is `lists`, the required scopes are `list_configuration:read-write`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async updateStatus(
     request: operations.UpdateAttributeStatusRequest,

@@ -34,6 +34,8 @@ import { Result } from "../types/fp.js";
  * Adds a select option to a select attribute on an object or a list.
  *
  * When `target` is `objects`, the required scopes are `object_configuration:read-write`. When `target` is `lists`, the required scopes are `list_configuration:read-write`.
+ *
+ * Supported token levels: `workspace`, `user`.
  */
 export function attributesOptionsCreate(
   client: AttioCore,
@@ -43,6 +45,7 @@ export function attributesOptionsCreate(
   Result<
     operations.CreateAttributeOptionResponse,
     | errors.CreateAttributeOptionValidationTypeError
+    | errors.CreateAttributeOptionAuthError
     | errors.CreateAttributeOptionNotFoundError
     | errors.CreateAttributeOptionSlugConflictError
     | AttioBaseError
@@ -71,6 +74,7 @@ async function $do(
     Result<
       operations.CreateAttributeOptionResponse,
       | errors.CreateAttributeOptionValidationTypeError
+      | errors.CreateAttributeOptionAuthError
       | errors.CreateAttributeOptionNotFoundError
       | errors.CreateAttributeOptionSlugConflictError
       | AttioBaseError
@@ -173,6 +177,7 @@ async function $do(
   const [result] = await M.match<
     operations.CreateAttributeOptionResponse,
     | errors.CreateAttributeOptionValidationTypeError
+    | errors.CreateAttributeOptionAuthError
     | errors.CreateAttributeOptionNotFoundError
     | errors.CreateAttributeOptionSlugConflictError
     | AttioBaseError
@@ -189,6 +194,7 @@ async function $do(
       400,
       errors.CreateAttributeOptionValidationTypeError$inboundSchema,
     ),
+    M.jsonErr(403, errors.CreateAttributeOptionAuthError$inboundSchema),
     M.jsonErr(404, errors.CreateAttributeOptionNotFoundError$inboundSchema),
     M.jsonErr(409, errors.CreateAttributeOptionSlugConflictError$inboundSchema),
     M.fail("4XX"),

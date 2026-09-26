@@ -36,6 +36,8 @@ import { Result } from "../types/fp.js";
  * If the matching attribute is a multiselect attribute, new values will be added and existing values will not be deleted. For any other multiselect attribute, all values will be either created or deleted as necessary to match the list of supplied values.
  *
  * Required scopes: `record_permission:read-write`, `object_configuration:read`.
+ *
+ * Supported token levels: `workspace`, `user`.
  */
 export function recordsAssert(
   client: AttioCore,
@@ -44,8 +46,10 @@ export function recordsAssert(
 ): APIPromise<
   Result<
     operations.AssertRecordResponse,
-    | errors.AssertRecordValueNotFoundError
+    | errors.AssertRecordBadRequestInvalidRequestError
+    | errors.AssertRecordAuthError
     | errors.AssertRecordNotFoundError
+    | errors.AssertRecordConflictInvalidRequestError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -71,8 +75,10 @@ async function $do(
   [
     Result<
       operations.AssertRecordResponse,
-      | errors.AssertRecordValueNotFoundError
+      | errors.AssertRecordBadRequestInvalidRequestError
+      | errors.AssertRecordAuthError
       | errors.AssertRecordNotFoundError
+      | errors.AssertRecordConflictInvalidRequestError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -166,8 +172,10 @@ async function $do(
 
   const [result] = await M.match<
     operations.AssertRecordResponse,
-    | errors.AssertRecordValueNotFoundError
+    | errors.AssertRecordBadRequestInvalidRequestError
+    | errors.AssertRecordAuthError
     | errors.AssertRecordNotFoundError
+    | errors.AssertRecordConflictInvalidRequestError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -178,8 +186,16 @@ async function $do(
     | SDKValidationError
   >(
     M.json(200, operations.AssertRecordResponse$inboundSchema),
-    M.jsonErr(400, errors.AssertRecordValueNotFoundError$inboundSchema),
+    M.jsonErr(
+      400,
+      errors.AssertRecordBadRequestInvalidRequestError$inboundSchema,
+    ),
+    M.jsonErr(403, errors.AssertRecordAuthError$inboundSchema),
     M.jsonErr(404, errors.AssertRecordNotFoundError$inboundSchema),
+    M.jsonErr(
+      409,
+      errors.AssertRecordConflictInvalidRequestError$inboundSchema,
+    ),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

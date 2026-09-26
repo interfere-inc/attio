@@ -3,9 +3,12 @@
  */
 
 import { ClientSDK } from "../lib/sdks.js";
+import { Activities } from "./activities.js";
+import { ActivityRecords } from "./activity-records.js";
 import { Attributes } from "./attributes.js";
 import { CallRecordings } from "./call-recordings.js";
 import { Comments } from "./comments.js";
+import { Emails } from "./emails.js";
 import { Entries } from "./entries.js";
 import { Files } from "./files.js";
 import { Lists } from "./lists.js";
@@ -14,6 +17,8 @@ import { Meta } from "./meta.js";
 import { Notes } from "./notes.js";
 import { Objects } from "./objects.js";
 import { Records } from "./records.js";
+import { Sequences } from "./sequences.js";
+import { Sql } from "./sql.js";
 import { Tasks } from "./tasks.js";
 import { Threads } from "./threads.js";
 import { Transcripts } from "./transcripts.js";
@@ -26,6 +31,16 @@ export class Attio extends ClientSDK {
     return (this._objects ??= new Objects(this._options));
   }
 
+  private _activities?: Activities;
+  get activities(): Activities {
+    return (this._activities ??= new Activities(this._options));
+  }
+
+  private _activityRecords?: ActivityRecords;
+  get activityRecords(): ActivityRecords {
+    return (this._activityRecords ??= new ActivityRecords(this._options));
+  }
+
   private _attributes?: Attributes;
   get attributes(): Attributes {
     return (this._attributes ??= new Attributes(this._options));
@@ -34,6 +49,11 @@ export class Attio extends ClientSDK {
   private _records?: Records;
   get records(): Records {
     return (this._records ??= new Records(this._options));
+  }
+
+  private _sql?: Sql;
+  get sql(): Sql {
+    return (this._sql ??= new Sql(this._options));
   }
 
   private _lists?: Lists;
@@ -69,6 +89,16 @@ export class Attio extends ClientSDK {
   private _comments?: Comments;
   get comments(): Comments {
     return (this._comments ??= new Comments(this._options));
+  }
+
+  private _emails?: Emails;
+  get emails(): Emails {
+    return (this._emails ??= new Emails(this._options));
+  }
+
+  private _sequences?: Sequences;
+  get sequences(): Sequences {
+    return (this._sequences ??= new Sequences(this._options));
   }
 
   private _meetings?: Meetings;

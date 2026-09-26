@@ -34,6 +34,8 @@ import { Result } from "../types/fp.js";
  * Delete a single note by ID.
  *
  * Required scopes: `note:read-write`.
+ *
+ * Supported token levels: `workspace`, `user`.
  */
 export function notesDelete(
   client: AttioCore,

@@ -34,6 +34,8 @@ import { Result } from "../types/fp.js";
  * Gets a single list entry by its `entry_id`.
  *
  * Required scopes: `list_entry:read`, `list_configuration:read`.
+ *
+ * Supported token levels: `workspace`, `user`.
  */
 export function entriesGet(
   client: AttioCore,

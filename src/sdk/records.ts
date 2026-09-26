@@ -8,6 +8,8 @@ import { recordsDelete } from "../funcs/records-delete.js";
 import { recordsGet } from "../funcs/records-get.js";
 import { recordsListAttributeValues } from "../funcs/records-list-attribute-values.js";
 import { recordsListEntries } from "../funcs/records-list-entries.js";
+import { recordsPostV2ObjectsObjectRecordsMerge } from "../funcs/records-post-v2-objects-object-records-merge.js";
+import { recordsPutV2ObjectsObjectRecordsRecordIdAttributesAttributeValues } from "../funcs/records-put-v2-objects-object-records-record-id-attributes-attribute-values.js";
 import { recordsQuery } from "../funcs/records-query.js";
 import { recordsSearch } from "../funcs/records-search.js";
 import { recordsUpdateAppend } from "../funcs/records-update-append.js";
@@ -24,6 +26,8 @@ export class Records extends ClientSDK {
    * Lists people, company or other records, with the option to filter and sort results.
    *
    * Required scopes: `record_permission:read`, `object_configuration:read`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async query(
     request: operations.QueryRecordsRequest,
@@ -43,6 +47,8 @@ export class Records extends ClientSDK {
    * Creates a new person, company or other record. This endpoint will throw on conflicts of unique attributes. If you would prefer to update records on conflicts, please use the [Upsert record endpoint](/rest-api/endpoint-reference/records/upsert-a-record) instead.
    *
    * Required scopes: `record_permission:read-write`, `object_configuration:read`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async create(
     request: operations.CreateRecordRequest,
@@ -64,6 +70,8 @@ export class Records extends ClientSDK {
    * If the matching attribute is a multiselect attribute, new values will be added and existing values will not be deleted. For any other multiselect attribute, all values will be either created or deleted as necessary to match the list of supplied values.
    *
    * Required scopes: `record_permission:read-write`, `object_configuration:read`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async assert(
     request: operations.AssertRecordRequest,
@@ -83,6 +91,8 @@ export class Records extends ClientSDK {
    * Gets a single person, company or other record by its `record_id`.
    *
    * Required scopes: `record_permission:read`, `object_configuration:read`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async get(
     request: operations.GetRecordRequest,
@@ -102,6 +112,8 @@ export class Records extends ClientSDK {
    * Use this endpoint to update people, companies, and other records by `record_id`. If the update payload includes multiselect attributes, the values supplied will overwrite/remove the list of values that already exist (if any). Use the `PATCH` endpoint to append multiselect values without removing those that already exist.
    *
    * Required scopes: `record_permission:read-write`, `object_configuration:read`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async update(
     request: operations.UpdateRecordRequest,
@@ -121,6 +133,8 @@ export class Records extends ClientSDK {
    * Deletes a single record (e.g. a company or person) by ID.
    *
    * Required scopes: `object_configuration:read`, `record_permission:read-write`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async delete(
     request: operations.DeleteRecordRequest,
@@ -140,6 +154,8 @@ export class Records extends ClientSDK {
    * Use this endpoint to update people, companies, and other records by `record_id`. If the update payload includes multiselect attributes, the values supplied will be created and prepended to the list of values that already exist (if any). Use the `PUT` endpoint to overwrite or remove multiselect attribute values.
    *
    * Required scopes: `record_permission:read-write`, `object_configuration:read`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async updateAppend(
     request: operations.UpdateAppendRecordRequest,
@@ -153,12 +169,45 @@ export class Records extends ClientSDK {
   }
 
   /**
+   * Merge two records
+   *
+   * @remarks
+   * Merges two records of the same object together. Where both records have a value for the same attribute, the primary record's value takes precedence.
+   *
+   * Merging produces a **new** record, so the `new_record_id` returned will match neither of the records supplied in the request. Both of the original records are marked as merged and can no longer be read or written.
+   *
+   * Large merges are completed asynchronously. A `200` response means the merged record is readable immediately. A `202` response means the merge has been accepted but is still being applied, and reading the merged record will return a `404` with the `merge_in_progress` error code until it completes.
+   *
+   * This endpoint is not idempotent. Because both original records are marked as merged, repeating the same request returns `404`.
+   *
+   * This endpoint is rate limited to 5 requests per second.
+   *
+   * This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
+   *
+   * Required scopes: `record_permission:read-write`, `object_configuration:read`.
+   *
+   * Supported token levels: `workspace`, `user`.
+   */
+  async postV2ObjectsObjectRecordsMerge(
+    request: operations.PostV2ObjectsObjectRecordsMergeRequest,
+    options?: RequestOptions,
+  ): Promise<operations.PostV2ObjectsObjectRecordsMergeResponse> {
+    return unwrapAsync(recordsPostV2ObjectsObjectRecordsMerge(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
    * List record attribute values
    *
    * @remarks
    * Gets all values for a given attribute on a record. Historic values can be queried using the `show_historic` query param. Historic values cannot be queried on COMINT (Communication Intelligence) or enriched attributes and the endpoint will return a 400 error if this is attempted. Historic values are sorted from oldest to newest (by `active_from`). Some attributes are subject to billing status and will return an empty array of values if theworkspace being queried does not have the required billing flag enabled.
    *
    * Required scopes: `record_permission:read`, `object_configuration:read`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async listAttributeValues(
     request: operations.ListRecordAttributeValuesRequest,
@@ -172,12 +221,48 @@ export class Records extends ClientSDK {
   }
 
   /**
+   * Write record attribute values
+   *
+   * @remarks
+   * Replaces the entire value history of a single attribute on a record, primarily to migrate historic data from an external source. Every value the attribute currently has is destroyed, including values not present in the request, and the supplied values are written with the `active_from` and `active_until` timestamps given.
+   *
+   * Values may be supplied in any order and gaps between intervals are allowed. For attributes that accept a single value, at most one value may be active at a time, so intervals may not overlap and at most one may have a `null` `active_until`. At least one value is required.
+   *
+   * Webhooks and workflow triggers do not fire for these writes, so migrating history does not replay automations. Search indexes and caches are still updated, and formula attributes that depend on this attribute are still recalculated.
+   *
+   * Value history cannot be written for relationship attributes, formula attributes, enriched attributes, or immutable system attributes such as the entry's parent record.
+   *
+   * This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
+   *
+   * Required scopes: `record_permission:read-write`, `object_configuration:read`.
+   *
+   * Supported token levels: `workspace`, `user`.
+   */
+  async putV2ObjectsObjectRecordsRecordIdAttributesAttributeValues(
+    request:
+      operations.PutV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesRequest,
+    options?: RequestOptions,
+  ): Promise<
+    operations.PutV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesResponse
+  > {
+    return unwrapAsync(
+      recordsPutV2ObjectsObjectRecordsRecordIdAttributesAttributeValues(
+        this,
+        request,
+        options,
+      ),
+    );
+  }
+
+  /**
    * List record entries
    *
    * @remarks
-   * List all entries, across all lists, for which this record is the parent.
+   * List all entries, across all lists, for which this record is the parent. The response includes metadata for each entry, including `entry_id`, `list_id`, and `created_at`, but does not include entry values. To retrieve the values, call [Get a list entry](/rest-api/endpoint-reference/entries/get-a-list-entry) separately for each entry.
    *
    * Required scopes: `record_permission:read`, `object_configuration:read`, `list_entry:read`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async listEntries(
     request: operations.ListRecordEntriesRequest,
@@ -201,6 +286,8 @@ export class Records extends ClientSDK {
    * This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
    *
    * Required scopes: `record_permission:read`, `object_configuration:read`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async search(
     request: operations.SearchRecordsRequest,

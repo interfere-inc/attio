@@ -42,9 +42,43 @@ export class AssertEntryNotFoundError extends AttioBaseError {
 }
 
 /**
+ * Forbidden
+ */
+export type AssertEntryAuthErrorData = {
+  type: "auth_error";
+  statusCode: 403;
+  code: string;
+  message: string;
+};
+
+/**
+ * Forbidden
+ */
+export class AssertEntryAuthError extends AttioBaseError {
+  type: "auth_error";
+  code: string;
+
+  /** The original data that was passed to this error instance. */
+  data$: AssertEntryAuthErrorData;
+
+  constructor(
+    err: AssertEntryAuthErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    this.type = err.type;
+    this.code = err.code;
+
+    this.name = "AssertEntryAuthError";
+  }
+}
+
+/**
  * Bad Request
  */
-export type MultipleMatchResultsErrorData = {
+export type AssertEntryInvalidRequestErrorData = {
   type: "invalid_request_error";
   statusCode: 400;
   code: "multiple_match_results";
@@ -54,15 +88,15 @@ export type MultipleMatchResultsErrorData = {
 /**
  * Bad Request
  */
-export class MultipleMatchResultsError extends AttioBaseError {
+export class AssertEntryInvalidRequestError extends AttioBaseError {
   type: "invalid_request_error";
   code: "multiple_match_results";
 
   /** The original data that was passed to this error instance. */
-  data$: MultipleMatchResultsErrorData;
+  data$: AssertEntryInvalidRequestErrorData;
 
   constructor(
-    err: MultipleMatchResultsErrorData,
+    err: AssertEntryInvalidRequestErrorData,
     httpMeta: { response: Response; request: Request; body: string },
   ) {
     const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
@@ -71,7 +105,7 @@ export class MultipleMatchResultsError extends AttioBaseError {
     this.type = err.type;
     this.code = err.code;
 
-    this.name = "MultipleMatchResultsError";
+    this.name = "AssertEntryInvalidRequestError";
   }
 }
 
@@ -103,8 +137,35 @@ export const AssertEntryNotFoundError$inboundSchema: z.ZodMiniType<
 );
 
 /** @internal */
-export const MultipleMatchResultsError$inboundSchema: z.ZodMiniType<
-  MultipleMatchResultsError,
+export const AssertEntryAuthError$inboundSchema: z.ZodMiniType<
+  AssertEntryAuthError,
+  unknown
+> = z.pipe(
+  z.object({
+    type: types.literal("auth_error"),
+    status_code: types.literal(403),
+    code: types.string(),
+    message: types.string(),
+    request$: z.custom<Request>(x => x instanceof Request),
+    response$: z.custom<Response>(x => x instanceof Response),
+    body$: z.string(),
+  }),
+  z.transform((v) => {
+    const remapped = remap$(v, {
+      "status_code": "statusCode",
+    });
+
+    return new AssertEntryAuthError(remapped, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
+  }),
+);
+
+/** @internal */
+export const AssertEntryInvalidRequestError$inboundSchema: z.ZodMiniType<
+  AssertEntryInvalidRequestError,
   unknown
 > = z.pipe(
   z.object({
@@ -121,7 +182,7 @@ export const MultipleMatchResultsError$inboundSchema: z.ZodMiniType<
       "status_code": "statusCode",
     });
 
-    return new MultipleMatchResultsError(remapped, {
+    return new AssertEntryInvalidRequestError(remapped, {
       request: v.request$,
       response: v.response$,
       body: v.body$,

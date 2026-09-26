@@ -33,6 +33,8 @@ import { Result } from "../types/fp.js";
  * List all tasks. Results are sorted by creation date, from oldest to newest.
  *
  * Required scopes: `task:read`, `object_configuration:read`, `record_permission:read`, `user_management:read`.
+ *
+ * Supported token levels: `workspace`, `user`.
  */
 export function tasksList(
   client: AttioCore,

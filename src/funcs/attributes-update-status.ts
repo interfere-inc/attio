@@ -34,6 +34,8 @@ import { Result } from "../types/fp.js";
  * Update a status on an status attribute on either an object or a list.
  *
  * When `target` is `objects`, the required scopes are `object_configuration:read-write`. When `target` is `lists`, the required scopes are `list_configuration:read-write`.
+ *
+ * Supported token levels: `workspace`, `user`.
  */
 export function attributesUpdateStatus(
   client: AttioCore,
@@ -43,6 +45,7 @@ export function attributesUpdateStatus(
   Result<
     operations.UpdateAttributeStatusResponse,
     | errors.UpdateAttributeStatusValueNotFoundError
+    | errors.UpdateAttributeStatusAuthError
     | errors.UpdateAttributeStatusNotFoundError
     | errors.UpdateAttributeStatusSlugConflictError
     | AttioBaseError
@@ -71,6 +74,7 @@ async function $do(
     Result<
       operations.UpdateAttributeStatusResponse,
       | errors.UpdateAttributeStatusValueNotFoundError
+      | errors.UpdateAttributeStatusAuthError
       | errors.UpdateAttributeStatusNotFoundError
       | errors.UpdateAttributeStatusSlugConflictError
       | AttioBaseError
@@ -177,6 +181,7 @@ async function $do(
   const [result] = await M.match<
     operations.UpdateAttributeStatusResponse,
     | errors.UpdateAttributeStatusValueNotFoundError
+    | errors.UpdateAttributeStatusAuthError
     | errors.UpdateAttributeStatusNotFoundError
     | errors.UpdateAttributeStatusSlugConflictError
     | AttioBaseError
@@ -193,6 +198,7 @@ async function $do(
       400,
       errors.UpdateAttributeStatusValueNotFoundError$inboundSchema,
     ),
+    M.jsonErr(403, errors.UpdateAttributeStatusAuthError$inboundSchema),
     M.jsonErr(404, errors.UpdateAttributeStatusNotFoundError$inboundSchema),
     M.jsonErr(409, errors.UpdateAttributeStatusSlugConflictError$inboundSchema),
     M.fail("4XX"),

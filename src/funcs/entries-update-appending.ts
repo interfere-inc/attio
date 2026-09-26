@@ -34,6 +34,8 @@ import { Result } from "../types/fp.js";
  * Use this endpoint to update list entries by `entry_id`. If the update payload includes multiselect attributes, the values supplied will be created and prepended to the list of values that already exist (if any). Use the `PUT` endpoint to overwrite or remove multiselect attribute values.
  *
  * Required scopes: `list_entry:read-write`, `list_configuration:read`.
+ *
+ * Supported token levels: `workspace`, `user`.
  */
 export function entriesUpdateAppending(
   client: AttioCore,
@@ -42,7 +44,8 @@ export function entriesUpdateAppending(
 ): APIPromise<
   Result<
     operations.UpdateAppendingEntryResponse,
-    | errors.UpdateAppendingEntryImmutableValueError
+    | errors.UpdateAppendingEntryInvalidRequestError
+    | errors.UpdateAppendingEntryAuthError
     | errors.UpdateAppendingEntryNotFoundError
     | AttioBaseError
     | ResponseValidationError
@@ -69,7 +72,8 @@ async function $do(
   [
     Result<
       operations.UpdateAppendingEntryResponse,
-      | errors.UpdateAppendingEntryImmutableValueError
+      | errors.UpdateAppendingEntryInvalidRequestError
+      | errors.UpdateAppendingEntryAuthError
       | errors.UpdateAppendingEntryNotFoundError
       | AttioBaseError
       | ResponseValidationError
@@ -164,7 +168,8 @@ async function $do(
 
   const [result] = await M.match<
     operations.UpdateAppendingEntryResponse,
-    | errors.UpdateAppendingEntryImmutableValueError
+    | errors.UpdateAppendingEntryInvalidRequestError
+    | errors.UpdateAppendingEntryAuthError
     | errors.UpdateAppendingEntryNotFoundError
     | AttioBaseError
     | ResponseValidationError
@@ -178,8 +183,9 @@ async function $do(
     M.json(200, operations.UpdateAppendingEntryResponse$inboundSchema),
     M.jsonErr(
       400,
-      errors.UpdateAppendingEntryImmutableValueError$inboundSchema,
+      errors.UpdateAppendingEntryInvalidRequestError$inboundSchema,
     ),
+    M.jsonErr(403, errors.UpdateAppendingEntryAuthError$inboundSchema),
     M.jsonErr(404, errors.UpdateAppendingEntryNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),

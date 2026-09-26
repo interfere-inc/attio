@@ -34,6 +34,8 @@ import { Result } from "../types/fp.js";
  * Get a single task by ID.
  *
  * Required scopes: `task:read`, `object_configuration:read`, `record_permission:read`, `user_management:read`.
+ *
+ * Supported token levels: `workspace`, `user`.
  */
 export function tasksGet(
   client: AttioCore,

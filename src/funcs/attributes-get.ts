@@ -34,6 +34,8 @@ import { Result } from "../types/fp.js";
  * Gets information about a single attribute on either an object or a list.
  *
  * When `target` is `objects`, the required scopes are `object_configuration:read`. When `target` is `lists`, the required scopes are `list_configuration:read`.
+ *
+ * Supported token levels: `workspace`, `user`.
  */
 export function attributesGet(
   client: AttioCore,

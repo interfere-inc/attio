@@ -34,6 +34,8 @@ import { Result } from "../types/fp.js";
  * Use this endpoint to update list entries by `entry_id`. If the update payload includes multiselect attributes, the values supplied will overwrite/remove the list of values that already exist (if any). Use the `PATCH` endpoint to add multiselect attribute values without removing those value that already exist.
  *
  * Required scopes: `list_entry:read-write`, `list_configuration:read`.
+ *
+ * Supported token levels: `workspace`, `user`.
  */
 export function entriesUpdate(
   client: AttioCore,
@@ -42,7 +44,8 @@ export function entriesUpdate(
 ): APIPromise<
   Result<
     operations.UpdateEntryResponse,
-    | errors.UpdateEntryImmutableValueError
+    | errors.UpdateEntryInvalidRequestError
+    | errors.UpdateEntryAuthError
     | errors.UpdateEntryNotFoundError
     | AttioBaseError
     | ResponseValidationError
@@ -69,7 +72,8 @@ async function $do(
   [
     Result<
       operations.UpdateEntryResponse,
-      | errors.UpdateEntryImmutableValueError
+      | errors.UpdateEntryInvalidRequestError
+      | errors.UpdateEntryAuthError
       | errors.UpdateEntryNotFoundError
       | AttioBaseError
       | ResponseValidationError
@@ -163,7 +167,8 @@ async function $do(
 
   const [result] = await M.match<
     operations.UpdateEntryResponse,
-    | errors.UpdateEntryImmutableValueError
+    | errors.UpdateEntryInvalidRequestError
+    | errors.UpdateEntryAuthError
     | errors.UpdateEntryNotFoundError
     | AttioBaseError
     | ResponseValidationError
@@ -175,7 +180,8 @@ async function $do(
     | SDKValidationError
   >(
     M.json(200, operations.UpdateEntryResponse$inboundSchema),
-    M.jsonErr(400, errors.UpdateEntryImmutableValueError$inboundSchema),
+    M.jsonErr(400, errors.UpdateEntryInvalidRequestError$inboundSchema),
+    M.jsonErr(403, errors.UpdateEntryAuthError$inboundSchema),
     M.jsonErr(404, errors.UpdateEntryNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
