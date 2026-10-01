@@ -34,6 +34,8 @@ import { Result } from "../types/fp.js";
  * Add a new status to a status attribute on either an object or a list.
  *
  * When `target` is `objects`, the required scopes are `object_configuration:read-write`. When `target` is `lists`, the required scopes are `list_configuration:read-write`.
+ *
+ * Supported token levels: `workspace`, `user`.
  */
 export function attributesCreateStatus(
   client: AttioCore,
@@ -43,6 +45,7 @@ export function attributesCreateStatus(
   Result<
     operations.CreateAttributeStatusResponse,
     | errors.CreateAttributeStatusValidationTypeError
+    | errors.CreateAttributeStatusAuthError
     | errors.CreateAttributeStatusNotFoundError
     | errors.CreateAttributeStatusSlugConflictError
     | AttioBaseError
@@ -71,6 +74,7 @@ async function $do(
     Result<
       operations.CreateAttributeStatusResponse,
       | errors.CreateAttributeStatusValidationTypeError
+      | errors.CreateAttributeStatusAuthError
       | errors.CreateAttributeStatusNotFoundError
       | errors.CreateAttributeStatusSlugConflictError
       | AttioBaseError
@@ -173,6 +177,7 @@ async function $do(
   const [result] = await M.match<
     operations.CreateAttributeStatusResponse,
     | errors.CreateAttributeStatusValidationTypeError
+    | errors.CreateAttributeStatusAuthError
     | errors.CreateAttributeStatusNotFoundError
     | errors.CreateAttributeStatusSlugConflictError
     | AttioBaseError
@@ -189,6 +194,7 @@ async function $do(
       400,
       errors.CreateAttributeStatusValidationTypeError$inboundSchema,
     ),
+    M.jsonErr(403, errors.CreateAttributeStatusAuthError$inboundSchema),
     M.jsonErr(404, errors.CreateAttributeStatusNotFoundError$inboundSchema),
     M.jsonErr(409, errors.CreateAttributeStatusSlugConflictError$inboundSchema),
     M.fail("4XX"),

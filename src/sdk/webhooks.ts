@@ -19,6 +19,8 @@ export class Webhooks extends ClientSDK {
    * Get all of the webhooks in your workspace.
    *
    * Required scopes: `webhook:read`.
+   *
+   * Supported token levels: `workspace`.
    */
   async list(
     request?: operations.ListWebhooksRequest | undefined,
@@ -37,7 +39,11 @@ export class Webhooks extends ClientSDK {
    * @remarks
    * Create a webhook and associated subscriptions.
    *
+   * Each combination of target URL, event type and filter must be unique within your workspace; duplicates are rejected with a 409.
+   *
    * Required scopes: `webhook:read-write`.
+   *
+   * Supported token levels: `workspace`.
    */
   async create(
     request: operations.CreateWebhookRequest,
@@ -57,6 +63,8 @@ export class Webhooks extends ClientSDK {
    * Get a single webhook.
    *
    * Required scopes: `webhook:read`.
+   *
+   * Supported token levels: `workspace`.
    */
   async get(
     request: operations.GetWebhookRequest,
@@ -76,6 +84,8 @@ export class Webhooks extends ClientSDK {
    * Delete a webhook by ID.
    *
    * Required scopes: `webhook:read-write`.
+   *
+   * Supported token levels: `workspace`.
    */
   async delete(
     request: operations.DeleteWebhookRequest,
@@ -94,7 +104,11 @@ export class Webhooks extends ClientSDK {
    * @remarks
    * Update a webhook and associated subscriptions.
    *
+   * Each combination of target URL, event type and filter must be unique within your workspace; duplicates are rejected with a 409. Changing the target URL re-checks the webhook's existing subscriptions against the new URL.
+   *
    * Required scopes: `webhook:read-write`.
+   *
+   * Supported token levels: `workspace`.
    */
   async update(
     request: operations.UpdateWebhookRequest,

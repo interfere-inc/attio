@@ -10,7 +10,7 @@ import { AttioBaseError } from "./attio-base-error.js";
 /**
  * Not Found
  */
-export type GetRecordNotFoundErrorData = {
+export type GetRecordInvalidRequestErrorData = {
   type: "invalid_request_error";
   statusCode: 404;
   code: "not_found";
@@ -20,15 +20,15 @@ export type GetRecordNotFoundErrorData = {
 /**
  * Not Found
  */
-export class GetRecordNotFoundError extends AttioBaseError {
+export class GetRecordInvalidRequestError extends AttioBaseError {
   type: "invalid_request_error";
   code: "not_found";
 
   /** The original data that was passed to this error instance. */
-  data$: GetRecordNotFoundErrorData;
+  data$: GetRecordInvalidRequestErrorData;
 
   constructor(
-    err: GetRecordNotFoundErrorData,
+    err: GetRecordInvalidRequestErrorData,
     httpMeta: { response: Response; request: Request; body: string },
   ) {
     const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
@@ -37,13 +37,13 @@ export class GetRecordNotFoundError extends AttioBaseError {
     this.type = err.type;
     this.code = err.code;
 
-    this.name = "GetRecordNotFoundError";
+    this.name = "GetRecordInvalidRequestError";
   }
 }
 
 /** @internal */
-export const GetRecordNotFoundError$inboundSchema: z.ZodMiniType<
-  GetRecordNotFoundError,
+export const GetRecordInvalidRequestError$inboundSchema: z.ZodMiniType<
+  GetRecordInvalidRequestError,
   unknown
 > = z.pipe(
   z.object({
@@ -60,7 +60,7 @@ export const GetRecordNotFoundError$inboundSchema: z.ZodMiniType<
       "status_code": "statusCode",
     });
 
-    return new GetRecordNotFoundError(remapped, {
+    return new GetRecordInvalidRequestError(remapped, {
       request: v.request$,
       response: v.response$,
       body: v.body$,

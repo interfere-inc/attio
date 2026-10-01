@@ -76,6 +76,40 @@ export class CreateAttributeStatusNotFoundError extends AttioBaseError {
 }
 
 /**
+ * Forbidden
+ */
+export type CreateAttributeStatusAuthErrorData = {
+  type: "auth_error";
+  statusCode: 403;
+  code: string;
+  message: string;
+};
+
+/**
+ * Forbidden
+ */
+export class CreateAttributeStatusAuthError extends AttioBaseError {
+  type: "auth_error";
+  code: string;
+
+  /** The original data that was passed to this error instance. */
+  data$: CreateAttributeStatusAuthErrorData;
+
+  constructor(
+    err: CreateAttributeStatusAuthErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    this.type = err.type;
+    this.code = err.code;
+
+    this.name = "CreateAttributeStatusAuthError";
+  }
+}
+
+/**
  * Bad Request
  */
 export type CreateAttributeStatusValidationTypeErrorData = {
@@ -154,6 +188,33 @@ export const CreateAttributeStatusNotFoundError$inboundSchema: z.ZodMiniType<
     });
 
     return new CreateAttributeStatusNotFoundError(remapped, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
+  }),
+);
+
+/** @internal */
+export const CreateAttributeStatusAuthError$inboundSchema: z.ZodMiniType<
+  CreateAttributeStatusAuthError,
+  unknown
+> = z.pipe(
+  z.object({
+    type: types.literal("auth_error"),
+    status_code: types.literal(403),
+    code: types.string(),
+    message: types.string(),
+    request$: z.custom<Request>(x => x instanceof Request),
+    response$: z.custom<Response>(x => x instanceof Response),
+    body$: z.string(),
+  }),
+  z.transform((v) => {
+    const remapped = remap$(v, {
+      "status_code": "statusCode",
+    });
+
+    return new CreateAttributeStatusAuthError(remapped, {
       request: v.request$,
       response: v.response$,
       body: v.body$,

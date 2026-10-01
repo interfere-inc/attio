@@ -13,7 +13,9 @@ Records are individual instances of objects e.g. a specific [person](/rest-api/e
 * [update](#update) - Update a record (overwrite multiselect values)
 * [delete](#delete) - Delete a record
 * [updateAppend](#updateappend) - Update a record (append multiselect values)
+* [postV2ObjectsObjectRecordsMerge](#postv2objectsobjectrecordsmerge) - Merge two records
 * [listAttributeValues](#listattributevalues) - List record attribute values
+* [putV2ObjectsObjectRecordsRecordIdAttributesAttributeValues](#putv2objectsobjectrecordsrecordidattributesattributevalues) - Write record attribute values
 * [listEntries](#listentries) - List record entries
 * [search](#search) - Search records
 
@@ -22,6 +24,8 @@ Records are individual instances of objects e.g. a specific [person](/rest-api/e
 Lists people, company or other records, with the option to filter and sort results.
 
 Required scopes: `record_permission:read`, `object_configuration:read`.
+
+Supported token levels: `workspace`, `user`.
 
 ### Example Usage: Filter by attribute
 
@@ -191,7 +195,7 @@ run();
 
 | Error Type                       | Status Code                      | Content Type                     |
 | -------------------------------- | -------------------------------- | -------------------------------- |
-| errors.FilterError               | 400                              | application/json                 |
+| errors.QueryRecordsFilterError   | 400                              | application/json                 |
 | errors.QueryRecordsNotFoundError | 404                              | application/json                 |
 | errors.AttioError                | 4XX, 5XX                         | \*/\*                            |
 
@@ -200,6 +204,8 @@ run();
 Creates a new person, company or other record. This endpoint will throw on conflicts of unique attributes. If you would prefer to update records on conflicts, please use the [Upsert record endpoint](/rest-api/endpoint-reference/records/upsert-a-record) instead.
 
 Required scopes: `record_permission:read-write`, `object_configuration:read`.
+
+Supported token levels: `workspace`, `user`.
 
 ### Example Usage
 
@@ -292,11 +298,13 @@ run();
 
 ### Errors
 
-| Error Type                            | Status Code                           | Content Type                          |
-| ------------------------------------- | ------------------------------------- | ------------------------------------- |
-| errors.CreateRecordValueNotFoundError | 400                                   | application/json                      |
-| errors.CreateRecordNotFoundError      | 404                                   | application/json                      |
-| errors.AttioError                     | 4XX, 5XX                              | \*/\*                                 |
+| Error Type                                       | Status Code                                      | Content Type                                     |
+| ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ |
+| errors.CreateRecordBadRequestInvalidRequestError | 400                                              | application/json                                 |
+| errors.CreateRecordAuthError                     | 403                                              | application/json                                 |
+| errors.CreateRecordNotFoundError                 | 404                                              | application/json                                 |
+| errors.CreateRecordConflictInvalidRequestError   | 409                                              | application/json                                 |
+| errors.AttioError                                | 4XX, 5XX                                         | \*/\*                                            |
 
 ## assert
 
@@ -305,6 +313,8 @@ Use this endpoint to create or update people, companies and other records. A mat
 If the matching attribute is a multiselect attribute, new values will be added and existing values will not be deleted. For any other multiselect attribute, all values will be either created or deleted as necessary to match the list of supplied values.
 
 Required scopes: `record_permission:read-write`, `object_configuration:read`.
+
+Supported token levels: `workspace`, `user`.
 
 ### Example Usage
 
@@ -399,17 +409,21 @@ run();
 
 ### Errors
 
-| Error Type                            | Status Code                           | Content Type                          |
-| ------------------------------------- | ------------------------------------- | ------------------------------------- |
-| errors.AssertRecordValueNotFoundError | 400                                   | application/json                      |
-| errors.AssertRecordNotFoundError      | 404                                   | application/json                      |
-| errors.AttioError                     | 4XX, 5XX                              | \*/\*                                 |
+| Error Type                                       | Status Code                                      | Content Type                                     |
+| ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ |
+| errors.AssertRecordBadRequestInvalidRequestError | 400                                              | application/json                                 |
+| errors.AssertRecordAuthError                     | 403                                              | application/json                                 |
+| errors.AssertRecordNotFoundError                 | 404                                              | application/json                                 |
+| errors.AssertRecordConflictInvalidRequestError   | 409                                              | application/json                                 |
+| errors.AttioError                                | 4XX, 5XX                                         | \*/\*                                            |
 
 ## get
 
 Gets a single person, company or other record by its `record_id`.
 
 Required scopes: `record_permission:read`, `object_configuration:read`.
+
+Supported token levels: `workspace`, `user`.
 
 ### Example Usage
 
@@ -478,16 +492,18 @@ run();
 
 ### Errors
 
-| Error Type                    | Status Code                   | Content Type                  |
-| ----------------------------- | ----------------------------- | ----------------------------- |
-| errors.GetRecordNotFoundError | 404                           | application/json              |
-| errors.AttioError             | 4XX, 5XX                      | \*/\*                         |
+| Error Type                          | Status Code                         | Content Type                        |
+| ----------------------------------- | ----------------------------------- | ----------------------------------- |
+| errors.GetRecordInvalidRequestError | 404                                 | application/json                    |
+| errors.AttioError                   | 4XX, 5XX                            | \*/\*                               |
 
 ## update
 
 Use this endpoint to update people, companies, and other records by `record_id`. If the update payload includes multiselect attributes, the values supplied will overwrite/remove the list of values that already exist (if any). Use the `PATCH` endpoint to append multiselect values without removing those that already exist.
 
 Required scopes: `record_permission:read-write`, `object_configuration:read`.
+
+Supported token levels: `workspace`, `user`.
 
 ### Example Usage
 
@@ -582,17 +598,21 @@ run();
 
 ### Errors
 
-| Error Type                           | Status Code                          | Content Type                         |
-| ------------------------------------ | ------------------------------------ | ------------------------------------ |
-| errors.UpdateRecordMissingValueError | 400                                  | application/json                     |
-| errors.UpdateRecordNotFoundError     | 404                                  | application/json                     |
-| errors.AttioError                    | 4XX, 5XX                             | \*/\*                                |
+| Error Type                                       | Status Code                                      | Content Type                                     |
+| ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ |
+| errors.UpdateRecordBadRequestInvalidRequestError | 400                                              | application/json                                 |
+| errors.UpdateRecordAuthError                     | 403                                              | application/json                                 |
+| errors.UpdateRecordNotFoundError                 | 404                                              | application/json                                 |
+| errors.UpdateRecordConflictInvalidRequestError   | 409                                              | application/json                                 |
+| errors.AttioError                                | 4XX, 5XX                                         | \*/\*                                            |
 
 ## delete
 
 Deletes a single record (e.g. a company or person) by ID.
 
 Required scopes: `object_configuration:read`, `record_permission:read-write`.
+
+Supported token levels: `workspace`, `user`.
 
 ### Example Usage
 
@@ -663,6 +683,7 @@ run();
 
 | Error Type                       | Status Code                      | Content Type                     |
 | -------------------------------- | -------------------------------- | -------------------------------- |
+| errors.DeleteRecordAuthError     | 403                              | application/json                 |
 | errors.DeleteRecordNotFoundError | 404                              | application/json                 |
 | errors.AttioError                | 4XX, 5XX                         | \*/\*                            |
 
@@ -671,6 +692,8 @@ run();
 Use this endpoint to update people, companies, and other records by `record_id`. If the update payload includes multiselect attributes, the values supplied will be created and prepended to the list of values that already exist (if any). Use the `PUT` endpoint to overwrite or remove multiselect attribute values.
 
 Required scopes: `record_permission:read-write`, `object_configuration:read`.
+
+Supported token levels: `workspace`, `user`.
 
 ### Example Usage
 
@@ -765,17 +788,123 @@ run();
 
 ### Errors
 
-| Error Type                                 | Status Code                                | Content Type                               |
-| ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
-| errors.UpdateAppendRecordMissingValueError | 400                                        | application/json                           |
-| errors.UpdateAppendRecordNotFoundError     | 404                                        | application/json                           |
-| errors.AttioError                          | 4XX, 5XX                                   | \*/\*                                      |
+| Error Type                                             | Status Code                                            | Content Type                                           |
+| ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ |
+| errors.UpdateAppendRecordBadRequestInvalidRequestError | 400                                                    | application/json                                       |
+| errors.UpdateAppendRecordAuthError                     | 403                                                    | application/json                                       |
+| errors.UpdateAppendRecordNotFoundError                 | 404                                                    | application/json                                       |
+| errors.UpdateAppendRecordConflictInvalidRequestError   | 409                                                    | application/json                                       |
+| errors.AttioError                                      | 4XX, 5XX                                               | \*/\*                                                  |
+
+## postV2ObjectsObjectRecordsMerge
+
+Merges two records of the same object together. Where both records have a value for the same attribute, the primary record's value takes precedence.
+
+Merging produces a **new** record, so the `new_record_id` returned will match neither of the records supplied in the request. Both of the original records are marked as merged and can no longer be read or written.
+
+Large merges are completed asynchronously. A `200` response means the merged record is readable immediately. A `202` response means the merge has been accepted but is still being applied, and reading the merged record will return a `404` with the `merge_in_progress` error code until it completes.
+
+This endpoint is not idempotent. Because both original records are marked as merged, repeating the same request returns `404`.
+
+This endpoint is rate limited to 5 requests per second.
+
+This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
+
+Required scopes: `record_permission:read-write`, `object_configuration:read`.
+
+Supported token levels: `workspace`, `user`.
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="post_/v2/objects/{object}/records/merge" method="post" path="/v2/objects/{object}/records/merge" -->
+```typescript
+import { Attio } from "@interfere/attio";
+
+const attio = new Attio({
+  oauth2: process.env["ATTIO_OAUTH2"] ?? "",
+});
+
+async function run() {
+  const result = await attio.records.postV2ObjectsObjectRecordsMerge({
+    object: "people",
+    body: {
+      data: {
+        primaryRecordId: "891dcbfc-9141-415d-9b2a-2238a6cc012d",
+        secondaryRecordId: "bf071e1f-6035-429d-b874-d83ea64ea13b",
+      },
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { AttioCore } from "@interfere/attio/core.js";
+import { recordsPostV2ObjectsObjectRecordsMerge } from "@interfere/attio/funcs/records-post-v2-objects-object-records-merge.js";
+
+// Use `AttioCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const attio = new AttioCore({
+  oauth2: process.env["ATTIO_OAUTH2"] ?? "",
+});
+
+async function run() {
+  const res = await recordsPostV2ObjectsObjectRecordsMerge(attio, {
+    object: "people",
+    body: {
+      data: {
+        primaryRecordId: "891dcbfc-9141-415d-9b2a-2238a6cc012d",
+        secondaryRecordId: "bf071e1f-6035-429d-b874-d83ea64ea13b",
+      },
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("recordsPostV2ObjectsObjectRecordsMerge failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.PostV2ObjectsObjectRecordsMergeRequest](../../models/operations/post-v2-objects-object-records-merge-request.md)                                                   | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.PostV2ObjectsObjectRecordsMergeResponse](../../models/operations/post-v2-objects-object-records-merge-response.md)\>**
+
+### Errors
+
+| Error Type                                                          | Status Code                                                         | Content Type                                                        |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| errors.PostV2ObjectsObjectRecordsMergeBadRequestInvalidRequestError | 400                                                                 | application/json                                                    |
+| errors.PostV2ObjectsObjectRecordsMergeAuthError                     | 403                                                                 | application/json                                                    |
+| errors.PostV2ObjectsObjectRecordsMergeNotFoundInvalidRequestError   | 404                                                                 | application/json                                                    |
+| errors.AttioError                                                   | 4XX, 5XX                                                            | \*/\*                                                               |
 
 ## listAttributeValues
 
 Gets all values for a given attribute on a record. Historic values can be queried using the `show_historic` query param. Historic values cannot be queried on COMINT (Communication Intelligence) or enriched attributes and the endpoint will return a 400 error if this is attempted. Historic values are sorted from oldest to newest (by `active_from`). Some attributes are subject to billing status and will return an empty array of values if theworkspace being queried does not have the required billing flag enabled.
 
 Required scopes: `record_permission:read`, `object_configuration:read`.
+
+Supported token levels: `workspace`, `user`.
 
 ### Example Usage
 
@@ -858,11 +987,139 @@ run();
 | errors.ListRecordAttributeValuesNotFoundError       | 404                                                 | application/json                                    |
 | errors.AttioError                                   | 4XX, 5XX                                            | \*/\*                                               |
 
+## putV2ObjectsObjectRecordsRecordIdAttributesAttributeValues
+
+Replaces the entire value history of a single attribute on a record, primarily to migrate historic data from an external source. Every value the attribute currently has is destroyed, including values not present in the request, and the supplied values are written with the `active_from` and `active_until` timestamps given.
+
+Values may be supplied in any order and gaps between intervals are allowed. For attributes that accept a single value, at most one value may be active at a time, so intervals may not overlap and at most one may have a `null` `active_until`. At least one value is required.
+
+Webhooks and workflow triggers do not fire for these writes, so migrating history does not replay automations. Search indexes and caches are still updated, and formula attributes that depend on this attribute are still recalculated.
+
+Value history cannot be written for relationship attributes, formula attributes, enriched attributes, or immutable system attributes such as the entry's parent record.
+
+This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
+
+Required scopes: `record_permission:read-write`, `object_configuration:read`.
+
+Supported token levels: `workspace`, `user`.
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="put_/v2/objects/{object}/records/{record_id}/attributes/{attribute}/values" method="put" path="/v2/objects/{object}/records/{record_id}/attributes/{attribute}/values" -->
+```typescript
+import { Attio } from "@interfere/attio";
+
+const attio = new Attio({
+  oauth2: process.env["ATTIO_OAUTH2"] ?? "",
+});
+
+async function run() {
+  const result = await attio.records.putV2ObjectsObjectRecordsRecordIdAttributesAttributeValues({
+    object: "people",
+    recordId: "891dcbfc-9141-415d-9b2a-2238a6cc012d",
+    attribute: "41252299-f8c7-4b5e-99c9-4ff8321d2f96",
+    body: {
+      data: {
+        values: [
+          {
+            value: "Acme (old name)",
+            activeFrom: new Date("2020-01-01T00:00:00Z"),
+            activeUntil: new Date("2021-06-15T09:30:00Z"),
+          },
+          {
+            value: "Acme Corporation",
+            activeFrom: new Date("2021-06-15T09:30:00Z"),
+            activeUntil: null,
+          },
+        ],
+        replaceHistory: true,
+      },
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { AttioCore } from "@interfere/attio/core.js";
+import { recordsPutV2ObjectsObjectRecordsRecordIdAttributesAttributeValues } from "@interfere/attio/funcs/records-put-v2-objects-object-records-record-id-attributes-attribute-values.js";
+
+// Use `AttioCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const attio = new AttioCore({
+  oauth2: process.env["ATTIO_OAUTH2"] ?? "",
+});
+
+async function run() {
+  const res = await recordsPutV2ObjectsObjectRecordsRecordIdAttributesAttributeValues(attio, {
+    object: "people",
+    recordId: "891dcbfc-9141-415d-9b2a-2238a6cc012d",
+    attribute: "41252299-f8c7-4b5e-99c9-4ff8321d2f96",
+    body: {
+      data: {
+        values: [
+          {
+            value: "Acme (old name)",
+            activeFrom: new Date("2020-01-01T00:00:00Z"),
+            activeUntil: new Date("2021-06-15T09:30:00Z"),
+          },
+          {
+            value: "Acme Corporation",
+            activeFrom: new Date("2021-06-15T09:30:00Z"),
+            activeUntil: null,
+          },
+        ],
+        replaceHistory: true,
+      },
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("recordsPutV2ObjectsObjectRecordsRecordIdAttributesAttributeValues failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                              | Type                                                                                                                                                                                   | Required                                                                                                                                                                               | Description                                                                                                                                                                            |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `request`                                                                                                                                                                              | [operations.PutV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesRequest](../../models/operations/put-v2-objects-object-records-record-id-attributes-attribute-values-request.md) | :heavy_check_mark:                                                                                                                                                                     | The request object to use for the request.                                                                                                                                             |
+| `options`                                                                                                                                                                              | RequestOptions                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                     | Used to set various options for making HTTP requests.                                                                                                                                  |
+| `options.fetchOptions`                                                                                                                                                                 | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                                | :heavy_minus_sign:                                                                                                                                                                     | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed.         |
+| `options.retries`                                                                                                                                                                      | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                     | Enables retrying HTTP requests under certain failure conditions.                                                                                                                       |
+
+### Response
+
+**Promise\<[operations.PutV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesResponse](../../models/operations/put-v2-objects-object-records-record-id-attributes-attribute-values-response.md)\>**
+
+### Errors
+
+| Error Type                                                                                     | Status Code                                                                                    | Content Type                                                                                   |
+| ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| errors.PutV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesBadRequestInvalidRequestError | 400                                                                                            | application/json                                                                               |
+| errors.PutV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesAuthError                     | 403                                                                                            | application/json                                                                               |
+| errors.PutV2ObjectsObjectRecordsRecordIdAttributesAttributeValuesNotFoundInvalidRequestError   | 404                                                                                            | application/json                                                                               |
+| errors.AttioError                                                                              | 4XX, 5XX                                                                                       | \*/\*                                                                                          |
+
 ## listEntries
 
-List all entries, across all lists, for which this record is the parent.
+List all entries, across all lists, for which this record is the parent. The response includes metadata for each entry, including `entry_id`, `list_id`, and `created_at`, but does not include entry values. To retrieve the values, call [Get a list entry](/rest-api/endpoint-reference/entries/get-a-list-entry) separately for each entry.
 
 Required scopes: `record_permission:read`, `object_configuration:read`, `list_entry:read`.
+
+Supported token levels: `workspace`, `user`.
 
 ### Example Usage
 
@@ -948,6 +1205,8 @@ Please note, results returned from this endpoint are eventually consistent. For 
 This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
 
 Required scopes: `record_permission:read`, `object_configuration:read`.
+
+Supported token levels: `workspace`, `user`.
 
 ### Example Usage
 

@@ -16,6 +16,8 @@ export class WorkspaceMembers extends ClientSDK {
    * Lists all workspace members in the workspace.
    *
    * Required scopes: `user_management:read`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async list(
     options?: RequestOptions,
@@ -33,6 +35,8 @@ export class WorkspaceMembers extends ClientSDK {
    * Gets a single workspace member by ID.
    *
    * Required scopes: `user_management:read`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async get(
     request: operations.GetWorkspaceMemberRequest,

@@ -75,9 +75,13 @@ export type FindOrCreateMeetingStatus = ClosedEnum<
 
 export type Participant = {
   /**
-   * The email address of the participant. New person records and companies will automatically be created based upon the email address values provided.
+   * The name of the participant. Required when no email_address is provided. Participants without an email do not create person or company records.
    */
-  emailAddress: string;
+  name?: string | undefined;
+  /**
+   * The email address of the participant. New person records and companies will automatically be created based upon the email address values provided. If omitted, a name must be provided instead.
+   */
+  emailAddress?: string | undefined;
   /**
    * Whether or not the participant is the organizer of the meeting.
    */
@@ -88,7 +92,7 @@ export type Participant = {
   status: FindOrCreateMeetingStatus;
 };
 
-export type LinkedRecord = {
+export type FindOrCreateMeetingLinkedRecord = {
   /**
    * The slug or UUID of the object that the record being linked belongs to.
    */
@@ -98,42 +102,6 @@ export type LinkedRecord = {
    */
   recordId: string;
 };
-
-/**
- * The email provider used to sync the meeting.
- */
-export const Provider = {
-  Google: "google",
-  Microsoft: "microsoft",
-} as const;
-/**
- * The email provider used to sync the meeting.
- */
-export type Provider = ClosedEnum<typeof Provider>;
-
-export type ExternalRef = {
-  /**
-   * The ical uid of the meeting.
-   */
-  icalUid: string;
-  /**
-   * The email provider used to sync the meeting.
-   */
-  provider: Provider;
-  /**
-   * The original start time of the meeting. Use a timestamp with a specified offset for all day and non-all day meetings. This property is required for recurring event exceptions and optional otherwise.
-   */
-  originalStartTime?: string | undefined;
-  /**
-   * Whether or not the meeting is recurring.
-   */
-  isRecurring: boolean;
-};
-
-/**
- * A consistent external reference used to match and de-duplicate meetings. Can be either a plain string (for external system IDs) or an object with `ical_uid` and `provider`. If you are writing data into Attio which is based upon calendar events that you have synced from a Google or Microsoft calendar, you must use the iCal format to avoid creating duplicate meetings inside Attio.
- */
-export type ExternalRefUnion = ExternalRef | string;
 
 export type FindOrCreateMeetingData = {
   /**
@@ -160,11 +128,7 @@ export type FindOrCreateMeetingData = {
   /**
    * A list of records to link to the meeting. Each record is specified by its object (slug or UUID) and record ID (UUID). Attio will automatically link the meeting participants' companies to the meeting; this behavior is asynchronous.
    */
-  linkedRecords?: Array<LinkedRecord> | undefined;
-  /**
-   * A consistent external reference used to match and de-duplicate meetings. Can be either a plain string (for external system IDs) or an object with `ical_uid` and `provider`. If you are writing data into Attio which is based upon calendar events that you have synced from a Google or Microsoft calendar, you must use the iCal format to avoid creating duplicate meetings inside Attio.
-   */
-  externalRef: ExternalRef | string;
+  linkedRecords?: Array<FindOrCreateMeetingLinkedRecord> | undefined;
 };
 
 export type FindOrCreateMeetingRequest = {
@@ -300,7 +264,8 @@ export const FindOrCreateMeetingStatus$outboundSchema: z.ZodMiniEnum<
 
 /** @internal */
 export type Participant$Outbound = {
-  email_address: string;
+  name?: string | undefined;
+  email_address?: string | undefined;
   is_organizer: any;
   status: string;
 };
@@ -311,7 +276,8 @@ export const Participant$outboundSchema: z.ZodMiniType<
   Participant
 > = z.pipe(
   z.object({
-    emailAddress: z.string(),
+    name: z.optional(z.string()),
+    emailAddress: z.optional(z.string()),
     isOrganizer: z.any(),
     status: FindOrCreateMeetingStatus$outboundSchema,
   }),
@@ -328,15 +294,15 @@ export function participantToJSON(participant: Participant): string {
 }
 
 /** @internal */
-export type LinkedRecord$Outbound = {
+export type FindOrCreateMeetingLinkedRecord$Outbound = {
   object: string;
   record_id: string;
 };
 
 /** @internal */
-export const LinkedRecord$outboundSchema: z.ZodMiniType<
-  LinkedRecord$Outbound,
-  LinkedRecord
+export const FindOrCreateMeetingLinkedRecord$outboundSchema: z.ZodMiniType<
+  FindOrCreateMeetingLinkedRecord$Outbound,
+  FindOrCreateMeetingLinkedRecord
 > = z.pipe(
   z.object({
     object: z.string(),
@@ -349,61 +315,13 @@ export const LinkedRecord$outboundSchema: z.ZodMiniType<
   }),
 );
 
-export function linkedRecordToJSON(linkedRecord: LinkedRecord): string {
-  return JSON.stringify(LinkedRecord$outboundSchema.parse(linkedRecord));
-}
-
-/** @internal */
-export const Provider$outboundSchema: z.ZodMiniEnum<typeof Provider> = z.enum(
-  Provider,
-);
-
-/** @internal */
-export type ExternalRef$Outbound = {
-  ical_uid: string;
-  provider: string;
-  original_start_time?: string | undefined;
-  is_recurring: boolean;
-};
-
-/** @internal */
-export const ExternalRef$outboundSchema: z.ZodMiniType<
-  ExternalRef$Outbound,
-  ExternalRef
-> = z.pipe(
-  z.object({
-    icalUid: z.string(),
-    provider: Provider$outboundSchema,
-    originalStartTime: z.optional(z.string()),
-    isRecurring: z.boolean(),
-  }),
-  z.transform((v) => {
-    return remap$(v, {
-      icalUid: "ical_uid",
-      originalStartTime: "original_start_time",
-      isRecurring: "is_recurring",
-    });
-  }),
-);
-
-export function externalRefToJSON(externalRef: ExternalRef): string {
-  return JSON.stringify(ExternalRef$outboundSchema.parse(externalRef));
-}
-
-/** @internal */
-export type ExternalRefUnion$Outbound = ExternalRef$Outbound | string;
-
-/** @internal */
-export const ExternalRefUnion$outboundSchema: z.ZodMiniType<
-  ExternalRefUnion$Outbound,
-  ExternalRefUnion
-> = smartUnion([z.lazy(() => ExternalRef$outboundSchema), z.string()]);
-
-export function externalRefUnionToJSON(
-  externalRefUnion: ExternalRefUnion,
+export function findOrCreateMeetingLinkedRecordToJSON(
+  findOrCreateMeetingLinkedRecord: FindOrCreateMeetingLinkedRecord,
 ): string {
   return JSON.stringify(
-    ExternalRefUnion$outboundSchema.parse(externalRefUnion),
+    FindOrCreateMeetingLinkedRecord$outboundSchema.parse(
+      findOrCreateMeetingLinkedRecord,
+    ),
   );
 }
 
@@ -415,8 +333,7 @@ export type FindOrCreateMeetingData$Outbound = {
   end: MeetingEndDateTime$Outbound | MeetingEndDate$Outbound;
   is_all_day: boolean;
   participants: Array<Participant$Outbound>;
-  linked_records?: Array<LinkedRecord$Outbound> | undefined;
-  external_ref: ExternalRef$Outbound | string;
+  linked_records?: Array<FindOrCreateMeetingLinkedRecord$Outbound> | undefined;
 };
 
 /** @internal */
@@ -438,18 +355,13 @@ export const FindOrCreateMeetingData$outboundSchema: z.ZodMiniType<
     isAllDay: z.boolean(),
     participants: z.array(z.lazy(() => Participant$outboundSchema)),
     linkedRecords: z.optional(
-      z.array(z.lazy(() => LinkedRecord$outboundSchema)),
+      z.array(z.lazy(() => FindOrCreateMeetingLinkedRecord$outboundSchema)),
     ),
-    externalRef: smartUnion([
-      z.lazy(() => ExternalRef$outboundSchema),
-      z.string(),
-    ]),
   }),
   z.transform((v) => {
     return remap$(v, {
       isAllDay: "is_all_day",
       linkedRecords: "linked_records",
-      externalRef: "external_ref",
     });
   }),
 );

@@ -18,6 +18,8 @@ List all lists that your access token has access to. lists are returned in the o
 
 Required scopes: `list_configuration:read`.
 
+Supported token levels: `workspace`, `user`.
+
 ### Example Usage
 
 <!-- UsageSnippet language="typescript" operationID="listLists" method="get" path="/v2/lists" -->
@@ -93,6 +95,8 @@ New lists must specify which records can be added with the `parent_object` param
 Please note that new lists must have either `workspace_access` set to `"full-access"` or one or more element of `workspace_member_access` with a `"full-access"` level. It is also possible to receive a `403` billing error if your workspace is not on a plan that supports either advanced workspace or workspace member-level access for lists.
 
 Required scopes: `list_configuration:read-write`.
+
+Supported token levels: `workspace`, `user`.
 
 ### Example Usage
 
@@ -195,6 +199,8 @@ Gets a single list in your workspace that your access token has access to.
 
 Required scopes: `list_configuration:read`.
 
+Supported token levels: `workspace`, `user`.
+
 ### Example Usage
 
 <!-- UsageSnippet language="typescript" operationID="getList" method="get" path="/v2/lists/{list}" -->
@@ -270,6 +276,8 @@ run();
 Updates an existing list. Permissions for the list are controlled with the `workspace_access` and `workspace_member_access` parameters. Please note that lists must have either `workspace_access` set to `"full-access"` or one or more element of `workspace_member_access` with a `"full-access"` level. It is also possible to receive a `403` billing error if your workspace is not on a plan that supports either advanced workspace or workspace member level access for lists. Changing the parent object of a list is not possible through the API as it can have unintended side-effects that should be considered carefully. If you wish to carry out a parent object change you should do so through the UI.
 
 Required scopes: `list_configuration:read-write`.
+
+Supported token levels: `workspace`, `user`.
 
 ### Example Usage
 
@@ -373,6 +381,8 @@ run();
 Lists saved views for a list. Results are ordered by view ID (`id.view_id` ascending).
 
 Required scopes: `list_configuration:read`.
+
+Supported token levels: `workspace`, `user`.
 
 ### Example Usage
 

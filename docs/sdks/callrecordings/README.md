@@ -17,6 +17,8 @@ This endpoint is in beta. We will aim to avoid breaking changes, but small updat
 
 Required scopes: `meeting:read`, `call_recording:read`.
 
+Supported token levels: `workspace`, `user`.
+
 ### Example Usage
 
 <!-- UsageSnippet language="typescript" operationID="listCallRecordings" method="get" path="/v2/meetings/{meeting_id}/call_recordings" -->
@@ -94,9 +96,13 @@ run();
 
 Create a call recording for a meeting. This endpoint is rate limited to 1 request per second.
 
-This endpoint is in alpha and may be subject to breaking changes as we gather feedback.
+A `transcript` should always be provided — it is technically optional for backwards compatibility, but a call recording created without one will be missing summaries and other transcript-derived features. `video_url` is optional, and a transcript-only call recording (with no video) is fully supported.
+
+This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
 
 Required scopes: `meeting:read`, `call_recording:read-write`.
+
+Supported token levels: `workspace`, `user`.
 
 ### Example Usage
 
@@ -114,6 +120,17 @@ async function run() {
     body: {
       data: {
         videoUrl: "https://example.com/recording.mp4",
+        transcript: [
+          {
+            speech: "Hello everyone, welcome to the meeting.",
+            startTime: 0.5123,
+            endTime: 3.2123,
+            speaker: {
+              name: "Simon Mitchell",
+              emailAddress: "person@company.com",
+            },
+          },
+        ],
       },
     },
   });
@@ -144,6 +161,17 @@ async function run() {
     body: {
       data: {
         videoUrl: "https://example.com/recording.mp4",
+        transcript: [
+          {
+            speech: "Hello everyone, welcome to the meeting.",
+            startTime: 0.5123,
+            endTime: 3.2123,
+            speaker: {
+              name: "Simon Mitchell",
+              emailAddress: "person@company.com",
+            },
+          },
+        ],
       },
     },
   });
@@ -176,7 +204,7 @@ run();
 | Error Type                                    | Status Code                                   | Content Type                                  |
 | --------------------------------------------- | --------------------------------------------- | --------------------------------------------- |
 | errors.CreateCallRecordingValidationTypeError | 400                                           | application/json                              |
-| errors.AuthError                              | 403                                           | application/json                              |
+| errors.CreateCallRecordingAuthError           | 403                                           | application/json                              |
 | errors.CreateCallRecordingNotFoundError       | 404                                           | application/json                              |
 | errors.AttioError                             | 4XX, 5XX                                      | \*/\*                                         |
 
@@ -187,6 +215,8 @@ Get a single call recording by ID.
 This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
 
 Required scopes: `meeting:read`, `call_recording:read`.
+
+Supported token levels: `workspace`, `user`.
 
 ### Example Usage
 
@@ -264,9 +294,11 @@ run();
 
 Deletes the specified call recording. This will remove the call recording and all associated data.
 
-This endpoint is in alpha and may be subject to breaking changes as we gather feedback.
+This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
 
 Required scopes: `meeting:read`, `call_recording:read-write`.
+
+Supported token levels: `workspace`, `user`.
 
 ### Example Usage
 

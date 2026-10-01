@@ -34,6 +34,8 @@ import { Result } from "../types/fp.js";
  * Lists people, company or other records, with the option to filter and sort results.
  *
  * Required scopes: `record_permission:read`, `object_configuration:read`.
+ *
+ * Supported token levels: `workspace`, `user`.
  */
 export function recordsQuery(
   client: AttioCore,
@@ -42,7 +44,7 @@ export function recordsQuery(
 ): APIPromise<
   Result<
     operations.QueryRecordsResponse,
-    | errors.FilterError
+    | errors.QueryRecordsFilterError
     | errors.QueryRecordsNotFoundError
     | AttioBaseError
     | ResponseValidationError
@@ -69,7 +71,7 @@ async function $do(
   [
     Result<
       operations.QueryRecordsResponse,
-      | errors.FilterError
+      | errors.QueryRecordsFilterError
       | errors.QueryRecordsNotFoundError
       | AttioBaseError
       | ResponseValidationError
@@ -159,7 +161,7 @@ async function $do(
 
   const [result] = await M.match<
     operations.QueryRecordsResponse,
-    | errors.FilterError
+    | errors.QueryRecordsFilterError
     | errors.QueryRecordsNotFoundError
     | AttioBaseError
     | ResponseValidationError
@@ -171,7 +173,7 @@ async function $do(
     | SDKValidationError
   >(
     M.json(200, operations.QueryRecordsResponse$inboundSchema),
-    M.jsonErr(400, errors.FilterError$inboundSchema),
+    M.jsonErr(400, errors.QueryRecordsFilterError$inboundSchema),
     M.jsonErr(404, errors.QueryRecordsNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),

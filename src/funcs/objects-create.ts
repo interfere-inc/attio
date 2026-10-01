@@ -34,6 +34,8 @@ import { Result } from "../types/fp.js";
  * Creates a new custom object in your workspace.
  *
  * Required scopes: `object_configuration:read-write`.
+ *
+ * Supported token levels: `workspace`, `user`.
  */
 export function objectsCreate(
   client: AttioCore,
@@ -43,6 +45,7 @@ export function objectsCreate(
   Result<
     operations.CreateObjectResponse,
     | errors.QuotaExceededError
+    | errors.CreateObjectAuthError
     | errors.CreateObjectSlugConflictError
     | AttioBaseError
     | ResponseValidationError
@@ -70,6 +73,7 @@ async function $do(
     Result<
       operations.CreateObjectResponse,
       | errors.QuotaExceededError
+      | errors.CreateObjectAuthError
       | errors.CreateObjectSlugConflictError
       | AttioBaseError
       | ResponseValidationError
@@ -154,6 +158,7 @@ async function $do(
   const [result] = await M.match<
     operations.CreateObjectResponse,
     | errors.QuotaExceededError
+    | errors.CreateObjectAuthError
     | errors.CreateObjectSlugConflictError
     | AttioBaseError
     | ResponseValidationError
@@ -166,6 +171,7 @@ async function $do(
   >(
     M.json(200, operations.CreateObjectResponse$inboundSchema),
     M.jsonErr(400, errors.QuotaExceededError$inboundSchema),
+    M.jsonErr(403, errors.CreateObjectAuthError$inboundSchema),
     M.jsonErr(409, errors.CreateObjectSlugConflictError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),

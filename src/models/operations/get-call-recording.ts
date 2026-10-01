@@ -72,6 +72,49 @@ export type GetCallRecordingCreatedByActor = {
   id?: string | null | undefined;
 };
 
+/**
+ * The speaker of this transcript segment.
+ */
+export type GetCallRecordingSpeaker = {
+  /**
+   * The name of the speaker.
+   */
+  name: string;
+};
+
+export type Segment = {
+  /**
+   * The spoken text for this segment of the transcript.
+   */
+  speech: string;
+  /**
+   * The start time of this speech segment in seconds, measured from the start of the recording.
+   */
+  startTime: number;
+  /**
+   * The end time of this speech segment in seconds, measured from the start of the recording.
+   */
+  endTime: number;
+  /**
+   * The speaker of this transcript segment.
+   */
+  speaker: GetCallRecordingSpeaker;
+};
+
+/**
+ * The transcript for this call recording, `null` if no transcript is available.
+ */
+export type GetCallRecordingTranscript = {
+  /**
+   * The transcript segments with speech, timing, and speaker information.
+   */
+  segments: Array<Segment>;
+  /**
+   * The raw transcript of the call recording.
+   */
+  rawTranscript: string;
+};
+
 export type GetCallRecordingData = {
   id: GetCallRecordingId;
   /**
@@ -90,6 +133,14 @@ export type GetCallRecordingData = {
    * The timestamp of when the call recording was created.
    */
   createdAt: string;
+  /**
+   * A short-lived URL for downloading the call recording's video. This is only available for call recordings captured by the Attio call recorder: it is always `null` for call recordings created through the API. The URL expires one hour after this response was generated. You can call this endpoint again to get a fresh URL.
+   */
+  videoUrl: string | null;
+  /**
+   * The transcript for this call recording, `null` if no transcript is available.
+   */
+  transcript: GetCallRecordingTranscript | null;
 };
 
 /**
@@ -191,6 +242,76 @@ export function getCallRecordingCreatedByActorFromJSON(
 }
 
 /** @internal */
+export const GetCallRecordingSpeaker$inboundSchema: z.ZodMiniType<
+  GetCallRecordingSpeaker,
+  unknown
+> = z.object({
+  name: types.string(),
+});
+
+export function getCallRecordingSpeakerFromJSON(
+  jsonString: string,
+): SafeParseResult<GetCallRecordingSpeaker, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetCallRecordingSpeaker$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetCallRecordingSpeaker' from JSON`,
+  );
+}
+
+/** @internal */
+export const Segment$inboundSchema: z.ZodMiniType<Segment, unknown> = z.pipe(
+  z.object({
+    speech: types.string(),
+    start_time: types.number(),
+    end_time: types.number(),
+    speaker: z.lazy(() => GetCallRecordingSpeaker$inboundSchema),
+  }),
+  z.transform((v) => {
+    return remap$(v, {
+      "start_time": "startTime",
+      "end_time": "endTime",
+    });
+  }),
+);
+
+export function segmentFromJSON(
+  jsonString: string,
+): SafeParseResult<Segment, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Segment$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Segment' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetCallRecordingTranscript$inboundSchema: z.ZodMiniType<
+  GetCallRecordingTranscript,
+  unknown
+> = z.pipe(
+  z.object({
+    segments: z.array(z.lazy(() => Segment$inboundSchema)),
+    raw_transcript: types.string(),
+  }),
+  z.transform((v) => {
+    return remap$(v, {
+      "raw_transcript": "rawTranscript",
+    });
+  }),
+);
+
+export function getCallRecordingTranscriptFromJSON(
+  jsonString: string,
+): SafeParseResult<GetCallRecordingTranscript, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetCallRecordingTranscript$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetCallRecordingTranscript' from JSON`,
+  );
+}
+
+/** @internal */
 export const GetCallRecordingData$inboundSchema: z.ZodMiniType<
   GetCallRecordingData,
   unknown
@@ -203,12 +324,17 @@ export const GetCallRecordingData$inboundSchema: z.ZodMiniType<
       GetCallRecordingCreatedByActor$inboundSchema
     ),
     created_at: types.string(),
+    video_url: types.nullable(types.string()),
+    transcript: types.nullable(
+      z.lazy(() => GetCallRecordingTranscript$inboundSchema),
+    ),
   }),
   z.transform((v) => {
     return remap$(v, {
       "web_url": "webUrl",
       "created_by_actor": "createdByActor",
       "created_at": "createdAt",
+      "video_url": "videoUrl",
     });
   }),
 );

@@ -77,7 +77,11 @@ export const StatusEnum = {
  */
 export type StatusEnum = OpenEnum<typeof StatusEnum>;
 
-export type Participant = {
+export type MeetingParticipant = {
+  /**
+   * The participant's name. This is only set when the name was explicitly provided when the participant was created. It is null for any participant identified by an email address — including workspace members and person records — whose display names are not resolved into this field.
+   */
+  name: string | null;
   /**
    * The status of the individual meeting participant.
    */
@@ -151,7 +155,7 @@ export type Meeting = {
   isAllDay: boolean;
   start: MeetingStartDateTime | MeetingStartDate;
   end: MeetingEndDateTime | MeetingEndDate;
-  participants: Array<Participant>;
+  participants: Array<MeetingParticipant>;
   /**
    * A list of records that are linked to the meeting. Participants with matching person records are automatically linked to the meeting but other records may also be linked explicitly.
    */
@@ -302,28 +306,31 @@ export const StatusEnum$inboundSchema: z.ZodMiniType<StatusEnum, unknown> =
   openEnums.inboundSchema(StatusEnum);
 
 /** @internal */
-export const Participant$inboundSchema: z.ZodMiniType<Participant, unknown> = z
-  .pipe(
-    z.object({
-      status: StatusEnum$inboundSchema,
-      is_organizer: types.boolean(),
-      email_address: types.nullable(types.string()),
-    }),
-    z.transform((v) => {
-      return remap$(v, {
-        "is_organizer": "isOrganizer",
-        "email_address": "emailAddress",
-      });
-    }),
-  );
+export const MeetingParticipant$inboundSchema: z.ZodMiniType<
+  MeetingParticipant,
+  unknown
+> = z.pipe(
+  z.object({
+    name: types.nullable(types.string()),
+    status: StatusEnum$inboundSchema,
+    is_organizer: types.boolean(),
+    email_address: types.nullable(types.string()),
+  }),
+  z.transform((v) => {
+    return remap$(v, {
+      "is_organizer": "isOrganizer",
+      "email_address": "emailAddress",
+    });
+  }),
+);
 
-export function participantFromJSON(
+export function meetingParticipantFromJSON(
   jsonString: string,
-): SafeParseResult<Participant, SDKValidationError> {
+): SafeParseResult<MeetingParticipant, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => Participant$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Participant' from JSON`,
+    (x) => MeetingParticipant$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MeetingParticipant' from JSON`,
   );
 }
 
@@ -394,7 +401,7 @@ export const Meeting$inboundSchema: z.ZodMiniType<Meeting, unknown> = z.pipe(
       z.lazy(() => MeetingEndDateTime$inboundSchema),
       z.lazy(() => MeetingEndDate$inboundSchema),
     ]),
-    participants: z.array(z.lazy(() => Participant$inboundSchema)),
+    participants: z.array(z.lazy(() => MeetingParticipant$inboundSchema)),
     linked_records: z.array(z.lazy(() => MeetingLinkedRecord$inboundSchema)),
     created_at: types.string(),
     created_by_actor: z.lazy(() => MeetingCreatedByActor$inboundSchema),

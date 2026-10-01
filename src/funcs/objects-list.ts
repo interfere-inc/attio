@@ -30,6 +30,8 @@ import { Result } from "../types/fp.js";
  * Lists all system-defined and user-defined objects in your workspace.
  *
  * Required scopes: `object_configuration:read`.
+ *
+ * Supported token levels: `workspace`, `user`.
  */
 export function objectsList(
   client: AttioCore,

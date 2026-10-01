@@ -34,6 +34,8 @@ import { Result } from "../types/fp.js";
  * Use this endpoint to create or update a list entry for a given parent record. If an entry with the specified parent record is found, that entry will be updated. If no such entry is found, a new entry will be created instead. If there are multiple entries with the same parent record, this endpoint with return the "MULTIPLE_MATCH_RESULTS" error. When writing to multi-select attributes, all values will be either created or deleted as necessary to match the list of values supplied in the request body.
  *
  * Required scopes: `list_entry:read-write`, `list_configuration:read`.
+ *
+ * Supported token levels: `workspace`, `user`.
  */
 export function entriesAssert(
   client: AttioCore,
@@ -42,7 +44,8 @@ export function entriesAssert(
 ): APIPromise<
   Result<
     operations.AssertEntryResponse,
-    | errors.MultipleMatchResultsError
+    | errors.AssertEntryInvalidRequestError
+    | errors.AssertEntryAuthError
     | errors.AssertEntryNotFoundError
     | AttioBaseError
     | ResponseValidationError
@@ -69,7 +72,8 @@ async function $do(
   [
     Result<
       operations.AssertEntryResponse,
-      | errors.MultipleMatchResultsError
+      | errors.AssertEntryInvalidRequestError
+      | errors.AssertEntryAuthError
       | errors.AssertEntryNotFoundError
       | AttioBaseError
       | ResponseValidationError
@@ -159,7 +163,8 @@ async function $do(
 
   const [result] = await M.match<
     operations.AssertEntryResponse,
-    | errors.MultipleMatchResultsError
+    | errors.AssertEntryInvalidRequestError
+    | errors.AssertEntryAuthError
     | errors.AssertEntryNotFoundError
     | AttioBaseError
     | ResponseValidationError
@@ -171,7 +176,8 @@ async function $do(
     | SDKValidationError
   >(
     M.json(200, operations.AssertEntryResponse$inboundSchema),
-    M.jsonErr(400, errors.MultipleMatchResultsError$inboundSchema),
+    M.jsonErr(400, errors.AssertEntryInvalidRequestError$inboundSchema),
+    M.jsonErr(403, errors.AssertEntryAuthError$inboundSchema),
     M.jsonErr(404, errors.AssertEntryNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),

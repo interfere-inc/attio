@@ -16,6 +16,8 @@ export class Options extends ClientSDK {
    * Lists all select options for a particular attribute on either an object or a list.
    *
    * When `target` is `objects`, the required scopes are `object_configuration:read`. When `target` is `lists`, the required scopes are `list_configuration:read`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async list(
     request: operations.ListAttributeOptionsRequest,
@@ -35,6 +37,8 @@ export class Options extends ClientSDK {
    * Adds a select option to a select attribute on an object or a list.
    *
    * When `target` is `objects`, the required scopes are `object_configuration:read-write`. When `target` is `lists`, the required scopes are `list_configuration:read-write`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async create(
     request: operations.CreateAttributeOptionRequest,

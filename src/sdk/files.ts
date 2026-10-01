@@ -22,6 +22,8 @@ export class Files extends ClientSDK {
    * This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
    *
    * Required scopes: `object_configuration:read`, `record_permission:read`, `file:read`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async list(
     request: operations.ListFilesRequest,
@@ -43,6 +45,8 @@ export class Files extends ClientSDK {
    * This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
    *
    * Required scopes: `file:read-write`, `object_configuration:read`, `record_permission:read`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async create(
     request: operations.CreateFileRequest,
@@ -64,6 +68,8 @@ export class Files extends ClientSDK {
    * This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
    *
    * Required scopes: `file:read-write`, `object_configuration:read`, `record_permission:read`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async upload(
     request: operations.UploadFileRequest,
@@ -85,6 +91,8 @@ export class Files extends ClientSDK {
    * This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
    *
    * Required scopes: `file:read`, `object_configuration:read`, `record_permission:read`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async get(
     request: operations.GetFileRequest,
@@ -106,6 +114,8 @@ export class Files extends ClientSDK {
    * This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
    *
    * Required scopes: `file:read-write`, `object_configuration:read`, `record_permission:read`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async delete(
     request: operations.DeleteFileRequest,
@@ -127,6 +137,8 @@ export class Files extends ClientSDK {
    * This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
    *
    * Required scopes: `object_configuration:read`, `record_permission:read`, `file:read`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async download(
     request: operations.DownloadFileRequest,

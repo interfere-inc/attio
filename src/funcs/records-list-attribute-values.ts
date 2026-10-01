@@ -34,6 +34,8 @@ import { Result } from "../types/fp.js";
  * Gets all values for a given attribute on a record. Historic values can be queried using the `show_historic` query param. Historic values cannot be queried on COMINT (Communication Intelligence) or enriched attributes and the endpoint will return a 400 error if this is attempted. Historic values are sorted from oldest to newest (by `active_from`). Some attributes are subject to billing status and will return an empty array of values if theworkspace being queried does not have the required billing flag enabled.
  *
  * Required scopes: `record_permission:read`, `object_configuration:read`.
+ *
+ * Supported token levels: `workspace`, `user`.
  */
 export function recordsListAttributeValues(
   client: AttioCore,

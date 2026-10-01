@@ -21,6 +21,8 @@ This endpoint is in beta. We will aim to avoid breaking changes, but small updat
 
 Required scopes: `object_configuration:read`, `record_permission:read`, `file:read`.
 
+Supported token levels: `workspace`, `user`.
+
 ### Example Usage
 
 <!-- UsageSnippet language="typescript" operationID="listFiles" method="get" path="/v2/files" -->
@@ -99,6 +101,8 @@ Creates a native folder entry or a connected file/folder entry on an object reco
 This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
 
 Required scopes: `file:read-write`, `object_configuration:read`, `record_permission:read`.
+
+Supported token levels: `workspace`, `user`.
 
 ### Example Usage
 
@@ -185,6 +189,8 @@ This endpoint is in beta. We will aim to avoid breaking changes, but small updat
 
 Required scopes: `file:read-write`, `object_configuration:read`, `record_permission:read`.
 
+Supported token levels: `workspace`, `user`.
+
 ### Example Usage
 
 <!-- UsageSnippet language="typescript" operationID="uploadFile" method="post" path="/v2/files/upload" -->
@@ -258,9 +264,10 @@ run();
 
 ### Errors
 
-| Error Type        | Status Code       | Content Type      |
-| ----------------- | ----------------- | ----------------- |
-| errors.AttioError | 4XX, 5XX          | \*/\*             |
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.UploadFileAuthError | 403                        | application/json           |
+| errors.AttioError          | 4XX, 5XX                   | \*/\*                      |
 
 ## get
 
@@ -269,6 +276,8 @@ Get a single file entry by ID.
 This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
 
 Required scopes: `file:read`, `object_configuration:read`, `record_permission:read`.
+
+Supported token levels: `workspace`, `user`.
 
 ### Example Usage
 
@@ -348,6 +357,8 @@ This endpoint is in beta. We will aim to avoid breaking changes, but small updat
 
 Required scopes: `file:read-write`, `object_configuration:read`, `record_permission:read`.
 
+Supported token levels: `workspace`, `user`.
+
 ### Example Usage
 
 <!-- UsageSnippet language="typescript" operationID="deleteFile" method="delete" path="/v2/files/{file_id}" -->
@@ -425,6 +436,8 @@ Downloads a file by redirecting to a signed URL.
 This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
 
 Required scopes: `object_configuration:read`, `record_permission:read`, `file:read`.
+
+Supported token levels: `workspace`, `user`.
 
 ### Example Usage
 

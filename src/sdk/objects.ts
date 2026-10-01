@@ -3,6 +3,7 @@
  */
 
 import { objectsCreate } from "../funcs/objects-create.js";
+import { objectsDeleteV2ObjectsObject } from "../funcs/objects-delete-v2-objects-object.js";
 import { objectsGetViews } from "../funcs/objects-get-views.js";
 import { objectsGet } from "../funcs/objects-get.js";
 import { objectsList } from "../funcs/objects-list.js";
@@ -19,6 +20,8 @@ export class Objects extends ClientSDK {
    * Lists all system-defined and user-defined objects in your workspace.
    *
    * Required scopes: `object_configuration:read`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async list(
     options?: RequestOptions,
@@ -36,6 +39,8 @@ export class Objects extends ClientSDK {
    * Creates a new custom object in your workspace.
    *
    * Required scopes: `object_configuration:read-write`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async create(
     request: operations.CreateObjectRequest,
@@ -55,6 +60,8 @@ export class Objects extends ClientSDK {
    * Gets a single object by its `object_id` or slug.
    *
    * Required scopes: `object_configuration:read`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async get(
     request: operations.GetObjectRequest,
@@ -68,12 +75,37 @@ export class Objects extends ClientSDK {
   }
 
   /**
+   * Delete an object
+   *
+   * @remarks
+   * Deletes a single object by its `object_id` or slug, along with all of its records. Only custom objects can be deleted; system objects, such as people and companies, cannot.
+   *
+   * This endpoint should be used with caution as it has the potential to remove a large amount of potentially valuable data.
+   *
+   * Required scopes: `object_configuration:read-write`, `record_permission:read-write`.
+   *
+   * Supported token levels: `workspace`, `user`.
+   */
+  async deleteV2ObjectsObject(
+    request: operations.DeleteV2ObjectsObjectRequest,
+    options?: RequestOptions,
+  ): Promise<operations.DeleteV2ObjectsObjectResponse> {
+    return unwrapAsync(objectsDeleteV2ObjectsObject(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
    * Update an object
    *
    * @remarks
    * Updates a single object. The object to be updated is identified by its `object_id`.
    *
    * Required scopes: `object_configuration:read-write`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async update(
     request: operations.UpdateObjectRequest,
@@ -93,6 +125,8 @@ export class Objects extends ClientSDK {
    * Lists saved views for an object. Results are ordered by view ID (`id.view_id` ascending).
    *
    * Required scopes: `object_configuration:read`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async getViews(
     request: operations.GetObjectViewsRequest,
