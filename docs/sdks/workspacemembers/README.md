@@ -13,6 +13,8 @@ Lists all workspace members in the workspace.
 
 Required scopes: `user_management:read`.
 
+Supported token levels: `workspace`, `user`.
+
 ### Example Usage
 
 <!-- UsageSnippet language="typescript" operationID="listWorkspaceMembers" method="get" path="/v2/workspace_members" -->
@@ -82,6 +84,8 @@ run();
 Gets a single workspace member by ID.
 
 Required scopes: `user_management:read`.
+
+Supported token levels: `workspace`, `user`.
 
 ### Example Usage
 

@@ -34,6 +34,8 @@ import { Result } from "../types/fp.js";
  * Creates a new person, company or other record. This endpoint will throw on conflicts of unique attributes. If you would prefer to update records on conflicts, please use the [Upsert record endpoint](/rest-api/endpoint-reference/records/upsert-a-record) instead.
  *
  * Required scopes: `record_permission:read-write`, `object_configuration:read`.
+ *
+ * Supported token levels: `workspace`, `user`.
  */
 export function recordsCreate(
   client: AttioCore,
@@ -42,8 +44,10 @@ export function recordsCreate(
 ): APIPromise<
   Result<
     operations.CreateRecordResponse,
-    | errors.CreateRecordValueNotFoundError
+    | errors.CreateRecordBadRequestInvalidRequestError
+    | errors.CreateRecordAuthError
     | errors.CreateRecordNotFoundError
+    | errors.CreateRecordConflictInvalidRequestError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -69,8 +73,10 @@ async function $do(
   [
     Result<
       operations.CreateRecordResponse,
-      | errors.CreateRecordValueNotFoundError
+      | errors.CreateRecordBadRequestInvalidRequestError
+      | errors.CreateRecordAuthError
       | errors.CreateRecordNotFoundError
+      | errors.CreateRecordConflictInvalidRequestError
       | AttioBaseError
       | ResponseValidationError
       | ConnectionError
@@ -159,8 +165,10 @@ async function $do(
 
   const [result] = await M.match<
     operations.CreateRecordResponse,
-    | errors.CreateRecordValueNotFoundError
+    | errors.CreateRecordBadRequestInvalidRequestError
+    | errors.CreateRecordAuthError
     | errors.CreateRecordNotFoundError
+    | errors.CreateRecordConflictInvalidRequestError
     | AttioBaseError
     | ResponseValidationError
     | ConnectionError
@@ -171,8 +179,16 @@ async function $do(
     | SDKValidationError
   >(
     M.json(200, operations.CreateRecordResponse$inboundSchema),
-    M.jsonErr(400, errors.CreateRecordValueNotFoundError$inboundSchema),
+    M.jsonErr(
+      400,
+      errors.CreateRecordBadRequestInvalidRequestError$inboundSchema,
+    ),
+    M.jsonErr(403, errors.CreateRecordAuthError$inboundSchema),
     M.jsonErr(404, errors.CreateRecordNotFoundError$inboundSchema),
+    M.jsonErr(
+      409,
+      errors.CreateRecordConflictInvalidRequestError$inboundSchema,
+    ),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

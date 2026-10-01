@@ -34,6 +34,8 @@ import { Result } from "../types/fp.js";
  * Gets a single object by its `object_id` or slug.
  *
  * Required scopes: `object_configuration:read`.
+ *
+ * Supported token levels: `workspace`, `user`.
  */
 export function objectsGet(
   client: AttioCore,

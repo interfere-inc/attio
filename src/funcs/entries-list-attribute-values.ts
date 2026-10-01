@@ -34,6 +34,8 @@ import { Result } from "../types/fp.js";
  * Gets all values for a given attribute on a list entry. This endpoint has the ability to return all historic values using the `show_historic` query param. Historic values are sorted from oldest to newest (by `active_from`).
  *
  * Required scopes: `list_entry:read`, `list_configuration:read`.
+ *
+ * Supported token levels: `workspace`, `user`.
  */
 export function entriesListAttributeValues(
   client: AttioCore,

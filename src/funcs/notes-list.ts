@@ -33,7 +33,11 @@ import { Result } from "../types/fp.js";
  * @remarks
  * List notes for all records or for a specific record.
  *
+ * This endpoint is temporarily rate limited to 10 requests per second.
+ *
  * Required scopes: `note:read`, `object_configuration:read`, `record_permission:read`.
+ *
+ * Supported token levels: `workspace`, `user`.
  */
 export function notesList(
   client: AttioCore,

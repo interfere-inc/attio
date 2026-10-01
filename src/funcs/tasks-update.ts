@@ -34,6 +34,8 @@ import { Result } from "../types/fp.js";
  * Updates an existing task by `task_id`. At present, only the `deadline_at`, `is_completed`, `linked_records`, and `assignees` fields can be updated.
  *
  * Required scopes: `task:read-write`, `object_configuration:read`, `record_permission:read`, `user_management:read`.
+ *
+ * Supported token levels: `workspace`, `user`.
  */
 export function tasksUpdate(
   client: AttioCore,
@@ -42,7 +44,7 @@ export function tasksUpdate(
 ): APIPromise<
   Result<
     operations.UpdateTaskResponse,
-    | errors.UpdateTaskValidationTypeError
+    | errors.UpdateTaskInvalidRequestError
     | errors.UpdateTaskNotFoundError
     | AttioBaseError
     | ResponseValidationError
@@ -69,7 +71,7 @@ async function $do(
   [
     Result<
       operations.UpdateTaskResponse,
-      | errors.UpdateTaskValidationTypeError
+      | errors.UpdateTaskInvalidRequestError
       | errors.UpdateTaskNotFoundError
       | AttioBaseError
       | ResponseValidationError
@@ -159,7 +161,7 @@ async function $do(
 
   const [result] = await M.match<
     operations.UpdateTaskResponse,
-    | errors.UpdateTaskValidationTypeError
+    | errors.UpdateTaskInvalidRequestError
     | errors.UpdateTaskNotFoundError
     | AttioBaseError
     | ResponseValidationError
@@ -171,7 +173,7 @@ async function $do(
     | SDKValidationError
   >(
     M.json(200, operations.UpdateTaskResponse$inboundSchema),
-    M.jsonErr(400, errors.UpdateTaskValidationTypeError$inboundSchema),
+    M.jsonErr(400, errors.UpdateTaskInvalidRequestError$inboundSchema),
     M.jsonErr(404, errors.UpdateTaskNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),

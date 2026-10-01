@@ -18,6 +18,13 @@ import { SDKValidationError } from "../errors/sdk-validation-error.js";
  * Type of event the webhook is subscribed to.
  */
 export const UpdateWebhookEventTypeRequest = {
+  ActivityCreated: "activity.created",
+  ActivityUpdated: "activity.updated",
+  ActivityDeleted: "activity.deleted",
+  ActivityAttributeCreated: "activity-attribute.created",
+  ActivityAttributeUpdated: "activity-attribute.updated",
+  ActivityRecordCreated: "activity-record.created",
+  ActivityRecordDeleted: "activity-record.deleted",
   CallRecordingCreated: "call-recording.created",
   CommentCreated: "comment.created",
   CommentResolved: "comment.resolved",
@@ -99,6 +106,10 @@ export type UpdateWebhookFilterRequest1 = {
 
 /**
  * Filters to determine whether the webhook event should be sent. If null, the filter always passes.
+ *
+ * @remarks
+ *
+ * When filters are compared for uniqueness, key order and the order of operations are ignored.
  */
 export type UpdateWebhookFilterRequestUnion =
   | UpdateWebhookFilterRequest1
@@ -111,6 +122,10 @@ export type UpdateWebhookSubscriptionRequest = {
   eventType: UpdateWebhookEventTypeRequest;
   /**
    * Filters to determine whether the webhook event should be sent. If null, the filter always passes.
+   *
+   * @remarks
+   *
+   * When filters are compared for uniqueness, key order and the order of operations are ignored.
    */
   filter: UpdateWebhookFilterRequest1 | UpdateWebhookFilterRequest2 | null;
 };
@@ -122,6 +137,10 @@ export type UpdateWebhookDataRequest = {
   targetUrl?: string | undefined;
   /**
    * One or more events the webhook is subscribed to.
+   *
+   * @remarks
+   *
+   * Within a workspace, the combination of target URL, event type and filter must be unique across all of your webhooks. A duplicate — whether against another webhook or repeated within a single request — is rejected with a `409 uniqueness_conflict`.
    */
   subscriptions?: Array<UpdateWebhookSubscriptionRequest> | undefined;
 };
@@ -139,6 +158,13 @@ export type UpdateWebhookRequest = {
  * Type of event the webhook is subscribed to.
  */
 export const UpdateWebhookEventTypeResponse = {
+  ActivityCreated: "activity.created",
+  ActivityUpdated: "activity.updated",
+  ActivityDeleted: "activity.deleted",
+  ActivityAttributeCreated: "activity-attribute.created",
+  ActivityAttributeUpdated: "activity-attribute.updated",
+  ActivityRecordCreated: "activity-record.created",
+  ActivityRecordDeleted: "activity-record.deleted",
   CallRecordingCreated: "call-recording.created",
   CommentCreated: "comment.created",
   CommentResolved: "comment.resolved",
@@ -226,6 +252,10 @@ export type UpdateWebhookFilterResponse1 = {
 
 /**
  * Filters to determine whether the webhook event should be sent. If null, the filter always passes.
+ *
+ * @remarks
+ *
+ * When filters are compared for uniqueness, key order and the order of operations are ignored.
  */
 export type UpdateWebhookFilterResponseUnion =
   | UpdateWebhookFilterResponse1
@@ -238,6 +268,10 @@ export type UpdateWebhookSubscriptionResponse = {
   eventType: UpdateWebhookEventTypeResponse;
   /**
    * Filters to determine whether the webhook event should be sent. If null, the filter always passes.
+   *
+   * @remarks
+   *
+   * When filters are compared for uniqueness, key order and the order of operations are ignored.
    */
   filter: UpdateWebhookFilterResponse1 | UpdateWebhookFilterResponse2 | null;
 };
@@ -273,6 +307,10 @@ export type UpdateWebhookDataResponse = {
   targetUrl: string;
   /**
    * One or more events the webhook is subscribed to.
+   *
+   * @remarks
+   *
+   * Within a workspace, the combination of target URL, event type and filter must be unique across all of your webhooks. A duplicate — whether against another webhook or repeated within a single request — is rejected with a `409 uniqueness_conflict`.
    */
   subscriptions: Array<UpdateWebhookSubscriptionResponse>;
   id: UpdateWebhookId;

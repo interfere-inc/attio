@@ -13,6 +13,8 @@ Lists all select options for a particular attribute on either an object or a lis
 
 When `target` is `objects`, the required scopes are `object_configuration:read`. When `target` is `lists`, the required scopes are `list_configuration:read`.
 
+Supported token levels: `workspace`, `user`.
+
 ### Example Usage
 
 <!-- UsageSnippet language="typescript" operationID="listAttributeOptions" method="get" path="/v2/{target}/{identifier}/attributes/{attribute}/options" -->
@@ -94,6 +96,8 @@ run();
 Adds a select option to a select attribute on an object or a list.
 
 When `target` is `objects`, the required scopes are `object_configuration:read-write`. When `target` is `lists`, the required scopes are `list_configuration:read-write`.
+
+Supported token levels: `workspace`, `user`.
 
 ### Example Usage
 
@@ -177,6 +181,7 @@ run();
 | Error Type                                      | Status Code                                     | Content Type                                    |
 | ----------------------------------------------- | ----------------------------------------------- | ----------------------------------------------- |
 | errors.CreateAttributeOptionValidationTypeError | 400                                             | application/json                                |
+| errors.CreateAttributeOptionAuthError           | 403                                             | application/json                                |
 | errors.CreateAttributeOptionNotFoundError       | 404                                             | application/json                                |
 | errors.CreateAttributeOptionSlugConflictError   | 409                                             | application/json                                |
 | errors.AttioError                               | 4XX, 5XX                                        | \*/\*                                           |

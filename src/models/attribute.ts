@@ -126,12 +126,15 @@ export const DefaultCurrencyCode = {
   Cop: "COP",
   Czk: "CZK",
   Dkk: "DKK",
+  Egp: "EGP",
   Eur: "EUR",
   Fjd: "FJD",
+  Ghs: "GHS",
   Hkd: "HKD",
   Huf: "HUF",
   Isk: "ISK",
   Inr: "INR",
+  Idr: "IDR",
   Ils: "ILS",
   Jpy: "JPY",
   Kes: "KES",
@@ -142,11 +145,13 @@ export const DefaultCurrencyCode = {
   Nzd: "NZD",
   Ngn: "NGN",
   Nok: "NOK",
+  Omr: "OMR",
   Xpf: "XPF",
   Pen: "PEN",
   Php: "PHP",
   Pln: "PLN",
   Gbp: "GBP",
+  Qar: "QAR",
   Rwf: "RWF",
   Sar: "SAR",
   Sgd: "SGD",
@@ -239,7 +244,7 @@ export type Attribute = {
    */
   isSystemAttribute: boolean;
   /**
-   * Whether or not this attribute can be written to. Can only be false when `is_system_attribute` is `true` (user-defined attributes are always writeable). If `false`, this usually means the attribute is enriched by Attio.
+   * Whether or not this attribute can be written to. It is `false` for protected system attributes, which are usually enriched by Attio. It is also `false` for formula attributes, whose values are calculated automatically.
    */
   isWritable: boolean;
   /**

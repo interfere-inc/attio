@@ -34,6 +34,8 @@ import { Result } from "../types/fp.js";
  * Delete a task by ID.
  *
  * Required scopes: `task:read-write`.
+ *
+ * Supported token levels: `workspace`, `user`.
  */
 export function tasksDelete(
   client: AttioCore,

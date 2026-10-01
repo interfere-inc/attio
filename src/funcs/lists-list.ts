@@ -30,6 +30,8 @@ import { Result } from "../types/fp.js";
  * List all lists that your access token has access to. lists are returned in the order that they are sorted in the sidebar.
  *
  * Required scopes: `list_configuration:read`.
+ *
+ * Supported token levels: `workspace`, `user`.
  */
 export function listsList(
   client: AttioCore,

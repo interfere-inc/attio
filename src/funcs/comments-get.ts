@@ -38,6 +38,8 @@ import { Result } from "../types/fp.js";
  * To view comments on list entries, you will need the `list_configuration:read` and `list_entry:read` scopes.
  *
  * Required scopes: `comment:read`.
+ *
+ * Supported token levels: `workspace`, `user`.
  */
 export function commentsGet(
   client: AttioCore,

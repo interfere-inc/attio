@@ -34,6 +34,8 @@ import { Result } from "../types/fp.js";
  * Lists entries in a given list, with the option to filter and sort results.
  *
  * Required scopes: `list_entry:read`, `list_configuration:read`.
+ *
+ * Supported token levels: `workspace`, `user`.
  */
 export function entriesQuery(
   client: AttioCore,

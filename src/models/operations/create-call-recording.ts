@@ -11,19 +11,56 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import * as types from "../../types/primitives.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
 
+export type CreateCallRecordingSpeaker = {
+  /**
+   * The name of the speaker.
+   */
+  name: string;
+  /**
+   * The email address of the speaker.
+   */
+  emailAddress?: string | undefined;
+};
+
+export type CreateCallRecordingTranscript = {
+  /**
+   * The spoken text for this segment of the transcript.
+   */
+  speech: string;
+  /**
+   * The start time of this speech segment in seconds.
+   */
+  startTime: number;
+  /**
+   * The end time of this speech segment in seconds.
+   */
+  endTime: number;
+  speaker: CreateCallRecordingSpeaker;
+};
+
 export type CreateCallRecordingDataRequest = {
   /**
    * A publicly accessible URL to a video file of the call recording. Attio will download the video from this URL asynchronously.
    *
    * @remarks
    *
+   * This field is optional — a call recording can be created with only a `transcript` and no video.
+   *
    * **Requirements:**
    * - **Protocol:** The URL must use the `https` protocol.
    * - **File type:** The file must be a `.mp4` file.
-   * - **File size:** The file must not exceed 500MB in size.
+   * - **File size:** The file must not exceed 1GB in size.
    * - **Accessibility:** For the request to be accepted, the URL must be publicly accessible. Attio will make a `HEAD` request to the URL to verify its accessibility and retrieve file metadata. The response to this request must include a `Content-Length` header.
    */
-  videoUrl: string;
+  videoUrl?: string | undefined;
+  /**
+   * The call recording's transcript.
+   *
+   * @remarks
+   *
+   * This field is technically optional for backwards compatibility, but you should always provide it — a call recording created without a transcript will be missing summaries and other transcript-derived features. This field will become required in a future version of this endpoint.
+   */
+  transcript?: Array<CreateCallRecordingTranscript> | undefined;
 };
 
 export type CreateCallRecordingRequestBody = {
@@ -35,11 +72,11 @@ export type CreateCallRecordingRequest = {
   body: CreateCallRecordingRequestBody;
 };
 
-export const Code = {
+export const CreateCallRecordingCode = {
   BillingError: "billing_error",
   QuotaExceeded: "quota_exceeded",
 } as const;
-export type Code = OpenEnum<typeof Code>;
+export type CreateCallRecordingCode = OpenEnum<typeof CreateCallRecordingCode>;
 
 export type CreateCallRecordingId = {
   /**
@@ -127,8 +164,76 @@ export type CreateCallRecordingResponse = {
 };
 
 /** @internal */
+export type CreateCallRecordingSpeaker$Outbound = {
+  name: string;
+  email_address?: string | undefined;
+};
+
+/** @internal */
+export const CreateCallRecordingSpeaker$outboundSchema: z.ZodMiniType<
+  CreateCallRecordingSpeaker$Outbound,
+  CreateCallRecordingSpeaker
+> = z.pipe(
+  z.object({
+    name: z.string(),
+    emailAddress: z.optional(z.string()),
+  }),
+  z.transform((v) => {
+    return remap$(v, {
+      emailAddress: "email_address",
+    });
+  }),
+);
+
+export function createCallRecordingSpeakerToJSON(
+  createCallRecordingSpeaker: CreateCallRecordingSpeaker,
+): string {
+  return JSON.stringify(
+    CreateCallRecordingSpeaker$outboundSchema.parse(createCallRecordingSpeaker),
+  );
+}
+
+/** @internal */
+export type CreateCallRecordingTranscript$Outbound = {
+  speech: string;
+  start_time: number;
+  end_time: number;
+  speaker: CreateCallRecordingSpeaker$Outbound;
+};
+
+/** @internal */
+export const CreateCallRecordingTranscript$outboundSchema: z.ZodMiniType<
+  CreateCallRecordingTranscript$Outbound,
+  CreateCallRecordingTranscript
+> = z.pipe(
+  z.object({
+    speech: z.string(),
+    startTime: z.number(),
+    endTime: z.number(),
+    speaker: z.lazy(() => CreateCallRecordingSpeaker$outboundSchema),
+  }),
+  z.transform((v) => {
+    return remap$(v, {
+      startTime: "start_time",
+      endTime: "end_time",
+    });
+  }),
+);
+
+export function createCallRecordingTranscriptToJSON(
+  createCallRecordingTranscript: CreateCallRecordingTranscript,
+): string {
+  return JSON.stringify(
+    CreateCallRecordingTranscript$outboundSchema.parse(
+      createCallRecordingTranscript,
+    ),
+  );
+}
+
+/** @internal */
 export type CreateCallRecordingDataRequest$Outbound = {
-  video_url: string;
+  video_url?: string | undefined;
+  transcript?: Array<CreateCallRecordingTranscript$Outbound> | undefined;
 };
 
 /** @internal */
@@ -137,7 +242,10 @@ export const CreateCallRecordingDataRequest$outboundSchema: z.ZodMiniType<
   CreateCallRecordingDataRequest
 > = z.pipe(
   z.object({
-    videoUrl: z.string(),
+    videoUrl: z.optional(z.string()),
+    transcript: z.optional(
+      z.array(z.lazy(() => CreateCallRecordingTranscript$outboundSchema)),
+    ),
   }),
   z.transform((v) => {
     return remap$(v, {
@@ -210,8 +318,10 @@ export function createCallRecordingRequestToJSON(
 }
 
 /** @internal */
-export const Code$inboundSchema: z.ZodMiniType<Code, unknown> = openEnums
-  .inboundSchema(Code);
+export const CreateCallRecordingCode$inboundSchema: z.ZodMiniType<
+  CreateCallRecordingCode,
+  unknown
+> = openEnums.inboundSchema(CreateCallRecordingCode);
 
 /** @internal */
 export const CreateCallRecordingId$inboundSchema: z.ZodMiniType<

@@ -34,6 +34,8 @@ import { Result } from "../types/fp.js";
  * Delete a webhook by ID.
  *
  * Required scopes: `webhook:read-write`.
+ *
+ * Supported token levels: `workspace`.
  */
 export function webhooksDelete(
   client: AttioCore,

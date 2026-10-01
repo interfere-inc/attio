@@ -30,6 +30,8 @@ import { Result } from "../types/fp.js";
  * Lists all workspace members in the workspace.
  *
  * Required scopes: `user_management:read`.
+ *
+ * Supported token levels: `workspace`, `user`.
  */
 export function workspaceMembersList(
   client: AttioCore,

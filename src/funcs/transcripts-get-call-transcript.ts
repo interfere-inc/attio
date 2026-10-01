@@ -27,14 +27,16 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Get call transcript
+ * Deprecated: Get call transcript
  *
  * @remarks
- * Get the transcript for a call recording.
+ * Deprecated: prefer using `GET /v2/meetings/:meeting_id/call_recordings/:call_recording_id` to get the transcript for a call recording.
  *
  * This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
  *
  * Required scopes: `meeting:read`, `call_recording:read`.
+ *
+ * Supported token levels: `workspace`.
  */
 export function transcriptsGetCallTranscript(
   client: AttioCore,

@@ -34,6 +34,8 @@ import { Result } from "../types/fp.js";
  * Creates a new note for a given record.
  *
  * Required scopes: `note:read-write`, `object_configuration:read`, `record_permission:read`.
+ *
+ * Supported token levels: `workspace`, `user`.
  */
 export function notesCreate(
   client: AttioCore,

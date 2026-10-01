@@ -19,6 +19,8 @@ export class Lists extends ClientSDK {
    * List all lists that your access token has access to. lists are returned in the order that they are sorted in the sidebar.
    *
    * Required scopes: `list_configuration:read`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async list(
     options?: RequestOptions,
@@ -42,6 +44,8 @@ export class Lists extends ClientSDK {
    * Please note that new lists must have either `workspace_access` set to `"full-access"` or one or more element of `workspace_member_access` with a `"full-access"` level. It is also possible to receive a `403` billing error if your workspace is not on a plan that supports either advanced workspace or workspace member-level access for lists.
    *
    * Required scopes: `list_configuration:read-write`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async create(
     request: operations.CreateListRequest,
@@ -61,6 +65,8 @@ export class Lists extends ClientSDK {
    * Gets a single list in your workspace that your access token has access to.
    *
    * Required scopes: `list_configuration:read`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async get(
     request: operations.GetListRequest,
@@ -80,6 +86,8 @@ export class Lists extends ClientSDK {
    * Updates an existing list. Permissions for the list are controlled with the `workspace_access` and `workspace_member_access` parameters. Please note that lists must have either `workspace_access` set to `"full-access"` or one or more element of `workspace_member_access` with a `"full-access"` level. It is also possible to receive a `403` billing error if your workspace is not on a plan that supports either advanced workspace or workspace member level access for lists. Changing the parent object of a list is not possible through the API as it can have unintended side-effects that should be considered carefully. If you wish to carry out a parent object change you should do so through the UI.
    *
    * Required scopes: `list_configuration:read-write`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async update(
     request: operations.UpdateListRequest,
@@ -99,6 +107,8 @@ export class Lists extends ClientSDK {
    * Lists saved views for a list. Results are ordered by view ID (`id.view_id` ascending).
    *
    * Required scopes: `list_configuration:read`.
+   *
+   * Supported token levels: `workspace`, `user`.
    */
   async getViews(
     request: operations.GetListViewsRequest,

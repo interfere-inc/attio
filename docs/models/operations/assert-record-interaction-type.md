@@ -15,5 +15,5 @@ let value: AssertRecordInteractionType = "email";
 ## Values
 
 ```typescript
-"calendar-event" | "call" | "chat-thread" | "email" | "in-person-meeting" | "meeting" | Unrecognized<string>
+"activity" | "email" | "meeting" | "calendar-event" | Unrecognized<string>
 ```
